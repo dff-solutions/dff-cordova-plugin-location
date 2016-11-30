@@ -1,6 +1,5 @@
 package com.dff.cordova.plugin.location.handlers;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
@@ -22,7 +21,7 @@ public class LocationServiceHandler extends Handler {
 
     private static final String TAG = "LocationServiceHandler";
     private LocationManager mLocationManager;
-    private Location mLastGoodLocation;
+    //private Location mLastGoodLocation;
     private Context mContext;
 
     public LocationServiceHandler(Looper looper, Context context) {
@@ -33,14 +32,15 @@ public class LocationServiceHandler extends Handler {
 
     @Override
     public void handleMessage(Message msg) {
+        Bundle result = new Bundle();
         switch (msg.what) {
             case LocationResources.ACTION_GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
-                ContentValues contents = new ContentValues();
-                if (mLastGoodLocation != null) {
-                    contents.put(LocationResources.DATA_LOCATION_KEY, mLastGoodLocation.toString());
+                if (LocationResources.getLastGoodLocation() != null) {
+                    Log.d(TAG,"lastGoodLocation as string = " + LocationResources.getLastGoodLocation());
+                    result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocation() + "");
+                    msg.setData(result);
                 }
-                contents.put("test", "test");
                 try {
                     msg.replyTo.send(answer);
                 } catch (RemoteException e) {
@@ -63,7 +63,8 @@ public class LocationServiceHandler extends Handler {
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
                 if (location != null && location.hasAccuracy()) {
-                    mLastGoodLocation = location;
+                    //mLastGoodLocation = location;
+                    LocationResources.setLastGoodLocation(location);
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
             }
