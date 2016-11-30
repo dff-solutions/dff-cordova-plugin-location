@@ -29,7 +29,7 @@ public class LocationPlugin extends CommonServicePlugin {
     private Context mContext;
     private ServiceHandler mServiceHandler;
 
-    public LocationPlugin(String TAG) {
+    public LocationPlugin() {
         super(TAG);
     }
 
