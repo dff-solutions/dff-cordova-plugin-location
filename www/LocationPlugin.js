@@ -21,7 +21,7 @@ LocationPlugin.prototype.getLocation = function () {
 };
 
 LocationPlugin.prototype.startService = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_START_SERVICE);e
+    exec(success, error, PLUGIN_NAME, ACTION_START_SERVICE);
 };
 
 LocationPlugin.prototype.stopService = function (success, error) {

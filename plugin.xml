@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="0.3.2">
+        version="0.4.0">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -21,7 +21,7 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <service android:name="com.dff.cordova.plugin.location.LocationService"
+            <service android:name="com.dff.cordova.plugin.location.services.LocationService"
                      android:label="LocationService" />
         </config-file>
 
@@ -37,5 +37,6 @@
         <source-file src="src/android/com/dff/cordova/plugin/location//LocationPlugin.java" target-dir="src/com/dff/cordova/plugin/location"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/LocationService.java" target-dir="src/com/dff/cordova/plugin/location"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/LocationServiceHandler.java" target-dir="src/com/dff/cordova/plugin/location"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/LocationResources.java" target-dir="src/com/dff/cordova/plugin/location"/>
     </platform>
 </plugin>

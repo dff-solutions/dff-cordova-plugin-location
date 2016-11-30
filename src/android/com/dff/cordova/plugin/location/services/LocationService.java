@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location;
+package com.dff.cordova.plugin.location.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.os.Messenger;
 import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
+import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 
 /**
  * Created by anahas on 28.11.2016.

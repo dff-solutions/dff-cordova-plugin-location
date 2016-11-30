@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location;
+package com.dff.cordova.plugin.location.handlers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
+import com.dff.cordova.plugin.location.resources.LocationResources;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by anahas on 29.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.1
+ * @version 0.4
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -23,9 +24,8 @@ public class LocationServiceHandler extends Handler {
     private LocationManager mLocationManager;
     private Location mLastGoodLocation;
     private Context mContext;
-    public static final int WHAT_A = 1;
 
-    LocationServiceHandler(Looper looper, Context context) {
+    public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
         initializeLocationManager();
@@ -34,10 +34,13 @@ public class LocationServiceHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         switch (msg.what) {
-            case WHAT_A:
-                Message answer = Message.obtain(null, WHAT_A);
+            case LocationResources.ACTION_GET_LOCATION:
+                Message answer = Message.obtain(null, msg.what);
                 ContentValues contents = new ContentValues();
-                contents.put("location", mLastGoodLocation.toString());
+                if (mLastGoodLocation != null) {
+                    contents.put("location", mLastGoodLocation.toString());
+                }
+                contents.put("test", "test");
                 try {
                     msg.replyTo.send(answer);
                 } catch (RemoteException e) {
@@ -45,7 +48,7 @@ public class LocationServiceHandler extends Handler {
                 }
                 break;
             default:
-                Log.w(TAG, "WHAT???");
+                Log.w(TAG, "No what of a msg found!");
                 break;
         }
         super.handleMessage(msg);
@@ -59,7 +62,7 @@ public class LocationServiceHandler extends Handler {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
-                if(location != null && location.hasAccuracy()){
+                if (location != null && location.hasAccuracy()) {
                     mLastGoodLocation = location;
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();

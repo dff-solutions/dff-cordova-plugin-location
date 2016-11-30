@@ -9,6 +9,8 @@ import android.os.RemoteException;
 import android.util.Log;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.services.LocationService;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,7 +19,7 @@ import org.json.JSONException;
  * Created by anahas on 28.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.1
+ * @version 0.4
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
