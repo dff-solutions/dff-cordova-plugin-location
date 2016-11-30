@@ -11,6 +11,7 @@
         <clobbers target="LocationPlugin" />
     </js-module>
 
+    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
 
     <!-- Android  -->
     <platform name="android">
