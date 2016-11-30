@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.handlers;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -26,6 +27,16 @@ public class LocationRequestHandler extends Handler {
         switch (msg.what) {
             case LocationResources.ACTION_GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
+                Bundle data = msg.getData();
+                String location = data.getString(LocationResources.DATA_LOCATION_KEY);
+                if (location != null && location.length() > 0) {
+                    Log.d(TAG, "Location = " + location);
+                    mCallbackContext.success(location);
+                } else {
+                    String errorMsg = "Location is null or empty";
+                    Log.w(TAG, errorMsg);
+                    mCallbackContext.error(errorMsg);
+                }
                 break;
             default:
                 Log.w(TAG, "no what of msg has been found!");

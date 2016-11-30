@@ -71,7 +71,6 @@ public class LocationPlugin extends CommonServicePlugin {
                         Message msg = Message.obtain(null, LocationResources.ACTION_GET_LOCATION);
                         //new LocationRequestHandler(callbackContext
                         LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), callbackContext);
-                        Looper.prepare();
                         msg.replyTo = new Messenger(handler);
                         try {
                             mServiceHandler.getService().send(msg);

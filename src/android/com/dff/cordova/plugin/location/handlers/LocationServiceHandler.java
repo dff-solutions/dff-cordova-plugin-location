@@ -38,7 +38,7 @@ public class LocationServiceHandler extends Handler {
                 Message answer = Message.obtain(null, msg.what);
                 ContentValues contents = new ContentValues();
                 if (mLastGoodLocation != null) {
-                    contents.put("location", mLastGoodLocation.toString());
+                    contents.put(LocationResources.DATA_LOCATION_KEY, mLastGoodLocation.toString());
                 }
                 contents.put("test", "test");
                 try {

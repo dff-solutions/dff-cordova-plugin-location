@@ -11,6 +11,11 @@ package com.dff.cordova.plugin.location.resources;
  */
 public class LocationResources {
 
+    //what
     public static final int ACTION_GET_LOCATION = 1;
+
+
+    //data keys
+    public static final String DATA_LOCATION_KEY = "data_location_key";
 
 }
