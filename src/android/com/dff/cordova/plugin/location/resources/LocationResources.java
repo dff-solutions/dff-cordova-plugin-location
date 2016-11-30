@@ -31,11 +31,11 @@ public class LocationResources {
         return LAST_GOOD_LOCATION;
     }
 
-    public static String getLastGoodPosition() {
+    public static String getLastGoodLocationToString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodPosition() + "|" +
-                Math.round(LAST_GOOD_LOCATION.getBearing());
+                getBearingOfLastGoodPosition(); // setBearingTO...
     }
 
     private static double getSpeedOfLastGoodPosition() {
@@ -50,5 +50,15 @@ public class LocationResources {
             return LAST_GOOD_LOCATION.getBearing();
         }
         return 0;
+    }
+
+    private static float setBearingToLastGoodLocation(){
+        Location north = new Location(LAST_GOOD_LOCATION);
+        north.setLongitude(0);
+        north.setLatitude(0);
+        north.setAltitude(0);
+        north.bearingTo(north);
+
+        return north.getBearing();
     }
 }

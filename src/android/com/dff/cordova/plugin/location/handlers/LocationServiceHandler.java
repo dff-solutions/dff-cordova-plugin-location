@@ -37,8 +37,8 @@ public class LocationServiceHandler extends Handler {
             case LocationResources.ACTION_GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
                 if (LocationResources.getLastGoodLocation() != null) {
-                    Log.d(TAG,"lastGoodLocation as string = " + LocationResources.getLastGoodLocation());
-                    result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocation() + "");
+                    Log.d(TAG,"lastGoodLocation as string = " + LocationResources.getLastGoodLocationToString());
+                    result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
                     msg.setData(result);
                 }
                 try {
