@@ -13,6 +13,4 @@ public class LocationResources {
 
     public static final int ACTION_GET_LOCATION = 1;
 
-
-
 }

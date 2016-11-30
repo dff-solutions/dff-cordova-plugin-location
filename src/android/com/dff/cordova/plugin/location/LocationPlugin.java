@@ -2,14 +2,13 @@ package com.dff.cordova.plugin.location;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Messenger;
-import android.os.RemoteException;
+import android.os.*;
+import android.os.Process;
 import android.util.Log;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
+import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -29,6 +28,7 @@ public class LocationPlugin extends CommonServicePlugin {
     private static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
     private static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
     private Context mContext;
+    private HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
 
     public LocationPlugin() {
@@ -51,34 +51,37 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
         super.pluginInitialize(mServiceHandler);
         mServiceHandler.bindService();
+        mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
+        mHandlerThread.start();
     }
 
     @Override
-    public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action != null) {
-            Log.d(TAG, "Action = " + action);
-            if (action.equals(ACTION_START_SERVICE)) {
-                mContext.startService(new Intent(mContext, LocationService.class));
-                //mContext.bindService(new Intent)
-                return true;
-            } else if (action.equals(ACTION_STOP_SERVICE)) {
-                mContext.stopService(new Intent(mContext, LocationService.class));
-                return true;
-            } else if (action.equals(ACTION_GET_LOCATION)) {
-                Message msg = Message.obtain(null, LocationServiceHandler.WHAT_A);
-                msg.replyTo = new Messenger(new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        Log.d(TAG, msg.toString());
+            cordova.getThreadPool().execute(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "Action = " + action);
+                    if (action.equals(ACTION_START_SERVICE)) {
+                        mContext.startService(new Intent(mContext, LocationService.class));
+                        //mContext.bindService(new Intent)
+                    } else if (action.equals(ACTION_STOP_SERVICE)) {
+                        mContext.stopService(new Intent(mContext, LocationService.class));
+                    } else if (action.equals(ACTION_GET_LOCATION)) {
+                        Message msg = Message.obtain(null, LocationResources.ACTION_GET_LOCATION);
+                        //new LocationRequestHandler(callbackContext
+                        LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), callbackContext);
+                        Looper.prepare();
+                        msg.replyTo = new Messenger(handler);
+                        try {
+                            mServiceHandler.getService().send(msg);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
                     }
-                });
-                try {
-                    this.mServiceHandler.getService().send(msg);
-                } catch (RemoteException e) {
-                    e.printStackTrace();
                 }
-                return true;
-            }
+            });
+            return true;
         }
         return super.execute(action, args, callbackContext);
     }

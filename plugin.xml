@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="0.4.0">
+        version="0.5.4">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -17,6 +17,7 @@
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="LocationPlugin">
                 <param name="android-package" value="com.dff.cordova.plugin.location.LocationPlugin"/>
+                <param name="onload" value="true" />
             </feature>
         </config-file>
 
@@ -35,8 +36,9 @@
         </config-file>
 
         <source-file src="src/android/com/dff/cordova/plugin/location//LocationPlugin.java" target-dir="src/com/dff/cordova/plugin/location"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/LocationService.java" target-dir="src/com/dff/cordova/plugin/location"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/LocationServiceHandler.java" target-dir="src/com/dff/cordova/plugin/location"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/LocationResources.java" target-dir="src/com/dff/cordova/plugin/location"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/services/LocationService.java" target-dir="src/com/dff/cordova/plugin/location/services"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationServiceHandler.java" target-dir="src/com/dff/cordova/plugin/location/handlers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java" target-dir="src/com/dff/cordova/plugin/location/handlers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/resources/LocationResources.java" target-dir="src/com/dff/cordova/plugin/location/resources"/>
     </platform>
 </plugin>

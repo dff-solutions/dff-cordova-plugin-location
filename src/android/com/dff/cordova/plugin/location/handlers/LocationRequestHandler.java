@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.handlers;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.CallbackContext;
 
@@ -22,9 +23,13 @@ public class LocationRequestHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
 
-        switch (msg.what){
+        switch (msg.what) {
             case LocationResources.ACTION_GET_LOCATION:
-
+                Log.d(TAG, "what = " + msg.what);
+                break;
+            default:
+                Log.w(TAG, "no what of msg has been found!");
+                break;
         }
 
         super.handleMessage(msg);
