@@ -14,7 +14,7 @@ import java.util.List;
  * Created by anahas on 29.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.7
+ * @version 0.
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -34,12 +34,17 @@ public class LocationServiceHandler extends Handler {
     public void handleMessage(Message msg) {
         Bundle result = new Bundle();
         switch (msg.what) {
-            case LocationResources.ACTION_GET_LOCATION:
+            case LocationResources.WHAT_GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
                 if (LocationResources.getLastGoodLocation() != null) {
-                    Log.d(TAG,"lastGoodLocation as string = " + LocationResources.getLastGoodLocationToString());
-                    result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
-                    answer.setData(result);
+                    if (LocationResources.getLastGoodLocation().getTime() <= LocationResources.LOCATION_MAX_AGE) {
+                        Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getLastGoodLocationToString());
+                        result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
+                        answer.setData(result);
+                    }
+                    else{
+                        LocationResources.setLastGoodLocation(null);
+                    }
                 }
                 try {
                     msg.replyTo.send(answer);
@@ -62,10 +67,11 @@ public class LocationServiceHandler extends Handler {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
-                Log.d(TAG,"hasAccuracy = " + location.hasAccuracy());
-                if (location != null && location.hasAccuracy()) {
+                Log.d(TAG, "hasAccuracy = " + location.hasAccuracy());
+                if (location.hasAccuracy() && location.getAccuracy() <= LocationResources.LOCATION_MIN_ACCURACY) {
                     //mLastGoodLocation = location;
-                    Log.d(TAG,"accuracy = " + location.getAccuracy());
+                    Log.d(TAG, "accuracy = " + location.getAccuracy());
+                    location.setTime(System.currentTimeMillis());
                     LocationResources.setLastGoodLocation(location);
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
