@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.location.utilities.TimeHelper;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -17,6 +18,7 @@ import java.util.Date;
 public class LocationResources {
 
     private static Location LAST_GOOD_LOCATION = null;
+    private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<>();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -50,6 +52,14 @@ public class LocationResources {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodLocation() + "|" +
+                LAST_GOOD_LOCATION.getBearing();
+    }
+
+    public static String getTestLastGoodLocationToString() {
+        printDifference();
+        return LAST_GOOD_LOCATION.getLongitude() + "|" +
+                LAST_GOOD_LOCATION.getLatitude() + "|" +
+                getSpeedOfLastGoodLocation() + "|" +
                 LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
                 LAST_GOOD_LOCATION.getAccuracy() + "| time age = " +
                 TimeHelper.getTimeAge(LAST_GOOD_LOCATION.getTime()) + "| ep time = " +
@@ -70,6 +80,16 @@ public class LocationResources {
 
     public static void setLocationMinAccuracy(int minAccuracy) {
         LOCATION_MIN_ACCURACY = minAccuracy;
+    }
+
+    public static void addLocationToList(String location) {
+        if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
+            LAST_GOOD_LOCATION_LIST.add(location);
+        }
+    }
+
+    public static void clearLocationsList() {
+        LAST_GOOD_LOCATION_LIST.clear();
     }
 
     private static void printDifference() {

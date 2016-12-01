@@ -7,6 +7,7 @@ import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.utilities.LocationsHolder;
 
 import java.util.List;
 
@@ -23,11 +24,14 @@ public class LocationServiceHandler extends Handler {
     private LocationManager mLocationManager;
     //private Location mLastGoodLocation;
     private Context mContext;
+    private Handler mLocationsListHandler;
+    int counter = 0;
 
     public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
         initializeLocationManager();
+        runLocationsHolder(5000);
     }
 
     @Override
@@ -38,11 +42,10 @@ public class LocationServiceHandler extends Handler {
                 Message answer = Message.obtain(null, msg.what);
                 if (LocationResources.getLastGoodLocation() != null) {
                     if (LocationResources.getLastGoodLocation().getTime() <= LocationResources.LOCATION_MAX_AGE) {
-                        Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getLastGoodLocationToString());
+                        Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getTestLastGoodLocationToString());
                         result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
                         answer.setData(result);
-                    }
-                    else{
+                    } else {
                         LocationResources.setLastGoodLocation(null);
                     }
                 }
@@ -122,6 +125,12 @@ public class LocationServiceHandler extends Handler {
 
     private boolean isProviderAvailable(String provider) {
         return mLocationManager.getAllProviders().contains(provider);
+    }
+
+    private void runLocationsHolder(int delay) {
+        mLocationsListHandler = new Handler();
+        mLocationsListHandler.postDelayed(new LocationsHolder(), delay);
+        Log.d(TAG, "locationHandler with counter of " + counter++);
     }
 
 }

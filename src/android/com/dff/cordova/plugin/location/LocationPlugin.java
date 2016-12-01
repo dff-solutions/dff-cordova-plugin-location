@@ -78,8 +78,7 @@ public class LocationPlugin extends CommonServicePlugin {
                     } else try {
                         if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
                             LocationResources.setLocationMinAccuracy(args.getInt(0));
-                        }
-                        else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null){
+                        } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
                             LocationResources.setLocationMaxAge(args.getInt(0));
                         }
                     } catch (JSONException e) {

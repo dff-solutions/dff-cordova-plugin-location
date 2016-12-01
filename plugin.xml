@@ -42,5 +42,6 @@
         <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java" target-dir="src/com/dff/cordova/plugin/location/handlers"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/resources/LocationResources.java" target-dir="src/com/dff/cordova/plugin/location/resources"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/TimeHelper.java" target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/LocationsHolder.java" target-dir="src/com/dff/cordova/plugin/location/utilities"/>
     </platform>
 </plugin>
