@@ -18,7 +18,7 @@ import java.util.Date;
 public class LocationResources {
 
     private static Location LAST_GOOD_LOCATION = null;
-    private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<>();
+    private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -48,7 +48,6 @@ public class LocationResources {
     }
 
     public static String getLastGoodLocationToString() {
-        printDifference();
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodLocation() + "|" +
@@ -95,9 +94,13 @@ public class LocationResources {
     private static void printDifference() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy/MM/dd HH:mm:ss");
-        Date d = new Date(LAST_GOOD_LOCATION.getTime());
+        try {
+            Date d = new Date(LAST_GOOD_LOCATION.getTime());
+            Log.d("Location", "ep =" + dateFormat.format(d));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         Date now = new Date();
-        Log.d("Location", "ep =" + dateFormat.format(d));
         Log.d("Location", "now = " + dateFormat.format(now));
     }
 
