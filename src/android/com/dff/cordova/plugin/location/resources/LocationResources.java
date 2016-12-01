@@ -31,6 +31,7 @@ public class LocationResources {
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 600; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
+    public static int LOCATION_DELAY = 5000;
 
     //What
     public static final int WHAT_GET_LOCATION = 1;

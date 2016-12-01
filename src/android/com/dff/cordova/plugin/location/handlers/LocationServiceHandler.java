@@ -15,7 +15,7 @@ import java.util.List;
  * Created by anahas on 29.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.
+ * @version 0.9
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -25,13 +25,12 @@ public class LocationServiceHandler extends Handler {
     //private Location mLastGoodLocation;
     private Context mContext;
     private Handler mLocationsListHandler;
-    int counter = 0;
 
     public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
         initializeLocationManager();
-        runLocationsHolder(5000);
+        runLocationsHolder();
     }
 
     @Override
@@ -127,10 +126,9 @@ public class LocationServiceHandler extends Handler {
         return mLocationManager.getAllProviders().contains(provider);
     }
 
-    private void runLocationsHolder(int delay) {
+    private void runLocationsHolder() {
         mLocationsListHandler = new Handler();
-        mLocationsListHandler.postDelayed(new LocationsHolder(), delay);
-        Log.d(TAG, "locationHandler with counter of " + counter++);
+        mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
     }
 
 }
