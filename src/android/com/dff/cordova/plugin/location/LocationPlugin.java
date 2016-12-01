@@ -18,15 +18,13 @@ import org.json.JSONException;
  * Created by anahas on 28.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.7
+ * @version 0.9
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
 
     private static final String TAG = "LocationPlugin";
-    private static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
-    private static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
-    private static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
+
     private Context mContext;
     private HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
@@ -62,13 +60,13 @@ public class LocationPlugin extends CommonServicePlugin {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
-                    if (action.equals(ACTION_START_SERVICE)) {
+                    if (action.equals(LocationResources.ACTION_START_SERVICE)) {
                         mContext.startService(new Intent(mContext, LocationService.class));
                         //mContext.bindService(new Intent)
-                    } else if (action.equals(ACTION_STOP_SERVICE)) {
+                    } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
                         mContext.stopService(new Intent(mContext, LocationService.class));
-                    } else if (action.equals(ACTION_GET_LOCATION)) {
-                        Message msg = Message.obtain(null, LocationResources.ACTION_GET_LOCATION);
+                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
+                        Message msg = Message.obtain(null, LocationResources.WHAT_GET_LOCATION);
                         //new LocationRequestHandler(callbackContext
                         LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), callbackContext);
                         msg.replyTo = new Messenger(handler);
@@ -77,6 +75,15 @@ public class LocationPlugin extends CommonServicePlugin {
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
+                    } else try {
+                        if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
+                            LocationResources.setLocationMinAccuracy(args.getInt(0));
+                        }
+                        else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null){
+                            LocationResources.setLocationMaxAge(args.getInt(0));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
             });

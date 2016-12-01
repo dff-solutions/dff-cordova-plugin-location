@@ -16,7 +16,7 @@ import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
  *
  * @author Anthony Nahas
  * @since 28.11.2016
- * @version 0.1
+ * @version 0.9
  */
 public class LocationService extends Service {
 

@@ -14,7 +14,7 @@ import org.apache.cordova.CallbackContext;
  *
  * @author Anthony Nahas
  * @since 30.11.2016
- * @version 0.7
+ * @version 0.9
  */
 public class LocationRequestHandler extends Handler {
 
@@ -30,7 +30,7 @@ public class LocationRequestHandler extends Handler {
     public void handleMessage(Message msg) {
 
         switch (msg.what) {
-            case LocationResources.ACTION_GET_LOCATION:
+            case LocationResources.WHAT_GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
                 Bundle data = msg.getData();
                 String location = data.getString(LocationResources.DATA_LOCATION_KEY);
