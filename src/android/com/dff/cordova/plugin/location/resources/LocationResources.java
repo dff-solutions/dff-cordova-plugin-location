@@ -35,7 +35,9 @@ public class LocationResources {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodLocation() + "|" +
-                getBearingOfLastGoodLocation(); // setBearingTO...
+                //getBearingOfLastGoodLocation(); // setBearingTO...
+                LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
+                LAST_GOOD_LOCATION.getAccuracy();
     }
 
     private static double getSpeedOfLastGoodLocation() {
