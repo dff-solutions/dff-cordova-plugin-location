@@ -34,31 +34,32 @@ public class LocationResources {
     public static String getLastGoodLocationToString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
-                getSpeedOfLastGoodPosition() + "|" +
-                getBearingOfLastGoodPosition(); // setBearingTO...
+                getSpeedOfLastGoodLocation() + "|" +
+                getBearingOfLastGoodLocation(); // setBearingTO...
     }
 
-    private static double getSpeedOfLastGoodPosition() {
+    private static double getSpeedOfLastGoodLocation() {
         if (LAST_GOOD_LOCATION.hasSpeed() && LAST_GOOD_LOCATION.getSpeed() > 0) {
             return Math.round(LAST_GOOD_LOCATION.getSpeed() * 3.6);
         }
         return 0;
     }
 
-    private static float getBearingOfLastGoodPosition() {
+    private static float getBearingOfLastGoodLocation() {
+        setBearingToLastGoodLocation();
         if (LAST_GOOD_LOCATION.hasBearing() && LAST_GOOD_LOCATION.getBearing() > 0) {
             return LAST_GOOD_LOCATION.getBearing();
         }
         return 0;
     }
 
-    private static float setBearingToLastGoodLocation(){
+    private static void setBearingToLastGoodLocation() {
         Location north = new Location(LAST_GOOD_LOCATION);
         north.setLongitude(0);
         north.setLatitude(0);
         north.setAltitude(0);
         north.bearingTo(north);
 
-        return north.getBearing();
+        LAST_GOOD_LOCATION.setBearing(north.getBearing());
     }
 }

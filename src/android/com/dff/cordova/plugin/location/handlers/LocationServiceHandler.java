@@ -39,7 +39,7 @@ public class LocationServiceHandler extends Handler {
                 if (LocationResources.getLastGoodLocation() != null) {
                     Log.d(TAG,"lastGoodLocation as string = " + LocationResources.getLastGoodLocationToString());
                     result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
-                    msg.setData(result);
+                    answer.setData(result);
                 }
                 try {
                     msg.replyTo.send(answer);
@@ -62,8 +62,10 @@ public class LocationServiceHandler extends Handler {
             @Override
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
+                Log.d(TAG,"hasAccuracy = " + location.hasAccuracy());
                 if (location != null && location.hasAccuracy()) {
                     //mLastGoodLocation = location;
+                    Log.d(TAG,"accuracy = " + location.getAccuracy());
                     LocationResources.setLastGoodLocation(location);
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
