@@ -10,6 +10,11 @@ import org.apache.cordova.CallbackContext;
 
 /**
  * Created by anahas on 30.11.2016.
+ *
+ *
+ * @author Anthony Nahas
+ * @since 30.11.2016
+ * @version 0.7
  */
 public class LocationRequestHandler extends Handler {
 

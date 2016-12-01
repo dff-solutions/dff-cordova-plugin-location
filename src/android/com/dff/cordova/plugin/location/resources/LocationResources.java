@@ -6,7 +6,7 @@ import android.location.Location;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.4
+ * @version 0.7
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -14,7 +14,7 @@ public class LocationResources {
     private static Location LAST_GOOD_LOCATION = null;
 
     //settings
-    public static final int LOCATION_MAX_ACCURAYCY = 600; //20 in production
+    public static final int LOCATION_MAX_ACCURAYCY = 20; //20 in production
 
     //what
     public static final int ACTION_GET_LOCATION = 1;
@@ -35,7 +35,6 @@ public class LocationResources {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodLocation() + "|" +
-                //getBearingOfLastGoodLocation(); // setBearingTO...
                 LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
                 LAST_GOOD_LOCATION.getAccuracy();
     }
@@ -47,21 +46,4 @@ public class LocationResources {
         return 0;
     }
 
-    private static float getBearingOfLastGoodLocation() {
-        setBearingToLastGoodLocation();
-        if (LAST_GOOD_LOCATION.hasBearing() && LAST_GOOD_LOCATION.getBearing() > 0) {
-            return LAST_GOOD_LOCATION.getBearing();
-        }
-        return 0;
-    }
-
-    private static void setBearingToLastGoodLocation() {
-        Location north = new Location(LAST_GOOD_LOCATION);
-        north.setLongitude(0);
-        north.setLatitude(0);
-        north.setAltitude(0);
-        north.bearingTo(north);
-
-        LAST_GOOD_LOCATION.setBearing(north.getBearing());
-    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by anahas on 29.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.4
+ * @version 0.7
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {

@@ -18,7 +18,7 @@ import org.json.JSONException;
  * Created by anahas on 28.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.4
+ * @version 0.7
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
