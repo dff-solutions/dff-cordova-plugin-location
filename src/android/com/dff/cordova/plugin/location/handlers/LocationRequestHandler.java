@@ -11,10 +11,9 @@ import org.apache.cordova.CallbackContext;
 /**
  * Created by anahas on 30.11.2016.
  *
- *
  * @author Anthony Nahas
- * @since 30.11.2016
  * @version 0.9
+ * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
 
@@ -38,13 +37,13 @@ public class LocationRequestHandler extends Handler {
                     Log.d(TAG, "Location = " + location);
                     mCallbackContext.success(location);
                 } else {
-                    String errorMsg = "Location is null or empty";
-                    Log.w(TAG, errorMsg);
-                    mCallbackContext.error(errorMsg);
+                    mCallbackContext.success("");
                 }
                 break;
             default:
-                Log.w(TAG, "no what of msg has been found!");
+                String errorMsg = "no what of msg has been found!";
+                mCallbackContext.error(errorMsg);
+                Log.w(TAG,errorMsg);
                 break;
         }
 
