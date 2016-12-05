@@ -10,6 +10,8 @@ const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
 const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
 const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
+const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
+const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -30,6 +32,22 @@ LocationPlugin.prototype.getLocation = function () {
     }, function () {
         console.log('error on getLocation()');
     }, PLUGIN_NAME, ACTION_GET_LOCATION);
+};
+
+LocationPlugin.prototype.storePendingLocations = function () {
+    exec(function () {
+
+    }, function () {
+
+    }, PLUGIN_NAME, ACTION_INTENT_STORE_PENDING_LOCATIONS);
+};
+
+LocationPlugin.prototype.restorePendingLocations = function () {
+    exec(function () {
+
+    }, function () {
+
+    }, PLUGIN_NAME, ACTION_INTENT_RESTORE_PENDING_LOCATIONS);
 };
 
 LocationPlugin.prototype.startService = function (success, error) {

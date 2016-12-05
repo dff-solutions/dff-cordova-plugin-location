@@ -18,13 +18,25 @@ public class PendingLocationsIntentService extends IntentService {
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG,"onCreate()");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"onDestroy()");
+    }
+
+    @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG,"onHandleIntent()");
         String action = intent.getAction();
 
         if(action != null){
             Log.d(TAG,"Action = " + intent.getAction());
-            if(action.equals(LocationResources.ACTIONT_INTENT_STORE_PENDING_LOCATIONS)){
+            if(action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS)){
                 FileHelper.storePendingLocation(this);
             }
         }

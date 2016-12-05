@@ -1,6 +1,5 @@
 package com.dff.cordova.plugin.location.services;
 
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.HandlerThread;
@@ -44,8 +43,9 @@ public class LocationService extends Service {
         Log.d(Tag, "onStartCommand()");
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
         testService(45);
-        Intent pendingLocationsIntentService = new Intent(this, PendingIntent.class);
-        pendingLocationsIntentService.setAction(LocationResources.ACTIONT_INTENT_STORE_PENDING_LOCATIONS);
+        Intent pendingLocationsIntentService = new Intent(this, PendingLocationsIntentService.class);
+        LocationResources.addLocationToList("Test");
+        pendingLocationsIntentService.setAction(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS);
         this.startService(pendingLocationsIntentService);
         return super.onStartCommand(intent, flags, startId);
     }

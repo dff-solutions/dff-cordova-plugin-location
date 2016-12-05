@@ -27,8 +27,8 @@ public class LocationResources {
     public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
-    public static final String ACTIONT_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
-    public static final String ACTIONT_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
+    public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
+    public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
 
 
     //Settings with default values
