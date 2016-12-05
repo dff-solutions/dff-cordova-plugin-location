@@ -56,23 +56,23 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log.d(Tag, "onDestroy()");
+        super.onDestroy();
         mHandlerThread.quitSafely();
         Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLowMemory() {
-        super.onLowMemory();
         Log.d(Tag, "onLowMemory()");
+        super.onLowMemory();
         Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onTrimMemory(int level) {
-        super.onTrimMemory(level);
         Log.d(Tag, "onTrimMemory()");
+        super.onTrimMemory(level);
         Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show();
     }
 
@@ -85,9 +85,15 @@ public class LocationService extends Service {
 
     @Override
     public void onRebind(Intent intent) {
-        super.onRebind(intent);
         Log.d(Tag, "onRebind()");
+        super.onRebind(intent);
         Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        Log.d(Tag,"onTaskRemoved()");
+        super.onTaskRemoved(rootIntent);
     }
 
     private void testService(int max) {

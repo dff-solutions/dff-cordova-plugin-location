@@ -32,6 +32,7 @@ public class LocationResources {
     public static int LOCATION_MIN_ACCURACY = 600; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static int LOCATION_DELAY = 5000;
+    public static String LOCATION_FILE_NAME = "pendinglocations.sav";
 
     //What
     public static final int WHAT_GET_LOCATION = 1;
@@ -46,6 +47,10 @@ public class LocationResources {
 
     public static Location getLastGoodLocation() {
         return LAST_GOOD_LOCATION;
+    }
+
+    public static ArrayList<String> getLastGoodLocationList(){
+        return LAST_GOOD_LOCATION_LIST;
     }
 
     public static String getLastGoodLocationToString() {
