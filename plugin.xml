@@ -25,6 +25,8 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service android:name="com.dff.cordova.plugin.location.services.LocationService"
                      android:label="LocationService"/>
+            <service android:name="com.dff.cordova.plugin.location.services.PendingLocationsIntentService"
+                     android:label="PendingLocationsIntentService"/>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
