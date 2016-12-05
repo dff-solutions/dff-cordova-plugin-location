@@ -39,6 +39,9 @@ public class PendingLocationsIntentService extends IntentService {
             if(action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS)){
                 FileHelper.storePendingLocation(this);
             }
+            if(action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)){
+                FileHelper.restorePendingLocation(this);
+            }
         }
     }
 }

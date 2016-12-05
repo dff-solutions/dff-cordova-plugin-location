@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import org.apache.cordova.LOG;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -30,13 +31,13 @@ public class FileHelper {
                 isPresent = docsFolder.mkdir();
             }
             if (isPresent) {
-                Log.d(TAG,"Dir is present");
+                Log.d(TAG, "Dir is present");
                 file = new File(docsFolder.getAbsolutePath(), LocationResources.LOCATION_FILE_NAME);
             } else {
                 // Failure
             }
             String path = file != null ? file.getName() : null;
-            Log.d(TAG,"Path = " + path);
+            Log.d(TAG, "Path = " + path);
             //file = new File(LocationResources.LOCATION_EXTERNAL_FILE_DIRECTORY);
             //fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_APPEND); // Mode Private ?!
             File f = new File(LocationResources.LOCATION_FILE_NAME);
@@ -64,19 +65,20 @@ public class FileHelper {
         }
     }
 
-    public static void restorePendingLocation(Context context){
+    public static void restorePendingLocation(Context context) {
+        LOG.d(TAG, "onRestorePendingLocations()");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
 
-        try{
+        try {
             fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
             int i = 0;
-            if(fis.available() != 0){
-                Log.d(TAG,"fis is available!");
+            if (fis.available() != 0) {
+                Log.d(TAG, "fis is available!");
                 ois = new ObjectInputStream(fis);
 
-                while (true){
-                    Log.d(TAG,"string " + i + " = " + (String) ois.readObject());
+                while (true) {
+                    Log.d(TAG, "string " + i + " = " + (String) ois.readObject());
                     i++;
                 }
             }
@@ -84,6 +86,17 @@ public class FileHelper {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (IOException e) {
+                Log.d(TAG, "Error: ", e);
+            }
         }
     }
 

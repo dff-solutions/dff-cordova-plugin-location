@@ -10,6 +10,7 @@ import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -75,6 +76,11 @@ public class LocationPlugin extends CommonServicePlugin {
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
+                    } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) || action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
+                        Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
+                        LocationResources.addLocationToList("Test"); //remove in production
+                        pendingLocationsIntentService.setAction(action);
+                        mContext.startService(pendingLocationsIntentService);
                     } else try {
                         if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
                             LocationResources.setLocationMinAccuracy(args.getInt(0));

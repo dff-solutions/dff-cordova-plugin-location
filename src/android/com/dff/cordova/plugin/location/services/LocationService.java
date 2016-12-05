@@ -9,7 +9,6 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
  * Created by anahas on 28.11.2016.
@@ -42,11 +41,7 @@ public class LocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Tag, "onStartCommand()");
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
-        testService(45);
-        Intent pendingLocationsIntentService = new Intent(this, PendingLocationsIntentService.class);
-        LocationResources.addLocationToList("Test");
-        pendingLocationsIntentService.setAction(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS);
-        this.startService(pendingLocationsIntentService);
+        testService(20);
         return super.onStartCommand(intent, flags, startId);
     }
 
