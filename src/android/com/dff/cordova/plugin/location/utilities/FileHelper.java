@@ -23,7 +23,7 @@ public class FileHelper {
         ArrayList<String> pendingLocation = LocationResources.getLastGoodLocationList();
 
         try {
-            //file =
+            //file = new File(LocationResources.LOCATION_EXTERNAL_FILE_DIRECTORY);
             fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_APPEND); // Mode Private ?!
             ObjectOutputStream os = new ObjectOutputStream(fos);
 
@@ -40,7 +40,9 @@ public class FileHelper {
 
         finally {
             try {
-                fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (IOException e) {
                 Log.e(TAG,"Error: IOException", e);
             }

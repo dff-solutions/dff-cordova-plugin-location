@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="0.9.2">
+        version="0.9.3">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
     <author>dff solutions</author>
 
     <js-module src="www/LocationPlugin.js" name="LocationPlugin">
-        <clobbers target="LocationPlugin" />
+        <clobbers target="LocationPlugin"/>
     </js-module>
 
-    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
+    <dependency id="dff-cordova-plugin-common" url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git"/>
 
     <!-- Android  -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="LocationPlugin">
                 <param name="android-package" value="com.dff.cordova.plugin.location.LocationPlugin"/>
-                <param name="onload" value="true" />
+                <param name="onload" value="true"/>
             </feature>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <service android:name="com.dff.cordova.plugin.location.services.LocationService"
-                     android:label="LocationService" />
+                     android:label="LocationService"/>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
             <!-- Needed only if app targets Android 5.0 (API level 21) or higher.
              Build will failed if app targets Android API LEVEL <= 19-->
             <!-- <uses-feature android:name="android.hardware.location.gps" /> -->
         </config-file>
 
-        <source-file src="src/android/com/dff/cordova/plugin/location//LocationPlugin.java" target-dir="src/com/dff/cordova/plugin/location"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/services/LocationService.java" target-dir="src/com/dff/cordova/plugin/location/services"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationServiceHandler.java" target-dir="src/com/dff/cordova/plugin/location/handlers"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java" target-dir="src/com/dff/cordova/plugin/location/handlers"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/resources/LocationResources.java" target-dir="src/com/dff/cordova/plugin/location/resources"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/TimeHelper.java" target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/LocationsHolder.java" target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/FileHelper.java" target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location//LocationPlugin.java"
+                     target-dir="src/com/dff/cordova/plugin/location"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/services/LocationService.java"
+                     target-dir="src/com/dff/cordova/plugin/location/services"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/services/PendingLocationsIntentService.java"
+                     target-dir="src/com/dff/cordova/plugin/location/services"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationServiceHandler.java"
+                     target-dir="src/com/dff/cordova/plugin/location/handlers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java"
+                     target-dir="src/com/dff/cordova/plugin/location/handlers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/resources/LocationResources.java"
+                     target-dir="src/com/dff/cordova/plugin/location/resources"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/TimeHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/LocationsHolder.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/FileHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
     </platform>
 </plugin>

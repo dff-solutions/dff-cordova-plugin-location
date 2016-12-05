@@ -1,6 +1,7 @@
 package com.dff.cordova.plugin.location.resources;
 
 import android.location.Location;
+import android.os.Environment;
 import android.util.Log;
 import com.dff.cordova.plugin.location.utilities.TimeHelper;
 
@@ -26,12 +27,15 @@ public class LocationResources {
     public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
+    public static final String ACTIONT_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
+    public static final String ACTIONT_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
 
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 600; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static int LOCATION_DELAY = 5000;
+    public static String LOCATION_EXTERNAL_FILE_DIRECTORY = Environment.DIRECTORY_DOCUMENTS;
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
 
     //What
