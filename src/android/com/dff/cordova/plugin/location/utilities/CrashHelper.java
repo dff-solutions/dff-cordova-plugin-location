@@ -21,11 +21,17 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
-
+        Log.e(TAG, "uncaughtException");
+        try {
+            store();
+        } catch (Exception e) {
+            Log.e(TAG, "error: ", e);
+        } finally {
+            mDefaultUncaughtExceptionHandler.uncaughtException(thread, throwable);
+        }
     }
 
     private void store() {
-        //SharedPreferences sharedPreferences = c.get(LocationResources.SHARED_PREFERENCE_NAME, android.content.Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, true);
         editor.putInt("counter", 12);

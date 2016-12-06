@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.utilities.CrashHelper;
 
 /**
  * Created by anahas on 28.11.2016.
@@ -37,19 +38,8 @@ public class LocationService extends Service {
         mHandlerThread.start();
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
         mMessenger = new Messenger(mLocationServiceHandler);
-
-
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(Thread thread, Throwable throwable) {
-                Log.e(Tag,"uncaughtException");
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                });
-            }
-        });
+        mSharedPreferences = getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, android.content.Context.MODE_PRIVATE);
+        Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(mSharedPreferences,Thread.getDefaultUncaughtExceptionHandler()));
     }
 
     @Override
