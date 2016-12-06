@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="0.9.27">
+        version="0.9.28">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -55,6 +55,8 @@
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/LocationsHolder.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/FileHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/CrashHelper.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities"/>
     </platform>
 </plugin>
