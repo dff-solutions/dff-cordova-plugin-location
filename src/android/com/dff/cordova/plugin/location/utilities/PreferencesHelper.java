@@ -14,18 +14,22 @@ public class PreferencesHelper {
     private Context mContext;
     private SharedPreferences mSharedPreferences;
 
-    public PreferencesHelper(Context context){
+    public PreferencesHelper(Context context) {
         mContext = context;
-        mSharedPreferences = mContext.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE);
+        mSharedPreferences = mContext.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
-    public boolean setCanLocationCanBeCleared(Boolean state){
+    public boolean setCanLocationCanBeCleared(Boolean state) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, state);
         //editor.putInt("counter", 12);
         Boolean res = editor.commit();
         Log.d(TAG, "Success of shared preference's commit is: " + res);
         return res;
+    }
+
+    public boolean getCanLocationBeCleared() {
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
 
 }

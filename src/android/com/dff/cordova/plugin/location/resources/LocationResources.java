@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location.resources;
 
 import android.location.Location;
-import android.os.Environment;
 import android.util.Log;
 import com.dff.cordova.plugin.location.utilities.TimeHelper;
 
@@ -25,6 +24,7 @@ public class LocationResources {
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
     public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
+    public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
@@ -36,7 +36,6 @@ public class LocationResources {
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static int LOCATION_DELAY = 5000;
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
-    public static String LOCATION_EXTERNAL_FILE_DIRECTORY = Environment.DIRECTORY_DOCUMENTS;
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
 

@@ -1,11 +1,13 @@
 package com.dff.cordova.plugin.location.handlers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 
 /**
@@ -19,9 +21,11 @@ public class LocationRequestHandler extends Handler {
 
     private static final String TAG = "LocationRequestHandler";
     private CallbackContext mCallbackContext;
+    private PreferencesHelper mPreferencesHelper;
 
-    public LocationRequestHandler(Looper looper, CallbackContext mCallbackContext) {
+    public LocationRequestHandler(Looper looper, Context context, CallbackContext mCallbackContext) {
         super(looper);
+        mPreferencesHelper = new PreferencesHelper(context);
         this.mCallbackContext = mCallbackContext;
     }
 
@@ -39,11 +43,14 @@ public class LocationRequestHandler extends Handler {
                 } else {
                     mCallbackContext.success("");
                 }
+                if (mPreferencesHelper.getCanLocationBeCleared()) {
+                    LocationResources.clearLocationsList();
+                }
                 break;
             default:
                 String errorMsg = "no what of msg has been found!";
                 mCallbackContext.error(errorMsg);
-                Log.w(TAG,errorMsg);
+                Log.w(TAG, errorMsg);
                 break;
         }
 

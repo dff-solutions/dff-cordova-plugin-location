@@ -11,9 +11,12 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
+import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Created by anahas on 28.11.2016.
@@ -29,6 +32,7 @@ public class LocationPlugin extends CommonServicePlugin {
     private Context mContext;
     private HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
+    private PreferencesHelper mPreferencesHelper;
 
     public LocationPlugin() {
         super(TAG);
@@ -49,11 +53,11 @@ public class LocationPlugin extends CommonServicePlugin {
         mContext = cordova.getActivity().getApplicationContext();
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
         super.pluginInitialize(mServiceHandler);
+        mPreferencesHelper = new PreferencesHelper(cordova.getActivity().getApplicationContext());
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
-
-        Log.d(TAG, "counter = " + LocationResources.counter);
+        mContext.startService(new Intent(mContext, LocationService.class));
     }
 
     @Override
@@ -65,19 +69,28 @@ public class LocationPlugin extends CommonServicePlugin {
                     Log.d(TAG, "Action = " + action);
                     if (action.equals(LocationResources.ACTION_START_SERVICE)) {
                         mContext.startService(new Intent(mContext, LocationService.class));
-                        //mContext.bindService(new Intent)
                     } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
                         mContext.stopService(new Intent(mContext, LocationService.class));
                     } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
                         Message msg = Message.obtain(null, LocationResources.WHAT_GET_LOCATION);
                         //new LocationRequestHandler(callbackContext
-                        LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), callbackContext);
+                        LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), cordova.getActivity().getApplicationContext(), callbackContext);
                         msg.replyTo = new Messenger(handler);
                         try {
                             mServiceHandler.getService().send(msg);
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
+                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION_LIST)) {
+                        ArrayList<String> locationList = LocationResources.getLastGoodLocationList();
+
+                        if (locationList.size() > 0) {
+                            callbackContext.success(new JSONArray(locationList));
+                            LocationResources.clearLocationsList();
+                        } else {
+                            callbackContext.success();
+                        }
+
                     } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) || action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                         Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
                         LocationResources.addLocationToList("Test"); //remove in production
