@@ -10,17 +10,21 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Created by anahas on 05.12.2016.
- *
+ * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @since 05.12.2016
  * @version 0.9
+ * @since 05.12.2016
  */
 public class FileHelper {
 
     private static final String TAG = "FileHelper";
 
+    /**
+     * Store all locations that exists in the location list in a file.
+     *
+     * @param context context of the application/service
+     */
     public static void storePendingLocation(Context context) {
         Log.d(TAG, "onStorePendingLocation()");
         File file = null;
@@ -70,6 +74,11 @@ public class FileHelper {
         }
     }
 
+    /**
+     * Restore all locations from file to the locations list.
+     *
+     * @param context context of the application/service
+     */
     public static void restorePendingLocation(Context context) {
         LOG.d(TAG, "onRestorePendingLocations()");
         FileInputStream fis = null;

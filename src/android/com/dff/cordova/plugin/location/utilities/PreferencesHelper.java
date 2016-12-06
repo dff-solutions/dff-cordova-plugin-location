@@ -6,7 +6,11 @@ import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
- * Created by anahas on 06.12.2016.
+ * Class to save and restore shared preferences.
+ *
+ * @author Anthony Nahas
+ * @version 1.0
+ * @since 06.12.2016
  */
 public class PreferencesHelper {
 
@@ -19,6 +23,12 @@ public class PreferencesHelper {
         mSharedPreferences = mContext.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
+    /**
+     * Store a key/value in the shared preferences in order to make a state always available.
+     *
+     * @param state the state to be stored true/false
+     * @return whether the state has been successfully stored
+     */
     public boolean setCanLocationCanBeCleared(Boolean state) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, state);
@@ -28,6 +38,11 @@ public class PreferencesHelper {
         return res;
     }
 
+    /**
+     * Restore the state of "can Location be cleared"
+     *
+     * @return The state
+     */
     public boolean getCanLocationBeCleared() {
         return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
