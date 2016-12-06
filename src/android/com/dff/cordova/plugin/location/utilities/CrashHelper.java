@@ -1,21 +1,24 @@
 package com.dff.cordova.plugin.location.utilities;
 
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.util.Log;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
  * Created by anahas on 06.12.2016.
+ *
+ * @author Anthony Nahas
+ * @version 0.9
+ * @since 06.12.2016
  */
 public class CrashHelper implements Thread.UncaughtExceptionHandler {
 
     private static final String TAG = "CrashHelper";
-    private SharedPreferences mSharedPreferences;
+    private PreferencesHelper mPreferencesHelper;
     private Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler;
 
 
-    public CrashHelper(SharedPreferences sharedPreferences, Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
-        mSharedPreferences = sharedPreferences;
+    public CrashHelper(Context context, Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
+        mPreferencesHelper = new PreferencesHelper(context);
         mDefaultUncaughtExceptionHandler = uncaughtExceptionHandler;
     }
 
@@ -23,19 +26,11 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable throwable) {
         Log.e(TAG, "uncaughtException");
         try {
-            store();
+            mPreferencesHelper.setCanLocationCanBeCleared(false);
         } catch (Exception e) {
             Log.e(TAG, "error: ", e);
         } finally {
             mDefaultUncaughtExceptionHandler.uncaughtException(thread, throwable);
         }
-    }
-
-    private void store() {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, true);
-        editor.putInt("counter", 12);
-        Boolean res = editor.commit();
-        Log.d(TAG, "commit is: " + res);
     }
 }

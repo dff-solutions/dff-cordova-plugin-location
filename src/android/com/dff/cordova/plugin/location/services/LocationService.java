@@ -1,15 +1,14 @@
 package com.dff.cordova.plugin.location.services;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.*;
+import android.os.HandlerThread;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.CrashHelper;
 
 /**
@@ -26,7 +25,6 @@ public class LocationService extends Service {
     private HandlerThread mHandlerThread;
     private LocationServiceHandler mLocationServiceHandler;
     private Messenger mMessenger;
-    private SharedPreferences mSharedPreferences;
     private int count;
 
     @Override
@@ -38,17 +36,14 @@ public class LocationService extends Service {
         mHandlerThread.start();
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
         mMessenger = new Messenger(mLocationServiceHandler);
-        mSharedPreferences = getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, android.content.Context.MODE_PRIVATE);
-        Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(mSharedPreferences,Thread.getDefaultUncaughtExceptionHandler()));
+        Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(this, Thread.getDefaultUncaughtExceptionHandler()));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Tag, "onStartCommand()");
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
-        mSharedPreferences = getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE);
-        count = mSharedPreferences.getInt("counter",2);
-        testService(100);
+        //testService(100);
         return super.onStartCommand(intent, flags, startId);
     }
 
