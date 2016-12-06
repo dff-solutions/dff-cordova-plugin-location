@@ -35,11 +35,15 @@ public class LocationResources {
     public static int LOCATION_MIN_ACCURACY = 600; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static int LOCATION_DELAY = 5000;
+    public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static String LOCATION_EXTERNAL_FILE_DIRECTORY = Environment.DIRECTORY_DOCUMENTS;
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
+    public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //What
     public static final int WHAT_GET_LOCATION = 1;
+
+    public static int counter = 0;
 
 
     //Data Keys

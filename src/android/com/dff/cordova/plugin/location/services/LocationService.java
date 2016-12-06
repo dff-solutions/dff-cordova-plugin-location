@@ -1,14 +1,15 @@
 package com.dff.cordova.plugin.location.services;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
-import android.os.HandlerThread;
-import android.os.IBinder;
-import android.os.Messenger;
+import android.content.SharedPreferences;
+import android.os.*;
 import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
  * Created by anahas on 28.11.2016.
@@ -24,7 +25,8 @@ public class LocationService extends Service {
     private HandlerThread mHandlerThread;
     private LocationServiceHandler mLocationServiceHandler;
     private Messenger mMessenger;
-    private int count = 0;
+    private SharedPreferences mSharedPreferences;
+    private int count;
 
     @Override
     public void onCreate() {
@@ -35,13 +37,28 @@ public class LocationService extends Service {
         mHandlerThread.start();
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
         mMessenger = new Messenger(mLocationServiceHandler);
+
+
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable throwable) {
+                Log.e(Tag,"uncaughtException");
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Tag, "onStartCommand()");
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
-        testService(20);
+        mSharedPreferences = getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME,Context.MODE_PRIVATE);
+        count = mSharedPreferences.getInt("counter",2);
+        testService(100);
         return super.onStartCommand(intent, flags, startId);
     }
 

@@ -52,6 +52,8 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
+
+        Log.d(TAG, "counter = " + LocationResources.counter);
     }
 
     @Override

@@ -11,6 +11,11 @@ import java.util.ArrayList;
 
 /**
  * Created by anahas on 05.12.2016.
+ *
+ *
+ * @author Anthony Nahas
+ * @since 05.12.2016
+ * @version 0.9
  */
 public class FileHelper {
 
