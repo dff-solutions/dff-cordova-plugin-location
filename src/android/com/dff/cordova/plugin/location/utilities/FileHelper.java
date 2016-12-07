@@ -95,12 +95,11 @@ public class FileHelper {
                     Log.d(TAG, "string " + i + " = " + (String) ois.readObject());
                     i++;
                 }
-
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "Error: ", e);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Log.d(TAG, "Error: ", e);
         } finally {
             try {
                 if (ois != null) {

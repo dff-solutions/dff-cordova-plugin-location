@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.utilities.CrashHelper;
+import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
 
 /**
  * Location Service performs a long running operation in order to the location of the device on change.
@@ -25,6 +26,7 @@ public class LocationService extends Service {
     private HandlerThread mHandlerThread;
     private LocationServiceHandler mLocationServiceHandler;
     private Messenger mMessenger;
+    private PreferencesHelper mPreferencesHelper;
     private int count;
 
     /**
@@ -40,11 +42,12 @@ public class LocationService extends Service {
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
         mMessenger = new Messenger(mLocationServiceHandler);
         Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(this, Thread.getDefaultUncaughtExceptionHandler()));
+        mPreferencesHelper = new PreferencesHelper(this);
     }
 
     /**
      * Recommended in order to restart the service after crash or
-     *  similar..
+     * similar..
      *
      * @param intent
      * @param flags
@@ -56,6 +59,7 @@ public class LocationService extends Service {
         Log.d(Tag, "onStartCommand()");
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
         //testService(100);
+        Log.d(Tag, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         return super.onStartCommand(intent, flags, startId);
     }
 
