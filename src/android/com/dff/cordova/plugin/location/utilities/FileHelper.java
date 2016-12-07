@@ -92,8 +92,14 @@ public class FileHelper {
                 ois = new ObjectInputStream(fis);
 
                 while (true) {
-                    Log.d(TAG, "string " + i + " = " + (String) ois.readObject());
-                    i++;
+                    if (LocationResources.getLastGoodLocationList() != null) {
+                        String location = (String) ois.readObject();
+                        LocationResources.addLocationToList(location);
+                        Log.d(TAG, "location " + i + " = " + location);
+                        i++;
+                    } else {
+                        Log.d(TAG, "array location list is null");
+                    }
                 }
             }
         } catch (IOException e) {

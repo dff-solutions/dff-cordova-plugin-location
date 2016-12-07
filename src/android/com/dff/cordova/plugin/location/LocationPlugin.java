@@ -66,6 +66,7 @@ public class LocationPlugin extends CommonServicePlugin {
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
         mContext.startService(new Intent(mContext, LocationService.class));
+        mContext.startService(new Intent(mContext, PendingLocationsIntentService.class).setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
 
     /**
@@ -103,9 +104,14 @@ public class LocationPlugin extends CommonServicePlugin {
 
                         if (locationList.size() > 0) {
                             callbackContext.success(new JSONArray(locationList));
-                            LocationResources.clearLocationsList();
+                            Log.d(TAG, "list > 0 ");
+                            for (int i = 0; i < locationList.size(); i++) {
+                                Log.d(TAG, "loc " + i + " = " + locationList.get(i));
+                            }
+                            //LocationResources.clearLocationsList();
                         } else {
                             callbackContext.success();
+                            Log.d(TAG, "list < 0 ");
                         }
 
                     } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) || action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {

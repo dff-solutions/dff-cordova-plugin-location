@@ -60,7 +60,7 @@ public class LocationService extends Service {
         Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
         //testService(100);
         Log.d(Tag, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
-        return super.onStartCommand(intent, flags, startId);
+        return super.onStartCommand(intent, flags, startId); //start sticky
     }
 
     /**
