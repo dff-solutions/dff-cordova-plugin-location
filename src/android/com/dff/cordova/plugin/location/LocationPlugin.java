@@ -19,7 +19,8 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 /**
- * Created by anahas on 28.11.2016.
+ * Cordova Plugin class that deals with the android'S Location API, in order to get the location of the device as
+ * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
  * @version 0.9
@@ -34,6 +35,9 @@ public class LocationPlugin extends CommonServicePlugin {
     private ServiceHandler mServiceHandler;
     private PreferencesHelper mPreferencesHelper;
 
+    /**
+     * Def-Constructor
+     */
     public LocationPlugin() {
         super(TAG);
     }
@@ -48,6 +52,10 @@ public class LocationPlugin extends CommonServicePlugin {
         super.onDestroy();
     }
 
+    /**
+     * Initialization of the plugin and the private properties.
+     * and respectively bind and start the location service.
+     */
     @Override
     public void pluginInitialize() {
         mContext = cordova.getActivity().getApplicationContext();
@@ -60,6 +68,15 @@ public class LocationPlugin extends CommonServicePlugin {
         mContext.startService(new Intent(mContext, LocationService.class));
     }
 
+    /**
+     * Executes an action called by JavaScript
+     *
+     * @param action          The action to execute.
+     * @param args            The exec() arguments.
+     * @param callbackContext The callback context used when calling back into JavaScript.
+     * @return true value if the action found, otherwise false.
+     * @throws JSONException
+     */
     @Override
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
         if (action != null) {

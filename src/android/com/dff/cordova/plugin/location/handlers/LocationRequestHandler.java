@@ -11,10 +11,11 @@ import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 
 /**
- * Created by anahas on 30.11.2016.
+ * Class to handle the answer sent from the location service handler.
+ * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.0
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -23,12 +24,24 @@ public class LocationRequestHandler extends Handler {
     private CallbackContext mCallbackContext;
     private PreferencesHelper mPreferencesHelper;
 
+    /**
+     * Custom constructor.
+     *
+     * @param looper           - The user looper.
+     * @param context          - The application/service context.
+     * @param mCallbackContext - The callback context used to forward the result to the user.
+     */
     public LocationRequestHandler(Looper looper, Context context, CallbackContext mCallbackContext) {
         super(looper);
         mPreferencesHelper = new PreferencesHelper(context);
         this.mCallbackContext = mCallbackContext;
     }
 
+    /**
+     * Handle the message sent by the location service handler.
+     *
+     * @param msg - The message received.
+     */
     @Override
     public void handleMessage(Message msg) {
 

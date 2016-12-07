@@ -12,10 +12,10 @@ import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.utilities.CrashHelper;
 
 /**
- * Created by anahas on 28.11.2016.
+ * Location Service performs a long running operation in order to the location of the device on change.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.0
  * @since 28.11.2016
  */
 public class LocationService extends Service {
@@ -27,11 +27,14 @@ public class LocationService extends Service {
     private Messenger mMessenger;
     private int count;
 
+    /**
+     * Initialization of properties and handling the location on app crash.
+     */
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(Tag, "onCreate()");
-        Toast.makeText(LocationService.this, "onCreate()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onCreate()", Toast.LENGTH_SHORT).show(); //remove in production
         mHandlerThread = new HandlerThread(Tag, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
@@ -39,6 +42,15 @@ public class LocationService extends Service {
         Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(this, Thread.getDefaultUncaughtExceptionHandler()));
     }
 
+    /**
+     * Recommended in order to restart the service after crash or
+     *  similar..
+     *
+     * @param intent
+     * @param flags
+     * @param startId
+     * @return
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Tag, "onStartCommand()");
@@ -47,6 +59,13 @@ public class LocationService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    /**
+     * omBind:
+     * Bind the messenger with the service.
+     *
+     * @param intent The intent
+     * @return
+     */
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(Tag, "onBind()");
@@ -54,32 +73,35 @@ public class LocationService extends Service {
         return mMessenger.getBinder();
     }
 
+    /**
+     * Quite safely the handler thread.
+     */
     @Override
     public void onDestroy() {
         Log.d(Tag, "onDestroy()");
         super.onDestroy();
         mHandlerThread.quitSafely();
-        Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();  //remove in production
     }
 
     @Override
     public void onLowMemory() {
         Log.d(Tag, "onLowMemory()");
         super.onLowMemory();
-        Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public void onTrimMemory(int level) {
         Log.d(Tag, "onTrimMemory()");
         super.onTrimMemory(level);
-        Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
         Log.d(Tag, "onUnbind()");
-        Toast.makeText(LocationService.this, "onUnbind()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onUnbind()", Toast.LENGTH_SHORT).show(); //remove in production
         return super.onUnbind(intent);
     }
 
@@ -87,13 +109,13 @@ public class LocationService extends Service {
     public void onRebind(Intent intent) {
         Log.d(Tag, "onRebind()");
         super.onRebind(intent);
-        Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show();
+        Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         Log.d(Tag, "onTaskRemoved()");
-        super.onTaskRemoved(rootIntent);
+        super.onTaskRemoved(rootIntent);  //remove in production
     }
 
     private void testService(int max) {

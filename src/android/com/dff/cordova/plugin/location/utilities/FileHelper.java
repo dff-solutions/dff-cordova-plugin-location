@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.0
  * @since 05.12.2016
  */
 public class FileHelper {
@@ -95,6 +95,7 @@ public class FileHelper {
                     Log.d(TAG, "string " + i + " = " + (String) ois.readObject());
                     i++;
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();

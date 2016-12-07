@@ -4,10 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 /**
- * Created by anahas on 06.12.2016.
+ * Class that deals with app crashes.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.0
  * @since 06.12.2016
  */
 public class CrashHelper implements Thread.UncaughtExceptionHandler {
@@ -17,11 +17,23 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
     private Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler;
 
 
+    /**
+     * Custom constructor.
+     *
+     * @param context                  - The Context of the application/service.
+     * @param uncaughtExceptionHandler - The default uncaughtExceptionHandler.
+     */
     public CrashHelper(Context context, Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
         mPreferencesHelper = new PreferencesHelper(context);
         mDefaultUncaughtExceptionHandler = uncaughtExceptionHandler;
     }
 
+    /**
+     * On crash: set a key/value in shared preferences.
+     *
+     * @param thread    - The terminated thread.
+     * @param throwable - The occured uncaught exception
+     */
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         Log.e(TAG, "uncaughtException");

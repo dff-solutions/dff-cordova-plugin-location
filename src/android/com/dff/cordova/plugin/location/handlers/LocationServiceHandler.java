@@ -12,10 +12,11 @@ import com.dff.cordova.plugin.location.utilities.LocationsHolder;
 import java.util.List;
 
 /**
- * Created by anahas on 29.11.2016.
+ * Class to handle the communication between the user's request and the location service.
+ * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.0
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -26,6 +27,12 @@ public class LocationServiceHandler extends Handler {
     private Context mContext;
     private Handler mLocationsListHandler;
 
+    /**
+     * Custom constructor.
+     *
+     * @param looper  - The used looper.
+     * @param context - The application/service context.
+     */
     public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
@@ -33,6 +40,11 @@ public class LocationServiceHandler extends Handler {
         runLocationsHolder();
     }
 
+    /**
+     * Handle the received message.
+     *
+     * @param msg - The message sent by the location service handler.
+     */
     @Override
     public void handleMessage(Message msg) {
         Bundle result = new Bundle();
@@ -61,11 +73,19 @@ public class LocationServiceHandler extends Handler {
         super.handleMessage(msg);
     }
 
+    /**
+     * Initialize the location manager and set the location listener.
+     */
     private void initializeLocationManager() {
         //get a reference of the system location manager
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
         LocationListener locationListener = new LocationListener() {
+            /**
+             * Get a new location when it changes.
+             *
+             * @param location - The new location.
+             */
             @Override
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
@@ -81,17 +101,17 @@ public class LocationServiceHandler extends Handler {
 
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
-
+                //ignore
             }
 
             @Override
             public void onProviderEnabled(String s) {
-
+                //ignore
             }
 
             @Override
             public void onProviderDisabled(String s) {
-
+                //ignore
             }
         };
 
@@ -114,6 +134,9 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    /**
+     * List all providers that the device supports.
+     */
     private void listAllProviders() {
         List<String> allProviders = mLocationManager.getAllProviders();
         int count = 0;
@@ -122,10 +145,19 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    /**
+     * Check if a specific provided is supported by the device.
+     *
+     * @param provider - The provider to check.
+     * @return - Whether the provider is supported.
+     */
     private boolean isProviderAvailable(String provider) {
         return mLocationManager.getAllProviders().contains(provider);
     }
 
+    /**
+     * Run the location list handler in order to hold the last good location every interval of time.
+     */
     private void runLocationsHolder() {
         mLocationsListHandler = new Handler();
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
