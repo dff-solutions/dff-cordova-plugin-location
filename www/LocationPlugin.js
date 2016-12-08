@@ -1,5 +1,10 @@
 /**
- * Created by anahas on 28.11.2016.
+ * JavaScript that consist of 8 Methods in order to call the functionality of
+ * the location plugin, the Java native code.
+ *
+ * @author Anthony Nahas
+ * @version 1.0
+ * @since 28.11.2016
  */
 var exec = require('cordova/exec');
 

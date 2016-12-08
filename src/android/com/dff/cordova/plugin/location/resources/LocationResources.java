@@ -56,7 +56,7 @@ public class LocationResources {
         return LAST_GOOD_LOCATION;
     }
 
-    public static ArrayList<String> getLastGoodLocationList(){
+    public static ArrayList<String> getLastGoodLocationList() {
         return LAST_GOOD_LOCATION_LIST;
     }
 
@@ -96,8 +96,8 @@ public class LocationResources {
 
     public static void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
-            LAST_GOOD_LOCATION_LIST.add(location);
         }
+        LAST_GOOD_LOCATION_LIST.add(location);
     }
 
     public static void clearLocationsList() {

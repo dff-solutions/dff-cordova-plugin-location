@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location.utilities;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.LOG;
@@ -33,7 +32,7 @@ public class FileHelper {
 
 
         try {
-            File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
+            /*File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
             boolean isPresent = true;
             if (!docsFolder.exists()) {
                 Log.d(TAG, "Dir is not present");
@@ -46,11 +45,10 @@ public class FileHelper {
                 // Failure
             }
             String path = file != null ? file.getName() : null;
-            Log.d(TAG, "Path = " + path);
-            //file = new File(LocationResources.LOCATION_EXTERNAL_FILE_DIRECTORY);
-            //fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_APPEND); // Mode Private ?!
+            Log.d(TAG, "Path = " + path);*/
+
             File f = new File(LocationResources.LOCATION_FILE_NAME);
-            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
+            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_APPEND); //Mode_Append / private
             ObjectOutputStream os = new ObjectOutputStream(fos);
 
             Log.d(TAG, "PendingLocationsList count = " + pendingLocation.size());
