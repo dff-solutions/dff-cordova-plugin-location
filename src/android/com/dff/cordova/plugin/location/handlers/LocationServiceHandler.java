@@ -8,6 +8,7 @@ import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.LocationsHolder;
+import com.dff.cordova.plugin.location.utilities.TimeHelper;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.1
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -52,7 +53,7 @@ public class LocationServiceHandler extends Handler {
             case LocationResources.WHAT_GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
                 if (LocationResources.getLastGoodLocation() != null) {
-                    if (LocationResources.getLastGoodLocation().getTime() <= LocationResources.LOCATION_MAX_AGE) {
+                    if (TimeHelper.getTimeAge(LocationResources.getLastGoodLocation().getTime()) <= LocationResources.LOCATION_MAX_AGE) {
                         Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getTestLastGoodLocationToString());
                         result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
                         answer.setData(result);

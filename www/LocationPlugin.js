@@ -37,6 +37,7 @@ LocationPlugin.prototype.getLocation = function (success, error) {
     exec(success, error, PLUGIN_NAME, ACTION_GET_LOCATION_STRING);
 };
 
+//used in chrome for test purposes!
 LocationPlugin.prototype.getLocationAsTest = function () {
     exec(function (location) {
         console.log(location);
