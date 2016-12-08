@@ -8,7 +8,7 @@
  */
 var exec = require('cordova/exec');
 
-const PLUGIN_NAME = "LocationPlugin";
+const FEATURE = "LocationPlugin";
 
 const ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
 const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
@@ -25,16 +25,16 @@ function LocationPlugin() {
 }
 
 LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy) {
-    exec(success, error, PLUGIN_NAME, ACTION_SET_MIN_ACCURACY, [minAccuracy])
+    exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy])
 };
 
 LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
-    exec(success, error, PLUGIN_NAME, ACTION_SET_MAX_AGE, [maxAge])
+    exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge])
 };
 
 
 LocationPlugin.prototype.getLocation = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_GET_LOCATION_STRING);
+    exec(success, error, FEATURE, ACTION_GET_LOCATION_STRING, []);
 };
 
 //used in chrome for test purposes!
@@ -43,15 +43,15 @@ LocationPlugin.prototype.getLocationAsTest = function () {
         console.log(location);
     }, function (errorMsg) {
         console.log(errorMsg);
-    }, PLUGIN_NAME, ACTION_GET_LOCATION_STRING);
+    }, FEATURE, ACTION_GET_LOCATION_STRING, []);
 };
 
 LocationPlugin.prototype.getLocationAsJson = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_GET_LOCATION_JSON);
+    exec(success, error, FEATURE, ACTION_GET_LOCATION_JSON, []);
 };
 
 LocationPlugin.prototype.getLocationList = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_GET_LOCATION_LIST);
+    exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, []);
 };
 
 LocationPlugin.prototype.storePendingLocations = function () {
@@ -59,7 +59,7 @@ LocationPlugin.prototype.storePendingLocations = function () {
 
     }, function () {
 
-    }, PLUGIN_NAME, ACTION_INTENT_STORE_PENDING_LOCATIONS);
+    }, FEATURE, ACTION_INTENT_STORE_PENDING_LOCATIONS, []);
 };
 
 LocationPlugin.prototype.restorePendingLocations = function () {
@@ -67,15 +67,15 @@ LocationPlugin.prototype.restorePendingLocations = function () {
 
     }, function () {
 
-    }, PLUGIN_NAME, ACTION_INTENT_RESTORE_PENDING_LOCATIONS);
+    }, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
 };
 
 LocationPlugin.prototype.startService = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_START_SERVICE);
+    exec(success, error, FEATURE, ACTION_START_SERVICE, []);
 };
 
 LocationPlugin.prototype.stopService = function (success, error) {
-    exec(success, error, PLUGIN_NAME, ACTION_STOP_SERVICE);
+    exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
 };
 
 

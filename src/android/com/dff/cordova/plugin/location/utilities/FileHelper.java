@@ -48,7 +48,7 @@ public class FileHelper {
             Log.d(TAG, "Path = " + path);*/
 
             File f = new File(LocationResources.LOCATION_FILE_NAME);
-            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_APPEND); //Mode_Append / private
+            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE); //Mode_Append / private
             ObjectOutputStream os = new ObjectOutputStream(fos);
 
             Log.d(TAG, "PendingLocationsList count = " + pendingLocation.size());
