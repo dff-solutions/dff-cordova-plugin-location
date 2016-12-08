@@ -89,7 +89,7 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.startService(new Intent(mContext, LocationService.class));
                     } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
                         mContext.stopService(new Intent(mContext, LocationService.class));
-                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
+                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION_STRING)) {
                         Message msg = Message.obtain(null, LocationResources.WHAT_GET_LOCATION);
                         //new LocationRequestHandler(callbackContext
                         LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), cordova.getActivity().getApplicationContext(), callbackContext);

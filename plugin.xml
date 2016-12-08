@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="1.2.7">
+        version="1.3.1">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -34,7 +34,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest">
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-            <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
+            <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/> -->
             <!-- Needed only if app targets Android 5.0 (API level 21) or higher.
              Build will failed if app targets Android API LEVEL <= 19-->
             <!-- <uses-feature android:name="android.hardware.location.gps" /> -->

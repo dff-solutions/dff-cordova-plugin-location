@@ -16,7 +16,7 @@ import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
  * Location Service performs a long running operation in order to the location of the device on change.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 28.11.2016
  */
 public class LocationService extends Service {
@@ -36,7 +36,7 @@ public class LocationService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(Tag, "onCreate()");
-        Toast.makeText(LocationService.this, "onCreate()", Toast.LENGTH_SHORT).show(); //remove in production
+        //Toast.makeText(LocationService.this, "onCreate()", Toast.LENGTH_SHORT).show(); //remove in production
         mHandlerThread = new HandlerThread(Tag, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
         mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
@@ -57,7 +57,7 @@ public class LocationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Tag, "onStartCommand()");
-        Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(LocationService.this, "onStartCommand()", Toast.LENGTH_SHORT).show();
         //testService(100);
         Log.d(Tag, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         return super.onStartCommand(intent, flags, startId); //start sticky
@@ -73,7 +73,7 @@ public class LocationService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(Tag, "onBind()");
-        Toast.makeText(LocationService.this, "onBind()", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(LocationService.this, "onBind()", Toast.LENGTH_SHORT).show();
         return mMessenger.getBinder();
     }
 
@@ -85,27 +85,27 @@ public class LocationService extends Service {
         Log.d(Tag, "onDestroy()");
         super.onDestroy();
         mHandlerThread.quitSafely();
-        Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();  //remove in production
+        //Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();  //remove in production
     }
 
     @Override
     public void onLowMemory() {
         Log.d(Tag, "onLowMemory()");
         super.onLowMemory();
-        Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show(); //remove in production
+        //Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public void onTrimMemory(int level) {
         Log.d(Tag, "onTrimMemory()");
         super.onTrimMemory(level);
-        Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show(); //remove in production
+        //Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
         Log.d(Tag, "onUnbind()");
-        Toast.makeText(LocationService.this, "onUnbind()", Toast.LENGTH_SHORT).show(); //remove in production
+        //Toast.makeText(LocationService.this, "onUnbind()", Toast.LENGTH_SHORT).show(); //remove in production
         return super.onUnbind(intent);
     }
 
@@ -113,7 +113,7 @@ public class LocationService extends Service {
     public void onRebind(Intent intent) {
         Log.d(Tag, "onRebind()");
         super.onRebind(intent);
-        Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show(); //remove in production
+        //Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override

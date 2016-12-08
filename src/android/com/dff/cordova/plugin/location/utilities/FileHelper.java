@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 05.12.2016
  */
 public class FileHelper {

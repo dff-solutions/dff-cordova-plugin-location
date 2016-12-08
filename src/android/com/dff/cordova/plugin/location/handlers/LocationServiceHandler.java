@@ -54,7 +54,7 @@ public class LocationServiceHandler extends Handler {
                 if (LocationResources.getLastGoodLocation() != null) {
                     if (LocationResources.getLastGoodLocation().getTime() <= LocationResources.LOCATION_MAX_AGE) {
                         Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getTestLastGoodLocationToString());
-                        result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationToString());
+                        result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
                         answer.setData(result);
                     } else {
                         LocationResources.setLastGoodLocation(null);

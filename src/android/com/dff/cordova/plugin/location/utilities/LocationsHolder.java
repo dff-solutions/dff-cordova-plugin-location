@@ -35,7 +35,7 @@ public class LocationsHolder implements Runnable {
     @Override
     public void run() {
         if (LocationResources.getLastGoodLocation() != null) {
-            String location = LocationResources.getLastGoodLocationToString() +
+            String location = LocationResources.getLastGoodLocationAsString() +
                     LocationResources.getLastGoodLocation().getTime();
             LocationResources.addLocationToList(location);
         }

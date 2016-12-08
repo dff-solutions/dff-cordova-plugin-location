@@ -3,6 +3,8 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.utilities.TimeHelper;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -12,18 +14,20 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.3.1
  * @since 30.11.2016
  */
 public class LocationResources {
 
+    private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
-    public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
+    public static final String ACTION_GET_LOCATION_STRING = "location.action.GET_LOCATION_STRING";
+    public static final String ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
     public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
@@ -32,9 +36,9 @@ public class LocationResources {
 
 
     //Settings with default values
-    public static int LOCATION_MIN_ACCURACY = 600; // in meters | 20 in production
+    public static int LOCATION_MIN_ACCURACY = 10000; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
-    public static int LOCATION_DELAY = 5000;
+    public static int LOCATION_DELAY = 5000; // in mseconds
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
@@ -60,11 +64,27 @@ public class LocationResources {
         return LAST_GOOD_LOCATION_LIST;
     }
 
-    public static String getLastGoodLocationToString() {
+    public static String getLastGoodLocationAsString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
                 getSpeedOfLastGoodLocation() + "|" +
                 LAST_GOOD_LOCATION.getBearing();
+    }
+
+    public static JSONObject getLastGoodAsJson() {
+        JSONObject location = new JSONObject();
+        try {
+            location.put("Longitude", LAST_GOOD_LOCATION.getLongitude());
+            location.put("Latitude", LAST_GOOD_LOCATION.getLatitude());
+            location.put("Altitude", LAST_GOOD_LOCATION.getAltitude());
+            location.put("Accuracy", LAST_GOOD_LOCATION.getAccuracy());
+            location.put("Speed", getSpeedOfLastGoodLocation());
+            location.put("Bearing", LAST_GOOD_LOCATION.getBearing());
+            location.put("Time", LAST_GOOD_LOCATION.getTime());
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: ", e);
+        }
+        return location;
     }
 
     public static String getTestLastGoodLocationToString() {
@@ -115,6 +135,12 @@ public class LocationResources {
         }
         Date now = new Date();
         Log.d("Location", "now = " + dateFormat.format(now));
+    }
+
+    public static void testAddLocation() {
+        for (int i = 0; i <= 5; i++) {
+            LocationResources.addLocationToList("test " + i);
+        }
     }
 
 }
