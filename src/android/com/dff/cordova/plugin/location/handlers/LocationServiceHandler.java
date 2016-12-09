@@ -56,9 +56,11 @@ public class LocationServiceHandler extends Handler {
                     if (TimeHelper.getTimeAge(LocationResources.getLastGoodLocation().getTime()) <= LocationResources.LOCATION_MAX_AGE) {
                         Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getTestLastGoodLocationToString());
                         result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
+                        Log.d(TAG, "send last good location to request handler with " + LocationResources.getLastGoodLocationAsString());
                         answer.setData(result);
                     } else {
                         LocationResources.setLastGoodLocation(null);
+                        Log.d(TAG, "setLastGoodLocation --> null");
                     }
                 }
                 try {
@@ -96,6 +98,7 @@ public class LocationServiceHandler extends Handler {
                     Log.d(TAG, "accuracy = " + location.getAccuracy());
                     location.setTime(System.currentTimeMillis());
                     LocationResources.setLastGoodLocation(location);
+                    Log.d(TAG, "setLastGoodLocation --> " + location);
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
             }
@@ -108,11 +111,13 @@ public class LocationServiceHandler extends Handler {
             @Override
             public void onProviderEnabled(String s) {
                 //ignore
+                Log.d(TAG, "onProviderEnabled with " + s);
             }
 
             @Override
             public void onProviderDisabled(String s) {
                 //ignore
+                Log.d(TAG, "onProviderDisabled with " + s);
             }
         };
 

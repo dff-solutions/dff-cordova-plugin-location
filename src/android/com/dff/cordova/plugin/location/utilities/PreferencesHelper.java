@@ -29,7 +29,7 @@ public class PreferencesHelper {
      * @param state the state to be stored true/false
      * @return whether the state has been successfully stored
      */
-    public boolean setCanLocationCanBeCleared(Boolean state) {
+    public boolean setLocationCanBeCleared(Boolean state) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, state);
         //editor.putInt("counter", 12);

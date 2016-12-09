@@ -2,7 +2,6 @@ package com.dff.cordova.plugin.location.utilities;
 
 import android.content.Context;
 import android.util.Log;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
  * Class that deals with app crashes.
@@ -41,14 +40,17 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable throwable) {
         Log.e(TAG, "uncaughtException");
         try {
-            LocationResources.testAddLocation();
+            //LocationResources.testAddLocation();
             FileHelper.storePendingLocation(mContext);
+            Log.d(TAG, "store pending locations");
             //mContext.startService(new Intent(mContext, PendingLocationsIntentService.class).setAction(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS));
-            mPreferencesHelper.setCanLocationCanBeCleared(false);
+            mPreferencesHelper.setLocationCanBeCleared(false);
+            Log.d(TAG, "set can location be cleared --> false");
         } catch (Exception e) {
             Log.e(TAG, "error: ", e);
         } finally {
             mDefaultUncaughtExceptionHandler.uncaughtException(thread, throwable);
+            Log.d(TAG, "def uncaught excp");
         }
     }
 }

@@ -108,7 +108,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             for (int i = 0; i < locationList.size(); i++) {
                                 Log.d(TAG, "loc " + i + " = " + locationList.get(i));
                             }
-                            //LocationResources.clearLocationsList();
+                            LocationResources.clearLocationsList();
                         } else {
                             callbackContext.success();
                             Log.d(TAG, "list < 0 ");
@@ -116,7 +116,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                     } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) || action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                         Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
-                        LocationResources.addLocationToList("Test"); //remove in production
+                        //LocationResources.addLocationToList("Test"); //remove in production
                         pendingLocationsIntentService.setAction(action);
                         mContext.startService(pendingLocationsIntentService);
                     } else try {
