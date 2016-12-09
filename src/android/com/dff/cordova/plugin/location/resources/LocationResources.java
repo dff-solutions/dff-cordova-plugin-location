@@ -116,6 +116,7 @@ public class LocationResources {
 
     public static void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
+            Log.d(TAG, "location already exists");
         }
         LAST_GOOD_LOCATION_LIST.add(location);
     }
