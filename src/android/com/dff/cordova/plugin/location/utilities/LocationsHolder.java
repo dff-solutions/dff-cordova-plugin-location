@@ -35,9 +35,12 @@ public class LocationsHolder implements Runnable {
     @Override
     public void run() {
         if (LocationResources.getLastGoodLocation() != null) {
-            String location = LocationResources.getLastGoodLocationAsString() +
+            String location = LocationResources.getLastGoodLocationAsString() + "|" +
                     LocationResources.getLastGoodLocation().getTime();
             LocationResources.addLocationToList(location);
+            Log.d(TAG, "Location has been added to the array list wirh " + location);
+        } else {
+            Log.d(TAG, "The location is null and will not be added to the arraylist");
         }
         Log.d(TAG, "locationHandler with counter of " + counter++);
         mHandler.postDelayed(this, LocationResources.LOCATION_DELAY);
