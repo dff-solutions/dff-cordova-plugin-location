@@ -38,7 +38,7 @@ public class LocationResources {
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 10000; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
-    public static int LOCATION_DELAY = 5000; // in mseconds
+    public static int LOCATION_DELAY = 50000; // in mseconds 50sec
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
