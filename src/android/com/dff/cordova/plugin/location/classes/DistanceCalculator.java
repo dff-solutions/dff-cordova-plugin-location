@@ -15,12 +15,12 @@ public class DistanceCalculator {
 
     private Location mStartLocation;
     private Location mEndLocation;
-    private Float mDistance;
+    private float mDistance;
 
     public DistanceCalculator() {
         mStartLocation = null;
         mEndLocation = null;
-        mDistance = null;
+        mDistance = 0;
     }
 
     public DistanceCalculator(Location mStartLocation, Location mEndLocation) {
@@ -29,7 +29,11 @@ public class DistanceCalculator {
         mDistance = mStartLocation.distanceTo(mEndLocation);
     }
 
-    public Location getEndLocation(){
+    public Location getEndLocation() {
         return mEndLocation;
+    }
+
+    public float getDistance() {
+        return mDistance;
     }
 }

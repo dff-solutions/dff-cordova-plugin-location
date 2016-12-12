@@ -7,8 +7,9 @@ import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
+import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorFullHolder;
+import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 2.0.0
+ * @version 2.0.1
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -29,6 +30,7 @@ public class LocationServiceHandler extends Handler {
     private Handler mLocationsListHandler;
     private Handler mDistanceCalculatorFullListHandler;
     private Handler mDistanceCalculatorCustomListHandler;
+    private DistanceCalculatorFullHolder mDistanceCalculatorFullHolder;
 
     /**
      * Custom constructor.
@@ -62,12 +64,10 @@ public class LocationServiceHandler extends Handler {
                         switch (returnType) {
                             case 0:
                                 Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getLastGoodLocationAsString());
-                                //result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
                                 result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 0);
                                 break;
                             case 1:
                                 Log.d(TAG, "lastGoodLocation as JSON = " + LocationResources.getLastGoodLocationAsJson());
-                                //result.p(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsJson());
                                 result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 1);
                                 break;
                         }
@@ -81,9 +81,16 @@ public class LocationServiceHandler extends Handler {
                 try {
                     msg.replyTo.send(answer);
                 } catch (RemoteException e) {
-                    e.printStackTrace();
+                    Log.e(TAG, "Error: ", e);
                 }
                 break;
+
+            case LocationResources.WHAT_RUN_DISTANCE_CALCULATOR_FULL:
+                runDistanceCalculatorFullHolder();
+                break;
+            case LocationResources.WHAT_STOP_DISTANCE_CALCULATOR_FULL:
+                stopDistanceCalculatorFullHolder();
+
             default:
                 Log.w(TAG, "No what of a msg found!");
                 break;
@@ -181,8 +188,14 @@ public class LocationServiceHandler extends Handler {
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
     }
 
-    private void runDistanceCalculatorHolder(){
-        //todo
+    private void runDistanceCalculatorFullHolder() {
+        mDistanceCalculatorFullListHandler = new Handler();
+        mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mDistanceCalculatorFullListHandler);
+        mDistanceCalculatorFullListHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
+    }
+
+    private void stopDistanceCalculatorFullHolder() {
+        mDistanceCalculatorFullListHandler.removeCallbacks(mDistanceCalculatorFullHolder);
     }
 
 }

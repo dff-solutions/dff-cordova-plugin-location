@@ -35,6 +35,8 @@ public class LocationResources {
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
     public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
+    public static final String ACTION_CALCULATE_FULL_DISTANCE = "distance.action.CALCULATE_FULL_DISTANCE";
+    public static final String ACTION_CALCULATE_CUSTOM_DISTANCE = "distance.action.CALCULATE_CUSTOM_DISTANCE";
 
 
     //Settings with default values
@@ -54,6 +56,12 @@ public class LocationResources {
 
     //What
     public static final int WHAT_GET_LOCATION = 1;
+    public static final int WHAT_RUN_DISTANCE_CALCULATOR_FULL = 2;
+    public static final int WHAT_STOP_DISTANCE_CALCULATOR_FULL = 3;
+    public static final int WHAT_GET_DISTANCE_CALCULATOR_FULL = 4;
+    public static final int WHAT_RUN_DISTANCE_CALCULATOR_CUSTOM = 5;
+    public static final int WHAT_STOP_DISTANCE_CALCULATOR_CUSTOM = 6;
+    public static final int WHAT_GET_DISTANCE_CALCULATOR_CUSTOM = 7;
 
     public static int counter = 0;
 
@@ -148,6 +156,20 @@ public class LocationResources {
 
     public static void addDistanceToFullList(DistanceCalculator distanceCalculator) {
         DISTANCE_CALCULATOR_FULL_LIST.add(distanceCalculator);
+    }
+
+    public static float getFullTotalDistance() {
+        ArrayList<DistanceCalculator> list = DISTANCE_CALCULATOR_FULL_LIST;
+        float totalDistance = 0;
+        if (!list.isEmpty()) {
+            for (DistanceCalculator distanceCalculator : list) {
+                if (distanceCalculator.getDistance() != 0) {
+                    totalDistance += distanceCalculator.getDistance();
+                }
+            }
+        }
+        DISTANCE_CALCULATOR_FULL_LIST.clear();
+        return totalDistance;
     }
 
     public static void clearLocationsList() {
