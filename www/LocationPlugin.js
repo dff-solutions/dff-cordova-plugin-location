@@ -14,7 +14,7 @@ const ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
 const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
 const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
-const ACTION_GET_LOCATION_STRING = "location.action.GET_LOCATION_STRING";
+const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
 const ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
 const ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
@@ -34,7 +34,7 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
 
 
 LocationPlugin.prototype.getLocation = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_LOCATION_STRING, []);
+    exec(success, error, FEATURE, ACTION_GET_LOCATION, []);
 };
 
 //used in chrome for test purposes!
@@ -43,7 +43,7 @@ LocationPlugin.prototype.getLocationAsTest = function (returnType) {
         console.log(location);
     }, function (errorMsg) {
         console.log(errorMsg);
-    }, FEATURE, ACTION_GET_LOCATION_STRING, [returnType]);
+    }, FEATURE, ACTION_GET_LOCATION, [returnType]);
 };
 
 LocationPlugin.prototype.getLocationAsJson = function (success, error) {

@@ -26,8 +26,7 @@ public class LocationResources {
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
-    public static final String ACTION_GET_LOCATION_STRING = "location.action.GET_LOCATION_STRING";
-    //public static final String ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
+    public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
     public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
