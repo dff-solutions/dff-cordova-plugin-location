@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.utilities;
+package com.dff.cordova.plugin.location.utilities.holders;
 
 import android.os.Handler;
 import android.util.Log;

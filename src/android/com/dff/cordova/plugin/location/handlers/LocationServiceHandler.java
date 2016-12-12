@@ -7,8 +7,8 @@ import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.dff.cordova.plugin.location.utilities.LocationsHolder;
-import com.dff.cordova.plugin.location.utilities.TimeHelper;
+import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
+import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 1.2
+ * @version 2.0.0
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -27,6 +27,8 @@ public class LocationServiceHandler extends Handler {
     //private Location mLastGoodLocation;
     private Context mContext;
     private Handler mLocationsListHandler;
+    private Handler mDistanceCalculatorFullListHandler;
+    private Handler mDistanceCalculatorCustomListHandler;
 
     /**
      * Custom constructor.

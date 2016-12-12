@@ -4,7 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.dff.cordova.plugin.location.utilities.FileHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 
 /**
  * Intent service that works async to perform expansive operations like writing and reading of files.

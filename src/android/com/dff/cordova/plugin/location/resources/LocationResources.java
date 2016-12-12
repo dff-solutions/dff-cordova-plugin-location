@@ -3,7 +3,7 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
-import com.dff.cordova.plugin.location.utilities.TimeHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 1.5.1
+ * @version 2.0.0
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -65,12 +65,22 @@ public class LocationResources {
         LAST_GOOD_LOCATION = location;
     }
 
+    /*+++++++++++++++++++++++++++++++++++GETTER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
     public static Location getLastGoodLocation() {
         return LAST_GOOD_LOCATION;
     }
 
     public static ArrayList<String> getLastGoodLocationList() {
         return LAST_GOOD_LOCATION_LIST;
+    }
+
+    public static ArrayList<DistanceCalculator> getDistanceCalculatorFullList() {
+        return DISTANCE_CALCULATOR_FULL_LIST;
+    }
+
+    public static ArrayList<DistanceCalculator> getDistanceCalculatorCustomList() {
+        return DISTANCE_CALCULATOR_CUSTOM_LIST;
     }
 
     public static String getLastGoodLocationAsString() {
@@ -115,6 +125,9 @@ public class LocationResources {
         return 0;
     }
 
+
+    /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
     public static void setLocationMaxAge(int maxAge) {
         LOCATION_MAX_AGE = maxAge;
     }
@@ -123,11 +136,18 @@ public class LocationResources {
         LOCATION_MIN_ACCURACY = minAccuracy;
     }
 
+
+    /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
     public static void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
             Log.d(TAG, "location already exists");
         }
         LAST_GOOD_LOCATION_LIST.add(location);
+    }
+
+    public static void addDistanceToFullList(DistanceCalculator distanceCalculator) {
+        DISTANCE_CALCULATOR_FULL_LIST.add(distanceCalculator);
     }
 
     public static void clearLocationsList() {

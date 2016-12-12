@@ -7,7 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 
 /**

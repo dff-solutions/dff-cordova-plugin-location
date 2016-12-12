@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.utilities;
+package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,7 +7,7 @@ import android.util.Log;
  * Class that deals with app crashes.
  *
  * @author Anthony Nahas
- * @version 1.2
+ * @version 1.5
  * @since 06.12.2016
  */
 public class CrashHelper implements Thread.UncaughtExceptionHandler {

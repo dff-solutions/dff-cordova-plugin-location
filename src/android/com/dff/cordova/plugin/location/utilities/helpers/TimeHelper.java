@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.utilities;
+package com.dff.cordova.plugin.location.utilities.helpers;
 
 import java.util.concurrent.TimeUnit;
 

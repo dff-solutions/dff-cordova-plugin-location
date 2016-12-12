@@ -9,8 +9,8 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.utilities.CrashHelper;
-import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 /**
  * Location Service performs a long running operation in order to the location of the device on change.

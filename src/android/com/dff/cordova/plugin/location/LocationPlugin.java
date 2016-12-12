@@ -11,7 +11,7 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
-import com.dff.cordova.plugin.location.utilities.PreferencesHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 1.5.0
+ * @version 2.0.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
