@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 1.5.4
+ * @version 1.5.5
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -37,9 +37,9 @@ LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy)
 /**
  * Set the maximum value of the age of the location in order to discard it when this value is reached.
  *
- * @param success
- * @param error
- * @param maxAge
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param maxAge - The value of the maximum age in "seconds"
  */
 LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
     exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge])
