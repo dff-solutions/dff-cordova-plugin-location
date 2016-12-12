@@ -179,4 +179,8 @@ public class LocationServiceHandler extends Handler {
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
     }
 
+    private void runDistanceCalculatorHolder(){
+        //todo
+    }
+
 }

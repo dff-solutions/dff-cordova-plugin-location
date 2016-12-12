@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.resources;
 
 import android.location.Location;
 import android.util.Log;
+import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.utilities.TimeHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,8 @@ public class LocationResources {
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
+    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<>();
+    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_CUSTOM_LIST = new ArrayList<>();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -43,6 +46,10 @@ public class LocationResources {
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
+
+    //Settings related to the Distance calculator class
+    public static int DISTANCE_CALCULATOR_FULL_DELAY = 60000; //in ms
+    public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
 
 
     //What
@@ -138,12 +145,6 @@ public class LocationResources {
         }
         Date now = new Date();
         Log.d("Location", "now = " + dateFormat.format(now));
-    }
-
-    public static void testAddLocation() {
-        for (int i = 0; i <= 5; i++) {
-            LocationResources.addLocationToList("test " + i);
-        }
     }
 
 }
