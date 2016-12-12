@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 1.5
+ * @version 1.5.4
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -15,7 +15,6 @@ const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
 const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
 const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
-const ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
 const ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
@@ -24,16 +23,32 @@ function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
 }
 
+/**
+ * Set the minimum accuracy value in order to compare the changed location, whether to store it.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param minAccuracy - The value of the minimum accuracy that is required to store a location
+ */
 LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy) {
     exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy])
 };
 
+/**
+ * Set the maximum value of the age of the location in order to discard it when this value is reached.
+ *
+ * @param success
+ * @param error
+ * @param maxAge
+ */
 LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
     exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge])
 };
 
 
 /**
+ * get the last good saved location of the device.
+ * good means accuracy < min accuracy (per default 20m)
  *
  * @param success - Success callback function
  * @param error - Error callback function
@@ -46,6 +61,7 @@ LocationPlugin.prototype.getLocation = function (success, error, returnType) {
 //used in chrome for test purposes!
 /**
  * get location of the device and log the result
+ *
  * @param returnType - 0 for String Location | 1 for JSON Location
  */
 LocationPlugin.prototype.getLocationAsTest = function (returnType) {
@@ -56,14 +72,21 @@ LocationPlugin.prototype.getLocationAsTest = function (returnType) {
     }, FEATURE, ACTION_GET_LOCATION, [returnType]);
 };
 
-LocationPlugin.prototype.getLocationAsJson = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_LOCATION_JSON, []);
-};
-
+/**
+ * get the stored location as JSON ARRAY
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
 LocationPlugin.prototype.getLocationList = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, []);
 };
 
+
+/**
+ * Store in a file the pending locations that are allocated in the location array list.
+ * (for test purposes)
+ */
 LocationPlugin.prototype.storePendingLocations = function () {
     exec(function () {
 
@@ -72,6 +95,10 @@ LocationPlugin.prototype.storePendingLocations = function () {
     }, FEATURE, ACTION_INTENT_STORE_PENDING_LOCATIONS, []);
 };
 
+/**
+ * Restore from a file the pending locations.
+ * (for test purposes)
+ */
 LocationPlugin.prototype.restorePendingLocations = function () {
     exec(function () {
 
@@ -80,10 +107,22 @@ LocationPlugin.prototype.restorePendingLocations = function () {
     }, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
 };
 
+/**
+ * Start the location service
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
 LocationPlugin.prototype.startService = function (success, error) {
     exec(success, error, FEATURE, ACTION_START_SERVICE, []);
 };
 
+/**
+ * Stop the location service
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
 LocationPlugin.prototype.stopService = function (success, error) {
     exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
 };
