@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 0.9
+ * @version 1.5.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -94,10 +94,21 @@ public class LocationPlugin extends CommonServicePlugin {
                         //new LocationRequestHandler(callbackContext
                         LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), cordova.getActivity().getApplicationContext(), callbackContext);
                         msg.replyTo = new Messenger(handler);
+                        Bundle params = new Bundle();
+                        try {
+                            if (args.get(0) != null) {
+                                params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.getInt(0));
+                            } else {
+                                params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, LocationResources.LOCATION_RETURN_TYPE);
+                            }
+                            msg.setData(params);
+                        } catch (JSONException e) {
+                            Log.e(TAG, "Error: ", e);
+                        }
                         try {
                             mServiceHandler.getService().send(msg);
                         } catch (RemoteException e) {
-                            e.printStackTrace();
+                            Log.e(TAG, "Error: ", e);
                         }
                     } else if (action.equals(LocationResources.ACTION_GET_LOCATION_LIST)) {
                         ArrayList<String> locationList = LocationResources.getLastGoodLocationList();

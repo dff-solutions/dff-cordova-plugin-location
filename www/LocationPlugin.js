@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.5
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -38,12 +38,12 @@ LocationPlugin.prototype.getLocation = function (success, error) {
 };
 
 //used in chrome for test purposes!
-LocationPlugin.prototype.getLocationAsTest = function () {
+LocationPlugin.prototype.getLocationAsTest = function (returnType) {
     exec(function (location) {
         console.log(location);
     }, function (errorMsg) {
         console.log(errorMsg);
-    }, FEATURE, ACTION_GET_LOCATION_STRING, []);
+    }, FEATURE, ACTION_GET_LOCATION_STRING, [returnType]);
 };
 
 LocationPlugin.prototype.getLocationAsJson = function (success, error) {

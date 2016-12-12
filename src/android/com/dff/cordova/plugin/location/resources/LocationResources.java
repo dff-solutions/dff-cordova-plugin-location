@@ -14,7 +14,7 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 1.3.1
+ * @version 1.5.0
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -27,7 +27,7 @@ public class LocationResources {
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
     public static final String ACTION_GET_LOCATION_STRING = "location.action.GET_LOCATION_STRING";
-    public static final String ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
+    //public static final String ACTION_GET_LOCATION_JSON = "location.action.GET_LOCATION_JSON";
     public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
     public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
@@ -39,9 +39,12 @@ public class LocationResources {
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static int LOCATION_DELAY = 50000; // in mseconds 50sec
+    public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
+    public static String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
+
 
     //What
     public static final int WHAT_GET_LOCATION = 1;
@@ -71,7 +74,7 @@ public class LocationResources {
                 LAST_GOOD_LOCATION.getBearing();
     }
 
-    public static JSONObject getLastGoodAsJson() {
+    public static JSONObject getLastGoodLocationAsJson() {
         JSONObject location = new JSONObject();
         try {
             location.put("Longitude", LAST_GOOD_LOCATION.getLongitude());

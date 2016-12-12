@@ -15,7 +15,7 @@ import org.apache.cordova.CallbackContext;
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.5.0
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -25,9 +25,9 @@ public class LocationRequestHandler extends Handler {
     private PreferencesHelper mPreferencesHelper;
 
     /**
-     * Custom constructor.
+     * Custom constructor
      *
-     * @param looper           - The user looper.
+     * @param looper           - The used looper.
      * @param context          - The application/service context.
      * @param mCallbackContext - The callback context used to forward the result to the user.
      */
@@ -49,19 +49,43 @@ public class LocationRequestHandler extends Handler {
             case LocationResources.WHAT_GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
                 Bundle data = msg.getData();
-                String location = data.getString(LocationResources.DATA_LOCATION_KEY);
+                //String location = data.getString(LocationResources.DATA_LOCATION_KEY);
+                int returnType = data.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
+
+                if (LocationResources.getLastGoodLocation() != null) {
+                    switch (returnType) {
+                        case 0:
+                            mCallbackContext.success(LocationResources.getLastGoodLocationAsString());
+                            break;
+                        case 1:
+                            mCallbackContext.success(LocationResources.getLastGoodLocationAsJson());
+                            break;
+                        default:
+                            mCallbackContext.success(LocationResources.getLastGoodLocationAsJson());
+                            break;
+                    }
+                } else {
+                    mCallbackContext.success("");
+                }
+
+
+                /*
                 if (location != null && location.length() > 0) {
                     Log.d(TAG, "Location = " + location);
                     mCallbackContext.success(location);
                 } else {
                     mCallbackContext.success("");
                 }
+                */
+
                 if (mPreferencesHelper.getCanLocationBeCleared()) {
                     LocationResources.clearLocationsList();
                 }
+
+
                 break;
             default:
-                String errorMsg = "no what of msg has been found!";
+                String errorMsg = "no 'what' property of the msg has been found!";
                 mCallbackContext.error(errorMsg);
                 Log.w(TAG, errorMsg);
                 break;

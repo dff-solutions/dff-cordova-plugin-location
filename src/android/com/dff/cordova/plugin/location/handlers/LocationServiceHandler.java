@@ -17,7 +17,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 1.1
+ * @version 1.2
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -52,11 +52,24 @@ public class LocationServiceHandler extends Handler {
         switch (msg.what) {
             case LocationResources.WHAT_GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
+                Bundle params = msg.getData();
+                int returnType = params.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
+                Log.d(TAG, "return type = " + returnType);
                 if (LocationResources.getLastGoodLocation() != null) {
                     if (TimeHelper.getTimeAge(LocationResources.getLastGoodLocation().getTime()) <= LocationResources.LOCATION_MAX_AGE) {
-                        Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getTestLastGoodLocationToString());
-                        result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
-                        Log.d(TAG, "send last good location to request handler with " + LocationResources.getLastGoodLocationAsString());
+                        switch (returnType) {
+                            case 0:
+                                Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getLastGoodLocationAsString());
+                                //result.putString(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsString());
+                                result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 0);
+                                break;
+                            case 1:
+                                Log.d(TAG, "lastGoodLocation as JSON = " + LocationResources.getLastGoodLocationAsJson());
+                                //result.p(LocationResources.DATA_LOCATION_KEY, LocationResources.getLastGoodLocationAsJson());
+                                result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 1);
+                                break;
+                        }
+
                         answer.setData(result);
                     } else {
                         LocationResources.setLastGoodLocation(null);
@@ -124,9 +137,6 @@ public class LocationServiceHandler extends Handler {
         listAllProviders();
 
         try {
-            //for production
-            //mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0 ,0 , locationListener);
-            //for testing
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {
                 mLocationManager.requestLocationUpdates(provider, 0, 0, locationListener);
