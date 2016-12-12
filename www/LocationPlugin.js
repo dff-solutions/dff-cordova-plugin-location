@@ -33,11 +33,21 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
 };
 
 
-LocationPlugin.prototype.getLocation = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_LOCATION, []);
+/**
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param returnType - 0 for String Location | 1 for JSON Location
+ */
+LocationPlugin.prototype.getLocation = function (success, error, returnType) {
+    exec(success, error, FEATURE, ACTION_GET_LOCATION, [returnType]);
 };
 
 //used in chrome for test purposes!
+/**
+ * get location of the device and log the result
+ * @param returnType - 0 for String Location | 1 for JSON Location
+ */
 LocationPlugin.prototype.getLocationAsTest = function (returnType) {
     exec(function (location) {
         console.log(location);

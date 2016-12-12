@@ -14,7 +14,7 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 1.5.0
+ * @version 1.5.1
  * @since 30.11.2016
  */
 public class LocationResources {
