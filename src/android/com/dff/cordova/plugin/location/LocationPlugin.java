@@ -91,7 +91,6 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.stopService(new Intent(mContext, LocationService.class));
                     } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
                         Message msg = Message.obtain(null, LocationResources.WHAT_GET_LOCATION);
-                        //new LocationRequestHandler(callbackContext
                         LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(), cordova.getActivity().getApplicationContext(), callbackContext);
                         msg.replyTo = new Messenger(handler);
                         Bundle params = new Bundle();

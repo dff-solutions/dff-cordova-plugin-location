@@ -169,7 +169,11 @@ public class LocationResources {
             }
         }
         DISTANCE_CALCULATOR_FULL_LIST.clear();
-        return totalDistance;
+        return toKM(totalDistance);
+    }
+
+    public static float toKM(float distance) {
+        return distance / 1000;
     }
 
     public static void clearLocationsList() {

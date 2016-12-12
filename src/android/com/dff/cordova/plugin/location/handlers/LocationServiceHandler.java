@@ -90,6 +90,16 @@ public class LocationServiceHandler extends Handler {
                 break;
             case LocationResources.WHAT_STOP_DISTANCE_CALCULATOR_FULL:
                 stopDistanceCalculatorFullHolder();
+                break;
+            case LocationResources.WHAT_GET_DISTANCE_CALCULATOR_FULL:
+                Message answer2 = Message.obtain(null, msg.what);
+                try {
+                    msg.replyTo.send(answer2);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
+                stopDistanceCalculatorFullHolder();
+                break;
 
             default:
                 Log.w(TAG, "No what of a msg found!");
