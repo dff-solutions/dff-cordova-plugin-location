@@ -19,7 +19,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 2.1.2
+ * @version 2.1.4
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -205,7 +205,11 @@ public class LocationServiceHandler extends Handler {
     }
 
     private void stopDistanceCalculatorFullHolder() {
-        mDistanceCalculatorFullListHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+        try {
+            mDistanceCalculatorFullListHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+        } catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        }
     }
 
 }

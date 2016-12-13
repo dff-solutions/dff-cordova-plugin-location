@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by anahas on 12.12.2016.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 2.0
  * @since 12.12.2016
  */
 public class DistanceCalculatorFullHolder implements Runnable {
@@ -30,9 +30,9 @@ public class DistanceCalculatorFullHolder implements Runnable {
 
         if (lastGoodLocation != null) {
             if (!list.isEmpty()) {
-                int indexOfLastItem = list.size();
+                int indexOfLastItem = list.size() - 1;
                 DistanceCalculator distanceCalculator = new DistanceCalculator(list.get(indexOfLastItem).getEndLocation(),
-                        lastGoodLocation);
+                        lastGoodLocation); // try and catch IndexOutOfBoundsException
                 LocationResources.addDistanceToFullList(distanceCalculator);
 
             } else {

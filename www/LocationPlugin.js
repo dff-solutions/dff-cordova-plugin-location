@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 2.1.2
+ * @version 2.2.1
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -18,8 +18,10 @@ const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
 const ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-const ACTION_GET_FULL_DISTANCE = "distance.action.CALCULATE_FULL_DISTANCE";
-const ACTION_GET_CUSTOM_DISTANCE = "distance.action.CALCULATE_CUSTOM_DISTANCE";
+const ACTION_RUN_FULL_DISTANCE_CALCULATOR = "distance.action.RUN_FULL_DISTANCE_CALCULATOR";
+const ACTION_STOP_FULL_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
+const ACTION_GET_FULL_DISTANCE = "distance.action.GET_FULL_DISTANCE";
+const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -99,6 +101,19 @@ LocationPlugin.prototype.getFullDistance = function () {
     }, FEATURE, ACTION_GET_FULL_DISTANCE, [])
 };
 
+LocationPlugin.prototype.runFullDistanceCalculator = function () {
+    exec(function (distance) {
+        console.log("runFullDistanceCalculator on success");
+        if (distance) {
+            console.log(distance);
+        }
+        else {
+            console.log("error ");
+        }
+    }, function (msg) {
+        console.log(msg);
+    }, FEATURE, ACTION_RUN_FULL_DISTANCE_CALCULATOR, [])
+};
 
 /**
  * Store in a file the pending locations that are allocated in the location array list.

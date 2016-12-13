@@ -32,7 +32,7 @@ public class DistanceCalculatorCustomHolder implements Runnable {
 
         if (lastGoodLocation != null) {
             if (!list.isEmpty()) {
-                int indexOfLastItem = list.size();
+                int indexOfLastItem = list.size() - 1;
                 DistanceCalculator distanceCalculator = new DistanceCalculator(list.get(indexOfLastItem).getEndLocation(),
                         lastGoodLocation);
                 LocationResources.addDistanceToCustomList(distanceCalculator);

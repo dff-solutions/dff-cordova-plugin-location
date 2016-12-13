@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 2.0.0
+ * @version 2.1.3
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -23,8 +23,8 @@ public class LocationResources {
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
-    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<>();
-    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_CUSTOM_LIST = new ArrayList<>();
+    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<DistanceCalculator>();
+    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_CUSTOM_LIST = new ArrayList<DistanceCalculator>();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -35,8 +35,12 @@ public class LocationResources {
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
     public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-    public static final String ACTION_GET_FULL_DISTANCE = "distance.action.CALCULATE_FULL_DISTANCE";
-    public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.CALCULATE_CUSTOM_DISTANCE";
+    public static final String ACTION_RUN_FULL_DISTANCE_CALCULATOR = "distance.action.RUN_FULL_DISTANCE_CALCULATOR";
+    public static final String ACTION_STOP_FULL_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
+    public static final String ACTION_GET_FULL_DISTANCE = "distance.action.GET_FULL_DISTANCE";
+    public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUB_CUSTOM_DISTANCE_CALCULATOR";
+    public static final String ACTION_STOP_CUSTOM_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
+    public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 
 
     //JSON keys
@@ -55,7 +59,7 @@ public class LocationResources {
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //Settings related to the Distance calculator class
-    public static int DISTANCE_CALCULATOR_FULL_DELAY = 60000; //in ms
+    public static int DISTANCE_CALCULATOR_FULL_DELAY = 10000; //in ms 10sec for testing
     public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
 
 

@@ -133,6 +133,16 @@ public class LocationPlugin extends CommonServicePlugin {
                         } catch (RemoteException e) {
                             Log.e(TAG, "Error: ", e);
                         }
+                    } else if (action.equals(LocationResources.ACTION_RUN_FULL_DISTANCE_CALCULATOR)) {
+                        Message msg = Message.obtain(null, LocationResources.WHAT_RUN_DISTANCE_CALCULATOR_FULL);
+                        LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(),
+                                cordova.getActivity().getApplicationContext(), callbackContext);
+                        msg.replyTo = new Messenger(handler);
+                        try {
+                            mServiceHandler.getService().send(msg);
+                        } catch (RemoteException e) {
+                            Log.e(TAG, "Error: ", e);
+                        }
                     } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
                             action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                         Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
