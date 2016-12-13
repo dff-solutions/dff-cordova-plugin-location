@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 2.0.0
+ * @version 2.1.2
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -123,10 +123,19 @@ public class LocationPlugin extends CommonServicePlugin {
                             callbackContext.success();
                             Log.d(TAG, "list < 0 ");
                         }
-
-                    } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) || action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
+                    } else if (action.equals(LocationResources.ACTION_GET_FULL_DISTANCE)) {
+                        Message msg = Message.obtain(null, LocationResources.WHAT_GET_DISTANCE_CALCULATOR_FULL);
+                        LocationRequestHandler handler = new LocationRequestHandler(mHandlerThread.getLooper(),
+                                cordova.getActivity().getApplicationContext(), callbackContext);
+                        msg.replyTo = new Messenger(handler);
+                        try {
+                            mServiceHandler.getService().send(msg);
+                        } catch (RemoteException e) {
+                            Log.e(TAG, "Error: ", e);
+                        }
+                    } else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
+                            action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                         Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
-                        //LocationResources.addLocationToList("Test"); //remove in production
                         pendingLocationsIntentService.setAction(action);
                         mContext.startService(pendingLocationsIntentService);
                     } else try {

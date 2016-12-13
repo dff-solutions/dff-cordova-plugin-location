@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="2.0.1">
+        version="2.1.2">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -52,15 +52,21 @@
                      target-dir="src/com/dff/cordova/plugin/location/handlers"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/resources/LocationResources.java"
                      target-dir="src/com/dff/cordova/plugin/location/resources"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/TimeHelper.java"
-                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/LocationsHolder.java"
-                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/FileHelper.java"
-                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/CrashHelper.java"
-                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/PreferencesHelper.java"
-                     target-dir="src/com/dff/cordova/plugin/location/utilities"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/helpers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/helpers/FileHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/helpers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/helpers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/helpers/PreferencesHelper.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/helpers"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/LocationsHolder.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
+        <source-file
+                src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorFullHolder.java"
+                target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
+        <source-file
+                src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorCustomHolder.java"
+                target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
     </platform>
 </plugin>
