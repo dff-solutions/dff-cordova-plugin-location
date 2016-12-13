@@ -36,4 +36,9 @@ public class DistanceCalculator {
     public float getDistance() {
         return mDistance;
     }
+
+    @Override
+    public String toString() {
+        return "start: " + mStartLocation + " end: " + mEndLocation + " distance = " + mDistance;
+    }
 }

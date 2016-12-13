@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.utilities.holders;
 
 import android.location.Location;
 import android.os.Handler;
+import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
@@ -29,10 +30,11 @@ public class DistanceCalculatorFullHolder implements Runnable {
         Location lastGoodLocation = LocationResources.getLastGoodLocation();
 
         if (lastGoodLocation != null) {
-            if (!list.isEmpty()) {
+            if (list != null && !list.isEmpty()) {
                 int indexOfLastItem = list.size() - 1;
                 DistanceCalculator distanceCalculator = new DistanceCalculator(list.get(indexOfLastItem).getEndLocation(),
                         lastGoodLocation); // try and catch IndexOutOfBoundsException
+                Log.d(TAG, "distance calculator: " + distanceCalculator);
                 LocationResources.addDistanceToFullList(distanceCalculator);
 
             } else {
