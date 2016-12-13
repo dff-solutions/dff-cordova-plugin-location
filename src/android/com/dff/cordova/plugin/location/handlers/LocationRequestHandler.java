@@ -80,7 +80,7 @@ public class LocationRequestHandler extends Handler {
                 } catch (JSONException e) {
                     Log.e(TAG, "Error: ", e);
                 }
-                mCallbackContext.success();
+                mCallbackContext.success(distance);
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";
                 mCallbackContext.error(errorMsg);
