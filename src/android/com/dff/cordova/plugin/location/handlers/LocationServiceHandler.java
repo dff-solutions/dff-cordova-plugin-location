@@ -6,6 +6,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorFullHolder;
@@ -84,7 +85,6 @@ public class LocationServiceHandler extends Handler {
                     Log.e(TAG, "Error: ", e);
                 }
                 break;
-
             case LocationResources.WHAT_RUN_DISTANCE_CALCULATOR_FULL:
                 runDistanceCalculatorFullHolder();
                 break;
@@ -96,7 +96,7 @@ public class LocationServiceHandler extends Handler {
                 try {
                     msg.replyTo.send(answer2);
                 } catch (RemoteException e) {
-                    Log.e(TAG, "Error: ", e);
+                    CordovaPluginLog.e(TAG, "Error: ", e);
                 }
                 stopDistanceCalculatorFullHolder();
                 break;

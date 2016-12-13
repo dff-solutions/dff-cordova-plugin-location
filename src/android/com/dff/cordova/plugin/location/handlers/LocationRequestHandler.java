@@ -9,13 +9,15 @@ import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Class to handle the answer sent from the location service handler.
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 1.5.0
+ * @version 2.0.0
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -67,23 +69,18 @@ public class LocationRequestHandler extends Handler {
                 } else {
                     mCallbackContext.success("");
                 }
-
-
-                /*
-                if (location != null && location.length() > 0) {
-                    Log.d(TAG, "Location = " + location);
-                    mCallbackContext.success(location);
-                } else {
-                    mCallbackContext.success("");
-                }
-                */
-
                 if (mPreferencesHelper.getCanLocationBeCleared()) {
                     LocationResources.clearLocationsList();
                 }
-
-
                 break;
+            case LocationResources.WHAT_GET_DISTANCE_CALCULATOR_FULL:
+                JSONObject distance = new JSONObject();
+                try {
+                    distance.put(LocationResources.JSON_KEY_TOTAL_DISTANCE, (double) LocationResources.getFullTotalDistance());
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
+                mCallbackContext.success();
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";
                 mCallbackContext.error(errorMsg);

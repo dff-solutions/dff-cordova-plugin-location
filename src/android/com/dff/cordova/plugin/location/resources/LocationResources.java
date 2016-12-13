@@ -39,6 +39,11 @@ public class LocationResources {
     public static final String ACTION_CALCULATE_CUSTOM_DISTANCE = "distance.action.CALCULATE_CUSTOM_DISTANCE";
 
 
+    //JSON keys
+    public static final String JSON_KEY_TOTAL_DISTANCE = "totalDistance";
+    public static final String JSON_KEY_CUSTOM_DISTANCE = "customDistance";
+
+
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
@@ -158,6 +163,10 @@ public class LocationResources {
         DISTANCE_CALCULATOR_FULL_LIST.add(distanceCalculator);
     }
 
+    public static void addDistanceToCustomList(DistanceCalculator distanceCalculator) {
+        DISTANCE_CALCULATOR_CUSTOM_LIST.add(distanceCalculator);
+    }
+
     public static float getFullTotalDistance() {
         ArrayList<DistanceCalculator> list = DISTANCE_CALCULATOR_FULL_LIST;
         float totalDistance = 0;
@@ -172,7 +181,21 @@ public class LocationResources {
         return toKM(totalDistance);
     }
 
-    public static float toKM(float distance) {
+    public static float getCustomDistance() {
+        ArrayList<DistanceCalculator> list = DISTANCE_CALCULATOR_CUSTOM_LIST;
+        float distance = 0;
+        if (!list.isEmpty()) {
+            for (DistanceCalculator distanceCalculator : list) {
+                if (distanceCalculator.getDistance() != 0) {
+                    distance += distanceCalculator.getDistance();
+                }
+            }
+        }
+        DISTANCE_CALCULATOR_CUSTOM_LIST.clear();
+        return toKM(distance);
+    }
+
+    private static float toKM(float distance) {
         return distance / 1000;
     }
 
