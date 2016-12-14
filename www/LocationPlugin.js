@@ -115,6 +115,28 @@ LocationPlugin.prototype.runFullDistanceCalculator = function () {
     }, FEATURE, ACTION_RUN_FULL_DISTANCE_CALCULATOR, [])
 };
 
+LocationPlugin.prototype.stopFullDistanceCalculator = function () {
+    exec(function (distance) {
+        console.log("runFullDistanceCalculator on success");
+        if (distance) {
+            console.log(distance);
+        }
+        else {
+            console.log("error ");
+        }
+    }, function (msg) {
+        console.log(msg);
+    }, FEATURE, ACTION_STOP_FULL_DISTANCE_CALCULATOR, [])
+};
+
+LocationPlugin.prototype.getCustomDistance = function () {
+    exec(function () {
+        console.log();
+    }, function () {
+        console.log()
+    }, FEATURE, ACTION_GET_CUSTOM_DISTANCE, [])
+};
+
 /**
  * Store in a file the pending locations that are allocated in the location array list.
  * (for test purposes)
