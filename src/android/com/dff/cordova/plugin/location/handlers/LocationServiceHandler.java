@@ -9,6 +9,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
+import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorCustomHolder;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorFullHolder;
 import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
 
@@ -32,6 +33,7 @@ public class LocationServiceHandler extends Handler {
     private Handler mDistanceCalculatorFullListHandler;
     private Handler mDistanceCalculatorCustomListHandler;
     private DistanceCalculatorFullHolder mDistanceCalculatorFullHolder;
+    private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
 
     /**
      * Custom constructor.
@@ -216,4 +218,19 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    private void runDistanceCalculatorCustomHolder() {
+        Log.d(TAG, "run distance calc custom holder");
+        mDistanceCalculatorCustomListHandler = new Handler();
+        mDistanceCalculatorCustomHolder = new DistanceCalculatorCustomHolder(mDistanceCalculatorFullListHandler);
+        mDistanceCalculatorCustomListHandler.postDelayed(mDistanceCalculatorCustomHolder, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
+    }
+
+    private void stopDistanceCalculatorCustomHolder() {
+        Log.d(TAG, "stop distance calc custom holder");
+        try {
+            mDistanceCalculatorCustomListHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+        } catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        }
+    }
 }
