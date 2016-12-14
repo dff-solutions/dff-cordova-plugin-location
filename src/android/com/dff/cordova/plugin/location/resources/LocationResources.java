@@ -24,6 +24,7 @@ public class LocationResources {
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
+    public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     private static RouteCalculator TOTAL_ROUTE_CALCULATOR = new RouteCalculator();
     private static RouteCalculator CUSTOM_ROUTE_CALCULATOR = new RouteCalculator();
     private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<DistanceCalculator>();

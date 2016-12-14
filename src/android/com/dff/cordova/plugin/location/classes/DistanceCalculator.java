@@ -37,6 +37,12 @@ public class DistanceCalculator {
         return mDistance;
     }
 
+    public void update(Location newLocation){
+        mStartLocation = mEndLocation;
+        mEndLocation = newLocation;
+        mDistance = mStartLocation.distanceTo(mEndLocation);
+    }
+
     @Override
     public String toString() {
         return "start: " + mStartLocation + " end: " + mEndLocation + " distance = " + mDistance + " m";

@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Created by anahas on 12.12.2016.
  *
  * @author Anthony Nahas
- * @version 3.0.1
+ * @version 3.0.2
  * @since 12.12.2016
  */
 public class DistanceCalculatorFullHolder implements Runnable {
@@ -37,6 +37,7 @@ public class DistanceCalculatorFullHolder implements Runnable {
             if (routeCalculator.getOldDistanceCalculator() != null && routeCalculator.getNewDistanceCalculator() != null) {
                 DistanceCalculator distanceCalculator = new DistanceCalculator
                         (routeCalculator.getOldDistanceCalculator().getEndLocation(), lastGoodLocation);
+                routeCalculator.setOldDistanceCalculator(routeCalculator.getNewDistanceCalculator());
                 routeCalculator.setNewDistanceCalculator(distanceCalculator);
                 Log.d(TAG, "route calc with " + counter + " " + routeCalculator);
             } else {

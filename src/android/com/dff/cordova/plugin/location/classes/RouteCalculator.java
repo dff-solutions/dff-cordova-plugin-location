@@ -61,7 +61,8 @@ public class RouteCalculator {
 
     public void calculateRoute() {
         if (mOldDistanceCalculator != null && mNewDistanceCalculator != null) {
-            mRoute = mOldDistanceCalculator.getDistance() + mNewDistanceCalculator.getDistance();
+            //mRoute = mOldDistanceCalculator.getDistance() + mNewDistanceCalculator.getDistance();
+            mRoute += mNewDistanceCalculator.getDistance();
             Log.d(TAG, "route = " + mRoute + "m");
         }
     }
