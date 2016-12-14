@@ -138,6 +138,7 @@ public class LocationServiceHandler extends Handler {
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
                 //ignore
+                Log.d(TAG, "on status changed: " + s);
             }
 
             @Override
@@ -194,17 +195,20 @@ public class LocationServiceHandler extends Handler {
      * Run the location list handler in order to hold the last good location every interval of time.
      */
     private void runLocationsHolder() {
+        Log.d(TAG, "runLocationsHolder");
         mLocationsListHandler = new Handler();
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
     }
 
     private void runDistanceCalculatorFullHolder() {
+        Log.d(TAG, "run DistanceCalc Full Holder");
         mDistanceCalculatorFullListHandler = new Handler();
         mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mDistanceCalculatorFullListHandler);
         mDistanceCalculatorFullListHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
     }
 
     private void stopDistanceCalculatorFullHolder() {
+        Log.d(TAG, "stop distance calc full holder");
         try {
             mDistanceCalculatorFullListHandler.removeCallbacks(mDistanceCalculatorFullHolder);
         } catch (NullPointerException e) {

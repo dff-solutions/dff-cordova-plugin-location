@@ -39,6 +39,6 @@ public class DistanceCalculator {
 
     @Override
     public String toString() {
-        return "start: " + mStartLocation + " end: " + mEndLocation + " distance = " + mDistance;
+        return "start: " + mStartLocation + " end: " + mEndLocation + " distance = " + mDistance + " m";
     }
 }
