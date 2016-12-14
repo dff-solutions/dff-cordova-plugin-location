@@ -89,11 +89,14 @@ public class LocationServiceHandler extends Handler {
                 break;
             case LocationResources.WHAT_RUN_DISTANCE_CALCULATOR_FULL:
                 runDistanceCalculatorFullHolder();
+                Log.d(TAG, "run distance calc full holder");
                 break;
             case LocationResources.WHAT_STOP_DISTANCE_CALCULATOR_FULL:
+                Log.d(TAG, "stop distance calc full holder");
                 stopDistanceCalculatorFullHolder();
                 break;
             case LocationResources.WHAT_GET_DISTANCE_CALCULATOR_FULL:
+                Log.d(TAG, "get distance calc full holder");
                 Message answer2 = Message.obtain(null, msg.what);
                 try {
                     msg.replyTo.send(answer2);
