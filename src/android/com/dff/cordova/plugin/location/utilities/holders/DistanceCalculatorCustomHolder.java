@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by anahas on 13.12.2016.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 3.0.0
  * @since 13.12.2016
  */
 public class DistanceCalculatorCustomHolder implements Runnable {
@@ -42,7 +42,7 @@ public class DistanceCalculatorCustomHolder implements Runnable {
                 Log.d(TAG, "a dist calc has been added");
             } else {
                 //only for the first record
-                Log.d(TAG,"the list is empty and the first dist calc will be now added");
+                Log.d(TAG, "the list is empty and the first dist calc will be now added");
                 DistanceCalculator distanceCalculator = new DistanceCalculator(lastGoodLocation, lastGoodLocation);
                 LocationResources.addDistanceToCustomList(distanceCalculator);
                 Log.d(TAG, "the first distance calculator " + counter++ + " = " + distanceCalculator);

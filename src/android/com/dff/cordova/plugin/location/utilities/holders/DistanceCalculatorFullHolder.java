@@ -4,6 +4,7 @@ import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
+import com.dff.cordova.plugin.location.classes.RouteCalculator;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * Created by anahas on 12.12.2016.
  *
  * @author Anthony Nahas
- * @version 2.2.1
+ * @version 3.0.0
  * @since 12.12.2016
  */
 public class DistanceCalculatorFullHolder implements Runnable {
@@ -29,8 +30,18 @@ public class DistanceCalculatorFullHolder implements Runnable {
     public void run() {
         ArrayList<DistanceCalculator> list = LocationResources.getDistanceCalculatorFullList();
         Location lastGoodLocation = LocationResources.getLastGoodLocation();
+        RouteCalculator routeCalculator = LocationResources.getTotalRouteCalculator();
 
-        if (lastGoodLocation != null) {
+        if (lastGoodLocation != null && routeCalculator != null) {
+
+            if (routeCalculator.getOldDistanceCalculator() != null && routeCalculator.getNewDistanceCalculator() != null) {
+                DistanceCalculator distanceCalculator = new DistanceCalculator
+                        (routeCalculator.getOldDistanceCalculator().getEndLocation(), lastGoodLocation);
+                routeCalculator.setNewDistanceCalculator(distanceCalculator);
+            } else {
+                routeCalculator.setInitialDistance(new DistanceCalculator(lastGoodLocation, lastGoodLocation));
+            }
+
             if (list != null && !list.isEmpty()) {
                 int indexOfLastItem = list.size() - 1;
                 Log.d(TAG, "indexOfLastItem = " + indexOfLastItem);

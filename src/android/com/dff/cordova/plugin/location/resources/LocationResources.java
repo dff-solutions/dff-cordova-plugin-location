@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
+import com.dff.cordova.plugin.location.classes.RouteCalculator;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +24,8 @@ public class LocationResources {
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
+    private static RouteCalculator TOTAL_ROUTE_CALCULATOR = new RouteCalculator();
+    private static RouteCalculator CUSTOM_ROUTE_CALCULATOR = new RouteCalculator();
     private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<DistanceCalculator>();
     private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_CUSTOM_LIST = new ArrayList<DistanceCalculator>();
 
@@ -100,6 +103,14 @@ public class LocationResources {
         return DISTANCE_CALCULATOR_CUSTOM_LIST;
     }
 
+    public static RouteCalculator getTotalRouteCalculator() {
+        return TOTAL_ROUTE_CALCULATOR;
+    }
+
+    public static RouteCalculator getCustomRouteCalculator() {
+        return CUSTOM_ROUTE_CALCULATOR;
+    }
+
     public static String getLastGoodLocationAsString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
@@ -164,7 +175,7 @@ public class LocationResources {
     }
 
     public static void addDistanceToFullList(DistanceCalculator distanceCalculator) {
-        Log.d(TAG,"add distance to full list --> " + distanceCalculator);
+        Log.d(TAG, "add distance to full list --> " + distanceCalculator);
         DISTANCE_CALCULATOR_FULL_LIST.add(distanceCalculator);
     }
 
@@ -185,7 +196,7 @@ public class LocationResources {
             }
         }
         DISTANCE_CALCULATOR_FULL_LIST.clear();
-        Log.d(TAG,"distance calc full list has been just cleared");
+        Log.d(TAG, "distance calc full list has been just cleared");
         return toKM(totalDistance);
     }
 

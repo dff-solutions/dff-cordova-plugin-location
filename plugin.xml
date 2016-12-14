@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="2.2.3">
+        version="3.0.0">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -69,6 +69,8 @@
                 src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorCustomHolder.java"
                 target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
+                     target-dir="src/com/dff/cordova/plugin/location/classes"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/classes/RouteCalculator.java"
                      target-dir="src/com/dff/cordova/plugin/location/classes"/>
     </platform>
 </plugin>
