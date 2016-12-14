@@ -66,4 +66,12 @@ public class RouteCalculator {
         }
     }
 
+    @Override
+    public String toString() {
+        return "RouteCalculator{" +
+                "mOldDistanceCalculator=" + mOldDistanceCalculator +
+                ", mNewDistanceCalculator=" + mNewDistanceCalculator +
+                ", mRoute=" + mRoute +
+                '}';
+    }
 }
