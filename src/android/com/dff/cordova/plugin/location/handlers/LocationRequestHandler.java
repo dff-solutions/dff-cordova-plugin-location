@@ -92,9 +92,16 @@ public class LocationRequestHandler extends Handler {
                 }
                 mCallbackContext.success(customDistance);
                 LocationResources.CUSTOM_DISTANCE_CALCULATOR.reset();
+                break;
+            case LocationResources.WHAT_RUN_TOTAL_DISTANCE_CALCULATOR:
+                mCallbackContext.success();
+                break;
+            case LocationResources.WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR:
+                mCallbackContext.success();
+                break;
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";
-                mCallbackContext.error(errorMsg);
+                //mCallbackContext.error(errorMsg);
                 Log.w(TAG, errorMsg);
                 break;
         }

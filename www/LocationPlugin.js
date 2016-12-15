@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 2.2.7
+ * @version 2.5.0
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -101,32 +101,12 @@ LocationPlugin.prototype.getFullDistance = function () {
     }, FEATURE, ACTION_GET_TOTAL_DISTANCE, [])
 };
 
-LocationPlugin.prototype.runTotalDistanceCalculator = function () {
-    exec(function (distance) {
-        console.log("runFullDistanceCalculator on success");
-        if (distance) {
-            console.log(distance);
-        }
-        else {
-            console.log("error ");
-        }
-    }, function (msg) {
-        console.log(msg);
-    }, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
+LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) {
+    exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
 };
 
-LocationPlugin.prototype.runCustomDistanceCalculator = function () {
-    exec(function (distance) {
-        console.log("runFullDistanceCalculator on success");
-        if (distance) {
-            console.log(distance);
-        }
-        else {
-            console.log("error ");
-        }
-    }, function (msg) {
-        console.log(msg);
-    }, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
+LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error) {
+    exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
 };
 
 

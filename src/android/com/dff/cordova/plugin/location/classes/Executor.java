@@ -89,6 +89,7 @@ public class Executor {
             serviceHandler.getService().send(msg);
         } catch (RemoteException e) {
             Log.e(TAG, "Error: ", e);
+            callbackContext.error("service not available");
         }
     }
 
