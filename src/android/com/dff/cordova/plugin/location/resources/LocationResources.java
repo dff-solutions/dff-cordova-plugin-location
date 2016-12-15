@@ -3,7 +3,6 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
-import com.dff.cordova.plugin.location.classes.RouteCalculator;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,14 +20,13 @@ import java.util.Date;
  */
 public class LocationResources {
 
+    /*+++++++++++++++++++++++++++++++++++INIT+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
-    private static RouteCalculator TOTAL_ROUTE_CALCULATOR = new RouteCalculator();
-    private static RouteCalculator CUSTOM_ROUTE_CALCULATOR = new RouteCalculator();
-    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_FULL_LIST = new ArrayList<DistanceCalculator>();
-    private static ArrayList<DistanceCalculator> DISTANCE_CALCULATOR_CUSTOM_LIST = new ArrayList<DistanceCalculator>();
+    public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -96,22 +94,6 @@ public class LocationResources {
         return LAST_GOOD_LOCATION_LIST;
     }
 
-    public static ArrayList<DistanceCalculator> getDistanceCalculatorFullList() {
-        return DISTANCE_CALCULATOR_FULL_LIST;
-    }
-
-    public static ArrayList<DistanceCalculator> getDistanceCalculatorCustomList() {
-        return DISTANCE_CALCULATOR_CUSTOM_LIST;
-    }
-
-    public static RouteCalculator getTotalRouteCalculator() {
-        return TOTAL_ROUTE_CALCULATOR;
-    }
-
-    public static RouteCalculator getCustomRouteCalculator() {
-        return CUSTOM_ROUTE_CALCULATOR;
-    }
-
     public static String getLastGoodLocationAsString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
                 LAST_GOOD_LOCATION.getLatitude() + "|" +
@@ -173,48 +155,6 @@ public class LocationResources {
             Log.d(TAG, "location already exists");
         }
         LAST_GOOD_LOCATION_LIST.add(location);
-    }
-
-    public static void addDistanceToFullList(DistanceCalculator distanceCalculator) {
-        Log.d(TAG, "add distance to full list --> " + distanceCalculator);
-        DISTANCE_CALCULATOR_FULL_LIST.add(distanceCalculator);
-    }
-
-    public static void addDistanceToCustomList(DistanceCalculator distanceCalculator) {
-        DISTANCE_CALCULATOR_CUSTOM_LIST.add(distanceCalculator);
-    }
-
-    public static float getFullTotalDistance() {
-        ArrayList<DistanceCalculator> list = DISTANCE_CALCULATOR_FULL_LIST;
-        float totalDistance = 0;
-        if (!list.isEmpty()) {
-            for (DistanceCalculator distanceCalculator : list) {
-                Log.d(TAG, "dist calc is = " + distanceCalculator);
-                if (distanceCalculator.getDistance() != 0) {
-                    totalDistance += distanceCalculator.getDistance();
-                    Log.d(TAG, "distance = " + totalDistance);
-                }
-            }
-        }
-        DISTANCE_CALCULATOR_FULL_LIST.clear();
-        Log.d(TAG, "distance calc full list has been just cleared");
-        return toKM(totalDistance);
-    }
-
-    public static float getCustomDistance() {
-        ArrayList<DistanceCalculator> list = DISTANCE_CALCULATOR_CUSTOM_LIST;
-        float distance = 0;
-        if (!list.isEmpty()) {
-            for (DistanceCalculator distanceCalculator : list) {
-                Log.d(TAG, "dist calc = " + distanceCalculator);
-                if (distanceCalculator.getDistance() != 0) {
-                    distance += distanceCalculator.getDistance();
-                    //Log.d(TAG, "distance = " + distance);
-                }
-            }
-        }
-        DISTANCE_CALCULATOR_CUSTOM_LIST.clear();
-        return toKM(distance);
     }
 
     private static float toKM(float distance) {

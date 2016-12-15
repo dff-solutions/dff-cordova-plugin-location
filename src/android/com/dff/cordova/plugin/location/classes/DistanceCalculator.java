@@ -18,9 +18,7 @@ public class DistanceCalculator {
     private float mDistance;
 
     public DistanceCalculator() {
-        mStartLocation = null;
-        mEndLocation = null;
-        mDistance = 0;
+        reset();
     }
 
     public DistanceCalculator(Location mStartLocation, Location mEndLocation) {
