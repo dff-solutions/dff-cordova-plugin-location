@@ -17,7 +17,7 @@ import org.json.JSONObject;
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 2.0.0
+ * @version 3.0.1
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -74,13 +74,24 @@ public class LocationRequestHandler extends Handler {
                 }
                 break;
             case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
-                JSONObject distance = new JSONObject();
+                JSONObject totalDistance = new JSONObject();
                 try {
-                    distance.put(LocationResources.JSON_KEY_TOTAL_DISTANCE, (double) LocationResources.getFullTotalDistance());
+                    totalDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error: ", e);
                 }
-                mCallbackContext.success(distance);
+                mCallbackContext.success(totalDistance);
+                LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
+                break;
+            case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
+                JSONObject customDistance = new JSONObject();
+                try {
+                    customDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
+                mCallbackContext.success(customDistance);
+                LocationResources.CUSTOM_DISTANCE_CALCULATOR.reset();
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";
                 mCallbackContext.error(errorMsg);

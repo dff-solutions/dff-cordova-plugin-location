@@ -15,7 +15,7 @@ import java.util.Date;
  * Created by anahas on 30.11.2016.
  *
  * @author Anthony Nahas
- * @version 2.1.3
+ * @version 3.3.0
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -44,8 +44,7 @@ public class LocationResources {
 
 
     //JSON keys
-    public static final String JSON_KEY_TOTAL_DISTANCE = "totalDistance";
-    public static final String JSON_KEY_CUSTOM_DISTANCE = "customDistance";
+    public static final String JSON_KEY_DISTANCE = "value";
 
 
     //Settings with default values

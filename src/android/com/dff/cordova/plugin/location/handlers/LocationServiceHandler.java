@@ -91,21 +91,17 @@ public class LocationServiceHandler extends Handler {
                 runDistanceCalculatorFullHolder();
                 Log.d(TAG, "run distance calc full holder");
                 break;
-            case LocationResources.WHAT_STOP_DISTANCE_CALCULATOR_FULL:
-                Log.d(TAG, "stop distance calc full holder");
-                stopDistanceCalculatorFullHolder();
+            case LocationResources.WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR:
+                runDistanceCalculatorCustomHolder();
+                Log.d(TAG, "run distance calc custom holder");
                 break;
             case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
-                Log.d(TAG, "get distance calc full holder");
-                Message answer2 = Message.obtain(null, msg.what);
-                try {
-                    msg.replyTo.send(answer2);
-                } catch (RemoteException e) {
-                    CordovaPluginLog.e(TAG, "Error: ", e);
-                }
+                replyToRequestHanlder(msg);
                 stopDistanceCalculatorFullHolder();
                 break;
-
+            case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
+                replyToRequestHanlder(msg);
+                stopDistanceCalculatorCustomHolder();
             default:
                 Log.w(TAG, "No what of a msg found!");
                 break;
@@ -233,6 +229,16 @@ public class LocationServiceHandler extends Handler {
         try {
             mDistanceCalculatorCustomListHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
         } catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        }
+    }
+
+    private static void replyToRequestHanlder(Message msg) {
+        Log.d(TAG, "get distance calc full holder");
+        Message answer = Message.obtain(null, msg.what);
+        try {
+            msg.replyTo.send(answer);
+        } catch (RemoteException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }

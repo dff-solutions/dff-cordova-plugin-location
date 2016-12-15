@@ -17,6 +17,10 @@ import java.util.ArrayList;
 
 /**
  * Created by anahas on 15.12.2016.
+ *
+ * @author Anthony Nahas
+ * @version 1.1
+ * @since 15.12.2016
  */
 public class Executor {
 
