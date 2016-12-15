@@ -54,7 +54,11 @@ public class LocationResources {
     public static int LOCATION_DELAY = 50000; // in mseconds 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
     public static String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
+
+    //Shared Preferences
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
+    public static final String SP_KEY_TOTAL_DISTANCE = "totalDistanceKey";
+    public static final String SP_KEY_CUSTOM_DISTANCE = "customDistanceKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
