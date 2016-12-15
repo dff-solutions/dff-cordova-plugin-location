@@ -98,7 +98,7 @@ LocationPlugin.prototype.getFullDistance = function () {
         }
     }, function (msg) {
         console.log(msg);
-    }, FEATURE, ACTION_GET_FULL_DISTANCE, [])
+    }, FEATURE, ACTION_GET_TOTAL_DISTANCE, [])
 };
 
 LocationPlugin.prototype.runTotalDistanceCalculator = function () {

@@ -50,7 +50,7 @@ public class LocationResources {
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
-    public static int LOCATION_DELAY = 50000; // in mseconds 50sec
+    public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
     public static String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
 
@@ -171,10 +171,6 @@ public class LocationResources {
             Log.d(TAG, "location already exists");
         }
         LAST_GOOD_LOCATION_LIST.add(location);
-    }
-
-    private static float toKM(float distance) {
-        return distance / 1000;
     }
 
     public static void clearLocationsList() {
