@@ -202,6 +202,9 @@ public class LocationServiceHandler extends Handler {
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
     }
 
+    /**
+     * Run the total distance calculator.
+     */
     private void runDistanceCalculatorFullHolder() {
         Log.d(TAG, "run DistanceCalc Full Holder");
         mTotalDistanceCalculatorHandler = new Handler();
@@ -209,6 +212,9 @@ public class LocationServiceHandler extends Handler {
         mTotalDistanceCalculatorHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
     }
 
+    /**
+     * Stop the total distance calculator.
+     */
     private void stopDistanceCalculatorFullHolder() {
         Log.d(TAG, "stop distance calc full holder");
         try {
@@ -218,6 +224,9 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    /**
+     * Run the custom distance calculator.
+     */
     private void runDistanceCalculatorCustomHolder() {
         Log.d(TAG, "run distance calc custom holder");
         mCustomDistanceCalculatorHandler = new Handler();
@@ -225,6 +234,9 @@ public class LocationServiceHandler extends Handler {
         mCustomDistanceCalculatorHandler.postDelayed(mDistanceCalculatorCustomHolder, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
     }
 
+    /**
+     * Stop the custom distance calculator.
+     */
     private void stopDistanceCalculatorCustomHolder() {
         Log.d(TAG, "stop distance calc custom holder");
         try {
@@ -234,6 +246,11 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    /**
+     * Forward/reply to the request handle in order to close the action requested.
+     *
+     * @param msg - The message to forward.
+     */
     private static void replyToRequestHanlder(Message msg) {
         Log.d(TAG, "get: reply to request handler");
         Message answer = Message.obtain(null, msg.what);
