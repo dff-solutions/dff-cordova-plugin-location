@@ -46,5 +46,4 @@ public class PreferencesHelper {
     public boolean getCanLocationBeCleared() {
         return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
-
 }

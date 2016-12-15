@@ -37,11 +37,9 @@ public class LocationResources {
     public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
     public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-    public static final String ACTION_RUN_FULL_DISTANCE_CALCULATOR = "distance.action.RUN_FULL_DISTANCE_CALCULATOR";
-    public static final String ACTION_STOP_FULL_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
-    public static final String ACTION_GET_FULL_DISTANCE = "distance.action.GET_FULL_DISTANCE";
-    public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUB_CUSTOM_DISTANCE_CALCULATOR";
-    public static final String ACTION_STOP_CUSTOM_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
+    public static final String ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
+    public static final String ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
+    public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 
 
