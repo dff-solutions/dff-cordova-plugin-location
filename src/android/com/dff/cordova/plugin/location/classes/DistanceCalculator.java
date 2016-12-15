@@ -5,10 +5,10 @@ import android.location.Location;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 /**
- * Created by anahas on 12.12.2016.
+ * Class calculate distance appropriate to two location: a start and an end locations.
  *
  * @author Anthony Nahas
- * @version 3.0
+ * @version 3.1.2
  * @since 12.12.2016
  */
 public class DistanceCalculator {
@@ -19,14 +19,11 @@ public class DistanceCalculator {
     private Location mEndLocation;
     private float mDistance;
 
+    /**
+     * Default constructor: properties are initialized with null or respectively 0.
+     */
     public DistanceCalculator() {
         reset();
-    }
-
-    public DistanceCalculator(Location mStartLocation, Location mEndLocation) {
-        this.mStartLocation = mStartLocation;
-        this.mEndLocation = mEndLocation;
-        mDistance = mStartLocation.distanceTo(mEndLocation);
     }
 
     public Location getStartLocation() {
@@ -41,27 +38,43 @@ public class DistanceCalculator {
         return mDistance;
     }
 
-    public void setDistance(float mDistance) {
-        this.mDistance = mDistance;
-    }
-
+    /**
+     * First initialize of the object.
+     * In this case the start location is equal the end location.
+     *
+     * @param firstLocation - The first received location
+     */
     public void init(Location firstLocation) {
         mStartLocation = firstLocation;
         mEndLocation = firstLocation;
     }
 
+    /**
+     * Update the properties on receiving a new location
+     *
+     * @param newLocation - The new location received
+     */
     public void update(Location newLocation) {
         mStartLocation = mEndLocation;
         mEndLocation = newLocation;
         mDistance += mStartLocation.distanceTo(mEndLocation);
     }
 
+    /**
+     * Reset the properties with null or respectively 0.
+     */
     public void reset() {
         mStartLocation = null;
         mEndLocation = null;
         mDistance = 0;
     }
 
+    /**
+     * Try to restore the distance property from the shared preference if are available
+     *
+     * @param context - The context of the application
+     * @param type    - The type of the request: 0 for fetching the total distance - 1 for the custom one.
+     */
     public void restore(Context context, int type) {
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
@@ -75,6 +88,11 @@ public class DistanceCalculator {
         }
     }
 
+    /**
+     * String representation for the distance calculator
+     *
+     * @return - The Representation
+     */
     @Override
     public String toString() {
         return "start: " + mStartLocation + " end: " + mEndLocation + " distance = " + mDistance + " m";
