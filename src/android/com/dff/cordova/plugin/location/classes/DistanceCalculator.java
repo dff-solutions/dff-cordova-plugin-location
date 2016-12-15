@@ -1,6 +1,8 @@
 package com.dff.cordova.plugin.location.classes;
 
+import android.content.Context;
 import android.location.Location;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 /**
  * Created by anahas on 12.12.2016.
@@ -39,6 +41,10 @@ public class DistanceCalculator {
         return mDistance;
     }
 
+    public void setDistance(float mDistance) {
+        this.mDistance = mDistance;
+    }
+
     public void init(Location firstLocation) {
         mStartLocation = firstLocation;
         mEndLocation = firstLocation;
@@ -54,6 +60,19 @@ public class DistanceCalculator {
         mStartLocation = null;
         mEndLocation = null;
         mDistance = 0;
+    }
+
+    private void restore(Context context, int type) {
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+
+        switch (type) {
+            case 0:
+                mDistance = preferencesHelper.getStoredTotalDistance();
+                break;
+            case 1:
+                mDistance = preferencesHelper.getStoreCustomDistance();
+                break;
+        }
     }
 
     @Override
