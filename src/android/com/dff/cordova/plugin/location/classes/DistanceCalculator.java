@@ -6,7 +6,7 @@ import android.location.Location;
  * Created by anahas on 12.12.2016.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 3.0
  * @since 12.12.2016
  */
 public class DistanceCalculator {
@@ -29,6 +29,10 @@ public class DistanceCalculator {
         mDistance = mStartLocation.distanceTo(mEndLocation);
     }
 
+    public Location getStartLocation() {
+        return mStartLocation;
+    }
+
     public Location getEndLocation() {
         return mEndLocation;
     }
@@ -37,10 +41,21 @@ public class DistanceCalculator {
         return mDistance;
     }
 
-    public void update(Location newLocation){
+    public void init(Location firstLocation) {
+        mStartLocation = firstLocation;
+        mEndLocation = firstLocation;
+    }
+
+    public void update(Location newLocation) {
         mStartLocation = mEndLocation;
         mEndLocation = newLocation;
-        mDistance = mStartLocation.distanceTo(mEndLocation);
+        mDistance += mStartLocation.distanceTo(mEndLocation);
+    }
+
+    public void reset() {
+        mStartLocation = null;
+        mEndLocation = null;
+        mDistance = 0;
     }
 
     @Override

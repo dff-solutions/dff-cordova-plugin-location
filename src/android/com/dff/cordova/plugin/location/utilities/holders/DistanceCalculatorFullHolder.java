@@ -34,32 +34,35 @@ public class DistanceCalculatorFullHolder implements Runnable {
 
         if (lastGoodLocation != null && routeCalculator != null) {
 
-            if (routeCalculator.getOldDistanceCalculator() != null && routeCalculator.getNewDistanceCalculator() != null) {
-                DistanceCalculator distanceCalculator = new DistanceCalculator
-                        (routeCalculator.getOldDistanceCalculator().getEndLocation(), lastGoodLocation);
-                routeCalculator.setOldDistanceCalculator(routeCalculator.getNewDistanceCalculator());
-                routeCalculator.setNewDistanceCalculator(distanceCalculator);
-                Log.d(TAG, "route calc with " + counter + " " + routeCalculator);
+            if (LocationResources.TOTAL_DISTANCE_CALCULATOR.getStartLocation() != null &&
+                    LocationResources.TOTAL_DISTANCE_CALCULATOR.getEndLocation() != null) {
+                //DistanceCalculator distanceCalculator = new DistanceCalculator
+                //        (routeCalculator.getOldDistanceCalculator().getEndLocation(), lastGoodLocation);
+                //routeCalculator.setOldDistanceCalculator(routeCalculator.getNewDistanceCalculator());
+                //routeCalculator.setNewDistanceCalculator(distanceCalculator);
+                LocationResources.TOTAL_DISTANCE_CALCULATOR.update(lastGoodLocation);
+                Log.d(TAG, "dist calc with " + counter + " = " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
             } else {
-                routeCalculator.setInitialDistance(new DistanceCalculator(lastGoodLocation, lastGoodLocation));
-                Log.d(TAG, "route calc initial: " + routeCalculator);
+                // routeCalculator.setInitialDistance(new DistanceCalculator(lastGoodLocation, lastGoodLocation));
+                LocationResources.TOTAL_DISTANCE_CALCULATOR.init(lastGoodLocation);
+                Log.d(TAG, "dist calc initial with  " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
             }
 
 
             if (list != null && !list.isEmpty()) {
                 int indexOfLastItem = list.size() - 1;
-                Log.d(TAG, "indexOfLastItem = " + indexOfLastItem);
+                //Log.d(TAG, "indexOfLastItem = " + indexOfLastItem);
                 DistanceCalculator distanceCalculator = new DistanceCalculator(list.get(indexOfLastItem).getEndLocation(),
                         lastGoodLocation); // try and catch IndexOutOfBoundsException
                 LocationResources.addDistanceToFullList(distanceCalculator);
-                Log.d(TAG, "distance calculator " + counter++ + " = " + distanceCalculator);
-                Log.d(TAG, "a dist calc has been added");
+                //Log.d(TAG, "distance calculator " + counter++ + " = " + distanceCalculator);
+                //Log.d(TAG, "a dist calc has been added");
             } else {
                 //only for the first record
-                Log.d(TAG, "the list is empty and the first dist calc will be now added");
+                //Log.d(TAG, "the list is empty and the first dist calc will be now added");
                 DistanceCalculator distanceCalculator = new DistanceCalculator(lastGoodLocation, lastGoodLocation);
                 LocationResources.addDistanceToFullList(distanceCalculator);
-                Log.d(TAG, "the first distance calculator " + counter++ + " = " + distanceCalculator);
+                //Log.d(TAG, "the first distance calculator " + counter++ + " = " + distanceCalculator);
             }
         }
         mHandler.postDelayed(this, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);

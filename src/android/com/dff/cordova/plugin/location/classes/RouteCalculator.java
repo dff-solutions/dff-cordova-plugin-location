@@ -34,7 +34,7 @@ public class RouteCalculator {
     }
 
     public void setNewDistanceCalculator(DistanceCalculator mNewDistanceCalculator) {
-        this.mOldDistanceCalculator = this.mNewDistanceCalculator;
+        mOldDistanceCalculator = mNewDistanceCalculator;
         this.mNewDistanceCalculator = mNewDistanceCalculator;
         calculateRoute();
     }
