@@ -73,7 +73,7 @@ public class LocationRequestHandler extends Handler {
                     LocationResources.clearLocationsList();
                 }
                 break;
-            case LocationResources.WHAT_GET_DISTANCE_CALCULATOR_FULL:
+            case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
                 JSONObject distance = new JSONObject();
                 try {
                     distance.put(LocationResources.JSON_KEY_TOTAL_DISTANCE, (double) LocationResources.getFullTotalDistance());

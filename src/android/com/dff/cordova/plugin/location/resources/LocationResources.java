@@ -69,12 +69,10 @@ public class LocationResources {
 
     //What
     public static final int WHAT_GET_LOCATION = 1;
-    public static final int WHAT_RUN_DISTANCE_CALCULATOR_FULL = 2;
-    public static final int WHAT_STOP_DISTANCE_CALCULATOR_FULL = 3;
-    public static final int WHAT_GET_DISTANCE_CALCULATOR_FULL = 4;
-    public static final int WHAT_RUN_DISTANCE_CALCULATOR_CUSTOM = 5;
-    public static final int WHAT_STOP_DISTANCE_CALCULATOR_CUSTOM = 6;
-    public static final int WHAT_GET_DISTANCE_CALCULATOR_CUSTOM = 7;
+    public static final int WHAT_RUN_TOTAL_DISTANCE_CALCULATOR = 2;
+    public static final int WHAT_GET_TOTAL_DISTANCE_CALCULATOR = 3;
+    public static final int WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR = 4;
+    public static final int WHAT_GET_CUSTOM_DISTANCE_CALCULATOR = 5;
 
     public static int counter = 0;
 
@@ -151,6 +149,23 @@ public class LocationResources {
 
 
     /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+    public static int parseWHAT(String action) {
+        //we dnt use switch statement since < java 7 does not support string switches --> int
+        if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
+            return 1;
+        } else if (action.equals(LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)) {
+            return 2;
+        } else if (action.equals(LocationResources.ACTION_GET_TOTAL_DISTANCE)) {
+            return 3;
+        } else if (action.equals(LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
+            return 4;
+        } else if (action.equals(LocationResources.ACTION_GET_CUSTOM_DISTANCE)) {
+            return 5;
+        } else {
+            return 0; //should be never reached
+        }
+    }
 
     public static void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {

@@ -62,7 +62,7 @@ public class DistanceCalculator {
         mDistance = 0;
     }
 
-    private void restore(Context context, int type) {
+    public void restore(Context context, int type) {
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
         switch (type) {
