@@ -102,6 +102,7 @@ public class LocationServiceHandler extends Handler {
             case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
                 replyToRequestHanlder(msg);
                 stopDistanceCalculatorCustomHolder();
+                break;
             default:
                 Log.w(TAG, "No what of a msg found!");
                 break;
@@ -234,7 +235,7 @@ public class LocationServiceHandler extends Handler {
     }
 
     private static void replyToRequestHanlder(Message msg) {
-        Log.d(TAG, "get distance calc full holder");
+        Log.d(TAG, "get: reply to request handler");
         Message answer = Message.obtain(null, msg.what);
         try {
             msg.replyTo.send(answer);
