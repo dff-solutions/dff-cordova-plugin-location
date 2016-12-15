@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 2.2.1
+ * @version 2.2.7
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -18,9 +18,9 @@ const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
 const ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-const ACTION_RUN_FULL_DISTANCE_CALCULATOR = "distance.action.RUN_FULL_DISTANCE_CALCULATOR";
-const ACTION_STOP_FULL_DISTANCE_CALCULATOR = "distance.action.STOP_FULL_DISTANCE_CALCULATOR";
-const ACTION_GET_FULL_DISTANCE = "distance.action.GET_FULL_DISTANCE";
+const ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
+const ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
+const ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
 const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 
 function LocationPlugin() {
@@ -101,7 +101,7 @@ LocationPlugin.prototype.getFullDistance = function () {
     }, FEATURE, ACTION_GET_FULL_DISTANCE, [])
 };
 
-LocationPlugin.prototype.runFullDistanceCalculator = function () {
+LocationPlugin.prototype.runTotalDistanceCalculator = function () {
     exec(function (distance) {
         console.log("runFullDistanceCalculator on success");
         if (distance) {
@@ -112,10 +112,10 @@ LocationPlugin.prototype.runFullDistanceCalculator = function () {
         }
     }, function (msg) {
         console.log(msg);
-    }, FEATURE, ACTION_RUN_FULL_DISTANCE_CALCULATOR, [])
+    }, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
 };
 
-LocationPlugin.prototype.stopFullDistanceCalculator = function () {
+LocationPlugin.prototype.runCustomDistanceCalculator = function () {
     exec(function (distance) {
         console.log("runFullDistanceCalculator on success");
         if (distance) {
@@ -126,43 +126,37 @@ LocationPlugin.prototype.stopFullDistanceCalculator = function () {
         }
     }, function (msg) {
         console.log(msg);
-    }, FEATURE, ACTION_STOP_FULL_DISTANCE_CALCULATOR, [])
+    }, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
 };
 
-LocationPlugin.prototype.getCustomDistance = function () {
-    exec(function () {
-        console.log();
-    }, function () {
-        console.log()
-    }, FEATURE, ACTION_GET_CUSTOM_DISTANCE, [])
+
+LocationPlugin.prototype.getTotalDistance = function (success, error) {
+    exec(success, error, FEATURE, ACTION_GET_TOTAL_DISTANCE, []);
+};
+
+LocationPlugin.prototype.getCustomDistance = function (success, error) {
+    exec(success, error, FEATURE, ACTION_GET_CUSTOM_DISTANCE, [])
 };
 
 /**
  * Store in a file the pending locations that are allocated in the location array list.
  * (for test purposes)
  */
-LocationPlugin.prototype.storePendingLocations = function () {
-    exec(function () {
-
-    }, function () {
-
-    }, FEATURE, ACTION_INTENT_STORE_PENDING_LOCATIONS, []);
+LocationPlugin.prototype.storePendingLocations = function (success, error) {
+    exec(success, error, FEATURE, ACTION_INTENT_STORE_PENDING_LOCATIONS, []);
 };
 
 /**
  * Restore from a file the pending locations.
  * (for test purposes)
  */
-LocationPlugin.prototype.restorePendingLocations = function () {
-    exec(function () {
-
-    }, function () {
-
-    }, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
+LocationPlugin.prototype.restorePendingLocations = function (success, error) {
+    exec(success, error, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
 };
 
 /**
- * Start the location service
+ * Start the location service. The service will be
+ * automatically started on initializing the plugin.
  *
  * @param success - Success callback function
  * @param error - Error callback function
