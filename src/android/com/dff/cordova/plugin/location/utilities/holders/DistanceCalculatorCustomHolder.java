@@ -9,7 +9,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Created by anahas on 13.12.2016.
  *
  * @author Anthony Nahas
- * @version 3.1.2
+ * @version 3.3.0
  * @since 13.12.2016
  */
 public class DistanceCalculatorCustomHolder implements Runnable {

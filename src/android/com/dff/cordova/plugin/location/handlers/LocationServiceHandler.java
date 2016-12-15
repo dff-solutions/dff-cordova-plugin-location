@@ -20,7 +20,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 2.1.4
+ * @version 3.4.0
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -30,8 +30,8 @@ public class LocationServiceHandler extends Handler {
     //private Location mLastGoodLocation;
     private Context mContext;
     private Handler mLocationsListHandler;
-    private Handler mDistanceCalculatorFullListHandler;
-    private Handler mDistanceCalculatorCustomListHandler;
+    private Handler mTotalDistanceCalculatorHandler;
+    private Handler mCustomDistanceCalculatorHandler;
     private DistanceCalculatorFullHolder mDistanceCalculatorFullHolder;
     private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
 
@@ -204,15 +204,15 @@ public class LocationServiceHandler extends Handler {
 
     private void runDistanceCalculatorFullHolder() {
         Log.d(TAG, "run DistanceCalc Full Holder");
-        mDistanceCalculatorFullListHandler = new Handler();
-        mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mDistanceCalculatorFullListHandler);
-        mDistanceCalculatorFullListHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
+        mTotalDistanceCalculatorHandler = new Handler();
+        mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mTotalDistanceCalculatorHandler);
+        mTotalDistanceCalculatorHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
     }
 
     private void stopDistanceCalculatorFullHolder() {
         Log.d(TAG, "stop distance calc full holder");
         try {
-            mDistanceCalculatorFullListHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+            mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
@@ -220,15 +220,15 @@ public class LocationServiceHandler extends Handler {
 
     private void runDistanceCalculatorCustomHolder() {
         Log.d(TAG, "run distance calc custom holder");
-        mDistanceCalculatorCustomListHandler = new Handler();
-        mDistanceCalculatorCustomHolder = new DistanceCalculatorCustomHolder(mDistanceCalculatorFullListHandler);
-        mDistanceCalculatorCustomListHandler.postDelayed(mDistanceCalculatorCustomHolder, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
+        mCustomDistanceCalculatorHandler = new Handler();
+        mDistanceCalculatorCustomHolder = new DistanceCalculatorCustomHolder(mCustomDistanceCalculatorHandler);
+        mCustomDistanceCalculatorHandler.postDelayed(mDistanceCalculatorCustomHolder, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
     }
 
     private void stopDistanceCalculatorCustomHolder() {
         Log.d(TAG, "stop distance calc custom holder");
         try {
-            mDistanceCalculatorCustomListHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+            mCustomDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
