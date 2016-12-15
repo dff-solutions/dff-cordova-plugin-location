@@ -16,7 +16,7 @@ public class DistanceCalculatorFullHolder implements Runnable {
 
     private static final String TAG = "DistanceCalculatorFullHolder";
     private Handler mHandler;
-    private int counter = 0;
+    private int mCounter = 0;
 
     public DistanceCalculatorFullHolder(Handler mHandler) {
         this.mHandler = mHandler;
@@ -31,7 +31,7 @@ public class DistanceCalculatorFullHolder implements Runnable {
             if (LocationResources.TOTAL_DISTANCE_CALCULATOR.getStartLocation() != null &&
                     LocationResources.TOTAL_DISTANCE_CALCULATOR.getEndLocation() != null) {
                 LocationResources.TOTAL_DISTANCE_CALCULATOR.update(lastGoodLocation);
-                Log.d(TAG, "dist calc with " + counter++ + " = " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
+                Log.d(TAG, "dist calc with " + mCounter++ + " = " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
             } else {
                 LocationResources.TOTAL_DISTANCE_CALCULATOR.init(lastGoodLocation);
                 Log.d(TAG, "dist calc initial with  " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");

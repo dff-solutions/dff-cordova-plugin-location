@@ -15,7 +15,7 @@ public class LocationsHolder implements Runnable {
 
     private static final String TAG = "LocationHolder";
     private Handler mHandler;
-    int counter = 0;
+    private int mCounter = 0;
 
     /**
      * Custom Constructor
@@ -42,7 +42,7 @@ public class LocationsHolder implements Runnable {
         } else {
             Log.d(TAG, "The location is null and will not be added to the arraylist");
         }
-        Log.d(TAG, "locationHandler with counter of " + counter++);
+        Log.d(TAG, "locationHandler with mCounter of " + mCounter++);
         mHandler.postDelayed(this, LocationResources.LOCATION_DELAY);
     }
 }

@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.utilities.holders;
 
 import android.location.Location;
 import android.os.Handler;
+import android.util.Log;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
@@ -16,7 +17,7 @@ public class DistanceCalculatorCustomHolder implements Runnable {
 
     private static final String TAG = "DistanceCalculatorCustomHolder";
     private Handler mHandler;
-    int counter = 0;
+    private int mCounter = 0;
 
     public DistanceCalculatorCustomHolder(Handler mHandler) {
         this.mHandler = mHandler;
@@ -26,8 +27,16 @@ public class DistanceCalculatorCustomHolder implements Runnable {
     public void run() {
         Location lastGoodLocation = LocationResources.getLastGoodLocation();
 
-        if (lastGoodLocation != null) {
+        if (lastGoodLocation != null && LocationResources.CUSTOM_DISTANCE_CALCULATOR != null) {
 
+            if (LocationResources.CUSTOM_DISTANCE_CALCULATOR.getStartLocation() != null &&
+                    LocationResources.CUSTOM_DISTANCE_CALCULATOR.getEndLocation() != null) {
+                LocationResources.CUSTOM_DISTANCE_CALCULATOR.update(lastGoodLocation);
+                Log.d(TAG, "dist calc with " + mCounter++ + " = " + LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() + "m");
+            } else {
+                LocationResources.CUSTOM_DISTANCE_CALCULATOR.init(lastGoodLocation);
+                Log.d(TAG, "dist calc initial with  " + LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() + "m");
+            }
         }
         mHandler.postDelayed(this, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
     }
