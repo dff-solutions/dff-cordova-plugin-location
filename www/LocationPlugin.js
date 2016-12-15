@@ -105,6 +105,7 @@ LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) 
     exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
 };
 
+
 LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error) {
     exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
 };
