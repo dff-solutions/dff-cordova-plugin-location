@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 2.5.0
+ * @version 2.5.1
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -51,7 +51,7 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
 
 
 /**
- * get the last good saved location of the device.
+ * Get the last good saved location of the device.
  * good means accuracy < min accuracy (per default 20m)
  *
  * @param success - Success callback function
@@ -64,7 +64,9 @@ LocationPlugin.prototype.getLocation = function (success, error, returnType) {
 
 //used in chrome for test purposes!
 /**
- * get location of the device and log the result
+ * Get location of the device and log the result
+ *
+ * NB: for test purposes!
  *
  * @param returnType - 0 for String Location | 1 for JSON Location
  */
@@ -77,16 +79,18 @@ LocationPlugin.prototype.getLocationAsTest = function (returnType) {
 };
 
 /**
- * get the stored location as JSON ARRAY
+ * Get the stored location as JSON ARRAY.
  *
- * @param success - Success callback function
- * @param error - Error callback function
+ * @param success - Success callback function.
+ * @param error - Error callback function.
  */
-LocationPlugin.prototype.getLocationList = function (success, error) {
+LocationPlugin.prototype.getLocationsList = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, []);
 };
 
-
+/**
+ * NB: only for test purposes
+ */
 LocationPlugin.prototype.getFullDistance = function () {
     exec(function (distance) {
         console.log("getFullDistance on success");
@@ -101,27 +105,52 @@ LocationPlugin.prototype.getFullDistance = function () {
     }, FEATURE, ACTION_GET_TOTAL_DISTANCE, [])
 };
 
+/**
+ * Run the mechanism in order to calculate the total achieved distance.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
 LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) {
     exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
 };
 
-
+/**
+ * Run the mechanism in order to calculate a custom achieved distance.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
 LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error) {
     exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
 };
 
-
+/**
+ * Get the calculated total distance.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
 LocationPlugin.prototype.getTotalDistance = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_TOTAL_DISTANCE, []);
 };
 
+/**
+ * Get the calculated custom distance.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
 LocationPlugin.prototype.getCustomDistance = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_CUSTOM_DISTANCE, [])
 };
 
 /**
  * Store in a file the pending locations that are allocated in the location array list.
- * (for test purposes)
+ *
+ * NB: (for test purposes)!
+ * @param success - Success callback function
+ * @param error - Error callback function.
  */
 LocationPlugin.prototype.storePendingLocations = function (success, error) {
     exec(success, error, FEATURE, ACTION_INTENT_STORE_PENDING_LOCATIONS, []);
@@ -129,14 +158,17 @@ LocationPlugin.prototype.storePendingLocations = function (success, error) {
 
 /**
  * Restore from a file the pending locations.
- * (for test purposes)
+ *
+ * NB: (for test purposes)!
+ * @param success - Success callback function
+ * @param error - Error callback function.
  */
 LocationPlugin.prototype.restorePendingLocations = function (success, error) {
     exec(success, error, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
 };
 
 /**
- * Start the location service. The service will be
+ * Start the location plugins's service. The service will be
  * automatically started on initializing the plugin.
  *
  * @param success - Success callback function
@@ -147,7 +179,7 @@ LocationPlugin.prototype.startService = function (success, error) {
 };
 
 /**
- * Stop the location service
+ * Stop the location service.
  *
  * @param success - Success callback function
  * @param error - Error callback function
