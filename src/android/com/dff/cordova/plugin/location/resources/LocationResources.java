@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by anahas on 30.11.2016.
+ * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
  * @version 3.3.0
@@ -73,11 +73,6 @@ public class LocationResources {
     public static final int WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR = 4;
     public static final int WHAT_GET_CUSTOM_DISTANCE_CALCULATOR = 5;
 
-    public static int counter = 0;
-
-
-    //Data Keys
-    public static final String DATA_LOCATION_KEY = "data_location_key";
 
     public static void setLastGoodLocation(Location location) {
         LAST_GOOD_LOCATION = location;
@@ -100,6 +95,11 @@ public class LocationResources {
                 LAST_GOOD_LOCATION.getBearing();
     }
 
+    /**
+     * Get location as JSON object
+     *
+     * @return - The Location in JSON.
+     */
     public static JSONObject getLastGoodLocationAsJson() {
         JSONObject location = new JSONObject();
         try {
@@ -128,6 +128,12 @@ public class LocationResources {
                 System.currentTimeMillis();
     }
 
+    /**
+     * Get the speed of the last good saved location.
+     * If it's available, the speed will be converted to KM/h
+     *
+     * @return - The speed of the last good location.
+     */
     private static double getSpeedOfLastGoodLocation() {
         if (LAST_GOOD_LOCATION.hasSpeed() && LAST_GOOD_LOCATION.getSpeed() > 0) {
             return Math.round(LAST_GOOD_LOCATION.getSpeed() * 3.6);
@@ -138,6 +144,11 @@ public class LocationResources {
 
     /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+    /**
+     *
+     *
+     * @param maxAge - The maximum age that a location can have.
+     */
     public static void setLocationMaxAge(int maxAge) {
         LOCATION_MAX_AGE = maxAge;
     }
@@ -149,6 +160,12 @@ public class LocationResources {
 
     /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+    /**
+     * Parse a what property of an action in order to give it a integer representation and use it across the Plugin.
+     *
+     * @param action - The action to be executed.
+     * @return - The integer representation of the requested action.
+     */
     public static int parseWHAT(String action) {
         //we dnt use switch statement since < java 7 does not support string switches --> int
         if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
@@ -166,6 +183,11 @@ public class LocationResources {
         }
     }
 
+    /**
+     * Add a new location object to the last good location list for persistence purposes.
+     *
+     * @param location - The new location to store.
+     */
     public static void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
             Log.d(TAG, "location already exists");
@@ -173,10 +195,19 @@ public class LocationResources {
         LAST_GOOD_LOCATION_LIST.add(location);
     }
 
+    /**
+     * Clear the last good locations list.
+     */
     public static void clearLocationsList() {
         LAST_GOOD_LOCATION_LIST.clear();
     }
 
+    /**
+     * Print out the difference time between the current time of the operating system
+     * and the one the last good location.
+     *
+     * NB: Used for test/debug purposes.
+     */
     private static void printDifference() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy/MM/dd HH:mm:ss");
