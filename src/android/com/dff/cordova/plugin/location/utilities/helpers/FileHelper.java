@@ -112,6 +112,7 @@ public class FileHelper {
                 if (fis != null) {
                     fis.close();
                 }
+                new PreferencesHelper(context).setLocationCanBeCleared(true);
             } catch (IOException e) {
                 Log.d(TAG, "Error: ", e);
             }
