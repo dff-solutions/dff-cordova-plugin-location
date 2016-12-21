@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.classes.Executor;
@@ -121,7 +122,7 @@ public class LocationPlugin extends CommonServicePlugin {
                                 LocationResources.setLocationMaxAge(args.getInt(0));
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            CordovaPluginLog.e(TAG, "Error: ", e);
                         }
                 }
             });

@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
@@ -54,7 +55,7 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
             }
             Log.d(TAG, "set can location be cleared --> false");
         } catch (Exception e) {
-            Log.e(TAG, "error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             mDefaultUncaughtExceptionHandler.uncaughtException(thread, throwable);
             Log.d(TAG, "def uncaught excp");

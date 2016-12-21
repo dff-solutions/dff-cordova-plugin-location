@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.*;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
@@ -79,12 +80,12 @@ public class Executor {
             }
             msg.setData(params);
         } catch (JSONException e) {
-            Log.e(TAG, "Error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         }
         try {
             serviceHandler.getService().send(msg);
         } catch (RemoteException e) {
-            Log.e(TAG, "Error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }
 
@@ -128,7 +129,7 @@ public class Executor {
         try {
             serviceHandler.getService().send(msg);
         } catch (RemoteException e) {
-            Log.e(TAG, "Error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
             callbackContext.error("service not available");
         }
     }

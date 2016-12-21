@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
@@ -78,7 +79,7 @@ public class LocationRequestHandler extends Handler {
                 try {
                     totalDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000);
                 } catch (JSONException e) {
-                    Log.e(TAG, "Error: ", e);
+                    CordovaPluginLog.e(TAG, "Error: ", e);
                 }
                 mCallbackContext.success(totalDistance);
                 LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
@@ -88,7 +89,7 @@ public class LocationRequestHandler extends Handler {
                 try {
                     customDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000);
                 } catch (JSONException e) {
-                    Log.e(TAG, "Error: ", e);
+                    CordovaPluginLog.e(TAG, "Error: ", e);
                 }
                 mCallbackContext.success(customDistance);
                 LocationResources.CUSTOM_DISTANCE_CALCULATOR.reset();

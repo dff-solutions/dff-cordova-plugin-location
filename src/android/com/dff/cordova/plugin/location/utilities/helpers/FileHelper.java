@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
 import android.util.Log;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.LOG;
 
@@ -60,14 +61,14 @@ public class FileHelper {
             }
 
         } catch (IOException e) {
-            Log.e(TAG, "Error: IOException", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {
                 if (fos != null) {
                     fos.close();
                 }
             } catch (IOException e) {
-                Log.e(TAG, "Error: IOException", e);
+                CordovaPluginLog.e(TAG, "Error: ", e);
             }
         }
     }
@@ -101,9 +102,9 @@ public class FileHelper {
                 }
             }
         } catch (IOException e) {
-            Log.d(TAG, "Error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         } catch (ClassNotFoundException e) {
-            Log.d(TAG, "Error: ", e);
+            CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {
                 if (ois != null) {
@@ -114,7 +115,7 @@ public class FileHelper {
                 }
                 new PreferencesHelper(context).setLocationCanBeCleared(true);
             } catch (IOException e) {
-                Log.d(TAG, "Error: ", e);
+                CordovaPluginLog.e(TAG, "Error: ", e);
             }
         }
     }
