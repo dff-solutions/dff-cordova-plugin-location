@@ -12,6 +12,7 @@ const FEATURE = "LocationPlugin";
 
 const ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
 const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
+const ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
 const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
 const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
@@ -36,7 +37,7 @@ function LocationPlugin() {
  * @param minAccuracy - The value of the minimum accuracy that is required to store a location
  */
 LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy) {
-    exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy])
+    exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy]);
 };
 
 /**
@@ -47,9 +48,12 @@ LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy)
  * @param maxAge - The value of the maximum age in "seconds"
  */
 LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
-    exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge])
+    exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge]);
 };
 
+LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
+    exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
+};
 
 /**
  * Get the last good saved location of the device.
@@ -113,7 +117,7 @@ LocationPlugin.prototype.getFullDistance = function () {
  * @param error - Error callback function.
  */
 LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) {
-    exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, [])
+    exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, []);
 };
 
 /**
@@ -123,7 +127,7 @@ LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) 
  * @param error - Error callback function.
  */
 LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error) {
-    exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, [])
+    exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, []);
 };
 
 /**
@@ -143,7 +147,7 @@ LocationPlugin.prototype.getTotalDistance = function (success, error) {
  * @param error - Error callback function.
  */
 LocationPlugin.prototype.getCustomDistance = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_CUSTOM_DISTANCE, [])
+    exec(success, error, FEATURE, ACTION_GET_CUSTOM_DISTANCE, []);
 };
 
 /**
@@ -195,7 +199,7 @@ LocationPlugin.prototype.setLocationListener = function (returnType) {
         console.log(location);
     }, function (errMsg) {
         console.log("on error" + errMsg);
-    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType])
+    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
 };
 
 

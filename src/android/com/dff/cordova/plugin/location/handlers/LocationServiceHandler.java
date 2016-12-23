@@ -29,7 +29,6 @@ public class LocationServiceHandler extends Handler {
 
     private static final String TAG = "LocationServiceHandler";
     private LocationManager mLocationManager;
-    //private Location mLastGoodLocation;
     private Context mContext;
     private ServiceHandler mServiceHandler;
     private Handler mLocationsListHandler;
@@ -165,7 +164,7 @@ public class LocationServiceHandler extends Handler {
         try {
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {
-                mLocationManager.requestLocationUpdates(provider, 0, 0, locationListener);
+                mLocationManager.requestLocationUpdates(provider, LocationResources.LOCATION_MIN_TIME, 0, locationListener);
                 Log.d(TAG, "Location Manager is listening...");
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");

@@ -15,7 +15,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 3.3.0
+ * @version 3.5.5
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -42,7 +42,8 @@ public class LocationResources {
     public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
-    public static final String  BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
+    public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
+    public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
 
 
     //JSON keys
@@ -52,6 +53,7 @@ public class LocationResources {
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
+    public static long LOCATION_MIN_TIME = 0; //in msec
     public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
     public static String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
@@ -156,6 +158,10 @@ public class LocationResources {
 
     public static void setLocationMinAccuracy(int minAccuracy) {
         LOCATION_MIN_ACCURACY = minAccuracy;
+    }
+
+    public static void setLocationMinTime(long minTime) {
+        LOCATION_MIN_TIME = minTime;
     }
 
 
