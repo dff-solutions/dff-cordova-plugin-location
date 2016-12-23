@@ -20,9 +20,11 @@ public class NewLocationReceiver extends BroadcastReceiver {
 
     private static final String TAG = "NewLocationReceiver";
     private CallbackContext mCallbackContext;
+    private int mType = 1;
 
-    public NewLocationReceiver(CallbackContext mCallbackContext) {
+    public NewLocationReceiver(CallbackContext mCallbackContext, int mType) {
         this.mCallbackContext = mCallbackContext;
+        this.mType = mType;
     }
 
     @Override
@@ -31,7 +33,15 @@ public class NewLocationReceiver extends BroadcastReceiver {
         Location lastGoodLocation = LocationResources.getLastGoodLocation();
         Log.d(TAG, "location = " + lastGoodLocation);
         if (lastGoodLocation != null) {
-            AbstractPluginListener.sendPluginResult(mCallbackContext, LocationResources.getLastGoodLocationAsString());
+            switch (mType) {
+                case 0:
+                    AbstractPluginListener.sendPluginResult(mCallbackContext, LocationResources.getLastGoodLocationAsString());
+                    break;
+                case 1:
+                    AbstractPluginListener.sendPluginResult(mCallbackContext, LocationResources.getLastGoodLocationAsJson());
+                    break;
+            }
+
         }
     }
 }

@@ -120,7 +120,15 @@ public class LocationPlugin extends CommonServicePlugin {
                     }
                     */
                     else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {
-                        mContext.registerReceiver(new NewLocationReceiver(callbackContext), new IntentFilter("test"));
+                        int type = 1;
+                        try {
+                            if (args.get(0) != null) {
+                                type = args.getInt(0);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter("test"));
                     } else try {
                         if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
                             LocationResources.setLocationMinAccuracy(args.getInt(0));
