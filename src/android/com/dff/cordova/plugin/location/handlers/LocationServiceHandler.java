@@ -22,7 +22,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 3.4.0
+ * @version 3.5.4
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -266,6 +266,6 @@ public class LocationServiceHandler extends Handler {
     }
 
     private void notifyOnChangedLocation() {
-        mContext.sendBroadcast(new Intent().setAction("test"));
+        mContext.sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 }

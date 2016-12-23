@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 2.5.1
+ * @version 3.5.3
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -189,13 +189,13 @@ LocationPlugin.prototype.stopService = function (success, error) {
     exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
 };
 
-LocationPlugin.prototype.setLocationListener = function () {
+LocationPlugin.prototype.setLocationListener = function (returnType) {
     exec(function (location) {
         console.log("on new location received:");
         console.log(location);
     }, function (errMsg) {
         console.log("on error" + errMsg);
-    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [])
+    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType])
 };
 
 

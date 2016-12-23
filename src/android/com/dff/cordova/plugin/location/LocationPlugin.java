@@ -23,7 +23,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 3.5.1
+ * @version 3.5.4
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -126,9 +126,9 @@ public class LocationPlugin extends CommonServicePlugin {
                                 type = args.getInt(0);
                             }
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            CordovaPluginLog.e(TAG, "Error: ", e);
                         }
-                        mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter("test"));
+                        mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
                     } else try {
                         if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
                             LocationResources.setLocationMinAccuracy(args.getInt(0));
