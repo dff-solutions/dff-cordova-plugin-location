@@ -41,6 +41,7 @@ public class LocationResources {
     public static final String ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
     public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
+    public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 
 
     //JSON keys
@@ -72,6 +73,7 @@ public class LocationResources {
     public static final int WHAT_GET_TOTAL_DISTANCE_CALCULATOR = 3;
     public static final int WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR = 4;
     public static final int WHAT_GET_CUSTOM_DISTANCE_CALCULATOR = 5;
+    public static final int WHAT_SET_LOCATION_LISTENER = 6;
 
 
     public static void setLastGoodLocation(Location location) {
@@ -90,9 +92,9 @@ public class LocationResources {
 
     public static String getLastGoodLocationAsString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
-                LAST_GOOD_LOCATION.getLatitude() + "|" +
-                getSpeedOfLastGoodLocation() + "|" +
-                LAST_GOOD_LOCATION.getBearing();
+            LAST_GOOD_LOCATION.getLatitude() + "|" +
+            getSpeedOfLastGoodLocation() + "|" +
+            LAST_GOOD_LOCATION.getBearing();
     }
 
     /**
@@ -119,13 +121,13 @@ public class LocationResources {
     public static String getTestLastGoodLocationToString() {
         printDifference();
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
-                LAST_GOOD_LOCATION.getLatitude() + "|" +
-                getSpeedOfLastGoodLocation() + "|" +
-                LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
-                LAST_GOOD_LOCATION.getAccuracy() + "| time age = " +
-                TimeHelper.getTimeAge(LAST_GOOD_LOCATION.getTime()) + "| ep time = " +
-                LAST_GOOD_LOCATION.getTime() + "| system curren time = " +
-                System.currentTimeMillis();
+            LAST_GOOD_LOCATION.getLatitude() + "|" +
+            getSpeedOfLastGoodLocation() + "|" +
+            LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
+            LAST_GOOD_LOCATION.getAccuracy() + "| time age = " +
+            TimeHelper.getTimeAge(LAST_GOOD_LOCATION.getTime()) + "| ep time = " +
+            LAST_GOOD_LOCATION.getTime() + "| system curren time = " +
+            System.currentTimeMillis();
     }
 
     /**
@@ -145,8 +147,6 @@ public class LocationResources {
     /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
     /**
-     *
-     *
      * @param maxAge - The maximum age that a location can have.
      */
     public static void setLocationMaxAge(int maxAge) {
@@ -168,16 +168,18 @@ public class LocationResources {
      */
     public static int parseWHAT(String action) {
         //we dnt use switch statement since < java 7 does not support string switches --> int
-        if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
+        if (action.equals(ACTION_GET_LOCATION)) {
             return 1;
-        } else if (action.equals(LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)) {
+        } else if (action.equals(ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)) {
             return 2;
-        } else if (action.equals(LocationResources.ACTION_GET_TOTAL_DISTANCE)) {
+        } else if (action.equals(ACTION_GET_TOTAL_DISTANCE)) {
             return 3;
-        } else if (action.equals(LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
+        } else if (action.equals(ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
             return 4;
-        } else if (action.equals(LocationResources.ACTION_GET_CUSTOM_DISTANCE)) {
+        } else if (action.equals(ACTION_GET_CUSTOM_DISTANCE)) {
             return 5;
+        } else if (action.equals(ACTION_SET_LOCATION_LISTENER)) {
+            return 6;
         } else {
             return 0; //should be never reached
         }
@@ -205,12 +207,12 @@ public class LocationResources {
     /**
      * Print out the difference time between the current time of the operating system
      * and the one the last good location.
-     *
+     * <p>
      * NB: Used for test/debug purposes.
      */
     private static void printDifference() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy/MM/dd HH:mm:ss");
+            "yyyy/MM/dd HH:mm:ss");
         try {
             Date d = new Date(LAST_GOOD_LOCATION.getTime());
             Log.d("Location", "ep =" + dateFormat.format(d));

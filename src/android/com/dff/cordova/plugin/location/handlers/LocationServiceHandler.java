@@ -1,12 +1,14 @@
 package com.dff.cordova.plugin.location.handlers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorCustomHolder;
@@ -29,6 +31,7 @@ public class LocationServiceHandler extends Handler {
     private LocationManager mLocationManager;
     //private Location mLastGoodLocation;
     private Context mContext;
+    private ServiceHandler mServiceHandler;
     private Handler mLocationsListHandler;
     private Handler mTotalDistanceCalculatorHandler;
     private Handler mCustomDistanceCalculatorHandler;
@@ -132,6 +135,7 @@ public class LocationServiceHandler extends Handler {
                     Log.d(TAG, "accuracy = " + location.getAccuracy());
                     location.setTime(System.currentTimeMillis());
                     LocationResources.setLastGoodLocation(location);
+                    notifyOnChangedLocation();
                     Log.d(TAG, "setLastGoodLocation --> " + location);
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
@@ -259,5 +263,9 @@ public class LocationServiceHandler extends Handler {
         } catch (RemoteException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
+    }
+
+    private void notifyOnChangedLocation() {
+        mContext.sendBroadcast(new Intent().setAction("test"));
     }
 }

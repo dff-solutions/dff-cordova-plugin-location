@@ -2,12 +2,14 @@ package com.dff.cordova.plugin.location;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
@@ -21,7 +23,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 3.3.1
+ * @version 3.5.1
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -39,6 +41,7 @@ public class LocationPlugin extends CommonServicePlugin {
     public LocationPlugin() {
         super(TAG);
     }
+
 
     @Override
     public void onStart() {
@@ -64,6 +67,7 @@ public class LocationPlugin extends CommonServicePlugin {
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
         mContext.startService(new Intent(mContext, LocationService.class));
+
         Executor.restore(mContext);
     }
 
@@ -100,9 +104,9 @@ public class LocationPlugin extends CommonServicePlugin {
                         Executor.getLocationList(callbackContext);
 
                     } else if (action.equals(LocationResources.ACTION_GET_TOTAL_DISTANCE)
-                            || action.equals(LocationResources.ACTION_GET_CUSTOM_DISTANCE)
-                            || action.equals(LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)
-                            || action.equals(LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
+                        || action.equals(LocationResources.ACTION_GET_CUSTOM_DISTANCE)
+                        || action.equals(LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)
+                        || action.equals(LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
 
                         Executor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);
 
@@ -115,15 +119,17 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.startService(pendingLocationsIntentService);
                     }
                     */
-                    else try {
-                            if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
-                                LocationResources.setLocationMinAccuracy(args.getInt(0));
-                            } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
-                                LocationResources.setLocationMaxAge(args.getInt(0));
-                            }
-                        } catch (JSONException e) {
-                            CordovaPluginLog.e(TAG, "Error: ", e);
+                    else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {
+                        mContext.registerReceiver(new NewLocationReceiver(callbackContext), new IntentFilter("test"));
+                    } else try {
+                        if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
+                            LocationResources.setLocationMinAccuracy(args.getInt(0));
+                        } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
+                            LocationResources.setLocationMaxAge(args.getInt(0));
                         }
+                    } catch (JSONException e) {
+                        CordovaPluginLog.e(TAG, "Error: ", e);
+                    }
                 }
             });
             return true;

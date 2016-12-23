@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         id="dff-cordova-plugin-location"
-        version="3.4.0">
+        version="3.5.1">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -63,14 +63,16 @@
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/LocationsHolder.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file
-                src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorFullHolder.java"
-                target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
+            src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorFullHolder.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file
-                src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorCustomHolder.java"
-                target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
+            src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorCustomHolder.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
                      target-dir="src/com/dff/cordova/plugin/location/classes"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/Executor.java"
                      target-dir="src/com/dff/cordova/plugin/location/classes"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/broadcasts/NewLocationReceiver.java"
+                     target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
     </platform>
 </plugin>

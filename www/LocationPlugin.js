@@ -22,6 +22,7 @@ const ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE
 const ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
 const ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
 const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
+const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -186,6 +187,15 @@ LocationPlugin.prototype.startService = function (success, error) {
  */
 LocationPlugin.prototype.stopService = function (success, error) {
     exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
+};
+
+LocationPlugin.prototype.setLocationListener = function () {
+    exec(function (location) {
+        console.log("on new location received:");
+        console.log(location);
+    }, function (errMsg) {
+        console.log("on error" + errMsg);
+    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [])
 };
 
 
