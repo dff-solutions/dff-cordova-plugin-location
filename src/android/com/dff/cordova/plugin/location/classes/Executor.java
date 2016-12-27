@@ -106,7 +106,7 @@ public class Executor {
             }
             LocationResources.clearLocationsList();
         } else {
-            callbackContext.success();
+            callbackContext.success(new JSONArray());
             Log.d(TAG, "list < 0 ");
         }
     }
@@ -124,7 +124,7 @@ public class Executor {
                                                  HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
         Message msg = Message.obtain(null, LocationResources.parseWHAT(action));
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-                context, callbackContext);
+            context, callbackContext);
         msg.replyTo = new Messenger(handler);
         try {
             serviceHandler.getService().send(msg);
