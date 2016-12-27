@@ -39,7 +39,8 @@ var error = function(errorMsg) {
 
 ##--------------------------------------------------------------------------------
 
-1. #### startService
+1.
+ ### startService
 ```js
 /**
  * Start the location plugins's service. The service will be
@@ -50,7 +51,8 @@ var error = function(errorMsg) {
  */
 LocationPlugin.startService(success, error);
 ```
-2. #### stopService
+2. 
+#### stopService
 ```js
 /**
  * Stop the location service.
@@ -71,7 +73,7 @@ LocationPlugin.stopService(success, error);
  */
 LocationPlugin.setMinAccuracy(success, error, minAccuracy);
 ```
-4. #### setMaxAge
+4. ### setMaxAge
 ```js
 /**
  * Set the maximum value of the age of the location in order to discard it when this value is reached.
