@@ -4,7 +4,11 @@ Location based tracking system
 
 ## Supported platforms
 
-- Android
+- Android 
+
+## Plugin version
+
+- Android: 3.6.2 
 
 ##Installation
 
@@ -39,8 +43,7 @@ var error = function(errorMsg) {
 
 ##--------------------------------------------------------------------------------
 
-1.
- ### startService
+1. #### startService
 ```js
 /**
  * Start the location plugins's service. The service will be
@@ -51,8 +54,7 @@ var error = function(errorMsg) {
  */
 LocationPlugin.startService(success, error);
 ```
-2. 
-#### stopService
+2. #### stopService
 ```js
 /**
  * Stop the location service.
@@ -73,7 +75,7 @@ LocationPlugin.stopService(success, error);
  */
 LocationPlugin.setMinAccuracy(success, error, minAccuracy);
 ```
-4. ### setMaxAge
+4. #### setMaxAge
 ```js
 /**
  * Set the maximum value of the age of the location in order to discard it when this value is reached.
@@ -84,7 +86,21 @@ LocationPlugin.setMinAccuracy(success, error, minAccuracy);
  */
 LocationPlugin.setMaxAge(success, error, maxAge);
 ```
-5. #### getLocation
+
+5. #### setMinTime
+```js
+/**
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ * @param minTime - The value of minimum time to request a new location in ms.
+ */
+LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
+    exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
+};
+```
+
+6. #### getLocation
 ```js
 /**
  * Get the last good saved location of the device.
@@ -104,7 +120,7 @@ LocationPlugin.getLocation(function(location) {
   
 }, error, returnType);
 ```
-6. #### getLocationList
+7. #### getLocationList
  ```js
  /**
   * Get the stored location as JSON ARRAY.
@@ -117,7 +133,7 @@ LocationPlugin.getLocation(function(location) {
     //location 0...N = 9.92885613|51.53705706|0.0|0.0|1481283812139
  }, error);
  ```
-7. #### runTotalDistanceCalculator
+8. #### runTotalDistanceCalculator
 ```js
 /**
  * Run the mechanism in order to calculate the total achieved distance.
@@ -127,7 +143,7 @@ LocationPlugin.getLocation(function(location) {
  */
 LocationPlugin.runTotalDistanceCalculator(success, error);
 ```
-8. #### runCustomDistanceCalculator
+9. #### runCustomDistanceCalculator
 ```js
 /**
  * Run the mechanism in order to calculate a custom achieved distance.
@@ -137,7 +153,7 @@ LocationPlugin.runTotalDistanceCalculator(success, error);
  */
 LocationPlugin.runCustomDistanceCalculator(success, error);
 ```
-9. #### getTotalDistance
+10. #### getTotalDistance
 ```js
 /**
  * Get the calculated total distance.
@@ -149,7 +165,7 @@ LocationPlugin.getTotalDistance(function(distnace){
       console.log(distnace);
 }, error);
 ```
-10. #### getCustomDistance
+11. #### getCustomDistance
 ```js
 /**
  * Get the calculated custom distance.
@@ -162,3 +178,29 @@ LocationPlugin.getCustomDistance(function(distance) {
 }, error);
 ```
 
+12. #### restorePendingLocations
+```js
+/**
+ * Restore from a file the pending locations.
+ *
+ * NB: (for test purposes)!
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.prototype.restorePendingLocations = function (success, error) {
+    exec(success, error, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
+};
+```
+13. #### setLocationListener
+```js
+/**
+ * Set a location listener in order to receive the newest location.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param returnType -  0 for String Location | 1 for JSON Location
+ */
+LocationPlugin.prototype.setLocationListener = function (success, error, returnType) {
+    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
+};
+```
