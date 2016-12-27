@@ -32,7 +32,7 @@ var success = function() {
 - Error Callback Function
 ```js
 var error = function(errorMsg) {
-    console.log(errorMsg)
+    console.log(errorMsg);
   // (Y) do what every you want...! 
 }
 ```
@@ -136,7 +136,7 @@ LocationPlugin.runTotalDistanceCalculator(success, error);
 LocationPlugin.runCustomDistanceCalculator(success, error);
 ```
 9. #### getTotalDistance
-```j8
+```js
 /**
  * Get the calculated total distance.
  *
@@ -159,3 +159,4 @@ LocationPlugin.getCustomDistance(function(distance) {
   console.log(distance);
 }, error);
 ```
+
