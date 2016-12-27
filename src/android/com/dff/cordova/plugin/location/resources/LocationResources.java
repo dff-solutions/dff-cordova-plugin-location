@@ -190,7 +190,7 @@ public class LocationResources {
 
 
     /**
-     * Update the minimum time of requesting a new location as configuration,
+     * Update the minimum time of requesting a new location as configuration.
      *
      * @param minTime - The minimum time needed to request a new location.
      */

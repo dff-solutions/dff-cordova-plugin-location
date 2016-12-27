@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 3.6.1
+ * @version 3.6.3
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -53,6 +53,9 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
 
 
 /**
+ * Update the minimum time of requesting a new location as configuration.
+ * NOTE: PLEASE DO NOT UTILIZE!!!!
+ * //todo dynamically set and remove listener
  *
  * @param success - Success callback function
  * @param error - Error callback function.

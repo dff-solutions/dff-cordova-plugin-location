@@ -135,7 +135,7 @@ public class LocationPlugin extends CommonServicePlugin {
                         } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
                             LocationResources.setLocationMaxAge(args.getInt(0));
                         } else if (action.equals(LocationResources.ACTION_SET_MIN_TIME) && args.get(0) != null) {
-                            LocationResources.setLocationMinTime(args.getLong(0));
+                            LocationResources.setLocationMinTime(args.getLong(0)); //todo
                         }
                     } catch (JSONException e) {
                         CordovaPluginLog.e(TAG, "Error: ", e);
