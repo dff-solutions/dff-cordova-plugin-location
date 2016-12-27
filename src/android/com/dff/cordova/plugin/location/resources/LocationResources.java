@@ -15,7 +15,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 3.6.1
+ * @version 3.6.2
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -79,12 +79,22 @@ public class LocationResources {
     public static final int WHAT_SET_LOCATION_LISTENER = 6;
 
 
+    /**
+     * Update the last good location object.
+     *
+     * @param location - The location object to be updated.
+     */
     public static void setLastGoodLocation(Location location) {
         LAST_GOOD_LOCATION = location;
     }
 
     /*+++++++++++++++++++++++++++++++++++GETTER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
+    /**
+     * Return the last good location object.
+     *
+     * @return - The last good location object.
+     */
     public static Location getLastGoodLocation() {
         return LAST_GOOD_LOCATION;
     }
@@ -93,6 +103,11 @@ public class LocationResources {
         return LAST_GOOD_LOCATION_LIST;
     }
 
+    /**
+     * Return the last good location that has been persisted as string representation.
+     *
+     * @return - The last good location in string representation.
+     */
     public static String getLastGoodLocationAsString() {
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
             LAST_GOOD_LOCATION.getLatitude() + "|" +
@@ -121,6 +136,12 @@ public class LocationResources {
         return location;
     }
 
+    /**
+     * Return the location in string representation.
+     * Note: this function is used for test purposes.
+     *
+     * @return - The location in string representation.
+     */
     public static String getTestLastGoodLocationToString() {
         printDifference();
         return LAST_GOOD_LOCATION.getLongitude() + "|" +
@@ -150,16 +171,29 @@ public class LocationResources {
     /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
     /**
+     * Update the value of the location'S max age as configuration.
+     *
      * @param maxAge - The maximum age that a location can have.
      */
     public static void setLocationMaxAge(int maxAge) {
         LOCATION_MAX_AGE = maxAge;
     }
 
+    /**
+     * Update the value of the location'S minimum accuracy as configuration.
+     *
+     * @param minAccuracy - The minimum accuracy that a location should have to be persisted.
+     */
     public static void setLocationMinAccuracy(int minAccuracy) {
         LOCATION_MIN_ACCURACY = minAccuracy;
     }
 
+
+    /**
+     * Update the minimum time of requesting a new location as configuration,
+     *
+     * @param minTime - The minimum time needed to request a new location.
+     */
     public static void setLocationMinTime(long minTime) {
         LOCATION_MIN_TIME = minTime;
     }
