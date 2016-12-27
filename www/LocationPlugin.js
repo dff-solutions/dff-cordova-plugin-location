@@ -1,9 +1,9 @@
 /**
- * JavaScript that consist of 8 Methods in order to call the functionality of
+ * JavaScript that consist of 14 Methods in order to call the functionality of
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 3.5.3
+ * @version 3.6.1
  * @since 28.11.2016
  */
 var exec = require('cordova/exec');
@@ -51,6 +51,13 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
     exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge]);
 };
 
+
+/**
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ * @param minTime - The value of minimum time to request a new location in ms.
+ */
 LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
     exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
 };
@@ -193,13 +200,15 @@ LocationPlugin.prototype.stopService = function (success, error) {
     exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
 };
 
-LocationPlugin.prototype.setLocationListener = function (returnType) {
-    exec(function (location) {
-        console.log("on new location received:");
-        console.log(location);
-    }, function (errMsg) {
-        console.log("on error" + errMsg);
-    }, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
+/**
+ * Set a location listener in order to receive the newest location.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param returnType -  0 for String Location | 1 for JSON Location
+ */
+LocationPlugin.prototype.setLocationListener = function (success, error, returnType) {
+    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
 };
 
 
