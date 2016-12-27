@@ -10,10 +10,10 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.CallbackContext;
 
 /**
- * Created by anahas on 23.12.2016.
+ * Broadcast receiver that is responsible to forward the requested location to JS:
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.1
  * @since 23.12.2016
  */
 public class NewLocationReceiver extends BroadcastReceiver {
@@ -22,11 +22,23 @@ public class NewLocationReceiver extends BroadcastReceiver {
     private CallbackContext mCallbackContext;
     private int mType = 1;
 
+    /**
+     * Custom constructor.
+     *
+     * @param mCallbackContext - The callbackcontext used to forward the location to JS.
+     * @param mType            -
+     */
     public NewLocationReceiver(CallbackContext mCallbackContext, int mType) {
         this.mCallbackContext = mCallbackContext;
         this.mType = mType;
     }
 
+    /**
+     * Receive a broadcast when a new location has been detected.
+     *
+     * @param context - The context of the application.
+     * @param intent  - The intent that has been fired.
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");

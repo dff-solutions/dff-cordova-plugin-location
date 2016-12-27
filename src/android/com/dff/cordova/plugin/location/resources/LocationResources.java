@@ -15,7 +15,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 3.5.5
+ * @version 3.6.1
  * @since 30.11.2016
  */
 public class LocationResources {
