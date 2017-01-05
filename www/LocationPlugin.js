@@ -6,7 +6,7 @@
  * @version 3.6.3
  * @since 28.11.2016
  */
-var exec = require('cordova/exec');
+const exec = require('cordova/exec');
 
 const FEATURE = "LocationPlugin";
 
