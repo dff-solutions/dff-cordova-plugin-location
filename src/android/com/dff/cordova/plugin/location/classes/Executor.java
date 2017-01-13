@@ -101,9 +101,9 @@ public class Executor {
         if (locationList.size() > 0) {
             callbackContext.success(new JSONArray(locationList));
             Log.d(TAG, "list > 0 ");
-            for (int i = 0; i < locationList.size(); i++) {
-                Log.d(TAG, "loc " + i + " = " + locationList.get(i));
-            }
+            //for (int i = 0; i < locationList.size() -1; i++) {
+            //   Log.d(TAG, "loc " + i + " = " + locationList.get(i));
+            //}
             LocationResources.clearLocationsList();
         } else {
             callbackContext.success(new JSONArray());
