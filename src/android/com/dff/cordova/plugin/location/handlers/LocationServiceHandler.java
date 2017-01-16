@@ -221,7 +221,9 @@ public class LocationServiceHandler extends Handler {
     private void stopDistanceCalculatorFullHolder() {
         Log.d(TAG, "stop distance calc full holder");
         try {
-            mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+            if (mTotalDistanceCalculatorHandler != null) {
+                mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+            }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
@@ -243,7 +245,9 @@ public class LocationServiceHandler extends Handler {
     private void stopDistanceCalculatorCustomHolder() {
         Log.d(TAG, "stop distance calc custom holder");
         try {
-            mCustomDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+            if (mCustomDistanceCalculatorHandler != null) {
+                mCustomDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+            }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
@@ -260,6 +264,8 @@ public class LocationServiceHandler extends Handler {
         try {
             msg.replyTo.send(answer);
         } catch (RemoteException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }

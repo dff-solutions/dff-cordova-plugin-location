@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 1.5
+ * @version 1.6
  * @since 15.12.2016
  */
 public class Executor {
@@ -83,8 +83,13 @@ public class Executor {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
         try {
-            serviceHandler.getService().send(msg);
+            Messenger messenger = serviceHandler.getService();
+            if (messenger != null) {
+                messenger.send(msg);
+            }
         } catch (RemoteException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }
@@ -131,6 +136,9 @@ public class Executor {
         } catch (RemoteException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
             callbackContext.error("service not available");
+        }
+        catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }
 
