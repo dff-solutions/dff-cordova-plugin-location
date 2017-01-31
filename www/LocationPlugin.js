@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 3.6.3
+ * @version 4.0.0
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -36,18 +36,18 @@ function LocationPlugin() {
  * @param error - Error callback function
  * @param minAccuracy - The value of the minimum accuracy that is required to store a location
  */
-LocationPlugin.prototype.setMinAccuracy = function (success, error, minAccuracy) {
+LocationPlugin.prototype.setMinAccuracy = function (minAccuracy, success, error) {
     exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy]);
 };
 
 /**
  * Set the maximum value of the age of the location in order to discard it when this value is reached.
- *
+ *minAccuracy
  * @param success - Success callback function
  * @param error - Error callback function
  * @param maxAge - The value of the maximum age in "seconds"
  */
-LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
+LocationPlugin.prototype.setMaxAge = function (maxAge, success, error) {
     exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge]);
 };
 
@@ -61,7 +61,7 @@ LocationPlugin.prototype.setMaxAge = function (success, error, maxAge) {
  * @param error - Error callback function.
  * @param minTime - The value of minimum time to request a new location in ms.
  */
-LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
+LocationPlugin.prototype.setMinTime = function (minTime, success, error) {
     exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
 };
 
@@ -73,7 +73,7 @@ LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
  * @param error - Error callback function
  * @param returnType - 0 for String Location | 1 for JSON Location
  */
-LocationPlugin.prototype.getLocation = function (success, error, returnType) {
+LocationPlugin.prototype.getLocation = function (returnType, success, error) {
     exec(success, error, FEATURE, ACTION_GET_LOCATION, [returnType]);
 };
 
@@ -210,7 +210,7 @@ LocationPlugin.prototype.stopService = function (success, error) {
  * @param error - Error callback function
  * @param returnType -  0 for String Location | 1 for JSON Location
  */
-LocationPlugin.prototype.setLocationListener = function (success, error, returnType) {
+LocationPlugin.prototype.setLocationListener = function (returnType, success, error) {
     exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
 };
 
