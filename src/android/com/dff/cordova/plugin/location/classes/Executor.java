@@ -12,7 +12,6 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -72,16 +71,8 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
         Bundle params = new Bundle();
-        try {
-            if (args.get(0) != null) {
-                params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.getInt(0));
-            } else {
-                params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, LocationResources.LOCATION_RETURN_TYPE);
-            }
-            msg.setData(params);
-        } catch (JSONException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
+        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE));
+        msg.setData(params);
         try {
             Messenger messenger = serviceHandler.getService();
             if (messenger != null) {
@@ -136,8 +127,7 @@ public class Executor {
         } catch (RemoteException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
             callbackContext.error("service not available");
-        }
-        catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }
