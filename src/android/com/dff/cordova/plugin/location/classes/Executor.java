@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 1.6
+ * @version 4.0.1
  * @since 15.12.2016
  */
 public class Executor {

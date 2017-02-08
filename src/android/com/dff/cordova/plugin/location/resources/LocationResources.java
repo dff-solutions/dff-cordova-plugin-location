@@ -9,13 +9,14 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.Date;
 
 /**
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 3.6.2
+ * @version 4.0.1
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -231,7 +232,7 @@ public class LocationResources {
      *
      * @param location - The new location to store.
      */
-    public static void addLocationToList(String location) {
+    public static synchronized void addLocationToList(String location) {
         if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
             Log.d(TAG, "location already exists");
         }
@@ -241,8 +242,12 @@ public class LocationResources {
     /**
      * Clear the last good locations list.
      */
-    public static void clearLocationsList() {
-        LAST_GOOD_LOCATION_LIST.clear();
+    public static synchronized void clearLocationsList() {
+        try {
+            LAST_GOOD_LOCATION_LIST.clear();
+        } catch (ConcurrentModificationException e) {
+            Log.e(TAG, "Error while clearing the location list: ", e);
+        }
     }
 
     /**
