@@ -15,6 +15,7 @@ public class DistanceCalculator {
 
     private static final String TAG = "DistanceCalculator";
 
+
     private Location mStartLocation;
     private Location mEndLocation;
     private float mDistance;

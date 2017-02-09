@@ -10,6 +10,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorCustomHolder;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceCalculatorFullHolder;
@@ -36,6 +37,7 @@ public class LocationServiceHandler extends Handler {
     private Handler mCustomDistanceCalculatorHandler;
     private DistanceCalculatorFullHolder mDistanceCalculatorFullHolder;
     private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
+    private PreferencesHelper mPreferencesHelper;
 
     /**
      * Custom constructor.
@@ -48,6 +50,7 @@ public class LocationServiceHandler extends Handler {
         mContext = context;
         initializeLocationManager();
         runLocationsHolder();
+        mPreferencesHelper = new PreferencesHelper(mContext);
     }
 
     /**
@@ -211,7 +214,7 @@ public class LocationServiceHandler extends Handler {
     private void runDistanceCalculatorFullHolder() {
         Log.d(TAG, "run DistanceCalc Full Holder");
         mTotalDistanceCalculatorHandler = new Handler();
-        mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mTotalDistanceCalculatorHandler);
+        mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mPreferencesHelper, mTotalDistanceCalculatorHandler);
         mTotalDistanceCalculatorHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
     }
 
@@ -227,6 +230,8 @@ public class LocationServiceHandler extends Handler {
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
+        } finally {
+            mPreferencesHelper.storeTotalDistance(0);
         }
     }
 
@@ -236,7 +241,7 @@ public class LocationServiceHandler extends Handler {
     private void runDistanceCalculatorCustomHolder() {
         Log.d(TAG, "run distance calc custom holder");
         mCustomDistanceCalculatorHandler = new Handler();
-        mDistanceCalculatorCustomHolder = new DistanceCalculatorCustomHolder(mCustomDistanceCalculatorHandler);
+        mDistanceCalculatorCustomHolder = new DistanceCalculatorCustomHolder(mPreferencesHelper, mCustomDistanceCalculatorHandler);
         mCustomDistanceCalculatorHandler.postDelayed(mDistanceCalculatorCustomHolder, LocationResources.DISTANCE_CALCULATOR_CUSTOM_DELAY);
     }
 
@@ -252,7 +257,8 @@ public class LocationServiceHandler extends Handler {
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
-        }
+        } finally {
+            mPreferencesHelper.storeCustomDistance(0);}
     }
 
     /**

@@ -67,7 +67,7 @@ public class LocationResources {
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //Settings related to the Distance calculator class
-    public static int DISTANCE_CALCULATOR_FULL_DELAY = 10000; //in ms 10sec for testing
+    public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
     public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
 
 
