@@ -22,7 +22,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 3.5.4
+ * @version 3.5.5
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -222,7 +222,8 @@ public class LocationServiceHandler extends Handler {
         Log.d(TAG, "stop distance calc full holder");
         try {
             if (mTotalDistanceCalculatorHandler != null) {
-                mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+                //mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
+                mTotalDistanceCalculatorHandler.removeCallbacksAndMessages(null);
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
@@ -246,7 +247,8 @@ public class LocationServiceHandler extends Handler {
         Log.d(TAG, "stop distance calc custom holder");
         try {
             if (mCustomDistanceCalculatorHandler != null) {
-                mCustomDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+                //mCustomDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorCustomHolder);
+                mCustomDistanceCalculatorHandler.removeCallbacksAndMessages(null);
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
