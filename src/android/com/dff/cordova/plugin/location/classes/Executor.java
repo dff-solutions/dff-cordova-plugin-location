@@ -2,10 +2,12 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
@@ -130,6 +132,26 @@ public class Executor {
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
+    }
+
+    /**
+     * Send broadcast receiver to set the stop listener
+     *
+     * @param context         - the used context
+     * @param callbackContext - the used callbackcontext
+     */
+    public static void setStopListener(Context context, CallbackContext callbackContext) {
+        context.registerReceiver(new StandStillReceiver(context, callbackContext), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
+    }
+
+    /**
+     * Send broadcast receiver to stop the stop listener
+     *
+     * @param context         - the used context
+     * @param callbackContext - the used callbackcontext
+     */
+    public static void stopStopListener(Context context, CallbackContext callbackContext) {
+        context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
     }
 
 }

@@ -38,7 +38,7 @@ public class LocationsHolder implements Runnable {
             String location = LocationResources.getLastGoodLocationAsString() + "|" +
                     LocationResources.getLastGoodLocation().getTime();
             LocationResources.addLocationToList(location);
-            Log.d(TAG, "Location has been added to the array list wirh " + location);
+            Log.d(TAG, "Location has been added to the array list with " + location);
         } else {
             Log.d(TAG, "The location is null and will not be added to the arraylist");
         }

@@ -61,6 +61,13 @@ public class DistanceCalculator {
         mDistance += mStartLocation.distanceTo(mEndLocation);
     }
 
+    public float getAchievedDistance(Location newLocation) {
+        mStartLocation = mEndLocation;
+        mEndLocation = newLocation;
+        mDistance = mStartLocation.distanceTo(mEndLocation);
+        return mDistance;
+    }
+
     /**
      * Reset the properties with null or respectively 0.
      */

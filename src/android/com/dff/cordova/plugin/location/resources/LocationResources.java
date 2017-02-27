@@ -28,6 +28,7 @@ public class LocationResources {
     private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
+    public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
 
     //Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
@@ -45,7 +46,10 @@ public class LocationResources {
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
     public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
     public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
-
+    public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
+    public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
+    public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
+    public static final String ACTION_STOP_STOP_LISTENER = "location.action.STOP_STOP_LISTENER";
 
     //JSON keys
     public static final String JSON_KEY_DISTANCE = "value";
@@ -69,6 +73,7 @@ public class LocationResources {
     //Settings related to the Distance calculator class
     public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
     public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
+    public static int DISTNACE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
     //What

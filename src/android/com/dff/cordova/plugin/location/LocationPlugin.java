@@ -23,7 +23,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 4.0.1
+ * @version 4.0.4
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -119,7 +119,11 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.startService(pendingLocationsIntentService);
                     }
                     */
-                    else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {
+                    else if (action.equals(LocationResources.ACTION_SET_STOP_LISTENER)) {
+                        Executor.setStopListener(mContext, callbackContext);
+                    } else if (action.equals(LocationResources.ACTION_STOP_STOP_LISTENER)) {
+                        Executor.stopStopListener(mContext, callbackContext);
+                    } else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {
                         int type = 1;
                         try {
                             if (args.get(0) != null) {

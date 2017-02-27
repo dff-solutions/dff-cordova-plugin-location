@@ -101,11 +101,11 @@ public class LocationServiceHandler extends Handler {
                 Log.d(TAG, "run distance calc custom holder");
                 break;
             case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
-                replyToRequestHanlder(msg);
+                replyToRequestHandler(msg);
                 stopDistanceCalculatorFullHolder();
                 break;
             case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
-                replyToRequestHanlder(msg);
+                replyToRequestHandler(msg);
                 stopDistanceCalculatorCustomHolder();
                 break;
             default:
@@ -258,7 +258,8 @@ public class LocationServiceHandler extends Handler {
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
-            mPreferencesHelper.storeCustomDistance(0);}
+            mPreferencesHelper.storeCustomDistance(0);
+        }
     }
 
     /**
@@ -266,7 +267,7 @@ public class LocationServiceHandler extends Handler {
      *
      * @param msg - The message to forward.
      */
-    private static void replyToRequestHanlder(Message msg) {
+    private static void replyToRequestHandler(Message msg) {
         Log.d(TAG, "get: reply to request handler");
         Message answer = Message.obtain(null, msg.what);
         try {
