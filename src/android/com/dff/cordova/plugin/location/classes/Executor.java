@@ -148,9 +148,8 @@ public class Executor {
      * Send broadcast receiver to stop the stop listener
      *
      * @param context         - the used context
-     * @param callbackContext - the used callbackcontext
      */
-    public static void stopStopListener(Context context, CallbackContext callbackContext) {
+    public static void stopStopListener(Context context) {
         context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
     }
 
