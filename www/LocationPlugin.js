@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 4.0.0
+ * @version 4.1.0
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -24,6 +24,8 @@ const ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
 const ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
 const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
+const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
+const ACTION_STOP_STOP_LISTENER = "location.action.STOP_STOP_LISTENER";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -212,6 +214,27 @@ LocationPlugin.prototype.stopService = function (success, error) {
  */
 LocationPlugin.prototype.setLocationListener = function (returnType, success, error) {
     exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
+};
+
+
+/**
+ * Set a stop listener that recognize a stop with criteria (min 50m every 30secs)
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.setStopListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
+};
+
+/**
+ * Cancel the stop listener
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.canelStopListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
 };
 
 

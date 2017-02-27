@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 4.0.1
+ * @version 4.1.0
  * @since 15.12.2016
  */
 public class Executor {
@@ -147,7 +147,7 @@ public class Executor {
     /**
      * Send broadcast receiver to stop the stop listener
      *
-     * @param context         - the used context
+     * @param context - the used context
      */
     public static void stopStopListener(Context context) {
         context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
