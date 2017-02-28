@@ -25,7 +25,7 @@ const ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTAN
 const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
 const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
-const ACTION_STOP_STOP_LISTENER = "location.action.STOP_STOP_LISTENER";
+const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -224,7 +224,7 @@ LocationPlugin.prototype.setLocationListener = function (returnType, success, er
  * @param error - Error callback function
  */
 LocationPlugin.prototype.setStopListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
+    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, []);
 };
 
 /**
@@ -234,7 +234,7 @@ LocationPlugin.prototype.setStopListener = function (success, error) {
  * @param error - Error callback function
  */
 LocationPlugin.prototype.canelStopListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
+    exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
 };
 
 

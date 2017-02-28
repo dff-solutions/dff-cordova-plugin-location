@@ -49,7 +49,7 @@ public class LocationResources {
     public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
     public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
     public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
-    public static final String ACTION_STOP_STOP_LISTENER = "location.action.STOP_STOP_LISTENER";
+    public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
 
     //JSON keys
     public static final String JSON_KEY_DISTANCE = "value";
