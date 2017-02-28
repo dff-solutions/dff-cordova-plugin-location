@@ -12,7 +12,7 @@ import android.os.Handler;
  * Class to hold the achieved distance between 2 intervals (stand still watcher).
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.1
  * @since 27.02.2017
  */
 public class StopHolder implements Runnable {
@@ -39,6 +39,7 @@ public class StopHolder implements Runnable {
                     mCounter++;
                     if (mCounter == 10) {
                         mContext.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
+                        mCounter = 0;
                     }
                 } else {
                     mCounter = 0;

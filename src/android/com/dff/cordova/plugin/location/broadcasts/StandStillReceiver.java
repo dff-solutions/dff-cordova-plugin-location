@@ -16,7 +16,7 @@ import org.apache.cordova.CallbackContext;
  * Broadcast receiver that forward a success callback to JS
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.1
  * @since 27.02.2017
  */
 public class StandStillReceiver extends BroadcastReceiver {
@@ -51,8 +51,7 @@ public class StandStillReceiver extends BroadcastReceiver {
      */
     private void runStopHolder() {
         Log.d(TAG, "stop holder has been just started!");
-        Looper.prepare();
-        mStopHandler = new Handler();
+        mStopHandler = new Handler(Looper.getMainLooper());
         mStopHolder = new StopHolder(mStopHandler, mContext);
         mStopHandler.postDelayed(mStopHolder, LocationResources.DISTAnCE_CALCULATOR_STOP_DELAY);
     }
