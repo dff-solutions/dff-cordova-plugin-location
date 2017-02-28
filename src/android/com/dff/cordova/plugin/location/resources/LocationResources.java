@@ -73,7 +73,7 @@ public class LocationResources {
     //Settings related to the Distance calculator class
     public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
     public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
-    public static int DISTNACE_CALCULATOR_STOP_DELAY = 60000; //1min
+    public static int DISTAnCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
     //What

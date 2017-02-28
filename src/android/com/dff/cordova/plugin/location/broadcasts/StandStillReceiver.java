@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import com.dff.cordova.plugin.common.AbstractPluginListener;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
@@ -50,9 +51,10 @@ public class StandStillReceiver extends BroadcastReceiver {
      */
     private void runStopHolder() {
         Log.d(TAG, "stop holder has been just started!");
+        Looper.prepare();
         mStopHandler = new Handler();
         mStopHolder = new StopHolder(mStopHandler, mContext);
-        mStopHandler.postDelayed(mStopHolder, LocationResources.DISTNACE_CALCULATOR_STOP_DELAY);
+        mStopHandler.postDelayed(mStopHolder, LocationResources.DISTAnCE_CALCULATOR_STOP_DELAY);
     }
 
     /**
