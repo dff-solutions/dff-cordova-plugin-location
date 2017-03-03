@@ -30,6 +30,7 @@ public class LocationServiceHandler extends Handler {
 
     private static final String TAG = "LocationServiceHandler";
     private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
     private Context mContext;
     private ServiceHandler mServiceHandler;
     private Handler mLocationsListHandler;
@@ -48,7 +49,7 @@ public class LocationServiceHandler extends Handler {
     public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
-        initializeLocationManager();
+        //initializeLocationManager();
         runLocationsHolder();
         mPreferencesHelper = new PreferencesHelper(mContext);
     }
@@ -61,8 +62,13 @@ public class LocationServiceHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         Bundle result = new Bundle();
-        switch (msg.what) {
-            case LocationResources.WHAT_GET_LOCATION:
+        LocationResources.WHAT msg_what = LocationResources.WHAT.values()[msg.what];
+
+        switch (msg_what) {
+            case START_LOCATION_SERVICE:
+                initializeLocationManager();
+                break;
+            case GET_LOCATION:
                 Message answer = Message.obtain(null, msg.what);
                 Bundle params = msg.getData();
                 int returnType = params.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
@@ -92,19 +98,19 @@ public class LocationServiceHandler extends Handler {
                     Log.e(TAG, "Error: ", e);
                 }
                 break;
-            case LocationResources.WHAT_RUN_TOTAL_DISTANCE_CALCULATOR:
+            case RUN_TOTAL_DISTANCE_CALCULATOR:
                 runDistanceCalculatorFullHolder();
                 Log.d(TAG, "run distance calc full holder");
                 break;
-            case LocationResources.WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR:
+            case RUN_CUSTOM_DISTANCE_CALCULATOR:
                 runDistanceCalculatorCustomHolder();
                 Log.d(TAG, "run distance calc custom holder");
                 break;
-            case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
+            case GET_TOTAL_DISTANCE_CALCULATOR:
                 replyToRequestHandler(msg);
                 stopDistanceCalculatorFullHolder();
                 break;
-            case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
+            case GET_CUSTOM_DISTANCE_CALCULATOR:
                 replyToRequestHandler(msg);
                 stopDistanceCalculatorCustomHolder();
                 break;
@@ -122,7 +128,7 @@ public class LocationServiceHandler extends Handler {
         //get a reference of the system location manager
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
-        LocationListener locationListener = new LocationListener() {
+        mLocationListener = new LocationListener() {
             /**
              * Get a new location when it changes.
              *
@@ -167,7 +173,7 @@ public class LocationServiceHandler extends Handler {
         try {
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {
-                mLocationManager.requestLocationUpdates(provider, LocationResources.LOCATION_MIN_TIME, 0, locationListener);
+                mLocationManager.requestLocationUpdates(provider, LocationResources.LOCATION_MIN_TIME, 0, mLocationListener);
                 Log.d(TAG, "Location Manager is listening...");
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");

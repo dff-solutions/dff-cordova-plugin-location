@@ -76,14 +76,16 @@ public class LocationResources {
     public static int DISTAnCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
-    //What
-    public static final int WHAT_GET_LOCATION = 1;
-    public static final int WHAT_RUN_TOTAL_DISTANCE_CALCULATOR = 2;
-    public static final int WHAT_GET_TOTAL_DISTANCE_CALCULATOR = 3;
-    public static final int WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR = 4;
-    public static final int WHAT_GET_CUSTOM_DISTANCE_CALCULATOR = 5;
-    public static final int WHAT_SET_LOCATION_LISTENER = 6;
-
+    public enum WHAT {
+        START_LOCATION_SERVICE,
+        STOP_LOCATION_SERVICE,
+        GET_LOCATION,
+        RUN_TOTAL_DISTANCE_CALCULATOR,
+        GET_TOTAL_DISTANCE_CALCULATOR,
+        RUN_CUSTOM_DISTANCE_CALCULATOR,
+        GET_CUSTOM_DISTANCE_CALCULATOR,
+        SET_LOCATION_LISTENER
+    }
 
     /**
      * Update the last good location object.
