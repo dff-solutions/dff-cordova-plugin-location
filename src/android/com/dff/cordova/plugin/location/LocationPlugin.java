@@ -119,7 +119,7 @@ public class LocationPlugin extends CommonServicePlugin {
                     }
                     */
                     else if (action.equals(LocationResources.ACTION_SET_STOP_LISTENER)) {
-                        Executor.setStopListener(mContext, callbackContext);
+                        Executor.setStopListener(mContext, callbackContext, args);
                     } else if (action.equals(LocationResources.ACTION_CANCEL_STOP_LISTENER)) {
                         Executor.stopStopListener(mContext);
                     } else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {

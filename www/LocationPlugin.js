@@ -224,8 +224,8 @@ LocationPlugin.prototype.setLocationListener = function (returnType, success, er
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.prototype.setStopListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, []);
+LocationPlugin.prototype.setStopListener = function (success, error, frequency, minDistance, delay) {
+    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, [frequency, minDistance, delay]);
 };
 
 /**

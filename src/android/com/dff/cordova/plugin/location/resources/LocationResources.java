@@ -67,6 +67,11 @@ public class LocationResources {
     public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
 
+    //Settings for the stop holder
+    public static int STOP_HOLDER_COUNTER_LIMIT = 10;
+    public static int STOP_HOLDER_MIN_DISTANCE = 50;
+    public static int STOP_HOLDER_DELAY = 60000; //1min
+
     //Shared Preferences
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static final String SP_KEY_TOTAL_DISTANCE = "totalDistanceKey";
@@ -77,7 +82,7 @@ public class LocationResources {
     //Settings related to the Distance calculator class
     public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
     public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
-    public static int DISTAnCE_CALCULATOR_STOP_DELAY = 60000; //1min
+    public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
     public enum WHAT {

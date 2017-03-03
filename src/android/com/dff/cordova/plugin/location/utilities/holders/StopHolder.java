@@ -35,9 +35,9 @@ public class StopHolder implements Runnable {
 
             if (LocationResources.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
                 LocationResources.STOP_DISTANCE_CALCULATOR.getEndLocation() != null) {
-                if (LocationResources.STOP_DISTANCE_CALCULATOR.getAchievedDistance(lastGoodLocation) < 50) {
+                if (LocationResources.STOP_DISTANCE_CALCULATOR.getAchievedDistance(lastGoodLocation) < LocationResources.STOP_HOLDER_MIN_DISTANCE) {
                     mCounter++;
-                    if (mCounter == 10) {
+                    if (mCounter == LocationResources.STOP_HOLDER_COUNTER_LIMIT) {
                         mContext.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
                         mCounter = 0;
                     }
@@ -49,6 +49,6 @@ public class StopHolder implements Runnable {
                 Log.d(TAG, "dist calc initial with  " + LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() + "m");
             }
         }
-        mHandler.postDelayed(this, LocationResources.DISTAnCE_CALCULATOR_STOP_DELAY);
+        mHandler.postDelayed(this, LocationResources.DISTANCE_CALCULATOR_STOP_DELAY);
     }
 }

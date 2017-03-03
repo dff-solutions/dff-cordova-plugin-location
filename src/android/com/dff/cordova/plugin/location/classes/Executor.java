@@ -136,7 +136,10 @@ public class Executor {
      * @param context         - the used context
      * @param callbackContext - the used callbackcontext
      */
-    public static void setStopListener(Context context, CallbackContext callbackContext) {
+    public static void setStopListener(Context context, CallbackContext callbackContext, JSONArray args) {
+        LocationResources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, LocationResources.STOP_HOLDER_COUNTER_LIMIT);
+        LocationResources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, LocationResources.STOP_HOLDER_MIN_DISTANCE);
+        LocationResources.STOP_HOLDER_DELAY = args.optInt(2, LocationResources.STOP_HOLDER_DELAY);
         context.registerReceiver(new StandStillReceiver(context, callbackContext), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
     }
 

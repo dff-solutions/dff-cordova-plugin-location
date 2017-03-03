@@ -53,7 +53,7 @@ public class StandStillReceiver extends BroadcastReceiver {
         Log.d(TAG, "stop holder has been just started!");
         mStopHandler = new Handler(Looper.getMainLooper());
         mStopHolder = new StopHolder(mStopHandler, mContext);
-        mStopHandler.postDelayed(mStopHolder, LocationResources.DISTAnCE_CALCULATOR_STOP_DELAY);
+        mStopHandler.postDelayed(mStopHolder, LocationResources.DISTANCE_CALCULATOR_STOP_DELAY);
     }
 
     /**
