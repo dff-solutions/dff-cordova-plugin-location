@@ -50,8 +50,6 @@ public class LocationServiceHandler extends Handler {
     public LocationServiceHandler(Looper looper, Context context) {
         super(looper);
         mContext = context;
-        //initializeLocationManager();
-        runLocationsHolder();
         mPreferencesHelper = new PreferencesHelper(mContext);
     }
 
@@ -181,6 +179,7 @@ public class LocationServiceHandler extends Handler {
             if (isProviderAvailable(provider)) {
                 mLocationManager.requestLocationUpdates(provider, minTime, 0, mLocationListener);
                 Log.d(TAG, "Location Manager is listening...");
+                runLocationsHolder();
                 return true;
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");
