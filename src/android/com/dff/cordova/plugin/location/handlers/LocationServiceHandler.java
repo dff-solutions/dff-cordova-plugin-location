@@ -23,7 +23,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 3.5.5
+ * @version 4.1.0
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -69,6 +69,16 @@ public class LocationServiceHandler extends Handler {
                 result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING,
                     initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY)));
                 mAnswer.setData(result);
+                try {
+                    msg.replyTo.send(mAnswer);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
+                break;
+            case STOP_LOCATION_SERVICE:
+                stopLocationHolder();
+                mLocationManager.removeUpdates(mLocationListener);
+                mAnswer = Message.obtain(null, msg.what);
                 try {
                     msg.replyTo.send(mAnswer);
                 } catch (RemoteException e) {
@@ -220,6 +230,17 @@ public class LocationServiceHandler extends Handler {
         Log.d(TAG, "runLocationsHolder");
         mLocationsListHandler = new Handler();
         mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
+    }
+
+    private void stopLocationHolder() {
+        Log.d(TAG, "stop location holder");
+        try {
+            if (mLocationsListHandler != null) {
+                mLocationsListHandler.removeCallbacksAndMessages(null);
+            }
+        } catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        }
     }
 
     /**

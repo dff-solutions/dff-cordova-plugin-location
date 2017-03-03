@@ -92,7 +92,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                     } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
 
-                        Executor.stopLocationService(mContext);
+                        Executor.stopLocationService(mContext, mHandlerThread, mServiceHandler, callbackContext);
 
                     } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
 

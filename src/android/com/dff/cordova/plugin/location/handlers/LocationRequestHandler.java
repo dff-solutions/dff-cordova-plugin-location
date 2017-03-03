@@ -1,6 +1,7 @@
 package com.dff.cordova.plugin.location.handlers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +9,7 @@ import android.os.Message;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONException;
@@ -20,12 +22,13 @@ import static com.dff.cordova.plugin.location.resources.LocationResources.CUSTOM
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 3.0.1
+ * @version 4.1.0
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
 
     private static final String TAG = "LocationRequestHandler";
+    private Context mContext;
     private CallbackContext mCallbackContext;
     private PreferencesHelper mPreferencesHelper;
 
@@ -33,12 +36,13 @@ public class LocationRequestHandler extends Handler {
      * Custom constructor
      *
      * @param looper           - The used looper.
-     * @param context          - The application/service context.
+     * @param mContext         - The application/service context.
      * @param mCallbackContext - The callback context used to forward the result to the user.
      */
-    public LocationRequestHandler(Looper looper, Context context, CallbackContext mCallbackContext) {
+    public LocationRequestHandler(Looper looper, Context mContext, CallbackContext mCallbackContext) {
         super(looper);
-        mPreferencesHelper = new PreferencesHelper(context);
+        mPreferencesHelper = new PreferencesHelper(mContext);
+        this.mContext = mContext;
         this.mCallbackContext = mCallbackContext;
     }
 
@@ -60,6 +64,9 @@ public class LocationRequestHandler extends Handler {
                 } else {
                     mCallbackContext.error("No provider has been found to request a new location");
                 }
+                break;
+            case STOP_LOCATION_SERVICE:
+                mContext.stopService(new Intent(mContext, LocationService.class));
                 break;
             case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);

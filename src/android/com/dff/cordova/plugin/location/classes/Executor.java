@@ -62,8 +62,11 @@ public class Executor {
      *
      * @param context - The context of the application.
      */
-    public static void stopLocationService(Context context) {
-        context.stopService(new Intent(context, LocationService.class));
+    public static void stopLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
+        Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
+        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
+        msg.replyTo = new Messenger(handler);
+        sendMessage(serviceHandler, msg, callbackContext);
     }
 
     /**
