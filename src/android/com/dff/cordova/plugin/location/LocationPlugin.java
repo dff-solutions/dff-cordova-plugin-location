@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.HandlerThread;
 import android.os.Process;
@@ -62,11 +61,11 @@ public class LocationPlugin extends CommonServicePlugin {
         mContext = cordova.getActivity().getApplicationContext();
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
         super.pluginInitialize(mServiceHandler);
-        mPreferencesHelper = new PreferencesHelper(mContext);
+        //mPreferencesHelper = new PreferencesHelper(mContext);
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
-        mContext.startService(new Intent(mContext, LocationService.class));
+        //mContext.startService(new Intent(mContext, LocationService.class));
 
         Executor.restore(mContext);
     }
@@ -89,7 +88,7 @@ public class LocationPlugin extends CommonServicePlugin {
                     Log.d(TAG, "Action = " + action);
                     if (action.equals(LocationResources.ACTION_START_SERVICE)) {
 
-                        Executor.startLocationService(mContext);
+                        Executor.startLocationService(mContext, mHandlerThread, mServiceHandler, args, callbackContext);
 
                     } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
 

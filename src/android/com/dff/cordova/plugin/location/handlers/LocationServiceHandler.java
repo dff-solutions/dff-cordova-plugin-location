@@ -31,6 +31,7 @@ public class LocationServiceHandler extends Handler {
     private static final String TAG = "LocationServiceHandler";
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
+    private Message mAnswer;
     private Context mContext;
     private ServiceHandler mServiceHandler;
     private Handler mLocationsListHandler;
@@ -66,10 +67,18 @@ public class LocationServiceHandler extends Handler {
 
         switch (msg_what) {
             case START_LOCATION_SERVICE:
-                initializeLocationManager();
+                mAnswer = Message.obtain(null, msg.what);
+                result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING,
+                    initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY)));
+                mAnswer.setData(result);
+                try {
+                    msg.replyTo.send(mAnswer);
+                } catch (RemoteException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
                 break;
             case GET_LOCATION:
-                Message answer = Message.obtain(null, msg.what);
+                mAnswer = Message.obtain(null, msg.what);
                 Bundle params = msg.getData();
                 int returnType = params.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
                 Log.d(TAG, "return type = " + returnType);
@@ -85,15 +94,14 @@ public class LocationServiceHandler extends Handler {
                                 result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 1);
                                 break;
                         }
-
-                        answer.setData(result);
+                        mAnswer.setData(result);
                     } else {
                         LocationResources.setLastGoodLocation(null);
                         Log.d(TAG, "setLastGoodLocation --> null");
                     }
                 }
                 try {
-                    msg.replyTo.send(answer);
+                    msg.replyTo.send(mAnswer);
                 } catch (RemoteException e) {
                     Log.e(TAG, "Error: ", e);
                 }
@@ -124,7 +132,7 @@ public class LocationServiceHandler extends Handler {
     /**
      * Initialize the location manager and set the location listener.
      */
-    private void initializeLocationManager() {
+    private boolean initializeLocationManager(long minTime) {
         //get a reference of the system location manager
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
@@ -168,19 +176,20 @@ public class LocationServiceHandler extends Handler {
             }
         };
 
-        listAllProviders();
-
         try {
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {
-                mLocationManager.requestLocationUpdates(provider, LocationResources.LOCATION_MIN_TIME, 0, mLocationListener);
+                mLocationManager.requestLocationUpdates(provider, minTime, 0, mLocationListener);
                 Log.d(TAG, "Location Manager is listening...");
+                return true;
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");
+                return false;
             }
         } catch (Exception e) {
-            Log.e(TAG, "Error with providers", e);
+            Log.e(TAG, "Error while requesting location updates", e);
             listAllProviders();
+            return false;
         }
     }
 

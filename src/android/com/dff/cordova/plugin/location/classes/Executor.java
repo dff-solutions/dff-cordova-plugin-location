@@ -36,7 +36,8 @@ public class Executor {
     public static void restore(Context context) {
         LocationResources.TOTAL_DISTANCE_CALCULATOR.restore(context, 0);
         LocationResources.CUSTOM_DISTANCE_CALCULATOR.restore(context, 1);
-        context.startService(new Intent(context, PendingLocationsIntentService.class).setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+        context.startService(new Intent(context, PendingLocationsIntentService.class)
+            .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
 
     /**
@@ -44,8 +45,16 @@ public class Executor {
      *
      * @param context - The context of the application.
      */
-    public static void startLocationService(Context context) {
+    public static void startLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler,
+                                            JSONArray args, CallbackContext callbackContext) {
         context.startService(new Intent(context, LocationService.class));
+        Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
+        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
+        Bundle data = new Bundle();
+        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, args.optLong(0, LocationResources.LOCATION_MIN_TIME));
+        msg.setData(data);
+        msg.replyTo = new Messenger(handler);
+        sendMessage(serviceHandler, msg, callbackContext);
     }
 
     /**
@@ -69,22 +78,13 @@ public class Executor {
      */
     public static void getLocation(Context context, CallbackContext callbackContext,
                                    HandlerThread handlerThread, ServiceHandler serviceHandler, JSONArray args) {
-        Message msg = Message.obtain(null, LocationResources.WHAT_GET_LOCATION);
+        Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
         Bundle params = new Bundle();
         params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE));
         msg.setData(params);
-        try {
-            Messenger messenger = serviceHandler.getService();
-            if (messenger != null) {
-                messenger.send(msg);
-            }
-        } catch (RemoteException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        } catch (NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
+        sendMessage(serviceHandler, msg, callbackContext);
     }
 
     /**
@@ -124,14 +124,7 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
             context, callbackContext);
         msg.replyTo = new Messenger(handler);
-        try {
-            serviceHandler.getService().send(msg);
-        } catch (RemoteException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-            callbackContext.error("service not available");
-        } catch (NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
+        sendMessage(serviceHandler, msg, callbackContext);
     }
 
     /**
@@ -151,6 +144,21 @@ public class Executor {
      */
     public static void stopStopListener(Context context) {
         context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
+    }
+
+    private static void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
+        try {
+            Messenger messenger = serviceHandler.getService();
+            if (messenger != null) {
+                messenger.send(msg);
+            }
+        } catch (RemoteException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+            callbackContext.error("Error while sending a message within the location service: " + e);
+        } catch (NullPointerException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+            callbackContext.error("Error while sending a message within the location service: " + e);
+        }
     }
 
 }

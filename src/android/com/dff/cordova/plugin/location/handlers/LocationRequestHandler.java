@@ -13,6 +13,8 @@ import org.apache.cordova.CallbackContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static com.dff.cordova.plugin.location.resources.LocationResources.CUSTOM_DISTANCE_CALCULATOR;
+
 /**
  * Class to handle the answer sent from the location service handler.
  * On result, forward to the user (JS) using a callback context.
@@ -47,11 +49,21 @@ public class LocationRequestHandler extends Handler {
      */
     @Override
     public void handleMessage(Message msg) {
+        Bundle data;
+        LocationResources.WHAT msg_what = LocationResources.WHAT.values()[msg.what];
 
-        switch (msg.what) {
-            case LocationResources.WHAT_GET_LOCATION:
+        switch (msg_what) {
+            case START_LOCATION_SERVICE:
+                data = msg.getData();
+                if (data.getBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING)) {
+                    mCallbackContext.success();
+                } else {
+                    mCallbackContext.error("No provider has been found to request a new location");
+                }
+                break;
+            case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
-                Bundle data = msg.getData();
+                data = msg.getData();
                 //String location = data.getString(LocationResources.DATA_LOCATION_KEY);
                 int returnType = data.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
 
@@ -74,7 +86,7 @@ public class LocationRequestHandler extends Handler {
                     LocationResources.clearLocationsList();
                 }
                 break;
-            case LocationResources.WHAT_GET_TOTAL_DISTANCE_CALCULATOR:
+            case GET_TOTAL_DISTANCE_CALCULATOR:
                 JSONObject totalDistance = new JSONObject();
                 try {
                     totalDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000);
@@ -84,20 +96,20 @@ public class LocationRequestHandler extends Handler {
                 mCallbackContext.success(totalDistance);
                 LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
                 break;
-            case LocationResources.WHAT_GET_CUSTOM_DISTANCE_CALCULATOR:
+            case GET_CUSTOM_DISTANCE_CALCULATOR:
                 JSONObject customDistance = new JSONObject();
                 try {
-                    customDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000);
+                    customDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000);
                 } catch (JSONException e) {
                     CordovaPluginLog.e(TAG, "Error: ", e);
                 }
                 mCallbackContext.success(customDistance);
-                LocationResources.CUSTOM_DISTANCE_CALCULATOR.reset();
+                CUSTOM_DISTANCE_CALCULATOR.reset();
                 break;
-            case LocationResources.WHAT_RUN_TOTAL_DISTANCE_CALCULATOR:
+            case RUN_TOTAL_DISTANCE_CALCULATOR:
                 mCallbackContext.success();
                 break;
-            case LocationResources.WHAT_RUN_CUSTOM_DISTANCE_CALCULATOR:
+            case RUN_CUSTOM_DISTANCE_CALCULATOR:
                 mCallbackContext.success();
                 break;
             default:

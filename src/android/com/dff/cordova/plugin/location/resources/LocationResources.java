@@ -54,6 +54,11 @@ public class LocationResources {
     //JSON keys
     public static final String JSON_KEY_DISTANCE = "value";
 
+    //Bundle keys
+    public static final String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
+    public static final String IS_LOCATION_MANAGER_LISTENING = "is.location.manager.listening";
+    public static final String LOCATION_MIN_TIME_KEY = "location.min.time.key";
+
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
@@ -61,7 +66,6 @@ public class LocationResources {
     public static long LOCATION_MIN_TIME = 0; //in msec
     public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
-    public static String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
 
     //Shared Preferences
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";

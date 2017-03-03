@@ -190,9 +190,10 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
  *
  * @param success - Success callback function
  * @param error - Error callback function
+ * @param mintTime - minimum time interval between location updates, in milliseconds
  */
-LocationPlugin.prototype.startService = function (success, error) {
-    exec(success, error, FEATURE, ACTION_START_SERVICE, []);
+LocationPlugin.prototype.startService = function (success, error, mintTime) {
+    exec(success, error, FEATURE, ACTION_START_SERVICE, [mintTime]);
 };
 
 /**
