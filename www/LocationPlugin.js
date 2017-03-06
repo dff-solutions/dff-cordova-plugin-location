@@ -57,7 +57,7 @@ LocationPlugin.prototype.setMaxAge = function (maxAge, success, error) {
 /**
  * Update the minimum time of requesting a new location as configuration.
  * NOTE: PLEASE DO NOT UTILIZE!!!!
- * //todo dynamically set and remove listener
+ *
  *
  * @param success - Success callback function
  * @param error - Error callback function.
@@ -219,10 +219,13 @@ LocationPlugin.prototype.setLocationListener = function (returnType, success, er
 
 
 /**
- * Set a stop listener that recognize a stop with criteria (min 50m every 30secs)
+ * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)
  *
  * @param success - Success callback function
  * @param error - Error callback function
+ * @param frequency - how often
+ * @param minDistance - the minimum distance that should be achieved
+ * @param delay - the delay time between the first and a subsequent reorganization
  */
 LocationPlugin.prototype.setStopListener = function (success, error, frequency, minDistance, delay) {
     exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, [frequency, minDistance, delay]);
@@ -234,7 +237,7 @@ LocationPlugin.prototype.setStopListener = function (success, error, frequency, 
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.prototype.canelStopListener = function (success, error) {
+LocationPlugin.prototype.cancelStopListener = function (success, error) {
     exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
 };
 
