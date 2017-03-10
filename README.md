@@ -90,7 +90,7 @@ LocationPlugin.stopService(success, error);
  * @param error - Error callback function
  * @param minAccuracy - The value of the minimum accuracy that is required to store a location
  */
-LocationPlugin.setMinAccuracy(success, error, minAccuracy);
+LocationPlugin.setMinAccuracy(minAccuracy, success, error);
 ```
 ----
 #### setMaxAge
@@ -102,20 +102,18 @@ LocationPlugin.setMinAccuracy(success, error, minAccuracy);
  * @param error - Error callback function
  * @param maxAge - The value of the maximum age in "seconds"
  */
-LocationPlugin.setMaxAge(success, error, maxAge);
+LocationPlugin.setMaxAge(maxAge, success, error);
 ```
 ----
 #### setMinTime
 ```js
 /**
  *
+ * @param minTime - The value of minimum time to request a new location in ms.
  * @param success - Success callback function
  * @param error - Error callback function.
- * @param minTime - The value of minimum time to request a new location in ms.
  */
-LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
-    exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
-};
+LocationPlugin.setMinTime = function (minTime, success, error);
 ```
 ----
 #### getLocation
@@ -124,11 +122,11 @@ LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
  * Get the last good saved location of the device.
  * good means accuracy < min accuracy (per default 20m)
  *
+ * @param returnType - 0 for String Location | 1 for JSON Location
  * @param success - Success callback function
  * @param error - Error callback function
- * @param returnType - 0 for String Location | 1 for JSON Location
  */
-LocationPlugin.getLocation(function(location) {
+LocationPlugin.getLocation(returnType, function(location) {
   console.log("location");
   //example for string location
   //9.92885613|51.53705706|0.0|0.0
@@ -145,7 +143,7 @@ LocationPlugin.getLocation(function(location) {
     Time: 1482827340101
     ```
   
-}, error, returnType);
+}, error);
 ```
 ----
 #### getLocationList
@@ -219,9 +217,7 @@ LocationPlugin.getCustomDistance(function(distance) {
  * @param success - Success callback function
  * @param error - Error callback function.
  */
-LocationPlugin.prototype.restorePendingLocations = function (success, error) {
-    exec(success, error, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
-};
+LocationPlugin.restorePendingLocations = function (success, error);
 ```
 ----
 #### setLocationListener
@@ -229,13 +225,11 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
 /**
  * Set a location listener in order to receive the newest location.
  *
+ * @param returnType -  0 for String Location | 1 for JSON Location
  * @param success - Success callback function
  * @param error - Error callback function
- * @param returnType -  0 for String Location | 1 for JSON Location
  */
-LocationPlugin.prototype.setLocationListener = function (success, error, returnType) {
-    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
-};
+LocationPlugin.setLocationListener = function (returnType, success, error);
 ```
 ----
 #### setStopListener
@@ -249,9 +243,7 @@ LocationPlugin.prototype.setLocationListener = function (success, error, returnT
  * @param minDistance - the minimum distance that should be achieved
  * @param delay - the delay time between the first and a subsequent reorganization
  */
-LocationPlugin.prototype.setStopListener = function (success, error, frequency, minDistance, delay) {
-    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, [frequency, minDistance, delay]);
-};
+LocationPlugin.setStopListener = function (success, error, frequency, minDistance, delay);
 ```
 ----
 #### cancelStopListener
@@ -262,7 +254,5 @@ LocationPlugin.prototype.setStopListener = function (success, error, frequency, 
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.prototype.cancelStopListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
-};
+LocationPlugin.cancelStopListener = function (success, error);
 ```
