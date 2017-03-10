@@ -56,7 +56,7 @@ var error = function(errorMsg) {
 
 ##--------------------------------------------------------------------------------
 
-1. #### startService
+#### startService
 ```js
 /**
  * Start the location plugins's service. The service will **`not`** be
@@ -70,7 +70,7 @@ LocationPlugin.startService(success, error, mintTime);
 ```
 
 ----
-2. #### stopService
+#### stopService
 ```js
 /**
  * Stop the location service.
@@ -81,7 +81,7 @@ LocationPlugin.startService(success, error, mintTime);
 LocationPlugin.stopService(success, error);
 ```
 ----
-3. #### setMinAccuracy
+#### setMinAccuracy
 ```js
 /**
  * Set the minimum accuracy value in order to compare the changed location, whether to store it.
@@ -93,7 +93,7 @@ LocationPlugin.stopService(success, error);
 LocationPlugin.setMinAccuracy(success, error, minAccuracy);
 ```
 ----
-4. #### setMaxAge
+#### setMaxAge
 ```js
 /**
  * Set the maximum value of the age of the location in order to discard it when this value is reached.
@@ -105,7 +105,7 @@ LocationPlugin.setMinAccuracy(success, error, minAccuracy);
 LocationPlugin.setMaxAge(success, error, maxAge);
 ```
 ----
-5. #### setMinTime
+#### setMinTime
 ```js
 /**
  *
@@ -118,7 +118,7 @@ LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
 };
 ```
 ----
-6. #### getLocation
+#### getLocation
 ```js
 /**
  * Get the last good saved location of the device.
@@ -148,7 +148,7 @@ LocationPlugin.getLocation(function(location) {
 }, error, returnType);
 ```
 ----
-7. #### getLocationList
+#### getLocationList
  ```js
  /**
   * Get the stored location as JSON ARRAY.
@@ -162,7 +162,7 @@ LocationPlugin.getLocation(function(location) {
  }, error);
  ```
  ----
-8. #### runTotalDistanceCalculator
+#### runTotalDistanceCalculator
 ```js
 /**
  * Run the mechanism in order to calculate the total achieved distance.
@@ -173,7 +173,7 @@ LocationPlugin.getLocation(function(location) {
 LocationPlugin.runTotalDistanceCalculator(success, error);
 ```
 ----
-9. #### runCustomDistanceCalculator
+#### runCustomDistanceCalculator
 ```js
 /**
  * Run the mechanism in order to calculate a custom achieved distance.
@@ -184,7 +184,7 @@ LocationPlugin.runTotalDistanceCalculator(success, error);
 LocationPlugin.runCustomDistanceCalculator(success, error);
 ```
 ----
-10. #### getTotalDistance
+#### getTotalDistance
 ```js
 /**
  * Get the calculated total distance.
@@ -197,7 +197,7 @@ LocationPlugin.getTotalDistance(function(distnace){
 }, error);
 ```
 ----
-11. #### getCustomDistance
+#### getCustomDistance
 ```js
 /**
  * Get the calculated custom distance.
@@ -210,7 +210,7 @@ LocationPlugin.getCustomDistance(function(distance) {
 }, error);
 ```
 ----
-12. #### restorePendingLocations
+#### restorePendingLocations
 ```js
 /**
  * Restore from a file the pending locations.
@@ -224,7 +224,7 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
 };
 ```
 ----
-13. #### setLocationListener
+#### setLocationListener
 ```js
 /**
  * Set a location listener in order to receive the newest location.
@@ -238,7 +238,7 @@ LocationPlugin.prototype.setLocationListener = function (success, error, returnT
 };
 ```
 ----
-14. #### setStopListener
+#### setStopListener
 ```js
 /**
  * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)
@@ -254,7 +254,7 @@ LocationPlugin.prototype.setStopListener = function (success, error, frequency, 
 };
 ```
 ----
-15. #### cancelStopListener
+#### cancelStopListener
 ```js
 /**
  * Cancel the stop listener
