@@ -8,7 +8,20 @@ Location based tracking system
 
 ## Plugin version
 
-- Android: 3.6.2 
+- Android: 4.2.0
+
+## Releases:
+
+- 4.2.0: (Feat) the ability now to configure several methods
+- 4.1.4: (Fix) stop listener improved
+- 4.1.3: (Ref) actions'name refactored
+- 4.1.2: (Ref/Fix) actions'name changed and fixed
+- 4.1.1: (Fix) plugin.xml updated and stopHolder class improved
+- 4.1.0: (Fix) update of the plugin.xml and LocationPlugin.js
+- 4.0.4: (Feat) ability to store custom and total distance frequently
+- 4.0.3: (Ref) changed removecallback's method for dist calculators 
+- 4.0.2: //to ignore :)
+- 4.0.0: dff-cordova-plugin-location        
 
 ##Installation
 
@@ -46,14 +59,17 @@ var error = function(errorMsg) {
 1. #### startService
 ```js
 /**
- * Start the location plugins's service. The service will be
+ * Start the location plugins's service. The service will **`not`** be
  * automatically started on initializing the plugin.
  *
  * @param success - Success callback function
  * @param error - Error callback function
+ * @param mintTime - minimum time interval between location updates, in milliseconds
  */
-LocationPlugin.startService(success, error);
+LocationPlugin.startService(success, error, mintTime);
 ```
+
+----
 2. #### stopService
 ```js
 /**
@@ -64,6 +80,7 @@ LocationPlugin.startService(success, error);
  */
 LocationPlugin.stopService(success, error);
 ```
+----
 3. #### setMinAccuracy
 ```js
 /**
@@ -75,6 +92,7 @@ LocationPlugin.stopService(success, error);
  */
 LocationPlugin.setMinAccuracy(success, error, minAccuracy);
 ```
+----
 4. #### setMaxAge
 ```js
 /**
@@ -86,7 +104,7 @@ LocationPlugin.setMinAccuracy(success, error, minAccuracy);
  */
 LocationPlugin.setMaxAge(success, error, maxAge);
 ```
-
+----
 5. #### setMinTime
 ```js
 /**
@@ -99,7 +117,7 @@ LocationPlugin.prototype.setMinTime = function (success, error, minTime) {
     exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
 };
 ```
-
+----
 6. #### getLocation
 ```js
 /**
@@ -129,6 +147,7 @@ LocationPlugin.getLocation(function(location) {
   
 }, error, returnType);
 ```
+----
 7. #### getLocationList
  ```js
  /**
@@ -142,6 +161,7 @@ LocationPlugin.getLocation(function(location) {
     //location 0...N = 9.92885613|51.53705706|0.0|0.0|1481283812139
  }, error);
  ```
+ ----
 8. #### runTotalDistanceCalculator
 ```js
 /**
@@ -152,6 +172,7 @@ LocationPlugin.getLocation(function(location) {
  */
 LocationPlugin.runTotalDistanceCalculator(success, error);
 ```
+----
 9. #### runCustomDistanceCalculator
 ```js
 /**
@@ -162,6 +183,7 @@ LocationPlugin.runTotalDistanceCalculator(success, error);
  */
 LocationPlugin.runCustomDistanceCalculator(success, error);
 ```
+----
 10. #### getTotalDistance
 ```js
 /**
@@ -174,6 +196,7 @@ LocationPlugin.getTotalDistance(function(distnace){
       console.log(distnace);
 }, error);
 ```
+----
 11. #### getCustomDistance
 ```js
 /**
@@ -186,7 +209,7 @@ LocationPlugin.getCustomDistance(function(distance) {
   console.log(distance);
 }, error);
 ```
-
+----
 12. #### restorePendingLocations
 ```js
 /**
@@ -200,6 +223,7 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
     exec(success, error, FEATURE, ACTION_INTENT_RESTORE_PENDING_LOCATIONS, []);
 };
 ```
+----
 13. #### setLocationListener
 ```js
 /**
@@ -211,5 +235,34 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
  */
 LocationPlugin.prototype.setLocationListener = function (success, error, returnType) {
     exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
+};
+```
+----
+14. #### setStopListener
+```js
+/**
+ * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param frequency - how often
+ * @param minDistance - the minimum distance that should be achieved
+ * @param delay - the delay time between the first and a subsequent reorganization
+ */
+LocationPlugin.prototype.setStopListener = function (success, error, frequency, minDistance, delay) {
+    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, [frequency, minDistance, delay]);
+};
+```
+----
+15. #### cancelStopListener
+```js
+/**
+ * Cancel the stop listener
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.cancelStopListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
 };
 ```
