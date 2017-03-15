@@ -1,7 +1,9 @@
 package com.dff.cordova.plugin.location;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.util.Log;
@@ -22,12 +24,20 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 4.2.0
+ * @version 4.3.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
 
     private static final String TAG = "LocationPlugin";
+    private static final String[] LOCATION_PERMISSIONS =
+        {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        };
+
+    public static final int LOCATION_PERMISSION_CODE = 0;
+
 
     private Context mContext;
     private HandlerThread mHandlerThread;
@@ -45,11 +55,23 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public void onStart() {
         super.onStart();
+        if (!cordova.hasPermission(LOCATION_PERMISSIONS[0])) {
+            getLocationPermission(LOCATION_PERMISSION_CODE);
+        }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    private void getLocationPermission(int requestCode) {
+        cordova.requestPermissions(this, requestCode, LOCATION_PERMISSIONS);
+    }
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions,
+                                          int[] grantResults) throws JSONException {
+        for (int r : grantResults) {
+            if (r == PackageManager.PERMISSION_DENIED) {
+                CordovaPluginLog.e(TAG, "LOCATION PERMISSIONS DENIED");
+                return;
+            }
+        }
     }
 
     /**
@@ -81,6 +103,7 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     @Override
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
+
         if (action != null) {
             cordova.getThreadPool().execute(new Runnable() {
                 @Override

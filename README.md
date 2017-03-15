@@ -12,6 +12,7 @@ Location based tracking system
 
 ## Releases:
 
+- 4.3.0: FEAT: @Target Android version starting with API 23: Requesting Locations Permission!
 - 4.2.0: (Feat) the ability now to configure several methods
 - 4.1.4: (Fix) stop listener improved
 - 4.1.3: (Ref) actions'name refactored
