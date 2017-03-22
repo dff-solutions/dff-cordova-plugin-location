@@ -1,0 +1,8 @@
+com.dff.cordova.plugin.location
+com.dff.cordova.plugin.location.broadcasts
+com.dff.cordova.plugin.location.classes
+com.dff.cordova.plugin.location.handlers
+com.dff.cordova.plugin.location.resources
+com.dff.cordova.plugin.location.services
+com.dff.cordova.plugin.location.utilities.helpers
+com.dff.cordova.plugin.location.utilities.holders
