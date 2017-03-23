@@ -30,6 +30,9 @@ Location based tracking system
 - or
 - ionic plugin add [ https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
 
+## Documentation
+- <a href="https://dff-solutions.github.io/dff-cordova-plugin-location/" target="_blank" >JAVA DOC</a>
+
 
 ## Usage
 
