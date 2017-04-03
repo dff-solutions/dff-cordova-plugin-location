@@ -11,6 +11,8 @@ Location based tracking system
 - Android: 4.3.1
 
 ## Releases:
+- 4.3.3: Feat: (minDistance) minimum distance between location updates, in meters added as param to the startService method
+- 4.3.2: Feat: targetCompatibility JavaVersion.VERSION_1_7 - added buid-extras-gradle
 - 4.3.1: Feat: string switch statement (cordova)
 - 4.3.0: FEAT: @Target Android version starting with API 23: Requesting Locations Permission!
 - 4.2.0: (Feat) the ability now to configure several methods

@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 4.1.0
+ * @version 4.3.3
  * @since 15.12.2016
  */
 public class Executor {
@@ -52,6 +52,7 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         Bundle data = new Bundle();
         data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, args.optLong(0, LocationResources.LOCATION_MIN_TIME));
+        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, (float) args.optDouble(1, LocationResources.LOCATION_MIN_DISTANCE));
         msg.setData(data);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);

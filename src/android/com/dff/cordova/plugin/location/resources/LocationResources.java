@@ -16,7 +16,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 4.1.0
+ * @version 4.3.3
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -58,12 +58,14 @@ public class LocationResources {
     public static final String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
     public static final String IS_LOCATION_MANAGER_LISTENING = "is.location.manager.listening";
     public static final String LOCATION_MIN_TIME_KEY = "location.min.time.key";
+    public static final String LOCATION_MIN_DISTANCE_KEY = "location.min.distance.key";
 
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static long LOCATION_MIN_TIME = 0; //in msec
+    public static float LOCATION_MIN_DISTANCE = 0; //in m
     public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
 

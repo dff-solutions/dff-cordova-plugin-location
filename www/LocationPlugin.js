@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 4.3.0
+ * @version 4.3.3
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -191,9 +191,10 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
  * @param success - Success callback function
  * @param error - Error callback function
  * @param mintTime - minimum time interval between location updates, in milliseconds
+ * @param minDistance - minimum distance between location updates, in meters
  */
-LocationPlugin.prototype.startService = function (success, error, mintTime) {
-    exec(success, error, FEATURE, ACTION_START_SERVICE, [mintTime]);
+LocationPlugin.prototype.startService = function (success, error, mintTime, minDistance) {
+    exec(success, error, FEATURE, ACTION_START_SERVICE, [mintTime, minDistance]);
 };
 
 /**

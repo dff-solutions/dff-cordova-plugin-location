@@ -23,7 +23,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 4.1.0
+ * @version 4.3.3
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -67,7 +67,9 @@ public class LocationServiceHandler extends Handler {
             case START_LOCATION_SERVICE:
                 mAnswer = Message.obtain(null, msg.what);
                 result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING,
-                    initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY)));
+                    initializeLocationManager
+                        (msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY),
+                            msg.getData().getFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY)));
                 mAnswer.setData(result);
                 try {
                     msg.replyTo.send(mAnswer);
@@ -140,7 +142,7 @@ public class LocationServiceHandler extends Handler {
     /**
      * Initialize the location manager and set the location listener.
      */
-    private boolean initializeLocationManager(long minTime) {
+    private boolean initializeLocationManager(long minTime, float minDistance) {
         //get a reference of the system location manager
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
@@ -187,7 +189,7 @@ public class LocationServiceHandler extends Handler {
         try {
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {
-                mLocationManager.requestLocationUpdates(provider, minTime, 0, mLocationListener);
+                mLocationManager.requestLocationUpdates(provider, minTime, minDistance, mLocationListener);
                 Log.d(TAG, "Location Manager is listening...");
                 runLocationsHolder();
                 return true;
