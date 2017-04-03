@@ -109,30 +109,35 @@ public class LocationPlugin extends CommonServicePlugin {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
-                    if (action.equals(LocationResources.ACTION_START_SERVICE)) {
+                    switch (action) {
+                        case LocationResources.ACTION_START_SERVICE:
 
-                        Executor.startLocationService(mContext, mHandlerThread, mServiceHandler, args, callbackContext);
+                            Executor.startLocationService(mContext, mHandlerThread, mServiceHandler, args, callbackContext);
 
-                    } else if (action.equals(LocationResources.ACTION_STOP_SERVICE)) {
+                            break;
+                        case LocationResources.ACTION_STOP_SERVICE:
 
-                        Executor.stopLocationService(mContext, mHandlerThread, mServiceHandler, callbackContext);
+                            Executor.stopLocationService(mContext, mHandlerThread, mServiceHandler, callbackContext);
 
-                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION)) {
+                            break;
+                        case LocationResources.ACTION_GET_LOCATION:
 
-                        Executor.getLocation(mContext, callbackContext, mHandlerThread, mServiceHandler, args);
+                            Executor.getLocation(mContext, callbackContext, mHandlerThread, mServiceHandler, args);
 
-                    } else if (action.equals(LocationResources.ACTION_GET_LOCATION_LIST)) {
+                            break;
+                        case LocationResources.ACTION_GET_LOCATION_LIST:
 
-                        Executor.getLocationList(callbackContext);
+                            Executor.getLocationList(callbackContext);
 
-                    } else if (action.equals(LocationResources.ACTION_GET_TOTAL_DISTANCE)
-                        || action.equals(LocationResources.ACTION_GET_CUSTOM_DISTANCE)
-                        || action.equals(LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)
-                        || action.equals(LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
+                            break;
+                        case LocationResources.ACTION_GET_TOTAL_DISTANCE:
+                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE:
+                        case LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
+                        case LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
 
-                        Executor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);
+                            Executor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);
 
-                    }
+                            break;
                     /*
                     else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
                             action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
@@ -141,30 +146,36 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.startService(pendingLocationsIntentService);
                     }
                     */
-                    else if (action.equals(LocationResources.ACTION_SET_STOP_LISTENER)) {
-                        Executor.setStopListener(mContext, callbackContext, args);
-                    } else if (action.equals(LocationResources.ACTION_CANCEL_STOP_LISTENER)) {
-                        Executor.stopStopListener(mContext);
-                    } else if (action.equals(LocationResources.ACTION_SET_LOCATION_LISTENER)) {
-                        int type = 1;
-                        try {
-                            if (args.get(0) != null) {
-                                type = args.getInt(0);
+                        case LocationResources.ACTION_SET_STOP_LISTENER:
+                            Executor.setStopListener(mContext, callbackContext, args);
+                            break;
+                        case LocationResources.ACTION_CANCEL_STOP_LISTENER:
+                            Executor.stopStopListener(mContext);
+                            break;
+                        case LocationResources.ACTION_SET_LOCATION_LISTENER:
+                            int type = 1;
+                            try {
+                                if (args.get(0) != null) {
+                                    type = args.getInt(0);
+                                }
+                            } catch (JSONException e) {
+                                CordovaPluginLog.e(TAG, "Error: ", e);
                             }
-                        } catch (JSONException e) {
-                            CordovaPluginLog.e(TAG, "Error: ", e);
-                        }
-                        mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
-                    } else try {
-                        if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
-                            LocationResources.setLocationMinAccuracy(args.getInt(0));
-                        } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
-                            LocationResources.setLocationMaxAge(args.getInt(0));
-                        } else if (action.equals(LocationResources.ACTION_SET_MIN_TIME) && args.get(0) != null) {
-                            LocationResources.setLocationMinTime(args.getLong(0)); //todo
-                        }
-                    } catch (JSONException e) {
-                        CordovaPluginLog.e(TAG, "Error: ", e);
+                            mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
+                            break;
+                        default:
+                            try {
+                                if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
+                                    LocationResources.setLocationMinAccuracy(args.getInt(0));
+                                } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
+                                    LocationResources.setLocationMaxAge(args.getInt(0));
+                                } else if (action.equals(LocationResources.ACTION_SET_MIN_TIME) && args.get(0) != null) {
+                                    LocationResources.setLocationMinTime(args.getLong(0)); //todo
+                                }
+                            } catch (JSONException e) {
+                                CordovaPluginLog.e(TAG, "Error: ", e);
+                            }
+                            break;
                     }
                 }
             });
