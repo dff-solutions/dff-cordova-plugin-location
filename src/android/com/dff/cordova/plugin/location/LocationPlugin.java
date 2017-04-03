@@ -14,7 +14,6 @@ import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
-import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,13 +35,12 @@ public class LocationPlugin extends CommonServicePlugin {
             Manifest.permission.ACCESS_FINE_LOCATION
         };
 
-    public static final int LOCATION_PERMISSION_CODE = 0;
+    private static final int LOCATION_PERMISSION_CODE = 0;
 
 
     private Context mContext;
     private HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
-    private PreferencesHelper mPreferencesHelper;
 
     /**
      * Def-Constructor
@@ -83,7 +81,6 @@ public class LocationPlugin extends CommonServicePlugin {
         mContext = cordova.getActivity().getApplicationContext();
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
         super.pluginInitialize(mServiceHandler);
-        //mPreferencesHelper = new PreferencesHelper(mContext);
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
@@ -181,6 +178,6 @@ public class LocationPlugin extends CommonServicePlugin {
             });
             return true;
         }
-        return super.execute(action, args, callbackContext);
+        return super.execute(null, args, callbackContext);
     }
 }

@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         id="dff-cordova-plugin-location"
-        version="4.3.1">
+        version="4.3.2">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
@@ -79,5 +79,6 @@
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/broadcasts/StandStillReceiver.java"
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
+        <source-file src="src/android/build-extras.gradle" target-dir="src/.."/>
     </platform>
 </plugin>

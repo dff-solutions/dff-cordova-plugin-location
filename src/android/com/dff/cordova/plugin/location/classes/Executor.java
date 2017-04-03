@@ -158,10 +158,7 @@ public class Executor {
             if (messenger != null) {
                 messenger.send(msg);
             }
-        } catch (RemoteException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-            callbackContext.error("Error while sending a message within the location service: " + e);
-        } catch (NullPointerException e) {
+        } catch (RemoteException | NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
             callbackContext.error("Error while sending a message within the location service: " + e);
         }
