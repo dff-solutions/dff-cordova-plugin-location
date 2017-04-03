@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
@@ -41,6 +42,8 @@ public class LocationPlugin extends CommonServicePlugin {
     private Context mContext;
     private HandlerThread mHandlerThread;
     private ServiceHandler mServiceHandler;
+    private NewLocationReceiver mNewLocationReceiver;
+    private IntentFilter mNewLocationIntentFilter;
 
     /**
      * Def-Constructor
@@ -59,6 +62,12 @@ public class LocationPlugin extends CommonServicePlugin {
         if (!cordova.hasPermission(LOCATION_PERMISSIONS[0])) {
             getLocationPermission(LOCATION_PERMISSION_CODE);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
     }
 
     /**
@@ -174,7 +183,12 @@ public class LocationPlugin extends CommonServicePlugin {
                             } catch (JSONException e) {
                                 CordovaPluginLog.e(TAG, "Error: ", e);
                             }
-                            mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
+
+                            mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
+                            mNewLocationIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION);
+                            LocalBroadcastManager.getInstance(mContext).
+                                registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
+                            //mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
                             break;
                         default:
                             try {

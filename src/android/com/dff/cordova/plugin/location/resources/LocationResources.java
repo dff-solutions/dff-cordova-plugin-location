@@ -25,7 +25,7 @@ public class LocationResources {
 
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
-    private static ArrayList<String> LAST_GOOD_LOCATION_LIST = new ArrayList<String>();
+    private static ArrayList<String> LAST_GOOD_LOCATION_LIST_DFF_STRING = new ArrayList<String>();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
@@ -118,8 +118,8 @@ public class LocationResources {
         return LAST_GOOD_LOCATION;
     }
 
-    public static ArrayList<String> getLastGoodLocationList() {
-        return LAST_GOOD_LOCATION_LIST;
+    public static ArrayList<String> getLastGoodLocationListDffString() {
+        return LAST_GOOD_LOCATION_LIST_DFF_STRING;
     }
 
     /**
@@ -228,20 +228,21 @@ public class LocationResources {
      */
     public static int parseWHAT(String action) {
         //we dnt use switch statement since < java 7 does not support string switches --> int
-        if (action.equals(ACTION_GET_LOCATION)) {
-            return 1;
-        } else if (action.equals(ACTION_RUN_TOTAL_DISTANCE_CALCULATOR)) {
-            return 2;
-        } else if (action.equals(ACTION_GET_TOTAL_DISTANCE)) {
-            return 3;
-        } else if (action.equals(ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR)) {
-            return 4;
-        } else if (action.equals(ACTION_GET_CUSTOM_DISTANCE)) {
-            return 5;
-        } else if (action.equals(ACTION_SET_LOCATION_LISTENER)) {
-            return 6;
-        } else {
-            return 0; //should be never reached
+        switch (action) {
+            case ACTION_GET_LOCATION:
+                return 1;
+            case ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
+                return 2;
+            case ACTION_GET_TOTAL_DISTANCE:
+                return 3;
+            case ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
+                return 4;
+            case ACTION_GET_CUSTOM_DISTANCE:
+                return 5;
+            case ACTION_SET_LOCATION_LISTENER:
+                return 6;
+            default:
+                return 0; //should be never reached
         }
     }
 
@@ -251,10 +252,10 @@ public class LocationResources {
      * @param location - The new location to store.
      */
     public static synchronized void addLocationToList(String location) {
-        if (!LAST_GOOD_LOCATION_LIST.contains(location)) {
+        if (!LAST_GOOD_LOCATION_LIST_DFF_STRING.contains(location)) {
             Log.d(TAG, "location already exists");
         }
-        LAST_GOOD_LOCATION_LIST.add(location);
+        LAST_GOOD_LOCATION_LIST_DFF_STRING.add(location);
     }
 
     /**
@@ -262,7 +263,7 @@ public class LocationResources {
      */
     public static synchronized void clearLocationsList() {
         try {
-            LAST_GOOD_LOCATION_LIST.clear();
+            LAST_GOOD_LOCATION_LIST_DFF_STRING.clear();
         } catch (ConcurrentModificationException e) {
             Log.e(TAG, "Error while clearing the location list: ", e);
         }

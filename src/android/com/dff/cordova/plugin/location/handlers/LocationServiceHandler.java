@@ -6,6 +6,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.*;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
@@ -309,14 +310,13 @@ public class LocationServiceHandler extends Handler {
         Message answer = Message.obtain(null, msg.what);
         try {
             msg.replyTo.send(answer);
-        } catch (RemoteException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        } catch (NullPointerException e) {
+        } catch (RemoteException | NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         }
     }
 
     private void notifyOnChangedLocation() {
-        mContext.sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
+        LocalBroadcastManager.getInstance(mContext)
+            .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 }

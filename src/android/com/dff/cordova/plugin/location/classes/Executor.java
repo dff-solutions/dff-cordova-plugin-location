@@ -98,7 +98,7 @@ public class Executor {
      * @param callbackContext - The callback context used when calling back into JavaScript.
      */
     public static void getLocationList(CallbackContext callbackContext) {
-        ArrayList<String> locationList = LocationResources.getLastGoodLocationList();
+        ArrayList<String> locationList = LocationResources.getLastGoodLocationListDffString();
 
         if (locationList.size() > 0) {
             callbackContext.success(new JSONArray(locationList));
