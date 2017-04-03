@@ -6,12 +6,12 @@ Location based tracking system
 
 - Android 
 
-## Plugin version
+## Plugin@latest
 
-- Android: 4.2.0
+- Android: 4.3.1
 
 ## Releases:
-
+- 4.3.1: Feat: string switch statement (cordova)
 - 4.3.0: FEAT: @Target Android version starting with API 23: Requesting Locations Permission!
 - 4.2.0: (Feat) the ability now to configure several methods
 - 4.1.4: (Fix) stop listener improved
@@ -28,7 +28,7 @@ Location based tracking system
 
 - cordova plugin add [https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
 - or
-- ionic plugin add [ https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
+- ionic plugin add [https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
 
 ## Documentation
 - <a href="https://dff-solutions.github.io/dff-cordova-plugin-location/" target="_blank" >JAVA DOC</a>
