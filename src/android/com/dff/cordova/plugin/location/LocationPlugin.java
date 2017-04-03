@@ -50,6 +50,9 @@ public class LocationPlugin extends CommonServicePlugin {
     }
 
 
+    /**
+     * on start app --> check permissions.
+     */
     @Override
     public void onStart() {
         super.onStart();
@@ -58,10 +61,23 @@ public class LocationPlugin extends CommonServicePlugin {
         }
     }
 
+    /**
+     * request permissions if they are not granted
+     *
+     * @param requestCode - the request code to handle the response of the request
+     */
     private void getLocationPermission(int requestCode) {
         cordova.requestPermissions(this, requestCode, LOCATION_PERMISSIONS);
     }
 
+    /**
+     * If permissions are denied log and error and leave method
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     * @throws JSONException
+     */
     public void onRequestPermissionResult(int requestCode, String[] permissions,
                                           int[] grantResults) throws JSONException {
         for (int r : grantResults) {
