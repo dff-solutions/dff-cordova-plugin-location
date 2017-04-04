@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.2
+- Android: 4.5.3
 
 ## Releases:
+- 4.5.3: Ref: json keys of a location obj
 - 4.5.2: Feat: supporting get location list for json obj locations.
 - 4.5.1: Feat: enhanced the location resources in order to allocate location in json format
 - 4.5.0: Feat: starting the location service supports now params (returnType,minTime,minDistance,minAccuracy,locationMaxAge,locationRequestDelay)

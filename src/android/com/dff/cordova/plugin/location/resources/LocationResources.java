@@ -162,13 +162,13 @@ public class LocationResources {
     public static JSONObject getLastGoodLocationAsJson() {
         JSONObject location = new JSONObject();
         try {
-            location.put("Longitude", LAST_GOOD_LOCATION.getLongitude());
-            location.put("Latitude", LAST_GOOD_LOCATION.getLatitude());
-            location.put("Altitude", LAST_GOOD_LOCATION.getAltitude());
-            location.put("Accuracy", LAST_GOOD_LOCATION.getAccuracy());
-            location.put("Speed", getSpeedOfLastGoodLocation());
-            location.put("Bearing", LAST_GOOD_LOCATION.getBearing());
-            location.put("Time", LAST_GOOD_LOCATION.getTime());
+            location.put("longitude", LAST_GOOD_LOCATION.getLongitude());
+            location.put("latitude", LAST_GOOD_LOCATION.getLatitude());
+            location.put("altitude", LAST_GOOD_LOCATION.getAltitude());
+            location.put("accuracy", LAST_GOOD_LOCATION.getAccuracy());
+            location.put("speed", getSpeedOfLastGoodLocation());
+            location.put("bearing", LAST_GOOD_LOCATION.getBearing());
+            location.put("time", LAST_GOOD_LOCATION.getTime());
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
