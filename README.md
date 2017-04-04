@@ -164,13 +164,13 @@ LocationPlugin.getLocation(returnType, function(location) {
   //example for json location
   // Object {Accuracy: 12, Latitude: 51.53692106, Speed: 0, Altitude: 205, Longitude: 9.92879299…}
    ```json
-    Accuracy: 8,
-    Altitude: 203,
-    Bearing: 262.5,
-    Latitude: 51.53701007,
-    Longitude: 9.9288611,
-    Speed: 4,
-    Time: 1482827340101
+    accuracy: 8,
+    altitude: 203,
+    bearing: 262.5,
+    latitude: 51.53701007,
+    longitude: 9.9288611,
+    speed: 4,
+    time: 1482827340101
     ```
   
 }, error);
