@@ -22,7 +22,7 @@ import static com.dff.cordova.plugin.location.resources.LocationResources.CUSTOM
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 4.1.0
+ * @version 4.5.4
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -90,7 +90,14 @@ public class LocationRequestHandler extends Handler {
                     mCallbackContext.success("");
                 }
                 if (mPreferencesHelper.getCanLocationBeCleared()) {
-                    LocationResources.clearLocationsList();
+                    switch (LocationResources.LOCATION_RETURN_TYPE) {
+                        case LocationResources.DFF_STRING:
+                            LocationResources.clearDffStringLocationsList();
+                            break;
+                        case LocationResources.JSON:
+                            LocationResources.clearJsonLocationsList();
+                            break;
+                    }
                 }
                 break;
             case GET_TOTAL_DISTANCE_CALCULATOR:

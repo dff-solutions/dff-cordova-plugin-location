@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 1.2
+ * @version 1.3
  * @since 05.12.2016
  */
 public class FileHelper {
@@ -93,7 +93,7 @@ public class FileHelper {
                 while (true) {
                     if (LocationResources.getLocationListDffString() != null) {
                         String location = (String) ois.readObject();
-                        LocationResources.addLocationToList(location);
+                        LocationResources.addLocationToListAsDffString(location);
                         Log.d(TAG, "location " + i + " = " + location);
                         i++;
                     } else {
@@ -101,9 +101,7 @@ public class FileHelper {
                     }
                 }
             }
-        } catch (IOException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {

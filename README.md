@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.3
+- Android: 4.5.4
 
 ## Releases:
+- 4.5.4: HOT-Fix: refactoring errors fixed (clear lists)
 - 4.5.3: Ref: json keys of a location obj
 - 4.5.2: Feat: supporting get location list for json obj locations.
 - 4.5.1: Feat: enhanced the location resources in order to allocate location in json format
@@ -83,7 +84,7 @@ LocationPlugin.startService(success, error, params);
 ```js
 params {
     returnType: 'dffString' || 'json', //default json
-    minTIme: 15000, // 15sec - default 0
+    minTime: 15000, // 15sec - default 0
     minDistance: 50, // 50m - default 0
     minAccuracy: 20, // 20m - default 20
     locationMaxAge: 30, // 30sec - default 30
