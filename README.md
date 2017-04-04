@@ -8,7 +8,7 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.3.1
+- Android: 4.4.0
 
 ## Releases:
 - 4.4.0: Fix: @Target Android - broadcast will be only sent and received within the installed package (local)

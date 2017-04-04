@@ -60,6 +60,14 @@ public class LocationResources {
     public static final String LOCATION_MIN_TIME_KEY = "location.min.time.key";
     public static final String LOCATION_MIN_DISTANCE_KEY = "location.min.distance.key";
 
+    //JSON keys (params)
+    public static final String RETURN_TYPE = "returnType";
+    public static final String MIN_TIME = "minTIme";
+    public static final String MIN_DISTANCE = "minDistance";
+    public static final String MIN_ACCURACY = "minAccuracy";
+    public static final String MAX_AGE = "locationMaxAge";
+    public static final String DELAY = "locationRequestDelay";
+
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
