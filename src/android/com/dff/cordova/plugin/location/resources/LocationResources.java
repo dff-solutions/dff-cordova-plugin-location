@@ -16,7 +16,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 4.3.3
+ * @version 4.5.0
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -68,6 +68,9 @@ public class LocationResources {
     public static final String MAX_AGE = "locationMaxAge";
     public static final String DELAY = "locationRequestDelay";
 
+    public static final String DFF_STRING = "dffString";
+    public static final String JSON = "json";
+
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
@@ -75,7 +78,8 @@ public class LocationResources {
     public static long LOCATION_MIN_TIME = 0; //in msec
     public static float LOCATION_MIN_DISTANCE = 0; //in m
     public static int LOCATION_DELAY = 50000; // in ms 50sec
-    public static int LOCATION_RETURN_TYPE = 1; // 1 = json, 0 = string
+    public static String LOCATION_RETURN_TYPE = JSON;
+    public static int LOCATION_RETURN_TYPE_INT = 1; // 1 = json, 0 = string
 
     //Settings for the stop holder
     public static int STOP_HOLDER_COUNTER_LIMIT = 10;
@@ -91,10 +95,13 @@ public class LocationResources {
 
     //Settings related to the Distance calculator class
     public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
-    public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms
+    public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms - 30sec
     public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
+    /**
+     * Enumeration to deal while parsing the actions.
+     */
     public enum WHAT {
         START_LOCATION_SERVICE,
         STOP_LOCATION_SERVICE,

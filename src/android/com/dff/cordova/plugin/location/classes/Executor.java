@@ -14,6 +14,8 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -21,7 +23,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 4.3.3
+ * @version 4.5.0
  * @since 15.12.2016
  */
 public class Executor {
@@ -41,7 +43,7 @@ public class Executor {
     }
 
     /**
-     * Start the location service.
+     * Start the location service with params.
      *
      * @param context - The context of the application.
      */
@@ -51,6 +53,19 @@ public class Executor {
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         Bundle data = new Bundle();
+        try {
+            JSONObject params = args.getJSONObject(0);
+            if (params != null) {
+                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE);
+                LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME);
+                LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE);
+                LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY);
+                LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE);
+                LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: ", e);
+        }
         data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, args.optLong(0, LocationResources.LOCATION_MIN_TIME));
         data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, (float) args.optDouble(1, LocationResources.LOCATION_MIN_DISTANCE));
         msg.setData(data);
@@ -86,7 +101,7 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
         Bundle params = new Bundle();
-        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE));
+        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
         msg.setData(params);
         sendMessage(serviceHandler, msg, callbackContext);
     }

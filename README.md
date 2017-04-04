@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.4.0
+- Android: 4.5.0
 
 ## Releases:
+- 4.5.0: Feat: starting the location service supports now params (returnType,minTime,minDistance,minAccuracy,locationMaxAge,locationRequestDelay)
 - 4.4.0: Fix: @Target Android - broadcast will be only sent and received within the installed package (local)
 - 4.3.3: Feat: (minDistance) minimum distance between location updates, in meters added as param to the startService method
 - 4.3.2: Feat: targetCompatibility JavaVersion.VERSION_1_7 - added build-extras-gradle
