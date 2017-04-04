@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.4
+- Android: 4.5.5
 
 ## Releases:
+- 4.5.5: Feat: supporting storing/restoring location list as json on crash
 - 4.5.4: HOT-Fix: refactoring errors fixed (clear lists)
 - 4.5.3: Ref: json keys of a location obj
 - 4.5.2: Feat: supporting get location list for json obj locations.

@@ -12,6 +12,7 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +58,7 @@ public class Executor {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
                 LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE);
+                new PreferencesHelper(context).setReturnType(LocationResources.LOCATION_RETURN_TYPE);
                 LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME);
                 LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE);
                 LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY);

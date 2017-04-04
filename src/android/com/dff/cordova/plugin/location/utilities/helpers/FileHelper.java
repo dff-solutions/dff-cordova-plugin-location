@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.LOG;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -82,6 +83,7 @@ public class FileHelper {
         LOG.d(TAG, "onRestorePendingLocations()");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
         try {
             fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
@@ -91,13 +93,27 @@ public class FileHelper {
                 ois = new ObjectInputStream(fis);
 
                 while (true) {
-                    if (LocationResources.getLocationListDffString() != null) {
-                        String location = (String) ois.readObject();
-                        LocationResources.addLocationToListAsDffString(location);
-                        Log.d(TAG, "location " + i + " = " + location);
-                        i++;
-                    } else {
-                        Log.d(TAG, "array location list is null");
+                    switch (preferencesHelper.getReturnType()) {
+                        case LocationResources.DFF_STRING:
+                            if (LocationResources.getLocationListDffString() != null) {
+                                String location = (String) ois.readObject();
+                                LocationResources.addLocationToListAsDffString(location);
+                                Log.d(TAG, "location " + i + " = " + location);
+                                i++;
+                            } else {
+                                Log.d(TAG, "array (dff string) location list is null");
+                            }
+                            break;
+                        case LocationResources.JSON:
+                            if (LocationResources.getLocationListJson() != null) {
+                                JSONObject location = (JSONObject) ois.readObject();
+                                LocationResources.addLocationToListAsJson(location);
+                                Log.d(TAG, "location " + i + " = " + location);
+                                i++;
+                            } else {
+                                Log.d(TAG, "array location list is null");
+                            }
+                            break;
                     }
                 }
             }
