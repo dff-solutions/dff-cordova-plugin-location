@@ -60,8 +60,7 @@ var error = function(errorMsg) {
   // (Y) do what every you want...! 
 }
 ```
-
-##--------------------------------------------------------------------------------
+----
 
 #### startService
 ```js
@@ -87,6 +86,15 @@ params {
     locationRequestDelay: 20000 // 50sec - default 50k
 }
 ```
+
+```js
+minTime| long: minimum time interval between location updates, in milliseconds
+minDistance| float: minimum distance between location updates, in meters
+minAccuracy| int: minimum accuracy to allocation a good location 
+locationMaxAfe| int: the max age to delete the last allocated good location
+locationRequestDelay| int: the delay time to allocate a new good location
+```
+
 ----
 #### stopService
 ```js
