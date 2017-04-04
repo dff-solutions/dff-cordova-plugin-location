@@ -91,6 +91,7 @@ public class LocationResources {
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
     public static final String SP_KEY_TOTAL_DISTANCE = "totalDistanceKey";
     public static final String SP_KEY_CUSTOM_DISTANCE = "customDistanceKey";
+    public static final String SP_KEY_RETURN_TYPE = "returnTypeKEy";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
