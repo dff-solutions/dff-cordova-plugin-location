@@ -138,6 +138,10 @@ public class LocationResources {
         return LOCATION_LIST_DFF_STRING;
     }
 
+    public static ArrayList<JSONObject> getLocationListJson() {
+        return LOCATION_LIST_JSON;
+    }
+
     /**
      * Return the last good location that has been persisted as string representation.
      *

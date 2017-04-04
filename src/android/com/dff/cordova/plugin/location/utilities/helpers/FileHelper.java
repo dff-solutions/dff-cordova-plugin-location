@@ -29,7 +29,7 @@ public class FileHelper {
         Log.d(TAG, "onStorePendingLocation()");
         File file = null;
         FileOutputStream fos = null;
-        ArrayList<String> pendingLocation = LocationResources.getLastGoodLocationListDffString();
+        ArrayList<String> pendingLocation = LocationResources.getLocationListDffString();
 
 
         try {
@@ -91,7 +91,7 @@ public class FileHelper {
                 ois = new ObjectInputStream(fis);
 
                 while (true) {
-                    if (LocationResources.getLastGoodLocationListDffString() != null) {
+                    if (LocationResources.getLocationListDffString() != null) {
                         String location = (String) ois.readObject();
                         LocationResources.addLocationToList(location);
                         Log.d(TAG, "location " + i + " = " + location);

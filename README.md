@@ -11,6 +11,7 @@ Location based tracking system
 - Android: 4.5.1
 
 ## Releases:
+- 4.5.2: Feat: supporting get location list for json obj locations.
 - 4.5.1: Feat: enhanced the location resources in order to allocate location in json format
 - 4.5.0: Feat: starting the location service supports now params (returnType,minTime,minDistance,minAccuracy,locationMaxAge,locationRequestDelay)
 - 4.4.0: Fix: @Target Android - broadcast will be only sent and received within the installed package (local)

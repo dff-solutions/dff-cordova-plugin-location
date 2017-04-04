@@ -8,7 +8,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Class to hold the last good location within an interval of time.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 2.0
  * @since 01.12.2016
  */
 public class LocationsHolder implements Runnable {
@@ -35,10 +35,17 @@ public class LocationsHolder implements Runnable {
     @Override
     public void run() {
         if (LocationResources.getLastGoodLocation() != null) {
-            String location = LocationResources.getLastGoodLocationAsString() + "|" +
-                    LocationResources.getLastGoodLocation().getTime();
-            LocationResources.addLocationToList(location);
-            Log.d(TAG, "Location has been added to the array list with " + location);
+            switch (LocationResources.RETURN_TYPE) {
+                case LocationResources.DFF_STRING:
+                    String location = LocationResources.getLastGoodLocationAsString() + "|" +
+                        LocationResources.getLastGoodLocation().getTime();
+                    LocationResources.addLocationToListAsDffString(location);
+                    Log.d(TAG, "Location has been added to the array list with " + location);
+                    break;
+                case LocationResources.JSON:
+                    LocationResources.addLocationToListAsJson(LocationResources.getLastGoodLocationAsJson());
+                    break;
+            }
         } else {
             Log.d(TAG, "The location is null and will not be added to the arraylist");
         }
