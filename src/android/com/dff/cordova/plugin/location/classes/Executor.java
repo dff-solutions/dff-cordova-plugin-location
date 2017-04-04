@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 4.5.0
+ * @version 4.5.6
  * @since 15.12.2016
  */
 public class Executor {
@@ -59,17 +59,17 @@ public class Executor {
             if (params != null) {
                 LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE);
                 new PreferencesHelper(context).setReturnType(LocationResources.LOCATION_RETURN_TYPE);
-                LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME);
-                LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE);
-                LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY);
-                LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE);
-                LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY);
+                LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
+                LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
+                LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
+                LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE, LocationResources.LOCATION_MAX_AGE);
+                LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY, LocationResources.LOCATION_DELAY);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, args.optLong(0, LocationResources.LOCATION_MIN_TIME));
-        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, (float) args.optDouble(1, LocationResources.LOCATION_MIN_DISTANCE));
+        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, LocationResources.LOCATION_MIN_TIME);
+        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
         msg.setData(data);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
