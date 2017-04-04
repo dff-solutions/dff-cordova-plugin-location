@@ -8,7 +8,7 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.1
+- Android: 4.5.2
 
 ## Releases:
 - 4.5.2: Feat: supporting get location list for json obj locations.
