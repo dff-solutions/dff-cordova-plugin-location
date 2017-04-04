@@ -25,7 +25,8 @@ public class LocationResources {
 
     private static final String TAG = "LocationResources";
     private static Location LAST_GOOD_LOCATION = null;
-    private static ArrayList<String> LAST_GOOD_LOCATION_LIST_DFF_STRING = new ArrayList<String>();
+    private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
+    private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
@@ -133,8 +134,8 @@ public class LocationResources {
         return LAST_GOOD_LOCATION;
     }
 
-    public static ArrayList<String> getLastGoodLocationListDffString() {
-        return LAST_GOOD_LOCATION_LIST_DFF_STRING;
+    public static ArrayList<String> getLocationListDffString() {
+        return LOCATION_LIST_DFF_STRING;
     }
 
     /**
@@ -262,23 +263,46 @@ public class LocationResources {
     }
 
     /**
-     * Add a new location object to the last good location list for persistence purposes.
+     * Add a new location object to the last good location list for persistence purposes as dff string.
      *
      * @param location - The new location to store.
      */
-    public static synchronized void addLocationToList(String location) {
-        if (!LAST_GOOD_LOCATION_LIST_DFF_STRING.contains(location)) {
+    public static synchronized void addLocationToListAsDffString(String location) {
+        if (!LOCATION_LIST_DFF_STRING.contains(location)) {
             Log.d(TAG, "location already exists");
         }
-        LAST_GOOD_LOCATION_LIST_DFF_STRING.add(location);
+        LOCATION_LIST_DFF_STRING.add(location);
     }
 
     /**
      * Clear the last good locations list.
      */
-    public static synchronized void clearLocationsList() {
+    public static synchronized void clearDffStringLocationsList() {
         try {
-            LAST_GOOD_LOCATION_LIST_DFF_STRING.clear();
+            LOCATION_LIST_DFF_STRING.clear();
+        } catch (ConcurrentModificationException e) {
+            Log.e(TAG, "Error while clearing the location list: ", e);
+        }
+    }
+
+    /**
+     * Add a new location object to the last good location list for persistence purposes as json.
+     *
+     * @param location - The new location to store.
+     */
+    public static synchronized void addLocationToListAsJson(JSONObject location) {
+        if (!LOCATION_LIST_JSON.contains(location)) {
+            Log.d(TAG, "location already exists");
+        }
+        LOCATION_LIST_JSON.add(location);
+    }
+
+    /**
+     * Clear the last good locations list.
+     */
+    public static synchronized void clearJsonLocationsList() {
+        try {
+            LOCATION_LIST_JSON.clear();
         } catch (ConcurrentModificationException e) {
             Log.e(TAG, "Error while clearing the location list: ", e);
         }
