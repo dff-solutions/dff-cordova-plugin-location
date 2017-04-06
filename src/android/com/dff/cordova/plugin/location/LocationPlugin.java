@@ -15,6 +15,7 @@ import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -109,8 +110,8 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
+        LocationResources.LOCATION_RETURN_TYPE = new PreferencesHelper(mContext).getReturnType();
         //mContext.startService(new Intent(mContext, LocationService.class));
-
         Executor.restore(mContext);
     }
 
