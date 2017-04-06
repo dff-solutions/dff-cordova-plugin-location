@@ -316,7 +316,8 @@ public class LocationServiceHandler extends Handler {
     }
 
     private void notifyOnChangedLocation() {
-        LocalBroadcastManager.getInstance(mContext)
+        LocalBroadcastManager
+            .getInstance(mContext)
             .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 }

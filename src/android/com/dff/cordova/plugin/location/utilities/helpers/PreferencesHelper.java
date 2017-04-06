@@ -9,7 +9,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Class to save and restore shared preferences.
  *
  * @author Anthony Nahas
- * @version 3.0
+ * @version 4.0
  * @since 06.12.2016
  */
 public class PreferencesHelper {
@@ -55,6 +55,16 @@ public class PreferencesHelper {
 
     public String getReturnType() {
         return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
+    }
+
+    public boolean setIsServiceStarted(boolean isStarted) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, isStarted);
+        return editor.commit();
+    }
+
+    public boolean isServiceStarted() {
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, false);
     }
 
     public boolean storeTotalDistance(float distance) {
