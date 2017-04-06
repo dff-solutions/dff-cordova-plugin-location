@@ -57,7 +57,7 @@ public class Executor {
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.RETURN_TYPE);
+                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
                 new PreferencesHelper(context).setReturnType(LocationResources.LOCATION_RETURN_TYPE);
                 LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
                 LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
