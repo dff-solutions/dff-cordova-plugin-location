@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.6
+- Android: 4.5.7
 
 ## Releases:
+- 4.5.7: Fix: getLocationList method fixed after refactoring returnType property
 - 4.5.6: Fix: added fallbacks to params in start service method 
 - 4.5.5: Feat: supporting storing/restoring location list as json on crash
 - 4.5.4: HOT-Fix: refactoring errors fixed (clear lists)

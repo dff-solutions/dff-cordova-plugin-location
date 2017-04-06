@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 4.5.6
+ * @version 4.5.7
  * @since 15.12.2016
  */
 public class Executor {
@@ -57,7 +57,7 @@ public class Executor {
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE);
+                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.RETURN_TYPE);
                 new PreferencesHelper(context).setReturnType(LocationResources.LOCATION_RETURN_TYPE);
                 LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
                 LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
