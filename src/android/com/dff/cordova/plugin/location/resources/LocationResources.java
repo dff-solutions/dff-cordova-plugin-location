@@ -92,6 +92,11 @@ public class LocationResources {
     public static final String SP_KEY_TOTAL_DISTANCE = "totalDistanceKey";
     public static final String SP_KEY_CUSTOM_DISTANCE = "customDistanceKey";
     public static final String SP_KEY_RETURN_TYPE = "returnTypeKEy";
+    public static final String SP_KEY_MIN_TIME = "minTimeKey";
+    public static final String SP_KEY_MIN_DISTANCE = "minDistanceKey";
+    public static final String SP_KEY_MIN_ACCURACY = "minAccuracy";
+    public static final String SP_KEY_LOCATION_MAX_AGE = "locationMaxAgeKey";
+    public static final String SP_KEY_LOCATION_REQUEST_DELAY = "locationRequestDelayKey";
     public static final String SP_KEY_IS_SERVICE_STARTED = "isServiceStartedKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
