@@ -63,7 +63,7 @@ public class LocationResources {
 
     //JSON keys (params)
     public static final String RETURN_TYPE = "returnType";
-    public static final String MIN_TIME = "minTIme";
+    public static final String MIN_TIME = "minTime";
     public static final String MIN_DISTANCE = "minDistance";
     public static final String MIN_ACCURACY = "minAccuracy";
     public static final String MAX_AGE = "locationMaxAge";
