@@ -73,7 +73,6 @@ public class Executor {
         msg.setData(data);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
-        new PreferencesHelper(context).setIsServiceStarted(true);
     }
 
     /**

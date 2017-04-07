@@ -9,7 +9,6 @@ import android.os.*;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
@@ -37,7 +36,6 @@ public class LocationServiceHandler extends Handler {
     private LocationListener mLocationListener;
     private Message mAnswer;
     private Context mContext;
-    private ServiceHandler mServiceHandler;
     private Handler mLocationsListHandler;
     private Handler mTotalDistanceCalculatorHandler;
     private Handler mCustomDistanceCalculatorHandler;
@@ -74,6 +72,7 @@ public class LocationServiceHandler extends Handler {
                     initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY),
                         msg.getData().getFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY));
                 result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING, isListening);
+                mPreferencesHelper.setIsServiceStarted(isListening);
                 mAnswer.setData(result);
                 try {
                     if (msg.replyTo != null) {
