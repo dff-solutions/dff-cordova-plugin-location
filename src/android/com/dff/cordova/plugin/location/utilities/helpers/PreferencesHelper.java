@@ -38,15 +38,6 @@ public class PreferencesHelper {
         return res;
     }
 
-    /**
-     * Restore the state of "can Location be cleared"
-     *
-     * @return The state
-     */
-    public boolean getCanLocationBeCleared() {
-        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
-    }
-
     public boolean setReturnType(String type) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(LocationResources.SP_KEY_RETURN_TYPE, type);
@@ -55,6 +46,31 @@ public class PreferencesHelper {
 
     public String getReturnType() {
         return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
+    }
+
+    public boolean setMinTime(long minTime) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        return editor.commit();
+    }
+
+    public boolean setMinDistance(float minDistance) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        return editor.commit();
+    }
+
+    public boolean setMinAccuracy(int minAccuracy) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        return editor.commit();
+    }
+
+    public boolean locationMaxAge(int maxAge) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        return editor.commit();
+    }
+
+    public boolean locationRequestDelay(int requestDelay) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        return editor.commit();
     }
 
     public boolean setIsServiceStarted(boolean isStarted) {
@@ -81,6 +97,15 @@ public class PreferencesHelper {
         Boolean res = editor.commit();
         Log.d(TAG, "Success of shared preference's commit (CUSTOM DISTANCE) is: " + res);
         return res;
+    }
+
+    /**
+     * Restore the state of "can Location be cleared"
+     *
+     * @return The state
+     */
+    public boolean getCanLocationBeCleared() {
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
 
     public float getStoredTotalDistance() {
