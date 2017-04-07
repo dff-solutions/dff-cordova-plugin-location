@@ -325,4 +325,8 @@ public class LocationServiceHandler extends Handler {
             .getInstance(mContext)
             .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
+
+    public boolean initializeLocationManagerOnRespawn() {
+        return initializeLocationManager(0, 0);
+    }
 }

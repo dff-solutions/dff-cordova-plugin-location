@@ -2,13 +2,12 @@ package com.dff.cordova.plugin.location.services;
 
 import android.app.Service;
 import android.content.Intent;
-import android.os.*;
+import android.os.HandlerThread;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
@@ -128,21 +127,8 @@ public class LocationService extends Service {
     }
 
     private void initializeLocationManagerAgain() {
-        Bundle data = new Bundle();
-        ServiceHandler serviceHandler = LocationPlugin.getServiceHandler();
-        //HandlerThread handlerThread = LocationPlugin.getHandlerThread();
-        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, LocationResources.LOCATION_MIN_TIME);
-        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
-        Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
-        msg.setData(data);
-        try {
-            Messenger messenger = serviceHandler.getService();
-            if (messenger != null) {
-                messenger.send(msg);
-            }
-        } catch (RemoteException | NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
+        LocationResources.LOCATION_RETURN_TYPE = mPreferencesHelper.getReturnType();
+        mLocationServiceHandler.initializeLocationManagerOnRespawn();
         mPreferencesHelper.setIsServiceStarted(false);
     }
 
