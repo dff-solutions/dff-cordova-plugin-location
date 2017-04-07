@@ -73,6 +73,7 @@ public class Executor {
         msg.setData(data);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
+        new PreferencesHelper(context).setIsServiceStarted(true);
     }
 
     /**
@@ -85,6 +86,7 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
+        new PreferencesHelper(context).setIsServiceStarted(false);
     }
 
     /**

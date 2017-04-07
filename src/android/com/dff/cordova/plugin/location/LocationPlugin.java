@@ -41,10 +41,11 @@ public class LocationPlugin extends CommonServicePlugin {
 
 
     private Context mContext;
-    private HandlerThread mHandlerThread;
-    private ServiceHandler mServiceHandler;
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
+
+    private static HandlerThread mHandlerThread;
+    private static ServiceHandler mServiceHandler;
 
     /**
      * Def-Constructor
@@ -210,5 +211,13 @@ public class LocationPlugin extends CommonServicePlugin {
             return true;
         }
         return super.execute(null, args, callbackContext);
+    }
+
+    public static HandlerThread getHandlerThread() {
+        return mHandlerThread;
+    }
+
+    public static ServiceHandler getServiceHandler() {
+        return mServiceHandler;
     }
 }
