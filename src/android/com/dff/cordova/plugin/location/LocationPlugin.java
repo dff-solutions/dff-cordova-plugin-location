@@ -212,12 +212,4 @@ public class LocationPlugin extends CommonServicePlugin {
         }
         return super.execute(null, args, callbackContext);
     }
-
-    public static HandlerThread getHandlerThread() {
-        return mHandlerThread;
-    }
-
-    public static ServiceHandler getServiceHandler() {
-        return mServiceHandler;
-    }
 }
