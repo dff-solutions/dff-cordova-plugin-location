@@ -109,15 +109,35 @@ public class PreferencesHelper {
         return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
 
+    public String getReturnType() {
+        return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
+    }
+
+    public long getMinTime() {
+        return mSharedPreferences.getLong(LocationResources.SP_KEY_MIN_TIME, LocationResources.LOCATION_MIN_TIME);
+    }
+
+    public float getMinDistance() {
+        return mSharedPreferences.getFloat(LocationResources.SP_KEY_MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
+    }
+
+    public int getMinAccuracy() {
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
+    }
+
+    public int getLocationMaxAge() {
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_MAX_AGE, LocationResources.LOCATION_MAX_AGE);
+    }
+
+    public int getLocationRequestDelay() {
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_REQUEST_DELAY, LocationResources.LOCATION_DELAY);
+    }
+
     public float getStoredTotalDistance() {
         return mSharedPreferences.getFloat(LocationResources.SP_KEY_TOTAL_DISTANCE, 0);
     }
 
     public float getStoreCustomDistance() {
         return mSharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
-    }
-
-    public String getReturnType() {
-        return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
     }
 }
