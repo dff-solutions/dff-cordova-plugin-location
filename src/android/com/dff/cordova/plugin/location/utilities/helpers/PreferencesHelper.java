@@ -44,32 +44,33 @@ public class PreferencesHelper {
         return editor.commit();
     }
 
-    public String getReturnType() {
-        return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
-    }
-
     public boolean setMinTime(long minTime) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putLong(LocationResources.SP_KEY_MIN_TIME, minTime);
         return editor.commit();
     }
 
     public boolean setMinDistance(float minDistance) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putFloat(LocationResources.SP_KEY_MIN_DISTANCE, minDistance);
         return editor.commit();
     }
 
     public boolean setMinAccuracy(int minAccuracy) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putInt(LocationResources.SP_KEY_MIN_ACCURACY, minAccuracy);
         return editor.commit();
     }
 
-    public boolean locationMaxAge(int maxAge) {
+    public boolean setLocationMaxAge(int maxAge) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putInt(LocationResources.SP_KEY_LOCATION_MAX_AGE, maxAge);
         return editor.commit();
     }
 
-    public boolean locationRequestDelay(int requestDelay) {
+    public boolean setLocationRequestDelay(int requestDelay) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putInt(LocationResources.SP_KEY_LOCATION_REQUEST_DELAY, requestDelay);
         return editor.commit();
     }
 
@@ -114,5 +115,9 @@ public class PreferencesHelper {
 
     public float getStoreCustomDistance() {
         return mSharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
+    }
+
+    public String getReturnType() {
+        return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
     }
 }
