@@ -111,7 +111,7 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
-        LocationResources.LOCATION_RETURN_TYPE = new PreferencesHelper(mContext).getReturnType();
+        new PreferencesHelper(mContext).restoreProperties();
         //mContext.startService(new Intent(mContext, LocationService.class));
         Executor.restore(mContext);
     }

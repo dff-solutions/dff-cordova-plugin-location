@@ -140,4 +140,28 @@ public class PreferencesHelper {
     public float getStoreCustomDistance() {
         return mSharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
     }
+
+    /**
+     * Store saved properties from the resources into shared preference
+     */
+    public void storeProperties() {
+        setReturnType(LocationResources.LOCATION_RETURN_TYPE);
+        setMinTime(LocationResources.LOCATION_MIN_TIME);
+        setMinDistance(LocationResources.LOCATION_MIN_DISTANCE);
+        setMinAccuracy(LocationResources.LOCATION_MIN_ACCURACY);
+        setLocationMaxAge(LocationResources.LOCATION_MAX_AGE);
+        setLocationRequestDelay(LocationResources.LOCATION_DELAY);
+    }
+
+    /**
+     * Restore saved properties from shared preference to the resources
+     */
+    public void restoreProperties() {
+        LocationResources.LOCATION_RETURN_TYPE = getReturnType();
+        LocationResources.LOCATION_MIN_TIME = getMinTime();
+        LocationResources.LOCATION_MIN_DISTANCE = getMinDistance();
+        LocationResources.LOCATION_MIN_ACCURACY = getMinAccuracy();
+        LocationResources.LOCATION_MAX_AGE = getLocationMaxAge();
+        LocationResources.LOCATION_DELAY = getLocationRequestDelay();
+    }
 }

@@ -57,19 +57,13 @@ public class Executor {
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                PreferencesHelper preferencesHelper = new PreferencesHelper(context);
                 LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
-                preferencesHelper.setReturnType(LocationResources.LOCATION_RETURN_TYPE);
                 LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
-                preferencesHelper.setMinTime(LocationResources.LOCATION_MIN_TIME);
                 LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
-                preferencesHelper.setMinDistance(LocationResources.LOCATION_MIN_DISTANCE);
                 LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
-                preferencesHelper.setMinAccuracy(LocationResources.LOCATION_MIN_ACCURACY);
                 LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE, LocationResources.LOCATION_MAX_AGE);
-                preferencesHelper.setLocationMaxAge(LocationResources.LOCATION_MAX_AGE);
                 LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY, LocationResources.LOCATION_DELAY);
-                preferencesHelper.setLocationRequestDelay(LocationResources.LOCATION_DELAY);
+                new PreferencesHelper(context).storeProperties();
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
