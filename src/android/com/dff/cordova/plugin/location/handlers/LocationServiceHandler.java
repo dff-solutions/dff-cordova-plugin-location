@@ -70,8 +70,8 @@ public class LocationServiceHandler extends Handler {
         switch (msg_what) {
             case START_LOCATION_SERVICE:
                 mAnswer = Message.obtain(null, msg.what);
-                isListening = initializeLocationManager
-                    (msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY),
+                isListening = mPreferencesHelper.isServiceStarted() ||
+                    initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY),
                         msg.getData().getFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY));
                 result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING, isListening);
                 mAnswer.setData(result);

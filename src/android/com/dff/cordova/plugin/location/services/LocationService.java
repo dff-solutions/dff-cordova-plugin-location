@@ -128,8 +128,7 @@ public class LocationService extends Service {
 
     private void initializeLocationManagerAgain() {
         LocationResources.LOCATION_RETURN_TYPE = mPreferencesHelper.getReturnType();
-        mLocationServiceHandler.initializeLocationManagerOnRespawn();
-        mPreferencesHelper.setIsServiceStarted(false);
+        mPreferencesHelper.setIsServiceStarted(mLocationServiceHandler.initializeLocationManagerOnRespawn());
     }
 
     private void testService(int max) {
