@@ -10,12 +10,13 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 1.3
+ * @version 2.0
  * @since 05.12.2016
  */
 public class FileHelper {
@@ -33,14 +34,13 @@ public class FileHelper {
         FileOutputStream fos = null;
         ObjectOutputStream os;
         try {
-            //ArrayList<String> pendingLocation = LocationResources.getLocationListDffString();
+            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
             switch (preferencesHelper.getReturnType()) {
                 case LocationResources.DFF_STRING:
                     ArrayList<String> pendingLocationDffString = LocationResources.getLocationListDffString();
                     if (pendingLocationDffString.size() > 0) {
                         Log.d(TAG, "PendingLocationsList count = " + pendingLocationDffString.size());
                         //Mode_Append / private
-                        fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME_SAV, Context.MODE_PRIVATE);
                         os = new ObjectOutputStream(fos);
                         for (String location : pendingLocationDffString) {
                             os.writeObject(location);
@@ -52,7 +52,6 @@ public class FileHelper {
                     ArrayList<JSONObject> pendingLocationJSON = LocationResources.getLocationListJson();
                     if (pendingLocationJSON.size() > 0) {
                         Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
-                        fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME_SAV, Context.MODE_PRIVATE);
                         os = new ObjectOutputStream(fos);
                         for (JSONObject location : pendingLocationJSON) {
                             os.writeObject(location.toString());
@@ -61,8 +60,6 @@ public class FileHelper {
                     }
                     break;
             }
-
-
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
@@ -88,13 +85,20 @@ public class FileHelper {
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
         try {
-            fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME_SAV);
+            fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
             int i = 0;
             if (fis.available() != 0) {
                 Log.d(TAG, "fis is available!");
                 ois = new ObjectInputStream(fis);
 
-                while (true) {
+                Scanner scanner = new Scanner(fis);
+                while (scanner.hasNext()){
+                    LocationResources.getLocationListJson().add(new JSONObject(scanner.next()));
+                }
+                scanner.close();
+
+                while (i != 0) {
+                    /*
                     switch (preferencesHelper.getReturnType()) {
                         case LocationResources.DFF_STRING:
                             if (LocationResources.getLocationListDffString() != null) {
@@ -117,10 +121,14 @@ public class FileHelper {
                             }
                             break;
                     }
+                    */
                 }
             }
-        } catch (IOException | ClassNotFoundException | JSONException e) {
+
+        } catch (IOException e) { // | ClassNotFoundException | JSONException
             CordovaPluginLog.e(TAG, "Error: ", e);
+        } catch (JSONException e) {
+            e.printStackTrace();
         } finally {
             try {
                 if (ois != null) {
