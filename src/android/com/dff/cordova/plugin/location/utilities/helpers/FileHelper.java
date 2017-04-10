@@ -5,6 +5,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.LOG;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -29,52 +30,37 @@ public class FileHelper {
     public static void storePendingLocation(Context context) {
         Log.d(TAG, "onStorePendingLocation()");
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
-        File file = null;
         FileOutputStream fos = null;
+        ObjectOutputStream os;
         try {
-            /*File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
-            boolean isPresent = true;
-            if (!docsFolder.exists()) {
-                Log.d(TAG, "Dir is not present");
-                isPresent = docsFolder.mkdir();
-            }
-            if (isPresent) {
-                Log.d(TAG, "Dir is present");
-                file = new File(docsFolder.getAbsolutePath(), LocationResources.LOCATION_FILE_NAME);
-            } else {
-                // Failure
-            }
-            String path = file != null ? file.getName() : null;
-            Log.d(TAG, "Path = " + path);*/
-
             //ArrayList<String> pendingLocation = LocationResources.getLocationListDffString();
-
-            File f = new File(LocationResources.LOCATION_FILE_NAME);
-            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE); //Mode_Append / private
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-
-
             switch (preferencesHelper.getReturnType()) {
                 case LocationResources.DFF_STRING:
                     ArrayList<String> pendingLocationDffString = LocationResources.getLocationListDffString();
                     if (pendingLocationDffString.size() > 0) {
                         Log.d(TAG, "PendingLocationsList count = " + pendingLocationDffString.size());
-                        for (Object location : pendingLocationDffString) {
+                        //Mode_Append / private
+                        fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME_SAV, Context.MODE_PRIVATE);
+                        os = new ObjectOutputStream(fos);
+                        for (String location : pendingLocationDffString) {
                             os.writeObject(location);
                         }
+                        os.close();
                     }
                     break;
                 case LocationResources.JSON:
                     ArrayList<JSONObject> pendingLocationJSON = LocationResources.getLocationListJson();
                     if (pendingLocationJSON.size() > 0) {
                         Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
+                        fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME_SAV, Context.MODE_PRIVATE);
+                        os = new ObjectOutputStream(fos);
                         for (JSONObject location : pendingLocationJSON) {
-                            os.writeObject(location);
+                            os.writeObject(location.toString());
                         }
+                        os.close();
                     }
                     break;
             }
-            os.close();
 
 
         } catch (IOException e) {
@@ -102,7 +88,7 @@ public class FileHelper {
         PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
         try {
-            fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
+            fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME_SAV);
             int i = 0;
             if (fis.available() != 0) {
                 Log.d(TAG, "fis is available!");
@@ -122,8 +108,8 @@ public class FileHelper {
                             break;
                         case LocationResources.JSON:
                             if (LocationResources.getLocationListJson() != null) {
-                                JSONObject location = (JSONObject) ois.readObject();
-                                LocationResources.addLocationToListAsJson(location);
+                                String location = (String) ois.readObject();
+                                LocationResources.addLocationToListAsJson(new JSONObject(location));
                                 Log.d(TAG, "location " + i + " = " + location);
                                 i++;
                             } else {
@@ -133,7 +119,7 @@ public class FileHelper {
                     }
                 }
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | JSONException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {
