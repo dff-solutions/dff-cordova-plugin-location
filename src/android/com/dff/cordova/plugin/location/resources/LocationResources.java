@@ -68,6 +68,7 @@ public class LocationResources {
     public static final String MIN_ACCURACY = "minAccuracy";
     public static final String MAX_AGE = "locationMaxAge";
     public static final String DELAY = "locationRequestDelay";
+    public static final String CLEAR = "clear";
 
     public static final String DFF_STRING = "dffString";
     public static final String JSON = "json";

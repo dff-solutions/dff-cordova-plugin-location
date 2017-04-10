@@ -100,9 +100,10 @@ LocationPlugin.prototype.getLocationAsTest = function (returnType) {
  *
  * @param success - Success callback function.
  * @param error - Error callback function.
+ * @param params - "clear" whether to clear after sending the location list
  */
-LocationPlugin.prototype.getLocationsList = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, []);
+LocationPlugin.prototype.getLocationsList = function (success, error, params) {
+    exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, [params]);
 };
 
 /**

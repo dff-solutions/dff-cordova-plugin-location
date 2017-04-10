@@ -114,8 +114,18 @@ public class Executor {
      * These location has been stored to be sent back later.
      *
      * @param callbackContext - The callback context used when calling back into JavaScript.
+     * @param args            - The exec() arguments.
      */
-    public static void getLocationList(CallbackContext callbackContext) {
+    public static void getLocationList(CallbackContext callbackContext, JSONArray args) {
+        Boolean canBeCleared = true;
+        try {
+            JSONObject params = args.getJSONObject(0);
+            if (params != null) {
+                canBeCleared = params.optBoolean(LocationResources.CLEAR, true);
+            }
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: ", e);
+        }
         switch (LocationResources.LOCATION_RETURN_TYPE) {
             case LocationResources.DFF_STRING:
                 ArrayList<String> dffStringLocationList = LocationResources.getLocationListDffString();
@@ -123,10 +133,9 @@ public class Executor {
                 if (dffStringLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(dffStringLocationList));
                     Log.d(TAG, "list > 0 ");
-                    //for (int i = 0; i < dffStringLocationList.size() -1; i++) {
-                    //   Log.d(TAG, "loc " + i + " = " + dffStringLocationList.get(i));
-                    //}
-                    LocationResources.clearDffStringLocationsList();
+                    if (canBeCleared) {
+                        LocationResources.clearDffStringLocationsList();
+                    }
                 } else {
                     callbackContext.success(new JSONArray());
                     Log.d(TAG, "list < 0 ");
@@ -138,10 +147,9 @@ public class Executor {
                 if (jsonLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(jsonLocationList));
                     Log.d(TAG, "list > 0 ");
-                    //for (int i = 0; i < jsonLocationList.size() -1; i++) {
-                    //   Log.d(TAG, "loc " + i + " = " + jsonLocationList.get(i));
-                    //}
-                    LocationResources.clearJsonLocationsList();
+                    if (canBeCleared) {
+                        LocationResources.clearJsonLocationsList();
+                    }
                 } else {
                     callbackContext.success(new JSONArray());
                     Log.d(TAG, "list < 0 ");
