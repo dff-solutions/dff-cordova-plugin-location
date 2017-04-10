@@ -187,8 +187,13 @@ LocationPlugin.getLocation(returnType, function(location) {
   *
   * @param success - Success callback function.
   * @param error - Error callback function.
+  * @param (params) - "clear" whether to clear after sending the location list
   */
- LocationPlugin.getLocationsList(function(locations) {
+ LocationPlugin.getLocationsList(
+     {
+        clear: false
+     }, 
+     function(locations) {
    //example
     //location 0...N = 9.92885613|51.53705706|0.0|0.0|1481283812139
  }, error);
