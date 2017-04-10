@@ -10,13 +10,12 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 2.0
+ * @version 2.2
  * @since 05.12.2016
  */
 public class FileHelper {
@@ -45,6 +44,7 @@ public class FileHelper {
                         for (String location : pendingLocationDffString) {
                             os.writeObject(location);
                         }
+                        os.writeObject(null);
                         os.close();
                     }
                     break;
@@ -56,6 +56,7 @@ public class FileHelper {
                         for (JSONObject location : pendingLocationJSON) {
                             os.writeObject(location.toString());
                         }
+                        os.writeObject(null);
                         os.close();
                     }
                     break;
@@ -91,18 +92,11 @@ public class FileHelper {
                 Log.d(TAG, "fis is available!");
                 ois = new ObjectInputStream(fis);
 
-                Scanner scanner = new Scanner(fis);
-                while (scanner.hasNext()){
-                    LocationResources.getLocationListJson().add(new JSONObject(scanner.next()));
-                }
-                scanner.close();
-
-                while (i != 0) {
-                    /*
+                String location;
+                while ((location = (String) ois.readObject()) != null) {
                     switch (preferencesHelper.getReturnType()) {
                         case LocationResources.DFF_STRING:
                             if (LocationResources.getLocationListDffString() != null) {
-                                String location = (String) ois.readObject();
                                 LocationResources.addLocationToListAsDffString(location);
                                 Log.d(TAG, "location " + i + " = " + location);
                                 i++;
@@ -112,7 +106,6 @@ public class FileHelper {
                             break;
                         case LocationResources.JSON:
                             if (LocationResources.getLocationListJson() != null) {
-                                String location = (String) ois.readObject();
                                 LocationResources.addLocationToListAsJson(new JSONObject(location));
                                 Log.d(TAG, "location " + i + " = " + location);
                                 i++;
@@ -121,14 +114,11 @@ public class FileHelper {
                             }
                             break;
                     }
-                    */
                 }
             }
 
-        } catch (IOException e) { // | ClassNotFoundException | JSONException
+        } catch (IOException | ClassNotFoundException | JSONException e) { //
             CordovaPluginLog.e(TAG, "Error: ", e);
-        } catch (JSONException e) {
-            e.printStackTrace();
         } finally {
             try {
                 if (ois != null) {
