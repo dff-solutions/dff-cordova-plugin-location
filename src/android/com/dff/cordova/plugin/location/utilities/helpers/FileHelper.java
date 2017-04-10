@@ -28,11 +28,9 @@ public class FileHelper {
      */
     public static void storePendingLocation(Context context) {
         Log.d(TAG, "onStorePendingLocation()");
+        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
         File file = null;
         FileOutputStream fos = null;
-        ArrayList<String> pendingLocation = LocationResources.getLocationListDffString();
-
-
         try {
             /*File docsFolder = new File(Environment.getExternalStorageDirectory() + "/Documents");
             boolean isPresent = true;
@@ -49,17 +47,35 @@ public class FileHelper {
             String path = file != null ? file.getName() : null;
             Log.d(TAG, "Path = " + path);*/
 
+            //ArrayList<String> pendingLocation = LocationResources.getLocationListDffString();
+
             File f = new File(LocationResources.LOCATION_FILE_NAME);
             fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE); //Mode_Append / private
             ObjectOutputStream os = new ObjectOutputStream(fos);
 
-            Log.d(TAG, "PendingLocationsList count = " + pendingLocation.size());
-            if (pendingLocation.size() > 0) {
-                for (String location : pendingLocation) {
-                    os.writeObject(location);
-                }
-                os.close();
+
+            switch (preferencesHelper.getReturnType()) {
+                case LocationResources.DFF_STRING:
+                    ArrayList<String> pendingLocationDffString = LocationResources.getLocationListDffString();
+                    if (pendingLocationDffString.size() > 0) {
+                        Log.d(TAG, "PendingLocationsList count = " + pendingLocationDffString.size());
+                        for (Object location : pendingLocationDffString) {
+                            os.writeObject(location);
+                        }
+                    }
+                    break;
+                case LocationResources.JSON:
+                    ArrayList<JSONObject> pendingLocationJSON = LocationResources.getLocationListJson();
+                    if (pendingLocationJSON.size() > 0) {
+                        Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
+                        for (JSONObject location : pendingLocationJSON) {
+                            os.writeObject(location);
+                        }
+                    }
+                    break;
             }
+            os.close();
+
 
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
@@ -133,5 +149,4 @@ public class FileHelper {
             }
         }
     }
-
 }
