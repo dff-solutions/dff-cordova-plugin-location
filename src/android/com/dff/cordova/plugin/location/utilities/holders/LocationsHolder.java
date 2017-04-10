@@ -35,16 +35,18 @@ public class LocationsHolder implements Runnable {
     @Override
     public void run() {
         if (LocationResources.getLastGoodLocation() != null) {
-            switch (LocationResources.RETURN_TYPE) {
+            switch (LocationResources.LOCATION_RETURN_TYPE) {
                 case LocationResources.DFF_STRING:
                     String location = LocationResources.getLastGoodLocationAsString() + "|" +
                         LocationResources.getLastGoodLocation().getTime();
                     LocationResources.addLocationToListAsDffString(location);
-                    Log.d(TAG, "Location has been added as (dffString) to the array list");
+                    Log.d(TAG, "Location has been added as (dffString) to the array list with size = "
+                        + LocationResources.getLocationListDffString().size());
                     break;
                 case LocationResources.JSON:
                     LocationResources.addLocationToListAsJson(LocationResources.getLastGoodLocationAsJson());
-                    Log.d(TAG, "Location has been added as (json) to the array list");
+                    Log.d(TAG, "The location is null and will not be added to the arraylist with size = "
+                        + LocationResources.getLocationListJson().size());
                     break;
             }
         } else {
