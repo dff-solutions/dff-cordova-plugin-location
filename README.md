@@ -193,7 +193,7 @@ LocationPlugin.getLocation(returnType, function(location) {
   *
   * @param success - Success callback function.
   * @param error - Error callback function.
-  * @param (params) - "clear" whether to clear after sending the location list
+  * @param (params) - "clear" whether to clear after sending the location list (default clear = true)
   */
  LocationPlugin.getLocationsList(
      {
