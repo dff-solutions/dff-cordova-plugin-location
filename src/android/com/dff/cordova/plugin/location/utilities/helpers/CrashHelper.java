@@ -9,7 +9,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Class that deals with app crashes.
  *
  * @author Anthony Nahas
- * @version 2.0
+ * @version 2.1
  * @since 06.12.2016
  */
 public class CrashHelper implements Thread.UncaughtExceptionHandler {

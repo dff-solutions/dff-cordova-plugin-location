@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 2.2
+ * @version 2.3
  * @since 05.12.2016
  */
 public class FileHelper {

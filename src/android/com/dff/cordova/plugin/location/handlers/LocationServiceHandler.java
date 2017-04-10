@@ -23,7 +23,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 4.3.3
+ * @version 5.0
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {

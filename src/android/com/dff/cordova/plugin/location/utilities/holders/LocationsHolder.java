@@ -8,7 +8,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Class to hold the last good location within an interval of time.
  *
  * @author Anthony Nahas
- * @version 2.0
+ * @version 2.5
  * @since 01.12.2016
  */
 public class LocationsHolder implements Runnable {

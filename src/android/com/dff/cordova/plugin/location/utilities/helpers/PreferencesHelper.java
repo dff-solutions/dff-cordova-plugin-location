@@ -9,7 +9,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
  * Class to save and restore shared preferences.
  *
  * @author Anthony Nahas
- * @version 4.0
+ * @version 5.0
  * @since 06.12.2016
  */
 public class PreferencesHelper {
