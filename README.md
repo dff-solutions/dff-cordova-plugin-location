@@ -8,10 +8,16 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 4.5.7
+- Android: 5.0.0
 
 ## Releases:
-- 4.5.7: Fix: getLocationList method fixed after refactoring returnType property
+- 5.0.0: Feat: properties will be stored in the shared preference | recognize whether the user has already starte the 
+service and initialized the location manager | Fix: initialize the location manager after respawning a new process | 
+ Fix: using prefrence helper to verfify whether the location manager has been initialized | Ref: setting is service started take place in the location service handler class and not in the executor class
+| Feat: store/restore function for properties in the preference helper class | Feat: handling the location manager on crash 
+| Fix: switch location return type in location holder class | Fix: file helper class supports now storing location in string as well as in json format (json format not completely done)
+| Fix: supporting wrting json objects in a file | Fix: handling EOF exception :) |Feat: supporting optional param to clear the list after forwarding it to JS/TS
+- 4.5.7: Fix: getLocationList method fixed after refactoring returnType property 
 - 4.5.6: Fix: added fallbacks to params in start service method 
 - 4.5.5: Feat: supporting storing/restoring location list as json on crash
 - 4.5.4: HOT-Fix: refactoring errors fixed (clear lists)
