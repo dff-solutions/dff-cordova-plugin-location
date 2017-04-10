@@ -319,13 +319,21 @@ public class LocationServiceHandler extends Handler {
         }
     }
 
+    /**
+     * Notify the new location receiver about the new location ;)
+     */
     private void notifyOnChangedLocation() {
         LocalBroadcastManager
             .getInstance(mContext)
             .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 
+    /**
+     * On uncaught exception - the process will be respawn
+     *
+     * @return whether the location manager has been initialized or not
+     */
     public boolean initializeLocationManagerOnRespawn() {
-        return initializeLocationManager(0, 0);
+        return initializeLocationManager(mPreferencesHelper.getMinTime(), mPreferencesHelper.getMinDistance());
     }
 }

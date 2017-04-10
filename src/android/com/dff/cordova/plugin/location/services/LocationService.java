@@ -9,7 +9,6 @@ import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
@@ -63,6 +62,7 @@ public class LocationService extends Service {
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
             initializeLocationManagerAgain();
+            Log.d(TAG, "init again");
         }
         return super.onStartCommand(intent, flags, startId); //start sticky
     }
@@ -127,7 +127,7 @@ public class LocationService extends Service {
     }
 
     private void initializeLocationManagerAgain() {
-        LocationResources.LOCATION_RETURN_TYPE = mPreferencesHelper.getReturnType();
+        mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(mLocationServiceHandler.initializeLocationManagerOnRespawn());
     }
 
