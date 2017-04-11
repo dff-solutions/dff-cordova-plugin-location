@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 5.0.0
+- Android: 5.0.1
 
 ## Releases:
+- 5.0.1: Ref: requesting permissions will be performed by the common plugin @TargetAPI(21)
 - 5.0.0: Feat: properties will be stored in the shared preference | recognize whether the user has already starte the 
 service and initialized the location manager | Fix: initialize the location manager after respawning a new process | 
  Fix: using prefrence helper to verfify whether the location manager has been initialized | Ref: setting is service started take place in the location service handler class and not in the executor class

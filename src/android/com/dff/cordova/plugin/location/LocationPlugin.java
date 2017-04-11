@@ -4,11 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
@@ -38,9 +38,6 @@ public class LocationPlugin extends CommonServicePlugin {
             Manifest.permission.ACCESS_FINE_LOCATION
         };
 
-    private static final int LOCATION_PERMISSION_CODE = 0;
-
-
     private Context mContext;
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
@@ -55,18 +52,6 @@ public class LocationPlugin extends CommonServicePlugin {
         super(TAG);
     }
 
-
-    /**
-     * on start app --> check permissions.
-     */
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (!cordova.hasPermission(LOCATION_PERMISSIONS[0])) {
-            getLocationPermission(LOCATION_PERMISSION_CODE);
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -74,29 +59,12 @@ public class LocationPlugin extends CommonServicePlugin {
     }
 
     /**
-     * request permissions if they are not granted
-     *
-     * @param requestCode - the request code to handle the response of the request
+     * request permissions if they are not granted by forwarding them to
+     * the common plugin
      */
-    private void getLocationPermission(int requestCode) {
-        cordova.requestPermissions(this, requestCode, LOCATION_PERMISSIONS);
-    }
-
-    /**
-     * If permissions are denied log and error and leave method
-     *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
-     * @throws JSONException
-     */
-    public void onRequestPermissionResult(int requestCode, String[] permissions,
-                                          int[] grantResults) throws JSONException {
-        for (int r : grantResults) {
-            if (r == PackageManager.PERMISSION_DENIED) {
-                CordovaPluginLog.e(TAG, "LOCATION PERMISSIONS DENIED");
-                return;
-            }
+    private void requestLocationPermission() {
+        for (String permission : LOCATION_PERMISSIONS) {
+            CommonPlugin.addPermission(permission);
         }
     }
 
@@ -106,6 +74,7 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     @Override
     public void pluginInitialize() {
+        requestLocationPermission();
         mContext = cordova.getActivity().getApplicationContext();
         mContext.stopService(new Intent(mContext, LocationService.class));
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
