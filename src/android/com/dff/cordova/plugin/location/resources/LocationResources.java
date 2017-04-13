@@ -16,7 +16,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 5.0.2
+ * @version 5.0.3
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -281,9 +281,10 @@ public class LocationResources {
      */
     public static synchronized void addLocationToListAsDffString(String location) {
         if (!LOCATION_LIST_DFF_STRING.contains(location)) {
-            Log.d(TAG, "location already exists");
+            LOCATION_LIST_DFF_STRING.add(location);
+            return;
         }
-        LOCATION_LIST_DFF_STRING.add(location);
+        Log.d(TAG, "location already exists");
     }
 
     /**
@@ -304,9 +305,10 @@ public class LocationResources {
      */
     public static synchronized void addLocationToListAsJson(JSONObject location) {
         if (!LOCATION_LIST_JSON.contains(location)) {
-            Log.d(TAG, "location already exists");
+            LOCATION_LIST_JSON.add(location);
+            return;
         }
-        LOCATION_LIST_JSON.add(location);
+        Log.d(TAG, "location already exists");
     }
 
     /**

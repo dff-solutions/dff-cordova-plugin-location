@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 5.0.2
+- Android: 5.0.3
 
 ## Releases:
+- 5.0.3: Fix: correction of adding a new location in the array lists
 - 5.0.2: Fix: remove updates of the location manager only if it has been already initialized
 - 5.0.1: Ref: requesting permissions will be performed by the common plugin @TargetAPI(21)
 - 5.0.0: Feat: properties will be stored in the shared preference | recognize whether the user has already starte the 
