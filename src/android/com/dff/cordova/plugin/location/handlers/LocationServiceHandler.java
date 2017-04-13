@@ -23,7 +23,7 @@ import java.util.List;
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 5.0
+ * @version 5.0.2
  * @since 29.11.2016
  */
 public class LocationServiceHandler extends Handler {
@@ -84,7 +84,9 @@ public class LocationServiceHandler extends Handler {
                 break;
             case STOP_LOCATION_SERVICE:
                 stopLocationHolder();
-                mLocationManager.removeUpdates(mLocationListener);
+                if (mLocationListener != null) {
+                    mLocationManager.removeUpdates(mLocationListener);
+                }
                 mAnswer = Message.obtain(null, msg.what);
                 try {
                     msg.replyTo.send(mAnswer);
