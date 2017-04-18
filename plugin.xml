@@ -80,9 +80,11 @@
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/broadcasts/StandStillReceiver.java"
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/tests/DistanceTester.java"
+                     target-dir="src/com/dff/cordova/plugin/location/tests"/>
 
         <source-file src="mock/positions.json"
-                     target-dir="assets/positions.json"/>
+                     target-dir="assets/"/>
 
         <source-file src="src/android/build-extras.gradle" target-dir="src/.."/>
 
