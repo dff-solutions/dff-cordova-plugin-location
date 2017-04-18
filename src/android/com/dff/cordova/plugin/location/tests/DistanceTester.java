@@ -2,8 +2,11 @@ package com.dff.cordova.plugin.location.tests;
 
 import android.content.Context;
 import android.location.Location;
+import android.os.Handler;
 import android.util.Log;
 
+
+import com.dff.cordova.plugin.location.utilities.holders.DistanceTesterHolder;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -22,83 +25,92 @@ import java.util.regex.Pattern;
 
 public class DistanceTester {
 
-    public static final String TAG = DistanceTester.class.getSimpleName();
+  public static final String TAG = DistanceTester.class.getSimpleName();
 
-    private Context mContext;
-    private ArrayList<Location> locationList;
+  private Context mContext;
+  private ArrayList<Location> mLocationList;
+  private Handler mChangeLocationHandler;
+  private DistanceTesterHolder mDistanceTesterHolder;
 
-    public DistanceTester(Context context) {
-        mContext = context;
-        init();
+  int changeLocationDelay = 20000;
+
+  public DistanceTester(Context context) {
+    mContext = context;
+    init();
+  }
+
+  private void init() {
+    Log.d(TAG, "onInit()");
+    mLocationList = new ArrayList<>();
+    readJSON();
+  }
+
+  private String loadJsonFromAsset() {
+    String json;
+    try {
+      InputStream is = mContext.getAssets().open("positions.json");
+      int size = is.available();
+      byte[] buffer = new byte[size];
+      is.read(buffer);
+      is.close();
+      json = new String(buffer, "UTF-8");
+    } catch (IOException ex) {
+      ex.printStackTrace();
+      return null;
     }
+    return json;
+  }
 
-    private void init() {
-        Log.d(TAG, "onInit()");
-        locationList = new ArrayList<>();
-        readJSON();
+
+  private void readJSON() {
+    JSONObject jsonDATA = null;
+    JSONParser jsonParser = new JSONParser();
+    try {
+      jsonDATA = (JSONObject) jsonParser.parse(loadJsonFromAsset());
+    } catch (ParseException | ClassCastException e) {
+      System.err.println("Error: " + e);
     }
+    if (jsonDATA != null) {
+      Log.d(TAG, jsonDATA.toString());
+      readDffStringLocation(jsonDATA);
 
-    private String loadJsonFromAsset() {
-        String json;
-        try {
-            InputStream is = mContext.getAssets().open("positions.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
+    } else {
+      Log.e(TAG, "JSON Array NOT FOUND 404");
     }
+  }
 
-
-    private void readJSON() {
-        JSONObject jsonDATA = null;
-        JSONParser jsonParser = new JSONParser();
-        try {
-            jsonDATA = (JSONObject) jsonParser.parse(loadJsonFromAsset());
-        } catch (ParseException | ClassCastException e) {
-            System.err.println("Error: " + e);
-        }
-        if (jsonDATA != null) {
-            Log.d(TAG, jsonDATA.toString());
-            readDffStringLocation(jsonDATA);
-
-        } else {
-            Log.e(TAG, "JSON Array NOT FOUND 404");
-        }
+  private void readDffStringLocation(JSONObject jsonObject) {
+    JSONArray dffStringLocationArray = (JSONArray) jsonObject.get("rows");
+    Log.d(TAG, dffStringLocationArray.toString());
+    for (Object DffStringLocationList : dffStringLocationArray) {
+      JSONArray DffStringLocation = (JSONArray) DffStringLocationList;
+      for (Object DffString : DffStringLocation) {
+        mLocationList.add(parseDffStringLocation(DffString));
+      }
     }
+    Log.d(TAG, "location list size = " + mLocationList.size());
+  }
 
-    private void readDffStringLocation(JSONObject jsonObject) {
-        JSONArray dffStringLocationArray = (JSONArray) jsonObject.get("rows");
-        Log.d(TAG, dffStringLocationArray.toString());
-        for (Object DffStringLocationList : dffStringLocationArray) {
-            JSONArray DffStringLocation = (JSONArray) DffStringLocationList;
-            for (Object DffString : DffStringLocation) {
-                locationList.add(parseDffStringLocation(DffString));
-            }
-        }
-        Log.d(TAG, "location list size = " + locationList.size());
-    }
+  private static Location parseDffStringLocation(Object dffStringLocation) {
+    String dffString = (String) dffStringLocation;
+    String[] dffString_split = dffString.split(Pattern.quote("|"));
+    Log.d(TAG, dffString);
+    Log.d(TAG, dffString_split[0]);
+    double latitude = (Double.valueOf(dffString_split[0])
+      + (Double.valueOf(dffString_split[1]) / 60)
+      + (Double.valueOf(dffString_split[2]) / 36000));
+    double longitude = (Double.valueOf(dffString_split[3])
+      + (Double.valueOf(dffString_split[4]) / 60)
+      + (Double.valueOf(dffString_split[5]) / 36000));
+    Location location = new Location("GPS");
+    location.setLatitude(latitude);
+    location.setLongitude(longitude);
+    return location;
+  }
 
-    private static Location parseDffStringLocation(Object dffStringLocation) {
-        String dffString = (String) dffStringLocation;
-        String[] dffString_split = dffString.split(Pattern.quote("|"));
-        Log.d(TAG, dffString);
-        Log.d(TAG, dffString_split[0]);
-        double latitude = (Double.valueOf(dffString_split[0])
-            + (Double.valueOf(dffString_split[1]) / 60)
-            + (Double.valueOf(dffString_split[2]) / 36000));
-        double longitude = (Double.valueOf(dffString_split[3])
-            + (Double.valueOf(dffString_split[4]) / 60)
-            + (Double.valueOf(dffString_split[5]) / 36000));
-        Location location = new Location("GPS");
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
-        return location;
-    }
-
+  private void runChangeLocationHolder() {
+    mChangeLocationHandler = new Handler();
+    mDistanceTesterHolder = new DistanceTesterHolder(mLocationList, mChangeLocationHandler, changeLocationDelay);
+    mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
+  }
 }
