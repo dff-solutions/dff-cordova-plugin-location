@@ -87,5 +87,7 @@
         <source-file src="src/android/build-extras.gradle" target-dir="src/.."/>
 
         <framework src="com.android.support:support-v4:25.3.1"/>
+        <framework src="com.googlecode.json-simple:json-simple:1.1"/>
+
     </platform>
 </plugin>
