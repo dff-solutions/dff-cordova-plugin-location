@@ -72,6 +72,8 @@
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceTesterHolder.java"
+                     target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
                      target-dir="src/com/dff/cordova/plugin/location/classes"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/Executor.java"
