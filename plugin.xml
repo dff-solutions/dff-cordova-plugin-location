@@ -72,7 +72,7 @@
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceTesterHolder.java"
+        <source-file src="src/android/com/dff/cordova/plugin/location/utilities/holders/DistanceSimulatorHolder.java"
                      target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
                      target-dir="src/com/dff/cordova/plugin/location/classes"/>
@@ -82,8 +82,8 @@
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
         <source-file src="src/android/com/dff/cordova/plugin/location/broadcasts/StandStillReceiver.java"
                      target-dir="src/com/dff/cordova/plugin/location/broadcasts"/>
-        <source-file src="src/android/com/dff/cordova/plugin/location/tests/DistanceTester.java"
-                     target-dir="src/com/dff/cordova/plugin/location/tests"/>
+        <source-file src="src/android/com/dff/cordova/plugin/location/simulators/DistanceSimulator.java"
+                     target-dir="src/com/dff/cordova/plugin/location/simulators"/>
 
         <source-file src="mock/positions.json"
                      target-dir="assets/"/>
