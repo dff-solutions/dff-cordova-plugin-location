@@ -6,7 +6,7 @@ import android.os.Handler;
 import android.util.Log;
 
 
-import com.dff.cordova.plugin.location.utilities.holders.DistanceTesterHolder;
+import com.dff.cordova.plugin.location.utilities.holders.DistanceSimulatorHolder;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -30,9 +30,9 @@ public class DistanceSimulator {
   private Context mContext;
   private ArrayList<Location> mLocationList;
   private Handler mChangeLocationHandler;
-  private DistanceTesterHolder mDistanceTesterHolder;
+  private DistanceSimulatorHolder mDistanceTesterHolder;
 
-  int changeLocationDelay = 20000;
+  int changeLocationDelay = 2000;
 
   public DistanceSimulator(Context context) {
     mContext = context;
@@ -111,7 +111,7 @@ public class DistanceSimulator {
 
   private void runChangeLocationHolder() {
     mChangeLocationHandler = new Handler();
-    mDistanceTesterHolder = new DistanceTesterHolder(mLocationList, mChangeLocationHandler, changeLocationDelay);
+    mDistanceTesterHolder = new DistanceSimulatorHolder(mLocationList, mChangeLocationHandler, changeLocationDelay);
     mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
   }
 }
