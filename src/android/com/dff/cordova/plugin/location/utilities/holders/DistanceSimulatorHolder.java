@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.utilities.holders;
 
+import android.content.Context;
 import android.location.Location;
 import android.os.Handler;
 import android.util.Log;
@@ -11,11 +12,15 @@ import java.util.ArrayList;
 
 /**
  * Created by anahas on 18.04.2017.
+ *
+ * @author Anthony Nahas
+ * @version 1.1
+ * @since 18.04.2017
  */
 
-public class DistanceTesterHolder implements Runnable {
+public class DistanceSimulatorHolder implements Runnable {
 
-    private static final String TAG = DistanceTesterHolder.class.getSimpleName();
+    private static final String TAG = DistanceSimulatorHolder.class.getSimpleName();
 
     private ArrayList<Location> mLocationList;
     private Handler mHandler;
@@ -28,10 +33,11 @@ public class DistanceTesterHolder implements Runnable {
     private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
     private PreferencesHelper mPreferencesHelper;
 
-    private int customDelay = 15000;
-    private int fullDelay = 15000;
+    private int customDelay = 1500;
+    private int fullDelay = 1500;
 
-    public DistanceTesterHolder(ArrayList<Location> mLocationList, Handler mHandler, int mDelay) {
+    public DistanceSimulatorHolder(Context context, ArrayList<Location> mLocationList, Handler mHandler, int mDelay) {
+        mPreferencesHelper = new PreferencesHelper(context);
         this.mLocationList = mLocationList;
         this.mHandler = mHandler;
         this.mDelay = mDelay;
@@ -52,6 +58,7 @@ public class DistanceTesterHolder implements Runnable {
 
         if (mCounter == mLocationList.size() - 1) {
             mHandler.removeCallbacks(this);
+            stopDistanceCalculatorFullHolder();
         } else {
             mHandler.postDelayed(this, mDelay);
         }
@@ -75,13 +82,10 @@ public class DistanceTesterHolder implements Runnable {
         Log.d(TAG, "stop distance calc full holder");
         try {
             if (mTotalDistanceCalculatorHandler != null) {
-                //mTotalDistanceCalculatorHandler.removeCallbacks(mDistanceCalculatorFullHolder);
                 mTotalDistanceCalculatorHandler.removeCallbacksAndMessages(null);
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
-        } finally {
-            mPreferencesHelper.storeTotalDistance(0);
         }
     }
 
@@ -108,8 +112,11 @@ public class DistanceTesterHolder implements Runnable {
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
-        } finally {
-            mPreferencesHelper.storeCustomDistance(0);
         }
+    }
+
+    private void logDistance() {
+        float totalDistance = LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance();
+        Log.d(TAG, "Total: " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
     }
 }
