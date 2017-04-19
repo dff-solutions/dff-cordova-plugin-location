@@ -33,8 +33,8 @@ public class DistanceSimulatorHolder implements Runnable {
     private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
     private PreferencesHelper mPreferencesHelper;
 
-    private int customDelay = 1500;
-    private int fullDelay = 1500;
+    private int customDelay = 150;
+    private int fullDelay = 150;
 
     public DistanceSimulatorHolder(Context context, ArrayList<Location> mLocationList, Handler mHandler, int mDelay) {
         mPreferencesHelper = new PreferencesHelper(context);
@@ -49,11 +49,14 @@ public class DistanceSimulatorHolder implements Runnable {
         if (LocationResources.getLastGoodLocation() == null) {
             LocationResources.setLastGoodLocation(mLocationList.get(0));
             Log.d(TAG, "starting with the first mock location");
+            LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
+            runDistanceCalculatorFullHolder();
         } else {
             LocationResources.setLastGoodLocation(mLocationList.get(mCounter));
             Log.d(TAG, "Mock Location " + mCounter);
         }
 
+        logDistance();
         mCounter++;
 
         if (mCounter == mLocationList.size() - 1) {
@@ -116,7 +119,7 @@ public class DistanceSimulatorHolder implements Runnable {
     }
 
     private void logDistance() {
-        float totalDistance = LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance();
-        Log.d(TAG, "Total: " + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() + "m");
+        Log.d(TAG, "Total: "
+            + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000 + " km");
     }
 }
