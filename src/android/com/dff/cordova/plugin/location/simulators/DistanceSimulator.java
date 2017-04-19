@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.tests;
+package com.dff.cordova.plugin.location.simulators;
 
 import android.content.Context;
 import android.location.Location;
@@ -23,9 +23,9 @@ import java.util.regex.Pattern;
  * Created by anahas on 18.04.2017.
  */
 
-public class DistanceTester {
+public class DistanceSimulator {
 
-  public static final String TAG = DistanceTester.class.getSimpleName();
+  public static final String TAG = DistanceSimulator.class.getSimpleName();
 
   private Context mContext;
   private ArrayList<Location> mLocationList;
@@ -34,7 +34,7 @@ public class DistanceTester {
 
   int changeLocationDelay = 20000;
 
-  public DistanceTester(Context context) {
+  public DistanceSimulator(Context context) {
     mContext = context;
     init();
   }
@@ -43,6 +43,7 @@ public class DistanceTester {
     Log.d(TAG, "onInit()");
     mLocationList = new ArrayList<>();
     readJSON();
+    runChangeLocationHolder();
   }
 
   private String loadJsonFromAsset() {
