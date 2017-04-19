@@ -29,10 +29,11 @@ public class DistanceSimulator {
 
     private Context mContext;
     private ArrayList<Location> mLocationList;
+    private int mStopsCount;
     private Handler mChangeLocationHandler;
     private DistanceSimulatorHolder mDistanceTesterHolder;
 
-    int changeLocationDelay = 200;
+    int changeLocationDelay = 20;
 
     public DistanceSimulator(Context context) {
         mContext = context;
@@ -42,6 +43,7 @@ public class DistanceSimulator {
     private void init() {
         Log.d(TAG, "onInit()");
         mLocationList = new ArrayList<>();
+        mStopsCount = 0;
         readJSON();
         runChangeLocationHolder();
     }
@@ -89,7 +91,9 @@ public class DistanceSimulator {
                 mLocationList.add(parseDffStringLocation(DffString));
             }
         }
-        Log.d(TAG, "location list size = " + mLocationList.size());
+        mStopsCount = getStopsCount(mLocationList.size());
+        Log.d(TAG, "location list size = " + mLocationList.size() + " with " + mStopsCount + " stops!");
+
     }
 
     private static Location parseDffStringLocation(Object dffStringLocation) {
@@ -108,9 +112,15 @@ public class DistanceSimulator {
         return location;
     }
 
+    private static int getStopsCount(int size) {
+        double result = size / 10;
+        result = result % 10 == 0 ? result : result + 1;
+        return (int) result;
+    }
+
     private void runChangeLocationHolder() {
         mChangeLocationHandler = new Handler();
-        mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, mLocationList, mChangeLocationHandler, changeLocationDelay);
+        mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, mLocationList, mStopsCount, mChangeLocationHandler, changeLocationDelay);
         mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
     }
 }

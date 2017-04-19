@@ -23,9 +23,12 @@ public class DistanceSimulatorHolder implements Runnable {
     private static final String TAG = DistanceSimulatorHolder.class.getSimpleName();
 
     private ArrayList<Location> mLocationList;
+    private int mStops;
     private Handler mHandler;
     private int mDelay;
     private int mCounter = 0;
+    private int mStopsCounter = 0;
+    private double mCustomTotal = 0;
 
     private Handler mTotalDistanceCalculatorHandler;
     private Handler mCustomDistanceCalculatorHandler;
@@ -33,14 +36,15 @@ public class DistanceSimulatorHolder implements Runnable {
     private DistanceCalculatorCustomHolder mDistanceCalculatorCustomHolder;
     private PreferencesHelper mPreferencesHelper;
 
-    private int customDelay = 150;
-    private int fullDelay = 150;
+    private int customDelay = 15;
+    private int fullDelay = 15;
 
-    public DistanceSimulatorHolder(Context context, ArrayList<Location> mLocationList, Handler mHandler, int mDelay) {
+    public DistanceSimulatorHolder(Context context, ArrayList<Location> mLocationList, int mStops, Handler mHandler, int mDelay) {
         mPreferencesHelper = new PreferencesHelper(context);
         this.mLocationList = mLocationList;
         this.mHandler = mHandler;
         this.mDelay = mDelay;
+        this.mStops = mStops;
     }
 
     @Override
@@ -51,6 +55,7 @@ public class DistanceSimulatorHolder implements Runnable {
             Log.d(TAG, "starting with the first mock location");
             LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
             runDistanceCalculatorFullHolder();
+            runDistanceCalculatorCustomHolder();
         } else {
             LocationResources.setLastGoodLocation(mLocationList.get(mCounter));
             Log.d(TAG, "Mock Location " + mCounter);
@@ -62,7 +67,14 @@ public class DistanceSimulatorHolder implements Runnable {
         if (mCounter == mLocationList.size() - 1) {
             mHandler.removeCallbacks(this);
             stopDistanceCalculatorFullHolder();
+            stopDistanceCalculatorCustomHolder();
         } else {
+            if (mStopsCounter == mStops) {
+                stopDistanceCalculatorCustomHolder();
+                mCustomTotal += LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance();
+                runDistanceCalculatorCustomHolder();
+            }
+            mStopsCounter++;
             mHandler.postDelayed(this, mDelay);
         }
     }
@@ -115,11 +127,18 @@ public class DistanceSimulatorHolder implements Runnable {
             }
         } catch (NullPointerException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
+        } finally {
+            mPreferencesHelper.storeCustomDistance(0);
+            LocationResources.CUSTOM_DISTANCE_CALCULATOR.reset();
         }
     }
 
     private void logDistance() {
         Log.d(TAG, "Total: "
-            + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000 + " km");
+            + LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000 + " km"
+            + "\t"
+            + "CustomTotal: " + mCustomTotal / 1000 + " km"
+            + "\t"
+            + "Custom: " + LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000 + " km");
     }
 }
