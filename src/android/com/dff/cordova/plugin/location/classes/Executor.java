@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * Class to execute incoming actions from JS.
@@ -169,11 +170,16 @@ public class Executor {
      */
     public static void sendActionToHandlerThread(Context context, CallbackContext callbackContext,
                                                  HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
-        Message msg = Message.obtain(null, LocationResources.parseWHAT(action));
-        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-            context, callbackContext);
-        msg.replyTo = new Messenger(handler);
-        sendMessage(serviceHandler, msg, callbackContext);
+        try {
+            String[] what_action_filtered = action.split(Pattern.quote("."));
+            Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
+            LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
+                context, callbackContext);
+            msg.replyTo = new Messenger(handler);
+            sendMessage(serviceHandler, msg, callbackContext);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Error: ", e);
+        }
     }
 
     /**
