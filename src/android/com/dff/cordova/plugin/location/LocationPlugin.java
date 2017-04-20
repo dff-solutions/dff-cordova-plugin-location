@@ -16,7 +16,6 @@ import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
-import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -88,7 +87,7 @@ public class LocationPlugin extends CommonServicePlugin {
         preferencesHelper.setIsServiceStarted(false);
         //mContext.startService(new Intent(mContext, LocationService.class));
         Executor.restore(mContext);
-        new DistanceSimulator(mContext);
+        //new DistanceSimulator(mContext);
     }
 
     /**
@@ -129,8 +128,8 @@ public class LocationPlugin extends CommonServicePlugin {
                             Executor.getLocationList(callbackContext, args);
 
                             break;
-                        case LocationResources.ACTION_GET_TOTAL_DISTANCE:
-                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE:
+                        case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
+                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE_CALCULATOR:
                         case LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
                         case LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
 
