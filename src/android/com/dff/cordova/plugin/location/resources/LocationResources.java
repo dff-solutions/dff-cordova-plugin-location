@@ -41,9 +41,9 @@ public class LocationResources {
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
     public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
     public static final String ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
-    public static final String ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE";
+    public static final String ACTION_GET_TOTAL_DISTANCE_CALCULATOR = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
     public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
-    public static final String ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE";
+    public static final String ACTION_GET_CUSTOM_DISTANCE_CALCULATOR = "distance.action.GET_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
     public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
     public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
@@ -247,32 +247,6 @@ public class LocationResources {
 
 
     /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-    /**
-     * Parse a what property of an action in order to give it a integer representation and use it across the Plugin.
-     *
-     * @param action - The action to be executed.
-     * @return - The integer representation of the requested action.
-     */
-    public static int parseWHAT(String action) {
-        //we dnt use switch statement since < java 7 does not support string switches --> int
-        switch (action) {
-            case ACTION_GET_LOCATION:
-                return 1;
-            case ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
-                return 2;
-            case ACTION_GET_TOTAL_DISTANCE:
-                return 3;
-            case ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
-                return 4;
-            case ACTION_GET_CUSTOM_DISTANCE:
-                return 5;
-            case ACTION_SET_LOCATION_LISTENER:
-                return 6;
-            default:
-                return 0; //should be never reached
-        }
-    }
 
     /**
      * Add a new location object to the last good location list for persistence purposes as dff string.
