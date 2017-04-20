@@ -45,7 +45,7 @@ public class LocationsHolder implements Runnable {
                     break;
                 case LocationResources.JSON:
                     LocationResources.addLocationToListAsJson(LocationResources.getLastGoodLocationAsJson());
-                    Log.d(TAG, "The location is null and will not be added to the arraylist with size = "
+                    Log.d(TAG, "Location has been added as (JSON) to the array list with size = "
                         + LocationResources.getLocationListJson().size());
                     break;
             }
