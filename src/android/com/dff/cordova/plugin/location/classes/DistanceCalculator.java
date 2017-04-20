@@ -8,7 +8,7 @@ import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
  * Class calculate distance appropriate to two location: a start and an end locations.
  *
  * @author Anthony Nahas
- * @version 3.1.2
+ * @version 4
  * @since 12.12.2016
  */
 public class DistanceCalculator {

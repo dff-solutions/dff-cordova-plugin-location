@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 5.0.2
+ * @version 6.0.0
  * @since 15.12.2016
  */
 public class Executor {

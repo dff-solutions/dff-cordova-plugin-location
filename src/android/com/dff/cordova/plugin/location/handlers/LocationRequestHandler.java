@@ -22,7 +22,7 @@ import static com.dff.cordova.plugin.location.resources.LocationResources.CUSTOM
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 5.0
+ * @version 6.0.0
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {

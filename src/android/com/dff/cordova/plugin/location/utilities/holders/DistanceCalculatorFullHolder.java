@@ -14,7 +14,7 @@ import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
  * e.g: from A to Z
  *
  * @author Anthony Nahas
- * @version 3.3.1
+ * @version 3.3.2
  * @since 12.12.2016
  */
 public class DistanceCalculatorFullHolder implements Runnable {
