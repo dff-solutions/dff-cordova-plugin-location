@@ -81,7 +81,7 @@ LocationPlugin.prototype.setStopID = function (success, error, stopID) {
 };
 
 /**
- * Clear the stop id key 
+ * Clear the stop id key
  *
  * @param success success success - Success callback function
  * @param error - Error callback function.

@@ -21,6 +21,10 @@ import java.util.regex.Pattern;
 
 /**
  * Created by anahas on 18.04.2017.
+ *
+ * @author Anthony Nahas
+ * @version 1.0
+ * @since 18.04.2017
  */
 
 public class DistanceSimulator {
@@ -37,10 +41,9 @@ public class DistanceSimulator {
 
     public DistanceSimulator(Context context) {
         mContext = context;
-        init();
     }
 
-    private void init() {
+    private void simulateStaticJSON() {
         Log.d(TAG, "onInit()");
         mLocationList = new ArrayList<>();
         mStopsCount = 0;

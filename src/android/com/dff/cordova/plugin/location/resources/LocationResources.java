@@ -4,6 +4,9 @@ import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.Multimap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +29,7 @@ public class LocationResources {
     private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
     private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
     private static Map<String, Location> LOCATION_HASHMAP = new HashMap<>(); //HashMap is not thread safe
+    private static ListMultimap<String, Location> LOCATION_MULTIMAP = ArrayListMultimap.create();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
@@ -93,7 +97,7 @@ public class LocationResources {
 
     //Location HashMap
     public static boolean IS_TO_CALCULATE_DISTANCE = false;
-    public static String STOP_ID;
+    public static String STOP_ID = "UNKNOWN";
 
     //Shared Preferences
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";
@@ -300,6 +304,35 @@ public class LocationResources {
             LOCATION_LIST_JSON.clear();
         } catch (ConcurrentModificationException e) {
             Log.e(TAG, "Error while clearing the location list: ", e);
+        }
+    }
+
+    public static synchronized void addLocationToMultimap(Location location) {
+        LOCATION_MULTIMAP.put(STOP_ID, location);
+    }
+
+    public static synchronized void clearLocationsMultimap() {
+        try {
+            LOCATION_MULTIMAP.clear();
+        } catch (ConcurrentModificationException e) {
+            Log.e(TAG, "Error while clearing the location hash map: ", e);
+        }
+    }
+
+    public static synchronized Multimap<String, Location> getLocationsMultimap() {
+        try {
+            return LOCATION_MULTIMAP;
+        } catch (ConcurrentModificationException e) {
+            Log.e(TAG, "Error while clearing the location hash map: ", e);
+        }
+        return null;
+    }
+
+    public static synchronized void logLocationsMultimap() {
+        assert LOCATION_MULTIMAP != null;
+        for (String stopID : LOCATION_MULTIMAP.keySet()) {
+            List<Location> locations = LOCATION_MULTIMAP.get(stopID);
+            Log.d(TAG, "stopID: " + stopID + " --> " + locations);
         }
     }
 

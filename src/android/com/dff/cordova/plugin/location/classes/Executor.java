@@ -187,7 +187,7 @@ public class Executor {
             case LocationResources.ACTION_SET_STOP_ID:
                 try {
                     JSONObject params = args.getJSONObject(0);
-                    LocationResources.STOP_ID = params.optString(LocationResources.JSON_KEY_STOP_ID, null);
+                    LocationResources.STOP_ID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
                     callbackContext.success();
                 } catch (JSONException e) {
                     Log.e(TAG, "Error: ", e);
@@ -196,7 +196,7 @@ public class Executor {
                 break;
 
             case LocationResources.ACTION_CLEAR_STOP_ID:
-                LocationResources.STOP_ID = null;
+                LocationResources.STOP_ID = "UNKNOWN";
                 callbackContext.success();
                 break;
         }

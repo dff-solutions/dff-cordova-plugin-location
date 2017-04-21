@@ -87,7 +87,7 @@ public class LocationPlugin extends CommonServicePlugin {
         preferencesHelper.setIsServiceStarted(false);
         //mContext.startService(new Intent(mContext, LocationService.class));
         Executor.restore(mContext);
-        //new DistanceSimulator(mContext);
+        //new DistanceSimulator(mContext).simulateStaticJSON();
     }
 
     /**
