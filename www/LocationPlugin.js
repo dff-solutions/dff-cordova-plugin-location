@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 5.0
+ * @version 6.0
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -26,6 +26,8 @@ const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE_CALCULAT
 const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
 const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
+const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
+const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -65,6 +67,27 @@ LocationPlugin.prototype.setMaxAge = function (maxAge, success, error) {
  */
 LocationPlugin.prototype.setMinTime = function (minTime, success, error) {
     exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
+};
+
+/**
+ * set a new stop id as key for the location hash map
+ *
+ * @param success success - Success callback function
+ * @param error rror - Error callback function.
+ * @param stopID - stop id to hash it in the location hash map
+ */
+LocationPlugin.prototype.setStopID = function (success, error, stopID) {
+    exec(success, error, FEATURE, ACTION_SET_STOP_ID, [stopID]);
+};
+
+/**
+ * Clear the stop id key 
+ *
+ * @param success success success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.prototype.clearStopID = function (success, error) {
+    exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, []);
 };
 
 /**

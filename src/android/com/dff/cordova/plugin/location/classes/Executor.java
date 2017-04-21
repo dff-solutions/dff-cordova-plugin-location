@@ -182,6 +182,26 @@ public class Executor {
         }
     }
 
+    public static void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
+        switch (action) {
+            case LocationResources.ACTION_SET_STOP_ID:
+                try {
+                    JSONObject params = args.getJSONObject(0);
+                    LocationResources.STOP_ID = params.optString(LocationResources.JSON_KEY_STOP_ID, null);
+                    callbackContext.success();
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error: ", e);
+                    callbackContext.error("Error: " + e);
+                }
+                break;
+
+            case LocationResources.ACTION_CLEAR_STOP_ID:
+                LocationResources.STOP_ID = null;
+                callbackContext.success();
+                break;
+        }
+    }
+
     /**
      * Send broadcast receiver to set the stop listener
      *

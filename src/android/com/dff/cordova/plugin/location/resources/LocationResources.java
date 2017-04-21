@@ -8,9 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Class to hold and handle properties related to the Location Plugin.
@@ -27,6 +25,7 @@ public class LocationResources {
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
     private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
+    private static Map<String, Location> LOCATION_HASHMAP = new HashMap<>(); //HashMap is not thread safe
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
@@ -51,9 +50,9 @@ public class LocationResources {
     public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
     public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
     public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
+    public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
+    public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 
-    //JSON keys
-    public static final String JSON_KEY_DISTANCE = "value";
 
     //Bundle keys
     public static final String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
@@ -73,6 +72,10 @@ public class LocationResources {
     public static final String DFF_STRING = "dffString";
     public static final String JSON = "json";
 
+    public static final String JSON_KEY_DISTANCE = "value";
+
+    public static final String JSON_KEY_STOP_ID = "stopID";
+
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
@@ -87,6 +90,10 @@ public class LocationResources {
     public static int STOP_HOLDER_COUNTER_LIMIT = 10;
     public static int STOP_HOLDER_MIN_DISTANCE = 50;
     public static int STOP_HOLDER_DELAY = 60000; //1min
+
+    //Location HashMap
+    public static boolean IS_TO_CALCULATE_DISTANCE = false;
+    public static String STOP_ID;
 
     //Shared Preferences
     public static final String SP_KEY_CLEAR_LOCATIONS = "clearLocationKey";

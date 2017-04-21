@@ -136,6 +136,11 @@ public class LocationPlugin extends CommonServicePlugin {
                             Executor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);
 
                             break;
+
+                        case LocationResources.ACTION_SET_STOP_ID:
+                        case LocationResources.ACTION_CLEAR_STOP_ID:
+                            // exc handle stop id
+                            break;
                     /*
                     else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
                             action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
