@@ -199,6 +199,8 @@ public class Executor {
                 LocationResources.STOP_ID = "UNKNOWN";
                 callbackContext.success();
                 break;
+            default:
+                callbackContext.error("404 - action not found");
         }
     }
 
