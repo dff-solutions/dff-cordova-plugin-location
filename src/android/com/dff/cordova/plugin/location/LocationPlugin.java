@@ -189,6 +189,6 @@ public class LocationPlugin extends CommonServicePlugin {
             });
             return true;
         }
-        return super.execute(null, args, callbackContext);
+        return false;
     }
 }

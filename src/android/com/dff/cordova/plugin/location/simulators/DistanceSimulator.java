@@ -6,8 +6,10 @@ import android.os.Handler;
 import android.util.Log;
 
 
+import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.utilities.holders.DistanceSimulatorHolder;
 
+import org.apache.cordova.CallbackContext;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -33,14 +35,33 @@ public class DistanceSimulator {
 
     private Context mContext;
     private ArrayList<Location> mLocationList;
+    private CallbackContext mCallbackContext;
     private int mStopsCount;
-    private Handler mChangeLocationHandler;
-    private DistanceSimulatorHolder mDistanceTesterHolder;
 
-    int changeLocationDelay = 20;
+    public DistanceSimulator() {
+    }
 
     public DistanceSimulator(Context context) {
         mContext = context;
+    }
+
+    public void performDistanceCalculation(CallbackContext callbackContext, ArrayList<Location> locationsList) {
+
+        int counter = 0;
+        Location location;
+        DistanceCalculator distanceCalculator = new DistanceCalculator();
+
+        while (counter != locationsList.size() - 1) {
+            location = locationsList.get(counter);
+            if (distanceCalculator.getStartLocation() != null && distanceCalculator.getEndLocation() != null) {
+                distanceCalculator.update(location);
+            } else {
+                distanceCalculator.init(location);
+            }
+            counter++;
+        }
+        float result = distanceCalculator.getDistance();
+        callbackContext.success(String.valueOf(result));
     }
 
     private void simulateStaticJSON() {
@@ -122,8 +143,9 @@ public class DistanceSimulator {
     }
 
     private void runChangeLocationHolder() {
-        mChangeLocationHandler = new Handler();
-        mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, mLocationList, mStopsCount, mChangeLocationHandler, changeLocationDelay);
+        Handler mChangeLocationHandler = new Handler();
+        int changeLocationDelay = 20;
+        DistanceSimulatorHolder mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, mLocationList, mStopsCount, mChangeLocationHandler, changeLocationDelay);
         mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
     }
 }

@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.classes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.location.Location;
 import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
@@ -12,6 +13,7 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
+import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -196,8 +198,16 @@ public class Executor {
                 break;
 
             case LocationResources.ACTION_CLEAR_STOP_ID:
-                LocationResources.STOP_ID = "UNKNOWN";
-                callbackContext.success();
+                try {
+                    JSONObject params = args.getJSONObject(0);
+                    String requestedStopID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
+                    LocationResources.STOP_ID = "UNKNOWN";
+                    ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().get(requestedStopID));
+                    new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error: ", e);
+                    callbackContext.error("Error: " + e);
+                }
                 break;
             default:
                 callbackContext.error("404 - action not found");
