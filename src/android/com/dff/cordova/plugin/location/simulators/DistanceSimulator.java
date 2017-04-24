@@ -34,8 +34,6 @@ public class DistanceSimulator {
     public static final String TAG = DistanceSimulator.class.getSimpleName();
 
     private Context mContext;
-    private ArrayList<Location> mLocationList;
-    private CallbackContext mCallbackContext;
     private int mStopsCount;
 
     public DistanceSimulator() {
@@ -66,10 +64,9 @@ public class DistanceSimulator {
 
     private void simulateStaticJSON() {
         Log.d(TAG, "onInit()");
-        mLocationList = new ArrayList<>();
         mStopsCount = 0;
-        readJSON();
-        runChangeLocationHolder();
+        ArrayList<Location> locationsList = readJSON();
+        runChangeLocationHolder(locationsList, getStopsCount(locationsList != null ? locationsList.size() : 0));
     }
 
     private String loadJsonFromAsset() {
@@ -89,7 +86,7 @@ public class DistanceSimulator {
     }
 
 
-    private void readJSON() {
+    private ArrayList<Location> readJSON() {
         JSONObject jsonDATA = null;
         JSONParser jsonParser = new JSONParser();
         try {
@@ -99,25 +96,27 @@ public class DistanceSimulator {
         }
         if (jsonDATA != null) {
             Log.d(TAG, jsonDATA.toString());
-            readDffStringLocation(jsonDATA);
+            return readDffStringLocation(jsonDATA);
 
         } else {
             Log.e(TAG, "JSON Array NOT FOUND 404");
+            return null;
         }
     }
 
-    private void readDffStringLocation(JSONObject jsonObject) {
+    private ArrayList<Location> readDffStringLocation(JSONObject jsonObject) {
+        ArrayList<Location> locationsList = new ArrayList<>();
         JSONArray dffStringLocationArray = (JSONArray) jsonObject.get("rows");
         Log.d(TAG, dffStringLocationArray.toString());
         for (Object DffStringLocationList : dffStringLocationArray) {
             JSONArray DffStringLocation = (JSONArray) DffStringLocationList;
             for (Object DffString : DffStringLocation) {
-                mLocationList.add(parseDffStringLocation(DffString));
+                locationsList.add(parseDffStringLocation(DffString));
             }
         }
-        mStopsCount = getStopsCount(mLocationList.size());
-        Log.d(TAG, "location list size = " + mLocationList.size() + " with " + mStopsCount + " stops!");
-
+        mStopsCount = getStopsCount(locationsList.size());
+        Log.d(TAG, "location list size = " + locationsList.size() + " with " + mStopsCount + " stops!");
+        return locationsList;
     }
 
     private static Location parseDffStringLocation(Object dffStringLocation) {
@@ -142,10 +141,10 @@ public class DistanceSimulator {
         return (int) result;
     }
 
-    private void runChangeLocationHolder() {
+    private void runChangeLocationHolder(ArrayList<Location> locationsList, int stopsCount) {
         Handler mChangeLocationHandler = new Handler();
         int changeLocationDelay = 20;
-        DistanceSimulatorHolder mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, mLocationList, mStopsCount, mChangeLocationHandler, changeLocationDelay);
+        DistanceSimulatorHolder mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, locationsList, stopsCount, mChangeLocationHandler, changeLocationDelay);
         mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
     }
 }
