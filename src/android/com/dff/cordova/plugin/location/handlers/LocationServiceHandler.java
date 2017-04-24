@@ -262,7 +262,6 @@ public class LocationServiceHandler extends Handler {
      */
     private void runDistanceCalculatorFullHolder() {
         Log.d(TAG, "run DistanceCalc Full Holder");
-        LocationResources.IS_TO_CALCULATE_DISTANCE = true;
         mTotalDistanceCalculatorHandler = new Handler();
         mDistanceCalculatorFullHolder = new DistanceCalculatorFullHolder(mPreferencesHelper, mTotalDistanceCalculatorHandler, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
         mTotalDistanceCalculatorHandler.postDelayed(mDistanceCalculatorFullHolder, LocationResources.DISTANCE_CALCULATOR_FULL_DELAY);
@@ -282,8 +281,6 @@ public class LocationServiceHandler extends Handler {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             mPreferencesHelper.storeTotalDistance(0);
-            LocationResources.IS_TO_CALCULATE_DISTANCE = false;
-            LocationResources.STOP_ID = "UNKNOWN";
         }
     }
 

@@ -18,6 +18,7 @@ import java.util.*;
  *
  * @author Anthony Nahas
  * @version 6.0.0
+ * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map class)
  * @since 30.11.2016
  */
 public class LocationResources {
@@ -28,7 +29,7 @@ public class LocationResources {
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
     private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
-    private static Map<String, Location> LOCATION_HASHMAP = new HashMap<>(); //HashMap is not thread safe
+
     private static ListMultimap<String, Location> LOCATION_MULTIMAP = ArrayListMultimap.create();
     public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
@@ -54,6 +55,7 @@ public class LocationResources {
     public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
     public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
     public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
+    public static final String ACTION_ENABLE_HASHING_LOCATIONS = "location.action.ENABLE_HASHING_LOCATIONS";
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
     public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 

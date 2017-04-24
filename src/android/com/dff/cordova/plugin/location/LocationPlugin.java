@@ -22,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Cordova Plugin class that deals with the android'S Location API, in order to get the location of the device as
+ * Cordova Plugin class that deals with the android's Location API, in order to get the location of the device as
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
@@ -128,9 +128,17 @@ public class LocationPlugin extends CommonServicePlugin {
                             Executor.getLocationList(callbackContext, args);
 
                             break;
+
+                        case LocationResources.ACTION_ENABLE_HASHING_LOCATIONS:
+                            LocationResources.IS_TO_CALCULATE_DISTANCE = true;
+                            break;
+
                         case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
-                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE_CALCULATOR:
+                            Executor.getTotalDistance(callbackContext);
+                            break;
+
                         case LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
+                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE_CALCULATOR:
                         case LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
 
                             Executor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);

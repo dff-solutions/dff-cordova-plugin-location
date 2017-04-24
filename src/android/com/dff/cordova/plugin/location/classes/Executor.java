@@ -184,6 +184,13 @@ public class Executor {
         }
     }
 
+    public static void getTotalDistance(CallbackContext callbackContext) {
+        LocationResources.IS_TO_CALCULATE_DISTANCE = false;
+        LocationResources.STOP_ID = "UNKNOWN";
+        ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().values());
+        new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+    }
+
     public static void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
         switch (action) {
             case LocationResources.ACTION_SET_STOP_ID:
