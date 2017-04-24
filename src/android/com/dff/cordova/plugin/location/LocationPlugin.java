@@ -139,7 +139,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                         case LocationResources.ACTION_SET_STOP_ID:
                         case LocationResources.ACTION_CLEAR_STOP_ID:
-                            // exc handle stop id
+                            Executor.handleStopId(action, args, callbackContext);
                             break;
                     /*
                     else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
