@@ -81,12 +81,12 @@ LocationPlugin.prototype.setStopID = function (success, error, stopID) {
 };
 
 /**
- * Clear the stop id key
+ * Clear the stop id key and get the achieved distance to the appropriate stop
  *
  * @param success success success - Success callback function
  * @param error - Error callback function.
  */
-LocationPlugin.prototype.clearStopID = function (success, error) {
+LocationPlugin.prototype.getStopDistance = function (success, error) {
     exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, []);
 };
 
