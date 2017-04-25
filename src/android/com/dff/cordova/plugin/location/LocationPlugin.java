@@ -149,6 +149,10 @@ public class LocationPlugin extends CommonServicePlugin {
                         case LocationResources.ACTION_CLEAR_STOP_ID:
                             Executor.handleStopId(action, args, callbackContext);
                             break;
+
+                        case LocationResources.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
+                            Executor.getKeySetFromLocationsMultimap(callbackContext);
+                            break;
                     /*
                     else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
                             action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {

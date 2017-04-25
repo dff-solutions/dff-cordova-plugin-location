@@ -48,6 +48,7 @@ public class LocationResources {
     public static final String ACTION_GET_TOTAL_DISTANCE_CALCULATOR = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
     public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_GET_CUSTOM_DISTANCE_CALCULATOR = "distance.action.GET_CUSTOM_DISTANCE_CALCULATOR";
+    public static final String ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
     public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
     public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";

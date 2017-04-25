@@ -221,6 +221,11 @@ public class Executor {
         }
     }
 
+    public static void getKeySetFromLocationsMultimap(CallbackContext callbackContext) {
+        JSONArray jsonArray = new JSONArray(new ArrayList<>(LocationResources.getLocationsMultimap().keySet()));
+        callbackContext.success(jsonArray);
+    }
+
     /**
      * Send broadcast receiver to set the stop listener
      *
