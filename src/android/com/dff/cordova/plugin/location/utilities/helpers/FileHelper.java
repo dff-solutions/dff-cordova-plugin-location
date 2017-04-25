@@ -1,9 +1,14 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
+import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.guava.GuavaModule;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import org.apache.cordova.LOG;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,4 +138,72 @@ public class FileHelper {
             }
         }
     }
+
+
+    public static void storeLocationsMultimap(Context context) {
+        FileOutputStream fos = null;
+        ObjectOutputStream os;
+
+        try {
+            fos = context.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
+            os = new ObjectOutputStream(fos);
+            os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap()));
+            os.writeObject(null);
+            os.close();
+        } catch (IOException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                CordovaPluginLog.e(TAG, "Error: ", e);
+            }
+        }
+    }
+
+    public static void restoreLocationsMultimap(Context context) {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+
+        try {
+            fis = context.openFileInput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME);
+            if (fis.available() != 0) {
+                Log.d(TAG, "fis is available!");
+                ois = new ObjectInputStream(fis);
+
+                convertJSONtoMultimap((String) ois.readObject());
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+        } finally {
+            try {
+                if (ois != null) {
+                    ois.close();
+                }
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (IOException e) {
+                CordovaPluginLog.e(TAG, "Error: ", e);
+            }
+        }
+    }
+
+    private static Multimap<String, Location> convertJSONtoMultimap(String jsonString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new GuavaModule());
+        try {
+            return objectMapper.readValue(
+                objectMapper.treeAsTokens(objectMapper.readTree(jsonString)),
+                objectMapper.getTypeFactory().constructMapLikeType(
+                    Multimap.class, String.class, Location.class));
+        } catch (IOException e) {
+            CordovaPluginLog.e(TAG, "Error: ", e);
+            return ArrayListMultimap.create();
+        }
+
+    }
+
 }
