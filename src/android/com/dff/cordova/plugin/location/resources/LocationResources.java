@@ -113,6 +113,7 @@ public class LocationResources {
     public static final String SP_KEY_LOCATION_REQUEST_DELAY = "locationRequestDelayKey";
     public static final String SP_KEY_IS_SERVICE_STARTED = "isServiceStartedKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
+    public static String LOCATIONS_MULTIMAP_FILE_NAME = "locationsmultimap.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //Settings related to the Distance calculator class
