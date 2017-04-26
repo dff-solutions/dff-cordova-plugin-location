@@ -15,6 +15,7 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+import com.google.common.collect.Multimap;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -184,11 +185,32 @@ public class Executor {
         }
     }
 
-    public static void getTotalDistance(CallbackContext callbackContext) {
-        LocationResources.IS_TO_CALCULATE_DISTANCE = false;
-        LocationResources.STOP_ID = "UNKNOWN";
-        ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().values());
-        new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+    public static void getTotalDistance(CallbackContext callbackContext, JSONArray args) { //clean true - clear false
+        boolean isClean = false;
+        try {
+            JSONObject params = args.getJSONObject(0);
+            LocationResources.IS_TO_CALCULATE_DISTANCE = params.optBoolean(LocationResources.CLEAR, false);
+            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
+                LocationResources.STOP_ID = LocationResources.UNKNOWN;
+            }
+            isClean = params.getBoolean(LocationResources.CLEAN);
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: ", e);
+        }
+        Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
+        if (isClean) {
+            assert clonedMultimap != null;
+            clonedMultimap.removeAll(LocationResources.UNKNOWN);
+        }
+        ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
+        if (locationsList.size() > 0) {
+            new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
+                LocationResources.clearLocationsMultimap();
+            }
+        } else {
+            callbackContext.error("Error: --> locations list size = 0");
+        }
     }
 
     public static void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {

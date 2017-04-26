@@ -134,7 +134,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             break;
 
                         case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
-                            Executor.getTotalDistance(callbackContext);
+                            Executor.getTotalDistance(callbackContext, args);
                             break;
 
                         case LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
