@@ -93,7 +93,7 @@
         <framework src="com.android.support:support-v4:25.3.1"/>
         <framework src="com.googlecode.json-simple:json-simple:1.1"/>
         <!-- <framework src="com.google.collections:google-collections:1.0-rc2"/> -->
-        <framework src="com.google.guava:guava:21.0"/>
+        <framework src="com.google.guava:guava:19.0"/>
         <framework src="com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0"/>
 
     </platform>
