@@ -26,6 +26,7 @@ const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE_CALCULAT
 const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
 const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
+const ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
 const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
 const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 const ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
@@ -92,8 +93,12 @@ LocationPlugin.prototype.getStopDistance = function (success, error, stopID) {
     exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, [stopID]);
 };
 
+LocationPlugin.prototype.enableMapping = function (success, error) {
+    exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
+};
 
 /**
+ * Returns a view collection of all distinct keys contained in this multimap.
  *
  * @param success - Success callback function
  * @param error - Error callback function.
