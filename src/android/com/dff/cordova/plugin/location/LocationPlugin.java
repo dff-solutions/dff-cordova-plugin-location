@@ -129,7 +129,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                             break;
 
-                        case LocationResources.ACTION_ENABLE_HASHING_LOCATIONS:
+                        case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
                             LocationResources.IS_TO_CALCULATE_DISTANCE = true;
                             break;
 
