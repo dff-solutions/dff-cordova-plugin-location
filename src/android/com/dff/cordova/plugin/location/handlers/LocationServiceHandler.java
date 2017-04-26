@@ -171,7 +171,7 @@ public class LocationServiceHandler extends Handler {
                     notifyOnChangedLocation();
                     Log.d(TAG, "setLastGoodLocation --> " + location);
                     if (LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                        Log.d(TAG, "Location is to calculate");
+                        Log.d(TAG, "Location is to calculate - mapping in " + LocationResources.STOP_ID);
                         LocationResources.addLocationToMultimap(location);
                         LocationResources.logLocationsMultimap();
                     }
