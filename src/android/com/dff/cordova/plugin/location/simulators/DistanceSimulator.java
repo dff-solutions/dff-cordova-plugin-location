@@ -59,6 +59,7 @@ public class DistanceSimulator {
             counter++;
         }
         float result = distanceCalculator.getDistance();
+        Log.d(TAG, "Calculation result = " + result);
         callbackContext.success(String.valueOf(result));
     }
 
