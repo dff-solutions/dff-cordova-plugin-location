@@ -28,6 +28,7 @@ const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
 const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
 const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
 const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
+const ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -72,7 +73,7 @@ LocationPlugin.prototype.setMinTime = function (minTime, success, error) {
 /**
  * set a new stop id as key for the location hash map
  *
- * @param success success - Success callback function
+ * @param success  - Success callback function
  * @param error rror - Error callback function.
  * @param stopID - stop id to hash it in the location hash map
  */
@@ -85,9 +86,20 @@ LocationPlugin.prototype.setStopID = function (success, error, stopID) {
  *
  * @param success success success - Success callback function
  * @param error - Error callback function.
+ * @param stopID - stop id to import from the locations multimap
  */
-LocationPlugin.prototype.getStopDistance = function (success, error) {
-    exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, []);
+LocationPlugin.prototype.getStopDistance = function (success, error, stopID) {
+    exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, [stopID]);
+};
+
+
+/**
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.prototype.getKeySet = function (success, error) {
+    exec(success, error, FEATURE, ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP, []);
 };
 
 /**

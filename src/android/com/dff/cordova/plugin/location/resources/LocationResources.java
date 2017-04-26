@@ -51,14 +51,18 @@ public class LocationResources {
     public static final String ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
     public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
-    public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
-    public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
-    public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
-    public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
     public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
     public static final String ACTION_ENABLE_HASHING_LOCATIONS = "location.action.ENABLE_HASHING_LOCATIONS";
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
     public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
+
+
+
+    //Broadcasts Actions
+    public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
+    public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
+    public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
+    public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
 
 
     //Bundle keys
