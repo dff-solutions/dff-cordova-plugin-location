@@ -16,6 +16,7 @@ import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -56,6 +57,8 @@ public class LocationPlugin extends CommonServicePlugin {
     public void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
+        FileHelper.storePendingLocation(mContext);
+        FileHelper.storeLocationsMultimap(mContext);
     }
 
     /**
@@ -89,6 +92,7 @@ public class LocationPlugin extends CommonServicePlugin {
         Executor.restore(mContext);
         //new DistanceSimulator(mContext).simulateStaticJSON();
     }
+
 
     /**
      * Executes an action called by JavaScript

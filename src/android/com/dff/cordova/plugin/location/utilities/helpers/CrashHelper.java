@@ -43,8 +43,10 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
         Log.e(TAG, "uncaughtException");
         try {
             //LocationResources.testAddLocation();
+            mPreferencesHelper.storeProperties();
             FileHelper.storePendingLocation(mContext);
-            Log.d(TAG, "store pending locations");
+            FileHelper.storeLocationsMultimap(mContext);
+            Log.d(TAG, "store pending locations and locations'mutlimaü");
             //mContext.startService(new Intent(mContext, PendingLocationsIntentService.class).setAction(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS));
             mPreferencesHelper.setLocationCanBeCleared(false);
             if (LocationResources.TOTAL_DISTANCE_CALCULATOR != null) {
