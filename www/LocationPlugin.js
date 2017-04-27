@@ -117,6 +117,17 @@ LocationPlugin.prototype.getKeySet = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP, []);
 };
 
+
+/**
+ * Get the last stored stop id 
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.prototype.getLastStopID = function (success, error) {
+    exec(success, error, FEATURE, ACTION_GET_LAST_STOP_ID, []);
+};
+
 /**
  * Get the last good saved location of the device.
  * good means accuracy < min accuracy (per default 20m)
