@@ -10,7 +10,7 @@ import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
  * Intent service that works async to perform expansive operations like writing and reading of files.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 05.12.2016
  */
 public class PendingLocationsIntentService extends IntentService {

@@ -17,7 +17,7 @@ import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
  * Location Service performs a long running operation in order to the location of the device on change.
  *
  * @author Anthony Nahas
- * @version 1.3
+ * @version 2.0
  * @since 28.11.2016
  */
 public class LocationService extends Service {

@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 6.0.0
+- Android: 7.0.0
 
 ## Releases:
+- 7.0.0: Ref: new algorithm to calculate the achieved distance using the "DistanceSimulator" class
 - 6.0.0: Feat: added distance simulator and refactored action parsing process | added mock locations for the simulation
 - 5.0.3: Fix: correction of adding a new location in the array lists
 - 5.0.2: Fix: remove updates of the location manager only if it has been already initialized
@@ -158,6 +159,70 @@ LocationPlugin.setMaxAge(maxAge, success, error);
  * @param error - Error callback function.
  */
 LocationPlugin.setMinTime = function (minTime, success, error);
+```
+
+```js
+/**
+ * Enable mapping in order the persist the received locations in the locations'multi map
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.enableMapping = function (success, error) {
+    exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
+};
+```
+
+
+#### getKeySet
+```js
+/**
+ * Returns a view collection of all distinct keys contained in this multimap.
+ * 
+ * note: keyset is typeof json array:D
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.getKeySet = function (function (keySet)
+{console.log(keyset)}, error);
+```
+
+```js
+/**
+ * set a new stop id as key for the location hash map
+ *
+ * @param success  - Success callback function
+ * @param error rror - Error callback function.
+ * @param stopID - stop id to hash it in the location hash map
+ */
+LocationPlugin.setStopID = function (success, error, stopID) {
+};
+```
+
+```js
+/**
+ * Get the last stored stop id
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
+LocationPlugin.getLastStopID = function (function(stopID) {console.log(stopID)}, error) {
+};
+```
+
+```js
+/**
+ * Clear the stop id key and get the achieved distance to the appropriate stop
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ * @param params -  {stopID: id, clear:false}
+ * | stop id to import from the locations multimap
+ * | clear - to clear the stopID --> stopID = UNKNOWN
+ */
+LocationPlugin.getStopDistance = function (function(distance) {console.log(distance)}, error, params) {
+};
 ```
 ----
 #### getLocation

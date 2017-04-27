@@ -13,7 +13,7 @@ import org.apache.cordova.CallbackContext;
  * Broadcast receiver that is responsible to forward the requested location to JS:
  *
  * @author Anthony Nahas
- * @version 1.2
+ * @version 1.4
  * @since 23.12.2016
  */
 public class NewLocationReceiver extends BroadcastReceiver {
