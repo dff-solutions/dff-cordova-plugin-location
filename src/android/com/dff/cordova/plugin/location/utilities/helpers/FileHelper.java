@@ -151,6 +151,7 @@ public class FileHelper {
             os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap()));
             os.writeObject(null);
             os.close();
+            Log.d(TAG, "on storeLocationsMultimap");
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
@@ -175,6 +176,8 @@ public class FileHelper {
                 ois = new ObjectInputStream(fis);
 
                 LocationResources.setLocationsMultiMap(convertJSONtoMultimap((String) ois.readObject()));
+                Log.d(TAG, "on restoreLocationsMultimap");
+                LocationResources.logLocationsMultimap();
             }
         } catch (IOException | ClassNotFoundException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
@@ -193,6 +196,7 @@ public class FileHelper {
     }
 
     private static ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
+        Log.d(TAG, "on convertJSONtoMultimap");
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new GuavaModule());
         try {
