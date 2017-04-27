@@ -162,15 +162,15 @@ public class LocationResources {
      *
      * @return - The last good location object.
      */
-    public static Location getLastGoodLocation() {
+    public synchronized static Location getLastGoodLocation() {
         return LAST_GOOD_LOCATION;
     }
 
-    public static ArrayList<String> getLocationListDffString() {
+    public synchronized static ArrayList<String> getLocationListDffString() {
         return LOCATION_LIST_DFF_STRING;
     }
 
-    public static ArrayList<JSONObject> getLocationListJson() {
+    public synchronized static ArrayList<JSONObject> getLocationListJson() {
         return LOCATION_LIST_JSON;
     }
 
@@ -179,11 +179,13 @@ public class LocationResources {
      *
      * @return - The last good location in string representation.
      */
-    public static String getLastGoodLocationAsString() {
-        return LAST_GOOD_LOCATION.getLongitude() + "|" +
-            LAST_GOOD_LOCATION.getLatitude() + "|" +
+    public synchronized static String getLastGoodLocationAsString() {
+        Location location = getLastGoodLocation();
+        assert location != null;
+        return location.getLongitude() + "|" +
+            location.getLatitude() + "|" +
             getSpeedOfLastGoodLocation() + "|" +
-            LAST_GOOD_LOCATION.getBearing();
+            location.getBearing();
     }
 
     /**
@@ -191,20 +193,23 @@ public class LocationResources {
      *
      * @return - The Location in JSON.
      */
-    public static JSONObject getLastGoodLocationAsJson() {
-        JSONObject location = new JSONObject();
+    public synchronized static JSONObject getLastGoodLocationAsJson() {
+        Location location = getLastGoodLocation();
+        assert location != null;
+        JSONObject jsonLocation = new JSONObject();
         try {
-            location.put("longitude", LAST_GOOD_LOCATION.getLongitude());
-            location.put("latitude", LAST_GOOD_LOCATION.getLatitude());
-            location.put("altitude", LAST_GOOD_LOCATION.getAltitude());
-            location.put("accuracy", LAST_GOOD_LOCATION.getAccuracy());
-            location.put("speed", getSpeedOfLastGoodLocation());
-            location.put("bearing", LAST_GOOD_LOCATION.getBearing());
-            location.put("time", LAST_GOOD_LOCATION.getTime());
+            jsonLocation.put("longitude", location.getLongitude());
+            jsonLocation.put("latitude", location.getLatitude());
+            jsonLocation.put("altitude", location.getAltitude());
+            jsonLocation.put("accuracy", location.getAccuracy());
+            jsonLocation.put("speed", getSpeedOfLastGoodLocation());
+            jsonLocation.put("bearing", location.getBearing());
+            jsonLocation.put("time", location.getTime());
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
+            return null;
         }
-        return location;
+        return jsonLocation;
     }
 
     /**
@@ -232,8 +237,10 @@ public class LocationResources {
      * @return - The speed of the last good location.
      */
     private static double getSpeedOfLastGoodLocation() {
-        if (LAST_GOOD_LOCATION.hasSpeed() && LAST_GOOD_LOCATION.getSpeed() > 0) {
-            return Math.round(LAST_GOOD_LOCATION.getSpeed() * 3.6);
+        Location location = getLastGoodLocation();
+        assert location != null;
+        if (location.hasSpeed() && location.getSpeed() > 0) {
+            return Math.round(location.getSpeed() * 3.6);
         }
         return 0;
     }
