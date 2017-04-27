@@ -226,11 +226,17 @@ public class Executor {
                 }
                 break;
 
+            case LocationResources.ACTION_GET_LAST_STOP_ID:
+                callbackContext.success(LocationResources.STOP_ID);
+                break;
+
             case LocationResources.ACTION_CLEAR_STOP_ID:
                 try {
                     JSONObject params = args.getJSONObject(0);
                     String requestedStopID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
-                    LocationResources.STOP_ID = "UNKNOWN";
+                    if (params.optBoolean(LocationResources.CLEAR, false)) {
+                        LocationResources.STOP_ID = "UNKNOWN";
+                    }
                     ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().get(requestedStopID));
                     new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
                 } catch (JSONException e) {
