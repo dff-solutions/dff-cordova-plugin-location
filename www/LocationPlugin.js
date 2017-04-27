@@ -86,7 +86,7 @@ LocationPlugin.prototype.setStopID = function (success, error, stopID) {
 /**
  * Clear the stop id key and get the achieved distance to the appropriate stop
  *
- * @param success success success - Success callback function
+ * @param success - Success callback function
  * @param error - Error callback function.
  * @param params -  {stopID: id, clear:false}
  * | stop id to import from the locations multimap
@@ -96,6 +96,13 @@ LocationPlugin.prototype.getStopDistance = function (success, error, params) {
     exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, [params]);
 };
 
+
+/**
+ * Enable mapping in order the persist the received locations in the locations'multi map
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function.
+ */
 LocationPlugin.prototype.enableMapping = function (success, error) {
     exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
 };
