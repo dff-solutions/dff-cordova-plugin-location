@@ -54,6 +54,7 @@ public class LocationResources {
     public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
     public static final String ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
+    public static final String ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
     public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 
 
@@ -119,6 +120,8 @@ public class LocationResources {
     public static final String SP_KEY_LOCATION_MAX_AGE = "locationMaxAgeKey";
     public static final String SP_KEY_LOCATION_REQUEST_DELAY = "locationRequestDelayKey";
     public static final String SP_KEY_IS_SERVICE_STARTED = "isServiceStartedKey";
+    public static final String SP_KEY_IS_LOCATIONS_MAPPING_ENABLED = "isLocationsMappingEnabledKey";
+    public static final String SP_KEY_STOPID = "stopIDKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String LOCATIONS_MULTIMAP_FILE_NAME = "locationsmultimap.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";

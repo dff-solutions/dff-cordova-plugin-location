@@ -74,6 +74,12 @@ public class PreferencesHelper {
         return editor.commit();
     }
 
+    public boolean setStopdID(String stopdID) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putString(LocationResources.SP_KEY_STOPID, stopdID);
+        return editor.commit();
+    }
+
     public boolean setIsServiceStarted(boolean isStarted) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, isStarted);
@@ -82,6 +88,16 @@ public class PreferencesHelper {
 
     public boolean isServiceStarted() {
         return mSharedPreferences.getBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, false);
+    }
+
+    public boolean setIsLocationsMappingEnabled(boolean isEnable) {
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        editor.putBoolean(LocationResources.SP_KEY_IS_LOCATIONS_MAPPING_ENABLED, isEnable);
+        return editor.commit();
+    }
+
+    public boolean isLocationsMappingEnabled() {
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_IS_LOCATIONS_MAPPING_ENABLED, false);
     }
 
     public boolean storeTotalDistance(float distance) {
@@ -141,6 +157,10 @@ public class PreferencesHelper {
         return mSharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
     }
 
+    public String getStopID() {
+        return mSharedPreferences.getString(LocationResources.SP_KEY_STOPID, LocationResources.UNKNOWN);
+    }
+
     /**
      * Store saved properties from the resources into shared preference
      */
@@ -151,6 +171,8 @@ public class PreferencesHelper {
         setMinAccuracy(LocationResources.LOCATION_MIN_ACCURACY);
         setLocationMaxAge(LocationResources.LOCATION_MAX_AGE);
         setLocationRequestDelay(LocationResources.LOCATION_DELAY);
+        setIsLocationsMappingEnabled(LocationResources.IS_TO_CALCULATE_DISTANCE);
+        setStopdID(LocationResources.STOP_ID);
     }
 
     /**
@@ -163,5 +185,7 @@ public class PreferencesHelper {
         LocationResources.LOCATION_MIN_ACCURACY = getMinAccuracy();
         LocationResources.LOCATION_MAX_AGE = getLocationMaxAge();
         LocationResources.LOCATION_DELAY = getLocationRequestDelay();
+        LocationResources.IS_TO_CALCULATE_DISTANCE = isLocationsMappingEnabled();
+        LocationResources.STOP_ID = getStopID();
     }
 }
