@@ -28,6 +28,7 @@ const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
 const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
 const ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
 const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
+const ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
 const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 const ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
 
@@ -188,9 +189,10 @@ LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error)
  *
  * @param success - Success callback function
  * @param error - Error callback function.
+ * @param params - {clear: false, clean: true}
  */
-LocationPlugin.prototype.getTotalDistance = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_TOTAL_DISTANCE, []);
+LocationPlugin.prototype.getTotalDistance = function (success, error, params) {
+    exec(success, error, FEATURE, ACTION_GET_TOTAL_DISTANCE, [params]);
 };
 
 /**
