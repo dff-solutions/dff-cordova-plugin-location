@@ -8,6 +8,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import org.apache.cordova.LOG;
 import org.json.JSONException;
@@ -173,7 +174,7 @@ public class FileHelper {
                 Log.d(TAG, "fis is available!");
                 ois = new ObjectInputStream(fis);
 
-                convertJSONtoMultimap((String) ois.readObject());
+                LocationResources.setLocationsMultiMap(convertJSONtoMultimap((String) ois.readObject()));
             }
         } catch (IOException | ClassNotFoundException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
@@ -191,7 +192,7 @@ public class FileHelper {
         }
     }
 
-    private static Multimap<String, Location> convertJSONtoMultimap(String jsonString) {
+    private static ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new GuavaModule());
         try {

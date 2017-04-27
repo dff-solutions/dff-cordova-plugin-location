@@ -119,7 +119,7 @@ LocationPlugin.prototype.getKeySet = function (success, error) {
 
 
 /**
- * Get the last stored stop id 
+ * Get the last stored stop id
  *
  * @param success - Success callback function
  * @param error - Error callback function.

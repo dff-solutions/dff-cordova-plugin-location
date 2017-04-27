@@ -320,6 +320,10 @@ public class LocationResources {
         }
     }
 
+    public static void setLocationsMultiMap(ListMultimap<String, Location> multiMap) {
+        LOCATION_MULTIMAP = multiMap;
+    }
+
     public static synchronized void addLocationToMultimap(Location location) {
         LOCATION_MULTIMAP.put(STOP_ID, location);
     }
