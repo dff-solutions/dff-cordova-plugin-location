@@ -27,7 +27,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 7.0.0
+ * @version 7.0.1
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -135,6 +135,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                         case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
                             LocationResources.IS_TO_CALCULATE_DISTANCE = true;
+                            callbackContext.success();
                             break;
 
                         case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
