@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 7.0.0
+ * @version 7.0.2
  * @since 15.12.2016
  */
 public class Executor {
@@ -238,6 +238,10 @@ public class Executor {
                         LocationResources.STOP_ID = "UNKNOWN";
                     }
                     ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().get(requestedStopID));
+                    if (locationsList.isEmpty()) {
+                        callbackContext.error(TAG + " : " + "Error -->  arraylist of stopid isEmpty - size = 0");
+                        break;
+                    }
                     new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error: ", e);
