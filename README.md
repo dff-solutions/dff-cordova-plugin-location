@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.0.0
+- Android: 7.0.1
 
 ## Releases:
+- 7.0.1: Fix: added a callback after enabling locations'mapping
 - 7.0.0: Ref: new algorithm to calculate the achieved distance using the "DistanceSimulator" class
 - 6.0.0: Feat: added distance simulator and refactored action parsing process | added mock locations for the simulation
 - 5.0.3: Fix: correction of adding a new location in the array lists
@@ -161,6 +162,8 @@ LocationPlugin.setMaxAge(maxAge, success, error);
 LocationPlugin.setMinTime = function (minTime, success, error);
 ```
 
+----
+#### enableMapping
 ```js
 /**
  * Enable mapping in order the persist the received locations in the locations'multi map
@@ -188,18 +191,21 @@ LocationPlugin.getKeySet = function (function (keySet)
 {console.log(keyset)}, error);
 ```
 
+----
+#### setStopID
 ```js
 /**
  * set a new stop id as key for the location hash map
  *
  * @param success  - Success callback function
  * @param error rror - Error callback function.
- * @param stopID - stop id to hash it in the location hash map
+ * @param params- stop id to hash it in the location hash map --> {stopID: id}
  */
-LocationPlugin.setStopID = function (success, error, stopID) {
+LocationPlugin.setStopID = function (success, error, params) {
 };
 ```
-
+----
+#### getLastStopdID
 ```js
 /**
  * Get the last stored stop id
@@ -210,7 +216,8 @@ LocationPlugin.setStopID = function (success, error, stopID) {
 LocationPlugin.getLastStopID = function (function(stopID) {console.log(stopID)}, error) {
 };
 ```
-
+----
+#### getStopDistance
 ```js
 /**
  * Clear the stop id key and get the achieved distance to the appropriate stop
