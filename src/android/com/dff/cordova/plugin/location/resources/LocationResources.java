@@ -6,12 +6,14 @@ import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.Date;
 
 /**
  * Class to hold and handle properties related to the Location Plugin.
@@ -343,7 +345,7 @@ public class LocationResources {
         }
     }
 
-    public static synchronized Multimap<String, Location> getLocationsMultimap() {
+    public static synchronized ListMultimap<String, Location> getLocationsMultimap() {
         try {
             return LOCATION_MULTIMAP;
         } catch (ConcurrentModificationException e) {
@@ -355,7 +357,7 @@ public class LocationResources {
     public static synchronized void logLocationsMultimap() {
         assert LOCATION_MULTIMAP != null;
         for (String stopID : LOCATION_MULTIMAP.keySet()) {
-            List<Location> locations = LOCATION_MULTIMAP.get(stopID);
+            Collection<Location> locations = LOCATION_MULTIMAP.get(stopID);
             Log.d(TAG, "stopID: " + stopID + " --> " + locations);
         }
     }
