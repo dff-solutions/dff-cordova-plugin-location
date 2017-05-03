@@ -8,7 +8,7 @@ import com.dff.cordova.plugin.common.log.CordovaPluginLog;
  * Class that deals with app crashes.
  *
  * @author Anthony Nahas
- * @version 2.1
+ * @version 3.0
  * @since 06.12.2016
  */
 public class CrashHelper implements Thread.UncaughtExceptionHandler {
