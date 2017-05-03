@@ -5,11 +5,14 @@ import android.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -17,14 +20,12 @@ import java.util.Map;
  * --> converting multimap string -  col "location" to mutlimap string - col "JSONObject"
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 03.05.2017
  */
 public class MultimapHelper {
 
     private static final String TAG = MultimapHelper.class.getSimpleName();
-
-    // TODO: 03.05.2017 : add the file in plugin.xml
 
     public enum properties {
         longitude,
@@ -86,15 +87,26 @@ public class MultimapHelper {
     public static ListMultimap<String, Location> convertMapToLocationsMultiMap(Map<String, Object> map) {
         assert map != null;
         ListMultimap<String, Location> multimap = ArrayListMultimap.create();
+
         for (String key : map.keySet()) {
-            //(Collection<JSONObject> collection = map.get(key);
-            Log.d(TAG, map.get(key).toString());
-            /*
-            for (JSONObject jsonLocation : collection) {
-                //convert json to location and add it to the multimap
-                multimap.put(key, convertJSONToLocation(jsonLocation));
+
+            ArrayList locationsList = (ArrayList) map.get(key);
+
+            for (Object LinkedHashMap : locationsList) {
+                // Instantiate a new Gson instance.
+                Gson gson = new Gson();
+                // Convert the ordered map into an ordered string.
+                String json = gson.toJson(LinkedHashMap, LinkedHashMap.class);
+                JSONObject jsonObject;
+                try {
+                    jsonObject = new JSONObject(json);
+                    Log.d(TAG, jsonObject.toString());
+                    multimap.put(key, convertJSONToLocation(jsonObject));
+                } catch (JSONException e) {
+                    Log.e(TAG, "Error: ", e);
+                }
             }
-            */
+
         }
         Log.d(TAG, "locations'multimap size = " + multimap.size());
         Log.d(TAG, multimap.toString());

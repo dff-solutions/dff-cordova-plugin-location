@@ -151,11 +151,13 @@ public class FileHelper {
             Log.d(TAG, "on storeLocationsMultimap");
             fos = context.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
-            //os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap())); // TODO: 03.05.2017 : json.toString()
-            Map<String, Collection<JSONObject>> map = MultimapHelper.convertLocationsToJsonMultimap(LocationResources.getLocationsMultimap());
-            Log.d(TAG, map.toString());
+
+            Map<String, Collection<JSONObject>> map = MultimapHelper.convertLocationsToJsonMultimap(LocationResources
+                .getLocationsMultimap());
+
             JSONObject jsonObject = new JSONObject(map);
             Log.d(TAG, jsonObject.toString());
+
             os.writeObject(jsonObject.toString());
             os.writeObject(null);
             os.close();
@@ -182,11 +184,11 @@ public class FileHelper {
                 Log.d(TAG, "fis is available on restoring locations'multimap!");
                 ois = new ObjectInputStream(fis);
 
-                //LocationResources.setLocationsMultiMap(convertJSONtoMultimap((String) ois.readObject()));
                 LocationResources
                     .setLocationsMultiMap(MultimapHelper
                         .convertMapToLocationsMultiMap(MultimapHelper
                             .parseJSONtoMap((String) ois.readObject())));
+
                 Log.d(TAG, "on restoreLocationsMultimap");
                 LocationResources.logLocationsMultimap();
             }
