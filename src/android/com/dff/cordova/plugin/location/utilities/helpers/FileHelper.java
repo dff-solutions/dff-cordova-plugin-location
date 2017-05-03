@@ -1,15 +1,9 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.Multimap;
 import org.apache.cordova.LOG;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -207,22 +201,4 @@ public class FileHelper {
             }
         }
     }
-
-
-    private static ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
-        Log.d(TAG, "on convertJSONtoMultimap");
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new GuavaModule());
-        try {
-            return objectMapper.readValue(
-                objectMapper.treeAsTokens(objectMapper.readTree(jsonString)),
-                objectMapper.getTypeFactory().constructMapLikeType(
-                    Multimap.class, String.class, Location.class));
-        } catch (IOException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-            return ArrayListMultimap.create();
-        }
-
-    }
-
 }
