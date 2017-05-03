@@ -16,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Class to read/write data in a file.
@@ -95,7 +97,7 @@ public class FileHelper {
             fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
             int i = 0;
             if (fis.available() != 0) {
-                Log.d(TAG, "fis is available!");
+                Log.d(TAG, "fis is available on restoring pending locations!");
                 ois = new ObjectInputStream(fis);
 
                 String location;
@@ -146,12 +148,17 @@ public class FileHelper {
         ObjectOutputStream os;
 
         try {
+            Log.d(TAG, "on storeLocationsMultimap");
             fos = context.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
-            os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap())); // TODO: 03.05.2017 : json.toString()
+            //os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap())); // TODO: 03.05.2017 : json.toString()
+            Map<String, Collection<JSONObject>> map = MultimapHelper.convertLocationsToJsonMultimap(LocationResources.getLocationsMultimap());
+            Log.d(TAG, map.toString());
+            JSONObject jsonObject = new JSONObject(map);
+            Log.d(TAG, jsonObject.toString());
+            os.writeObject(jsonObject.toString());
             os.writeObject(null);
             os.close();
-            Log.d(TAG, "on storeLocationsMultimap");
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
@@ -172,10 +179,14 @@ public class FileHelper {
         try {
             fis = context.openFileInput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME);
             if (fis.available() != 0) {
-                Log.d(TAG, "fis is available!");
+                Log.d(TAG, "fis is available on restoring locations'multimap!");
                 ois = new ObjectInputStream(fis);
 
-                LocationResources.setLocationsMultiMap(convertJSONtoMultimap((String) ois.readObject()));
+                //LocationResources.setLocationsMultiMap(convertJSONtoMultimap((String) ois.readObject()));
+                LocationResources
+                    .setLocationsMultiMap(MultimapHelper
+                        .convertMapToLocationsMultiMap(MultimapHelper
+                            .parseJSONtoMap((String) ois.readObject())));
                 Log.d(TAG, "on restoreLocationsMultimap");
                 LocationResources.logLocationsMultimap();
             }
@@ -194,6 +205,7 @@ public class FileHelper {
             }
         }
     }
+
 
     private static ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
         Log.d(TAG, "on convertJSONtoMultimap");
