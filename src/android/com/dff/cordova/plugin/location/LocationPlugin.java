@@ -27,7 +27,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 7.0.2
+ * @version 7.1.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {

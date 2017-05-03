@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.0.2
+- Android: 7.1.0
 
 ## Releases:
+- 7.1.0: Fix: 
 - 7.0.2: Fix: error callback if stopdID was not found or the appropriate locationsList is empty
 - 7.0.1: Fix: added a callback after enabling locations'mapping
 - 7.0.0: Ref: new algorithm to calculate the achieved distance using the "DistanceSimulator" class
