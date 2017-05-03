@@ -3,7 +3,6 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 import android.content.Context;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.location.resources.LocationResources;
 
 /**
  * Class that deals with app crashes.
@@ -46,15 +45,8 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
             mPreferencesHelper.storeProperties();
             FileHelper.storePendingLocation(mContext);
             FileHelper.storeLocationsMultimap(mContext);
-            Log.d(TAG, "store pending locations and locations'mutlimaü");
-            //mContext.startService(new Intent(mContext, PendingLocationsIntentService.class).setAction(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS));
-            mPreferencesHelper.setLocationCanBeCleared(false);
-            if (LocationResources.TOTAL_DISTANCE_CALCULATOR != null) {
-                mPreferencesHelper.storeTotalDistance(LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance());
-            }
-            if (LocationResources.CUSTOM_DISTANCE_CALCULATOR != null) {
-                mPreferencesHelper.storeCustomDistance(LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance());
-            }
+            Log.d(TAG, "store pending locations and locations'multimap");
+
             Log.d(TAG, "set can location be cleared --> false");
         } catch (Exception e) {
             CordovaPluginLog.e(TAG, "Error: ", e);

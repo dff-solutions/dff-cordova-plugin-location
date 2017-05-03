@@ -148,7 +148,7 @@ public class FileHelper {
         try {
             fos = context.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
-            os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap()));
+            os.writeObject(new JSONObject(LocationResources.getLocationsMultimap().asMap())); // TODO: 03.05.2017 : json.toString()
             os.writeObject(null);
             os.close();
             Log.d(TAG, "on storeLocationsMultimap");

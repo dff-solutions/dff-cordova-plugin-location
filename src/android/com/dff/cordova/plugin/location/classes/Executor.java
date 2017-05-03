@@ -41,8 +41,6 @@ public class Executor {
      * @param context - The context of the application
      */
     public static void restore(Context context) {
-        LocationResources.TOTAL_DISTANCE_CALCULATOR.restore(context, 0);
-        LocationResources.CUSTOM_DISTANCE_CALCULATOR.restore(context, 1);
         context.startService(new Intent(context, PendingLocationsIntentService.class)
             .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
