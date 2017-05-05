@@ -19,7 +19,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 7.0.0
+ * @version 7.2.0
  * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map class)
  * @since 30.11.2016
  */
@@ -58,6 +58,7 @@ public class LocationResources {
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
     public static final String ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
     public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
+    public static final String ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
 
 
     //Broadcasts Actions
@@ -65,13 +66,14 @@ public class LocationResources {
     public static final String BROADCAST_ACTION_STOP = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver#stop";
     public static final String ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
     public static final String BROADCAST_ACTION_ON_NEW_LOCATION = "com.dff.cordova.plugin.location.broadcast.NewLocationReceiver";
-
+    public static final String BROADCAST_ACTION_ON_CHANGED_PROVIDER = "com.dff.cordova.plugin.location.broadcast.ChangeProviderReceiver";
 
     //Bundle keys
     public static final String LOCATION_RETURN_TYPE_KEY = "location.return.TYPE_KEY";
     public static final String IS_LOCATION_MANAGER_LISTENING = "is.location.manager.listening";
     public static final String LOCATION_MIN_TIME_KEY = "location.min.time.key";
     public static final String LOCATION_MIN_DISTANCE_KEY = "location.min.distance.key";
+    public static final String IS_PROVIDER_ENABLED = "location.IS_PROVIDER_ENABLED";
 
     //JSON keys (params)
     public static final String RETURN_TYPE = "returnType";

@@ -180,21 +180,31 @@ public class LocationServiceHandler extends Handler {
             }
 
             @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
+            public void onStatusChanged(String provider, int i, Bundle bundle) {
                 //ignore
-                Log.d(TAG, "on status changed: " + s);
+                Log.d(TAG, "on status changed: " + provider);
             }
 
             @Override
-            public void onProviderEnabled(String s) {
+            public void onProviderEnabled(String provider) {
                 //ignore
-                Log.d(TAG, "onProviderEnabled with " + s);
+                Log.d(TAG, "onProviderEnabled with " + provider);
+
+                if (provider.equals("gps")) {
+                    //send intent with true
+                    notifyOnChangedProvider(true);
+                }
             }
 
             @Override
-            public void onProviderDisabled(String s) {
+            public void onProviderDisabled(String provider) {
                 //ignore
-                Log.d(TAG, "onProviderDisabled with " + s);
+                Log.d(TAG, "onProviderDisabled with " + provider);
+
+                if (provider.equals("gps")) {
+                    //send intent with false
+                    notifyOnChangedProvider(false);
+                }
             }
         };
 
@@ -335,6 +345,15 @@ public class LocationServiceHandler extends Handler {
         LocalBroadcastManager
             .getInstance(mContext)
             .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
+    }
+
+    private void notifyOnChangedProvider(boolean isGpsProviderEnabled) {
+        Intent intent = new Intent(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
+        intent.putExtra(LocationResources.IS_PROVIDER_ENABLED, isGpsProviderEnabled);
+
+        LocalBroadcastManager
+            .getInstance(mContext)
+            .sendBroadcast(intent);
     }
 
     /**

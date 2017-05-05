@@ -12,6 +12,7 @@ import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.resources.LocationResources;
@@ -40,8 +41,10 @@ public class LocationPlugin extends CommonServicePlugin {
         };
 
     private Context mContext;
+    private ChangeProviderReceiver mChangeProviderReceiver;
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
+    private IntentFilter mChangeProviderIntentFilter;
 
     private static HandlerThread mHandlerThread;
     private static ServiceHandler mServiceHandler;
@@ -56,7 +59,10 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        // TODO: 05.05.2017 assert != null
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+
         FileHelper.storePendingLocation(mContext);
         FileHelper.storeLocationsMultimap(mContext);
     }
@@ -159,14 +165,13 @@ public class LocationPlugin extends CommonServicePlugin {
                         case LocationResources.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
                             Executor.getKeySetFromLocationsMultimap(callbackContext);
                             break;
-                    /*
-                    else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
-                            action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
-                        Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
-                        pendingLocationsIntentService.setAction(action);
-                        mContext.startService(pendingLocationsIntentService);
-                    }
-                    */
+
+                        case LocationResources.ACTION_REGISTER_PROVIDER_LISTENER:
+                            mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
+                            mChangeProviderIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
+                            LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
+                            break;
+
                         case LocationResources.ACTION_SET_STOP_LISTENER:
                             Executor.setStopListener(mContext, callbackContext, args);
                             break;
@@ -202,6 +207,15 @@ public class LocationPlugin extends CommonServicePlugin {
                                 CordovaPluginLog.e(TAG, "Error: ", e);
                             }
                             break;
+
+                             /*
+                    else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
+                            action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
+                        Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
+                        pendingLocationsIntentService.setAction(action);
+                        mContext.startService(pendingLocationsIntentService);
+                    }
+                    */
                     }
                 }
             });
