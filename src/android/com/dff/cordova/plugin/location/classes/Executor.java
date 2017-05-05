@@ -127,6 +127,7 @@ public class Executor {
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
+            callbackContext.error("Error: " + e);
         }
         switch (LocationResources.LOCATION_RETURN_TYPE) {
             case LocationResources.DFF_STRING:
