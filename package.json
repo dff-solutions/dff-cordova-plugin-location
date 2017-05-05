@@ -1,0 +1,25 @@
+{
+  "name": "dff-cordova-plugin-location",
+  "version": "7.1.0",
+  "description": "Location Plugin",
+  "cordova": {
+    "id": "dff-cordova-plugin-location",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dff-solutions/dff-cordova-plugin-location"
+  },
+  "keywords": [
+    "cordova",
+    "cordova-android",
+    "location",
+    "tracking system",
+    "GPS",
+    "distance"
+  ],
+  "author": "Anthony Nahas",
+  "license": "Apache-2.0"
+}
