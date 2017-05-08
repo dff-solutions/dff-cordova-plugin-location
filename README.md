@@ -8,10 +8,11 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.1.0
+- Android: 7.2.0
 
 ## Releases:
-- 7.1.0: Fix: 
+- 7.2.0: Feat: GPS Provider Listener
+- 7.1.0: Fix: restoring locations'multimap fixed
 - 7.0.2: Fix: error callback if stopdID was not found or the appropriate locationsList is empty
 - 7.0.1: Fix: added a callback after enabling locations'mapping
 - 7.0.0: Ref: new algorithm to calculate the achieved distance using the "DistanceSimulator" class
@@ -378,4 +379,34 @@ LocationPlugin.setStopListener = function (success, error, frequency, minDistanc
  * @param error - Error callback function
  */
 LocationPlugin.cancelStopListener = function (success, error);
+```
+
+#### registerGPSProviderListener
+```js
+/**
+ *
+ * Register a gps provider listener. When the provider changes, a broadcast will be fired!
+ *
+ * @param success - Success callback function @Rerturn: whether the GPS provider is enbaled or not
+ * @param error - Error callback function
+ */
+LocationPlugin.registerGPSProviderListener(function(isLocationEnabled) {
+    console.log(isLocationEnabled);
+}, error) {
+
+};
+```
+
+
+#### unregisterGPSProviderListener
+```js
+/**
+ * Unregister the gps provider listener
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.unregisterGPSProviderListener = function (success, error) {
+
+};
 ```
