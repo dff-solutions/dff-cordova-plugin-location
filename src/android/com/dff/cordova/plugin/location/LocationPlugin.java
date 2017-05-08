@@ -170,6 +170,14 @@ public class LocationPlugin extends CommonServicePlugin {
                             mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
                             mChangeProviderIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
                             LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
+                            callbackContext.success();
+                            break;
+
+                        case LocationResources.ACTION_UNREGISTER_PROVIDER_LISTENER:
+                            if (mChangeProviderReceiver != null) {
+                                LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+                                callbackContext.success();
+                            }
                             break;
 
                         case LocationResources.ACTION_SET_STOP_LISTENER:

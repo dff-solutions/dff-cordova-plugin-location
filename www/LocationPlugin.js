@@ -31,6 +31,9 @@ const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
 const ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
 const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 const ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
+const ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
+const ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
+
 
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
@@ -302,6 +305,30 @@ LocationPlugin.prototype.setStopListener = function (success, error, frequency, 
  */
 LocationPlugin.prototype.cancelStopListener = function (success, error) {
     exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
+};
+
+
+/**
+ *
+ * Register a gps provider listener. When the provider changes, a broadcast will be fired!
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.registerGPSProviderListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_REGISTER_PROVIDER_LISTENER, []);
+
+};
+
+/**
+ * Unregister the gps provider listener
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.unregisterGPSProviderListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_UNREGISTER_PROVIDER_LISTENER, []);
+
 };
 
 
