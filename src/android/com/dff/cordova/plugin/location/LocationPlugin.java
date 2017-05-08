@@ -28,7 +28,7 @@ import org.json.JSONException;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 7.1.0
+ * @version 7.2.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -170,7 +170,6 @@ public class LocationPlugin extends CommonServicePlugin {
                             mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
                             mChangeProviderIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
                             LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
-                            callbackContext.success();
                             break;
 
                         case LocationResources.ACTION_UNREGISTER_PROVIDER_LISTENER:
