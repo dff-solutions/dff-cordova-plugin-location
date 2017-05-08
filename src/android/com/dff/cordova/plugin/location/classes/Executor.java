@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 7.0.2
+ * @version 7.2.1
  * @since 15.12.2016
  */
 public class Executor {
@@ -127,7 +127,6 @@ public class Executor {
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
-            callbackContext.error("Error: " + e);
         }
         switch (LocationResources.LOCATION_RETURN_TYPE) {
             case LocationResources.DFF_STRING:
@@ -202,7 +201,7 @@ public class Executor {
             clonedMultimap.removeAll(LocationResources.UNKNOWN);
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
-        if (locationsList.size() > 0) {
+        if (locationsList.size() > 1) {
             new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.clearLocationsMultimap();

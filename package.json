@@ -1,6 +1,6 @@
 {
   "name": "dff-cordova-plugin-location",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "description": "Location Plugin",
   "cordova": {
     "id": "dff-cordova-plugin-location",
