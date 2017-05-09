@@ -19,7 +19,7 @@ import java.util.Date;
  * Class to hold and handle properties related to the Location Plugin.
  *
  * @author Anthony Nahas
- * @version 7.2.2
+ * @version 7.2.3
  * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map class)
  * @since 30.11.2016
  */
@@ -83,8 +83,8 @@ public class LocationResources {
     public static final String MIN_ACCURACY = "minAccuracy";
     public static final String MAX_AGE = "locationMaxAge";
     public static final String DELAY = "locationRequestDelay";
-    public static final String CLEAR = "clear";
-    public static final String CLEAN = "clear";
+    public static final String RESET = "reset";
+    public static final String CLEAN = "clean";
 
     public static String UNKNOWN = "UNKNOWN";
 

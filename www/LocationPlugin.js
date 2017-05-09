@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 7.2.0
+ * @version 7.2.3
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');

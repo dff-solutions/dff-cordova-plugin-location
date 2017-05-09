@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 7.2.2
+ * @version 7.2.3
  * @since 15.12.2016
  */
 public class Executor {
@@ -119,11 +119,11 @@ public class Executor {
      * @param args            - The exec() arguments.
      */
     public static void getLocationList(CallbackContext callbackContext, JSONArray args) {
-        Boolean canBeCleared = true;
+        Boolean canReset = true;
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                canBeCleared = params.optBoolean(LocationResources.CLEAR, true);
+                canReset = params.optBoolean(LocationResources.RESET, true);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
@@ -135,7 +135,7 @@ public class Executor {
                 if (dffStringLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(dffStringLocationList));
                     Log.d(TAG, "list > 0 ");
-                    if (canBeCleared) {
+                    if (canReset) {
                         LocationResources.clearDffStringLocationsList();
                     }
                 } else {
@@ -149,7 +149,7 @@ public class Executor {
                 if (jsonLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(jsonLocationList));
                     Log.d(TAG, "list > 0 ");
-                    if (canBeCleared) {
+                    if (canReset) {
                         LocationResources.clearJsonLocationsList();
                     }
                 } else {
@@ -187,7 +187,7 @@ public class Executor {
         boolean isClean = false;
         try {
             JSONObject params = args.getJSONObject(0);
-            LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.CLEAR, false);
+            LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.RESET, false);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.STOP_ID = LocationResources.UNKNOWN;
             }
@@ -232,7 +232,7 @@ public class Executor {
                 try {
                     JSONObject params = args.getJSONObject(0);
                     String requestedStopID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
-                    if (params.optBoolean(LocationResources.CLEAR, false)) {
+                    if (params.optBoolean(LocationResources.RESET, false)) {
                         LocationResources.STOP_ID = "UNKNOWN";
                     }
                     ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().get(requestedStopID));
