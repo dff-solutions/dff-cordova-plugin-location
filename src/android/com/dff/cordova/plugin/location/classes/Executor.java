@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 7.2.1
+ * @version 7.2.2
  * @since 15.12.2016
  */
 public class Executor {
@@ -187,7 +187,7 @@ public class Executor {
         boolean isClean = false;
         try {
             JSONObject params = args.getJSONObject(0);
-            LocationResources.IS_TO_CALCULATE_DISTANCE = params.optBoolean(LocationResources.CLEAR, false);
+            LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.CLEAR, false);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.STOP_ID = LocationResources.UNKNOWN;
             }

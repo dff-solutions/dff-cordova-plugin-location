@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.2.1
+- Android: 7.2.2
 
 ## Releases:
+- 7.2.2: Fix: clear after getTotalDistance
 - 7.2.1: Fix: get locations list fixed
 - 7.2.0: Feat: GPS Provider Listener
 - 7.1.0: Fix: restoring locations'multimap fixed
