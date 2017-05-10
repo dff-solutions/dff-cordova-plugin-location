@@ -93,7 +93,7 @@ LocationPlugin.prototype.setStopID = function (success, error, stopID) {
  * @param error - Error callback function.
  * @param params -  {stopID: id, clear:false}
  * | stop id to import from the locations multimap
- * | clear - to clear the stopID --> stopID = UNKNOWN
+ * | reset - to clear the stopID --> stopID = UNKNOWN
  */
 LocationPlugin.prototype.getStopDistance = function (success, error, params) {
     exec(success, error, FEATURE, ACTION_CLEAR_STOP_ID, [params]);
@@ -164,7 +164,7 @@ LocationPlugin.prototype.getLocationAsTest = function (returnType) {
  *
  * @param success - Success callback function.
  * @param error - Error callback function.
- * @param params - "clear" whether to clear after sending the location list (default clear = true)
+ * @param params - "reset" whether to clear after sending the location list (default reset = true)
  */
 LocationPlugin.prototype.getLocationsList = function (success, error, params) {
     exec(success, error, FEATURE, ACTION_GET_LOCATION_LIST, [params]);
@@ -212,7 +212,7 @@ LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error)
  *
  * @param success - Success callback function
  * @param error - Error callback function.
- * @param params - {clear: false, clean: true}
+ * @param params - {reset: false, clean: true}
  */
 LocationPlugin.prototype.getTotalDistance = function (success, error, params) {
     exec(success, error, FEATURE, ACTION_GET_TOTAL_DISTANCE, [params]);

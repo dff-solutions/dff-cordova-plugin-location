@@ -233,7 +233,7 @@ LocationPlugin.getLastStopID = function (function(stopID) {console.log(stopID)},
  * @param error - Error callback function.
  * @param params -  {stopID: id, clear:false}
  * | stop id to import from the locations multimap
- * | clear - to clear the stopID --> stopID = UNKNOWN
+ * | reset - to clear the stopID --> stopID = UNKNOWN
  */
 LocationPlugin.getStopDistance = function (function(distance) {console.log(distance)}, error, params) {
 };
@@ -276,16 +276,14 @@ LocationPlugin.getLocation(returnType, function(location) {
   *
   * @param success - Success callback function.
   * @param error - Error callback function.
-  * @param (params) - "clear" whether to clear after sending the location list (default clear = true)
+  * @param (params) - "reset" whether to clear after sending the location list (default reset = true)
   */
- LocationPlugin.getLocationsList(
-     {
-        clear: false
-     }, 
+ LocationPlugin.getLocationsList( 
      function(locations) {
    //example
     //location 0...N = 9.92885613|51.53705706|0.0|0.0|1481283812139
- }, error);
+ },
+  error, {  reset: false });
  ```
  ----
 #### runTotalDistanceCalculator
@@ -317,10 +315,11 @@ LocationPlugin.runCustomDistanceCalculator(success, error);
  *
  * @param success - Success callback function
  * @param error - Error callback function.
+ * @param params - {reset: false, clean: true}
  */
 LocationPlugin.getTotalDistance(function(distnace){
       console.log(distnace);
-}, error);
+}, error, {reset: false, clean: true});
 ```
 ----
 #### getCustomDistance
@@ -411,6 +410,5 @@ LocationPlugin.registerGPSProviderListener(function(isLocationEnabled) {
  * @param error - Error callback function
  */
 LocationPlugin.unregisterGPSProviderListener = function (success, error) {
-
 };
 ```
