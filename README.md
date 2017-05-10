@@ -8,9 +8,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.2.2
+- Android: 7.2.4
 
 ## Releases:
+- 7.2.4: Ref: updated git url in package.json
 - 7.2.3: Fix: json args key refactored: clear --> reset
 - 7.2.2: Fix: clear after getTotalDistance
 - 7.2.1: Fix: get locations list fixed
