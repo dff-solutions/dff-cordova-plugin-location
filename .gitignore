@@ -1,4 +1,5 @@
 .idea
-dff-cordova-plugin-location.iml
-
-/bin/
+*.iml
+build
+proguard-rules.pro
+bin

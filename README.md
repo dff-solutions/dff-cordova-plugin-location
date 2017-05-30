@@ -1,4 +1,6 @@
 # dff-cordova-plugin-location
+# & 
+# Location Android Module
 
 Location based tracking system
 
@@ -8,9 +10,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 7.2.4
+- Android: 8.0.0
 
 ## Releases:
+- 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
 - 7.2.3: Fix: json args key refactored: clear --> reset
 - 7.2.2: Fix: clear after getTotalDistance
