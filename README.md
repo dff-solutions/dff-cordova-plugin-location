@@ -317,6 +317,9 @@ LocationPlugin.runCustomDistanceCalculator(success, error);
 /**
  * Get the calculated total distance.
  *
+ * Reset: whether to reset the multimap at the end or not
+ * Clean: whether with stopID "UNKNOWN" or not
+ *
  * @param success - Success callback function
  * @param error - Error callback function.
  * @param params - {reset: false, clean: true}
