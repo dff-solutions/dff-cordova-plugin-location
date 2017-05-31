@@ -10,9 +10,10 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 8.0.0
+- Android: 8.0.1
 
 ## Releases:
+- 8.0.1: Fix: @getTotalDistance
 - 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
 - 7.2.3: Fix: json args key refactored: clear --> reset

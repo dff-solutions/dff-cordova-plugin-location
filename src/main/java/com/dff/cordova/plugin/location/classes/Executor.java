@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.location.Location;
 import android.os.*;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
@@ -16,6 +17,7 @@ import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.google.common.collect.Multimap;
+
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,7 +30,7 @@ import java.util.regex.Pattern;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 7.2.3
+ * @version 8.0.1
  * @since 15.12.2016
  */
 public class Executor {
@@ -191,13 +193,16 @@ public class Executor {
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.STOP_ID = LocationResources.UNKNOWN;
             }
-            isClean = params.getBoolean(LocationResources.CLEAN);
+            isClean = params.optBoolean(LocationResources.CLEAN);
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
         Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
+        if (clonedMultimap == null) {
+            callbackContext.error("Error: --> clonedMultimap may be null");
+            return;
+        }
         if (isClean) {
-            assert clonedMultimap != null;
             clonedMultimap.removeAll(LocationResources.UNKNOWN);
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
