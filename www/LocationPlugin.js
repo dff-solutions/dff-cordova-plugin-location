@@ -10,9 +10,7 @@ const exec = require('cordova/exec');
 
 const FEATURE = "LocationPlugin";
 
-const ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
-const ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
-const ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
+
 const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
 const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
@@ -38,42 +36,6 @@ const ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_P
 function LocationPlugin() {
     console.log("LocationPlugin.js has been created");
 }
-
-/**
- * Set the minimum accuracy value in order to compare the changed location, whether to store it.
- *
- * @param success - Success callback function
- * @param error - Error callback function
- * @param minAccuracy - The value of the minimum accuracy that is required to store a location
- */
-LocationPlugin.prototype.setMinAccuracy = function (minAccuracy, success, error) {
-    exec(success, error, FEATURE, ACTION_SET_MIN_ACCURACY, [minAccuracy]);
-};
-
-/**
- * Set the maximum value of the age of the location in order to discard it when this value is reached.
- *minAccuracy
- * @param success - Success callback function
- * @param error - Error callback function
- * @param maxAge - The value of the maximum age in "seconds"
- */
-LocationPlugin.prototype.setMaxAge = function (maxAge, success, error) {
-    exec(success, error, FEATURE, ACTION_SET_MAX_AGE, [maxAge]);
-};
-
-
-/**
- * Update the minimum time of requesting a new location as configuration.
- * NOTE: PLEASE DO NOT UTILIZE!!!!
- *
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- * @param minTime - The value of minimum time to request a new location in ms.
- */
-LocationPlugin.prototype.setMinTime = function (minTime, success, error) {
-    exec(success, error, FEATURE, ACTION_SET_MIN_TIME, [minTime]);
-};
 
 /**
  * set a new stop id as key for the location hash map

@@ -205,20 +205,8 @@ public class LocationPlugin extends CommonServicePlugin {
                             mNewLocationIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION);
                             LocalBroadcastManager.getInstance(mContext).
                                 registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
-                            //mContext.registerReceiver(new NewLocationReceiver(callbackContext, type), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
                             break;
                         default:
-                            try {
-                                if (action.equals(LocationResources.ACTION_SET_MIN_ACCURACY) && args.get(0) != null) {
-                                    LocationResources.setLocationMinAccuracy(args.getInt(0));
-                                } else if (action.equals(LocationResources.ACTION_SET_MAX_AGE) && args.get(0) != null) {
-                                    LocationResources.setLocationMaxAge(args.getInt(0));
-                                } else if (action.equals(LocationResources.ACTION_SET_MIN_TIME) && args.get(0) != null) {
-                                    LocationResources.setLocationMinTime(args.getLong(0)); //todo
-                                }
-                            } catch (JSONException e) {
-                                CordovaPluginLog.e(TAG, "Error: ", e);
-                            }
                             break;
 
                              /*

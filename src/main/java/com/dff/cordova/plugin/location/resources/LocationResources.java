@@ -2,10 +2,12 @@ package com.dff.cordova.plugin.location.resources;
 
 import android.location.Location;
 import android.util.Log;
+
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +39,7 @@ public class LocationResources {
     public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
 
-    //Actions
+    //JS Actions
     public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
     public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
@@ -61,6 +63,28 @@ public class LocationResources {
     public static final String ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
     public static final String ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
+
+    //@Test
+    public static final String ALL_JS_ACTIONS[] =
+        {
+            ACTION_START_SERVICE,
+            ACTION_STOP_SERVICE,
+            ACTION_GET_LOCATION,
+            ACTION_GET_LOCATION_LIST,
+            ACTION_INTENT_STORE_PENDING_LOCATIONS,
+            ACTION_INTENT_RESTORE_PENDING_LOCATIONS,
+            ACTION_RUN_TOTAL_DISTANCE_CALCULATOR,
+            ACTION_GET_TOTAL_DISTANCE_CALCULATOR,
+            ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR,
+            ACTION_GET_CUSTOM_DISTANCE_CALCULATOR,
+            ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP,
+            ACTION_SET_LOCATION_LISTENER,
+            ACTION_CANCEL_STOP_LISTENER,
+            ACTION_ENABLE_MAPPING_LOCATIONS,
+            ACTION_SET_STOP_ID,
+            ACTION_REGISTER_PROVIDER_LISTENER,
+            ACTION_UNREGISTER_PROVIDER_LISTENER
+        };
 
     //Broadcasts Actions
     public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
@@ -252,35 +276,6 @@ public class LocationResources {
 
 
     /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-    /**
-     * Update the value of the location'S max age as configuration.
-     *
-     * @param maxAge - The maximum age that a location can have.
-     */
-    public static void setLocationMaxAge(int maxAge) {
-        LOCATION_MAX_AGE = maxAge;
-    }
-
-    /**
-     * Update the value of the location'S minimum accuracy as configuration.
-     *
-     * @param minAccuracy - The minimum accuracy that a location should have to be persisted.
-     */
-    public static void setLocationMinAccuracy(int minAccuracy) {
-        LOCATION_MIN_ACCURACY = minAccuracy;
-    }
-
-
-    /**
-     * Update the minimum time of requesting a new location as configuration.
-     *
-     * @param minTime - The minimum time needed to request a new location.
-     */
-    public static void setLocationMinTime(long minTime) {
-        LOCATION_MIN_TIME = minTime;
-    }
-
 
     /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 

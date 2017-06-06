@@ -138,40 +138,6 @@ locationRequestDelay| int: the delay time to allocate a new good location
 LocationPlugin.stopService(success, error);
 ```
 ----
-#### setMinAccuracy
-```js
-/**
- * Set the minimum accuracy value in order to compare the changed location, whether to store it.
- *
- * @param success - Success callback function
- * @param error - Error callback function
- * @param minAccuracy - The value of the minimum accuracy that is required to store a location
- */
-LocationPlugin.setMinAccuracy(minAccuracy, success, error);
-```
-----
-#### setMaxAge
-```js
-/**
- * Set the maximum value of the age of the location in order to discard it when this value is reached.
- *
- * @param success - Success callback function
- * @param error - Error callback function
- * @param maxAge - The value of the maximum age in "seconds"
- */
-LocationPlugin.setMaxAge(maxAge, success, error);
-```
-----
-#### setMinTime
-```js
-/**
- *
- * @param minTime - The value of minimum time to request a new location in ms.
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.setMinTime = function (minTime, success, error);
-```
 
 ----
 #### enableMapping
@@ -419,3 +385,8 @@ LocationPlugin.registerGPSProviderListener(function(isLocationEnabled) {
 LocationPlugin.unregisterGPSProviderListener = function (success, error) {
 };
 ```
+
+## @Deprecated
++ setMaxAge()
++ setMinTime()
++ setMAxAccuracy()
