@@ -8,6 +8,7 @@ import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
@@ -19,7 +20,9 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -45,6 +48,7 @@ public class LocationPlugin extends CommonServicePlugin {
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
     private IntentFilter mChangeProviderIntentFilter;
+    public CordovaInterface mCordovaInterface;
 
     private static HandlerThread mHandlerThread;
     private static ServiceHandler mServiceHandler;
@@ -56,15 +60,16 @@ public class LocationPlugin extends CommonServicePlugin {
         super(TAG);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        // TODO: 05.05.2017 assert != null
-        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
-        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+    public int calc(int x) {
+        return x * 2;
+    }
 
-        FileHelper.storePendingLocation(mContext);
-        FileHelper.storeLocationsMultimap(mContext);
+    public CordovaInterface getCordovaInterface() {
+        return mCordovaInterface;
+    }
+
+    public void setCordovaInterface(CordovaInterface mCordovaInterface) {
+        this.mCordovaInterface = mCordovaInterface;
     }
 
     /**
@@ -86,6 +91,7 @@ public class LocationPlugin extends CommonServicePlugin {
         requestLocationPermission();
         mContext = cordova.getActivity().getApplicationContext();
         mContext.stopService(new Intent(mContext, LocationService.class));
+        mCordovaInterface = cordova;
         mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
         super.pluginInitialize(mServiceHandler);
         mServiceHandler.bindService();
@@ -113,7 +119,7 @@ public class LocationPlugin extends CommonServicePlugin {
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         if (action != null) {
-            cordova.getThreadPool().execute(new Runnable() {
+            mCordovaInterface.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
@@ -229,5 +235,16 @@ public class LocationPlugin extends CommonServicePlugin {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // TODO: 05.05.2017 assert != null
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+
+        FileHelper.storePendingLocation(mContext);
+        FileHelper.storeLocationsMultimap(mContext);
     }
 }
