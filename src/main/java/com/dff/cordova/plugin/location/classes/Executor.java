@@ -26,6 +26,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+
 /**
  * Class to execute incoming actions from JS.
  *
@@ -33,18 +39,33 @@ import java.util.regex.Pattern;
  * @version 8.0.1
  * @since 15.12.2016
  */
+@Module
 public class Executor {
 
     private static final String TAG = "Executor";
 
+    @Inject
+    public Context context;
+
+    @Provides
+    @Singleton
+    Executor provideExecutor() {
+        return new Executor();
+    }
+
     /**
      * Restore stored value from the shared preference or respectively from file system.
      *
-     * @param context - The context of the application
+//     * @param context - The context of the application
      */
-    public static void restore(Context context) {
+//    public static void restore(Context context) {
+//        context.startService(new Intent(context, PendingLocationsIntentService.class)
+//                .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+//    }
+
+    public void restore() {
         context.startService(new Intent(context, PendingLocationsIntentService.class)
-            .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+                .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
 
     /**
@@ -177,7 +198,7 @@ public class Executor {
             String[] what_action_filtered = action.split(Pattern.quote("."));
             Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
             LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-                context, callbackContext);
+                    context, callbackContext);
             msg.replyTo = new Messenger(handler);
             sendMessage(serviceHandler, msg, callbackContext);
         } catch (IllegalArgumentException e) {

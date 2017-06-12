@@ -29,15 +29,17 @@ dependencies {
     //android support
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
-    
+
     compile 'com.googlecode.json-simple:json-simple:1.1'
     compile 'com.google.guava:guava:20.0'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0'
     compile 'com.google.code.gson:gson:2.7'
 
     //dagger 2
-    compile "com.google.dagger:dagger:2.9"
-    annotationProcessor "com.google.dagger:dagger-compiler:2.9"
+    compile 'com.google.dagger:dagger:2.10'
+    compile 'com.google.dagger:dagger-android:2.10'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
     provided 'javax.annotation:jsr250-api:1.0'
 
     testCompile 'junit:junit:4.12'

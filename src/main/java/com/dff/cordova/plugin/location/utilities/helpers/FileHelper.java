@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import dagger.Module;
+
 /**
  * Class to read/write data in a file.
  *
@@ -20,6 +22,7 @@ import java.util.Map;
  * @version 4.0.0
  * @since 05.12.2016
  */
+@Module
 public class FileHelper {
 
     private static final String TAG = "FileHelper";

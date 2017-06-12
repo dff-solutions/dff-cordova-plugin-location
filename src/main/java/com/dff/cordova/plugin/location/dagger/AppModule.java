@@ -2,6 +2,8 @@ package com.dff.cordova.plugin.location.dagger;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import javax.inject.Singleton;
 
@@ -31,5 +33,13 @@ public class AppModule {
     @Singleton
     public Context provideContext() {
         return application;
+    }
+
+    // Dagger will only look for methods annotated with @Provides
+    @Provides
+    @Singleton
+    // Application reference must come from AppModule.class
+    SharedPreferences providesSharedPreferences(Application application) {
+        return PreferenceManager.getDefaultSharedPreferences(application);
     }
 }

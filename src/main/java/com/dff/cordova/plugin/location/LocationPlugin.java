@@ -26,6 +26,10 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
+
 /**
  * Cordova Plugin class that deals with the android's Location API, in order to get the location of the device as
  * well as to persist the locations when the app is not reachable.
@@ -38,10 +42,13 @@ public class LocationPlugin extends CommonServicePlugin {
 
     private static final String TAG = "LocationPlugin";
     private static final String[] LOCATION_PERMISSIONS =
-        {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        };
+            {
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+            };
+
+    @Inject
+    public Executor executor;
 
     private Context mContext;
     private ChangeProviderReceiver mChangeProviderReceiver;
@@ -88,6 +95,7 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     @Override
     public void pluginInitialize() {
+        AndroidInjection.inject(cordova.getActivity());
         requestLocationPermission();
         mContext = cordova.getActivity().getApplicationContext();
         mContext.stopService(new Intent(mContext, LocationService.class));
@@ -101,7 +109,7 @@ public class LocationPlugin extends CommonServicePlugin {
         preferencesHelper.restoreProperties();
         preferencesHelper.setIsServiceStarted(false);
         //mContext.startService(new Intent(mContext, LocationService.class));
-        Executor.restore(mContext);
+        executor.restore();
         //new DistanceSimulator(mContext).simulateStaticJSON();
     }
 
@@ -204,7 +212,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
                             mNewLocationIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION);
                             LocalBroadcastManager.getInstance(mContext).
-                                registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
+                                    registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
                             break;
                         default:
                             break;
