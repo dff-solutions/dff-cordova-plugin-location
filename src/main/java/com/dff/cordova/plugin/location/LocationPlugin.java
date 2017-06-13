@@ -16,6 +16,10 @@ import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
+import com.dff.cordova.plugin.location.dagger.components.DaggerPluginComponent;
+import com.dff.cordova.plugin.location.dagger.components.PluginComponent;
+import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
+import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
@@ -27,8 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
 
 /**
  * Cordova Plugin class that deals with the android's Location API, in order to get the location of the device as
@@ -42,13 +44,15 @@ public class LocationPlugin extends CommonServicePlugin {
 
     private static final String TAG = "LocationPlugin";
     private static final String[] LOCATION_PERMISSIONS =
-            {
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-            };
+        {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        };
+
+    private PluginComponent mPluginComponent;
 
     @Inject
-    public Executor executor;
+    public Executor mExecutor;
 
     private Context mContext;
     private ChangeProviderReceiver mChangeProviderReceiver;
@@ -65,10 +69,6 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     public LocationPlugin() {
         super(TAG);
-    }
-
-    public int calc(int x) {
-        return x * 2;
     }
 
     public CordovaInterface getCordovaInterface() {
@@ -95,7 +95,16 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     @Override
     public void pluginInitialize() {
-        AndroidInjection.inject(cordova.getActivity());
+
+        //Instantiating the component
+        mPluginComponent = DaggerPluginComponent.builder()
+            // list of modules that are part of this component need to be created here too
+            .appModule(new AppModule(cordova.getActivity().getApplication()))
+            .activityModule(new ActivityModule(cordova.getActivity()))
+            .build();
+
+        mPluginComponent.inject(this);
+
         requestLocationPermission();
         mContext = cordova.getActivity().getApplicationContext();
         mContext.stopService(new Intent(mContext, LocationService.class));
@@ -109,7 +118,7 @@ public class LocationPlugin extends CommonServicePlugin {
         preferencesHelper.restoreProperties();
         preferencesHelper.setIsServiceStarted(false);
         //mContext.startService(new Intent(mContext, LocationService.class));
-        executor.restore();
+        mExecutor.restore();
         //new DistanceSimulator(mContext).simulateStaticJSON();
     }
 
@@ -212,7 +221,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
                             mNewLocationIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION);
                             LocalBroadcastManager.getInstance(mContext).
-                                    registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
+                                registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
                             break;
                         default:
                             break;

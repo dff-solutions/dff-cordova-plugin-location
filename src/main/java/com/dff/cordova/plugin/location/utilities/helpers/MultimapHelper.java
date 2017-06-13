@@ -18,6 +18,8 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import dagger.Module;
+
 /**
  * Class that deals with multimaps and json
  * --> converting multimap string -  col "location" to mutlimap string - col "JSONObject"
@@ -26,6 +28,7 @@ import java.util.Map;
  * @version 1.2
  * @since 03.05.2017
  */
+@Module
 public class MultimapHelper {
 
     private static final String TAG = MultimapHelper.class.getSimpleName();

@@ -10,6 +10,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
@@ -29,7 +30,6 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dagger.Module;
 import dagger.Provides;
 
 /**
@@ -39,33 +39,31 @@ import dagger.Provides;
  * @version 8.0.1
  * @since 15.12.2016
  */
-@Module
 public class Executor {
 
     private static final String TAG = "Executor";
 
-    @Inject
-    public Context context;
+    private Context mContext;
 
-    @Provides
-    @Singleton
-    Executor provideExecutor() {
-        return new Executor();
+
+    @Inject
+    public Executor(@ApplicationContext Context mContext) {
+        this.mContext = mContext;
     }
+
 
     /**
      * Restore stored value from the shared preference or respectively from file system.
-     *
-//     * @param context - The context of the application
+     * <p>
+     * //     * @param context - The context of the application
      */
 //    public static void restore(Context context) {
 //        context.startService(new Intent(context, PendingLocationsIntentService.class)
 //                .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
 //    }
-
     public void restore() {
-        context.startService(new Intent(context, PendingLocationsIntentService.class)
-                .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+        mContext.startService(new Intent(mContext, PendingLocationsIntentService.class)
+            .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
 
     /**
@@ -198,7 +196,7 @@ public class Executor {
             String[] what_action_filtered = action.split(Pattern.quote("."));
             Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
             LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-                    context, callbackContext);
+                context, callbackContext);
             msg.replyTo = new Messenger(handler);
             sendMessage(serviceHandler, msg, callbackContext);
         } catch (IllegalArgumentException e) {

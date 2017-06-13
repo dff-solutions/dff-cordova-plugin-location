@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
+import dagger.Module;
+
 /**
  * Class that deals with app crashes.
  *
@@ -11,6 +13,7 @@ import com.dff.cordova.plugin.common.log.CordovaPluginLog;
  * @version 3.0
  * @since 06.12.2016
  */
+@Module
 public class CrashHelper implements Thread.UncaughtExceptionHandler {
 
     private static final String TAG = "CrashHelper";

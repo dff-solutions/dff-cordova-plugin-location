@@ -5,4 +5,13 @@ ext.postBuildExtras = {
             targetCompatibility JavaVersion.VERSION_1_7
         }
     }
+
+    dependencies {
+        //@Dagger 2
+        compile 'com.google.dagger:dagger:2.10'
+        compile 'com.google.dagger:dagger-android:2.10'
+        annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
+        provided 'javax.annotation:jsr250-api:1.0'
+    }
 }

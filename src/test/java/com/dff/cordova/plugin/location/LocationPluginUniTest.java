@@ -87,11 +87,4 @@ public class LocationPluginUniTest {
         assertFalse("Unkown action should return false",
             mLocationPlugin.execute("UNKNOWN" + random.nextGaussian(), args, callbackContext));
     }
-
-    @Test
-    public void testCalc() {
-        LocationPlugin l = new LocationPlugin();
-        assertEquals(l.calc(2), 4);
-    }
-
 }

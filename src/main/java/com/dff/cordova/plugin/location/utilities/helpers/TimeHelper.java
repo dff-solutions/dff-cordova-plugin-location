@@ -2,6 +2,8 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import java.util.concurrent.TimeUnit;
 
+import dagger.Module;
+
 /**
  * Simple class to handle tasks related to the time.
  *
@@ -9,6 +11,7 @@ import java.util.concurrent.TimeUnit;
  * @version 1.0
  * @since 1.12.2016
  */
+@Module
 public class TimeHelper {
 
     /**
