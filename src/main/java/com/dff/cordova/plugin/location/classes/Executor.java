@@ -71,8 +71,8 @@ public class Executor {
      *
      * @param context - The context of the application.
      */
-    public static void startLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler,
-                                            JSONArray args, CallbackContext callbackContext) {
+    public void startLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler,
+                                     JSONArray args, CallbackContext callbackContext) {
         context.startService(new Intent(context, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
@@ -103,7 +103,7 @@ public class Executor {
      *
      * @param context - The context of the application.
      */
-    public static void stopLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
+    public void stopLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
         Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
@@ -121,8 +121,8 @@ public class Executor {
      * @param serviceHandler  - The used service handler.
      * @param args            - The exec() arguments.
      */
-    public static void getLocation(Context context, CallbackContext callbackContext,
-                                   HandlerThread handlerThread, ServiceHandler serviceHandler, JSONArray args) {
+    public void getLocation(Context context, CallbackContext callbackContext,
+                            HandlerThread handlerThread, ServiceHandler serviceHandler, JSONArray args) {
         Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
@@ -139,7 +139,7 @@ public class Executor {
      * @param callbackContext - The callback context used when calling back into JavaScript.
      * @param args            - The exec() arguments.
      */
-    public static void getLocationList(CallbackContext callbackContext, JSONArray args) {
+    public void getLocationList(CallbackContext callbackContext, JSONArray args) {
         Boolean canReset = true;
         try {
             JSONObject params = args.getJSONObject(0);
@@ -190,8 +190,8 @@ public class Executor {
      * @param serviceHandler-  The used service handler.
      * @param action           The action to execute.
      */
-    public static void sendActionToHandlerThread(Context context, CallbackContext callbackContext,
-                                                 HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
+    public void sendActionToHandlerThread(Context context, CallbackContext callbackContext,
+                                          HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
         try {
             String[] what_action_filtered = action.split(Pattern.quote("."));
             Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
@@ -204,7 +204,7 @@ public class Executor {
         }
     }
 
-    public static void getTotalDistance(CallbackContext callbackContext, JSONArray args) { //clean true - clear false
+    public void getTotalDistance(CallbackContext callbackContext, JSONArray args) { //clean true - clear false
         boolean isClean = false;
         try {
             JSONObject params = args.getJSONObject(0);
@@ -235,7 +235,7 @@ public class Executor {
         }
     }
 
-    public static void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
+    public void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
         switch (action) {
             case LocationResources.ACTION_SET_STOP_ID:
                 try {
@@ -275,7 +275,7 @@ public class Executor {
         }
     }
 
-    public static void getKeySetFromLocationsMultimap(CallbackContext callbackContext) {
+    public void getKeySetFromLocationsMultimap(CallbackContext callbackContext) {
         JSONArray jsonArray = new JSONArray(new ArrayList<>(LocationResources.getLocationsMultimap().keySet()));
         callbackContext.success(jsonArray);
     }
@@ -286,7 +286,7 @@ public class Executor {
      * @param context         - the used context
      * @param callbackContext - the used callbackcontext
      */
-    public static void setStopListener(Context context, CallbackContext callbackContext, JSONArray args) {
+    public void setStopListener(Context context, CallbackContext callbackContext, JSONArray args) {
         LocationResources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, LocationResources.STOP_HOLDER_COUNTER_LIMIT);
         LocationResources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, LocationResources.STOP_HOLDER_MIN_DISTANCE);
         LocationResources.STOP_HOLDER_DELAY = args.optInt(2, LocationResources.STOP_HOLDER_DELAY);
@@ -298,11 +298,11 @@ public class Executor {
      *
      * @param context - the used context
      */
-    public static void stopStopListener(Context context) {
+    public void stopStopListener(Context context) {
         context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
     }
 
-    private static void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
+    private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
         try {
             Messenger messenger = serviceHandler.getService();
             if (messenger != null) {
