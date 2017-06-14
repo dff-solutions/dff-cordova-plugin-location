@@ -39,12 +39,13 @@ import dagger.Provides;
  * @version 8.0.1
  * @since 15.12.2016
  */
+@Singleton
 public class Executor {
 
     private static final String TAG = "Executor";
 
-    private Context mContext;
 
+    private Context mContext;
 
     @Inject
     public Executor(@ApplicationContext Context mContext) {

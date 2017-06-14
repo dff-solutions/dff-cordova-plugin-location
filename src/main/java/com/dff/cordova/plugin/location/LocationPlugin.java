@@ -51,10 +51,11 @@ public class LocationPlugin extends CommonServicePlugin {
 
 
     @Inject
-    Context mContext;
-
-    @Inject
     Executor mExecutor;
+
+    private Context mContext;
+
+    PluginComponent pluginComponent;
 
     private ChangeProviderReceiver mChangeProviderReceiver;
     private NewLocationReceiver mNewLocationReceiver;
@@ -98,7 +99,7 @@ public class LocationPlugin extends CommonServicePlugin {
     public void pluginInitialize() {
 
         //Instantiating the component
-        PluginComponent pluginComponent = DaggerPluginComponent.builder()
+        pluginComponent = DaggerPluginComponent.builder()
             // list of modules that are part of this component need to be created here too
             .appModule(new AppModule(cordova.getActivity().getApplication()))
             .activityModule(new ActivityModule(cordova.getActivity()))

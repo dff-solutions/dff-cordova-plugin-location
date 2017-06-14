@@ -1,6 +1,5 @@
 package com.dff.cordova.plugin.location.dagger.components;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -9,7 +8,6 @@ import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
-import com.dff.cordova.plugin.location.services.LocationService;
 
 import javax.inject.Singleton;
 
