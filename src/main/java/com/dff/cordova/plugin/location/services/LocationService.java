@@ -1,17 +1,25 @@
 package com.dff.cordova.plugin.location.services;
 
+import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Messenger;
-import android.os.Process;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.dff.cordova.plugin.location.LocationPlugin;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
+import javax.inject.Inject;
 
 /**
  * Location Service performs a long running operation in order to the location of the device on change.
@@ -24,10 +32,26 @@ public class LocationService extends Service {
 
     private static final String TAG = "LocationService";
 
-    private HandlerThread mHandlerThread;
-    private LocationServiceHandler mLocationServiceHandler;
-    private Messenger mMessenger;
-    private PreferencesHelper mPreferencesHelper;
+    @Inject
+    @LocationServiceHandlerThread
+    HandlerThread mHandlerThread;
+
+    @Inject
+    @LocationServiceMessenger
+    Messenger mMessenger;
+
+    @Inject
+    LocationServiceHandler mLocationServiceHandler;
+
+    @Inject
+    CrashHelper mCrashHelper;
+
+    @Inject
+    FileHelper mFileHelper;
+
+    @Inject
+    PreferencesHelper mPreferencesHelper;
+
     private int count;
 
     /**
@@ -35,15 +59,11 @@ public class LocationService extends Service {
      */
     @Override
     public void onCreate() {
+        LocationPlugin.inject(this);
         super.onCreate();
         Log.d(TAG, "onCreate()");
-        //Toast.makeText(LocationService.this, "onCreate()", Toast.LENGTH_SHORT).show(); //remove in production
-        mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
-        mLocationServiceHandler = new LocationServiceHandler(mHandlerThread.getLooper(), this);
-        mMessenger = new Messenger(mLocationServiceHandler);
-        Thread.setDefaultUncaughtExceptionHandler(new CrashHelper(this, Thread.getDefaultUncaughtExceptionHandler()));
-        mPreferencesHelper = new PreferencesHelper(this);
+        Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
     }
 
     /**
@@ -87,6 +107,7 @@ public class LocationService extends Service {
     /**
      * Quite safely the handler thread.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()");

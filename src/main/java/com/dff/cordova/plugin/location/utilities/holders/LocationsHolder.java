@@ -2,7 +2,10 @@ package com.dff.cordova.plugin.location.utilities.holders;
 
 import android.os.Handler;
 import android.util.Log;
+
 import com.dff.cordova.plugin.location.resources.LocationResources;
+
+import javax.inject.Inject;
 
 /**
  * Class to hold the last good location within an interval of time.
@@ -22,6 +25,7 @@ public class LocationsHolder implements Runnable {
      *
      * @param mHandler The handler that posts the delay
      */
+    @Inject
     public LocationsHolder(Handler mHandler) {
         this.mHandler = mHandler;
     }

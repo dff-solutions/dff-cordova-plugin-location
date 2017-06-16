@@ -3,9 +3,22 @@ package com.dff.cordova.plugin.location.dagger.modules;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Messenger;
+import android.os.Process;
 import android.preference.PreferenceManager;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
+import com.dff.cordova.plugin.location.dagger.annotations.Private;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.resources.LocationResources;
 
 import javax.inject.Singleton;
 
@@ -14,7 +27,7 @@ import dagger.Provides;
 
 /**
  * The @Module annotation tells Dagger that the AppModule class will provide dependencies for a part
- * of the mApplication. It is normal to have multiple Dagger modules in a project, and it is typical
+ * of the mApp. It is normal to have multiple Dagger modules in a project, and it is typical
  * for one of them to provide app-wide dependencies.
  *
  * @author Anthony Nahas
@@ -25,28 +38,67 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private Application mApplication;
+    private Application mApp;
 
     public AppModule(Application app) {
-        this.mApplication = app;
+        this.mApp = app;
     }
 
     @Provides
     @ApplicationContext
     Context provideContext() {
-        return mApplication;
+        return mApp;
     }
 
     @Provides
     Application provideApplication() {
-        return mApplication;
+        return mApp;
+    }
+
+    @Provides
+    @Singleton
+    @DefaultUncaughException
+    Thread.UncaughtExceptionHandler provideDefaultThreadUncaughtExceptionHandler() {
+        return Thread.getDefaultUncaughtExceptionHandler();
     }
 
     // Dagger will only look for methods annotated with @Provides
+    // Application reference must come from AppModule.class
     @Provides
     @Singleton
-    // Application reference must come from AppModule.class
+    @Shared
     SharedPreferences providesSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(mApplication);
+        return PreferenceManager.getDefaultSharedPreferences(mApp);
+    }
+
+    @Provides
+    @Singleton
+    @Private
+    SharedPreferences provideprivateSharedPreferences() {
+        return mApp.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    }
+
+    @Provides
+    Handler provideHandler() {
+        return new Handler();
+    }
+
+    @Provides
+    @Singleton
+    @LocationServiceHandlerThread
+    HandlerThread provideHandlerThread() {
+        return new HandlerThread("@LocationServiceHandler", Process.THREAD_PRIORITY_BACKGROUND);
+    }
+
+    @Provides
+    @LocationServiceLooper
+    Looper provideLooper(Handler handler) {
+        return handler.getLooper();
+    }
+
+    @Provides
+    @LocationServiceMessenger
+    Messenger provideLocationServiceMessenger(LocationServiceHandler locationServiceHandler) {
+        return new Messenger(locationServiceHandler);
     }
 }

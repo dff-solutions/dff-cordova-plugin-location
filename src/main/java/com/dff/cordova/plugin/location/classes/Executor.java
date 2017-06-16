@@ -46,10 +46,18 @@ public class Executor {
 
 
     private Context mContext;
+    private PreferencesHelper mPreferencesHelper;
+    private DistanceSimulator mDistanceSimulator;
 
     @Inject
-    public Executor(@ApplicationContext Context mContext) {
+    public Executor
+        (@ApplicationContext Context mContext,
+         PreferencesHelper mPreferencesHelper,
+         DistanceSimulator mDistanceSimulator) {
+
         this.mContext = mContext;
+        this.mPreferencesHelper = mPreferencesHelper;
+        this.mDistanceSimulator = mDistanceSimulator;
     }
 
 
@@ -87,7 +95,7 @@ public class Executor {
                 LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
                 LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE, LocationResources.LOCATION_MAX_AGE);
                 LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY, LocationResources.LOCATION_DELAY);
-                new PreferencesHelper(context).storeProperties();
+                mPreferencesHelper.storeProperties();
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
@@ -109,7 +117,7 @@ public class Executor {
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
-        new PreferencesHelper(context).setIsServiceStarted(false);
+        mPreferencesHelper.setIsServiceStarted(false);
     }
 
     /**
@@ -227,7 +235,7 @@ public class Executor {
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
-            new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+            mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.clearLocationsMultimap();
             }
@@ -265,7 +273,7 @@ public class Executor {
                         callbackContext.error(TAG + " : " + "Error -->  arraylist of stopid isEmpty - size = 0");
                         break;
                     }
-                    new DistanceSimulator().performDistanceCalculation(callbackContext, locationsList);
+                    mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
                 } catch (JSONException e) {
                     Log.e(TAG, "Error: ", e);
                     callbackContext.error("Error: " + e);

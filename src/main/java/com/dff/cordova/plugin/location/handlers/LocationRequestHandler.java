@@ -7,15 +7,12 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-import org.apache.cordova.CallbackContext;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import static com.dff.cordova.plugin.location.resources.LocationResources.CUSTOM_DISTANCE_CALCULATOR;
+import org.apache.cordova.CallbackContext;
 
 /**
  * Class to handle the answer sent from the location service handler.
@@ -41,7 +38,7 @@ public class LocationRequestHandler extends Handler {
      */
     public LocationRequestHandler(Looper looper, Context mContext, CallbackContext mCallbackContext) {
         super(looper);
-        mPreferencesHelper = new PreferencesHelper(mContext);
+//        mPreferencesHelper = new PreferencesHelper(mContext);
         this.mContext = mContext;
         this.mCallbackContext = mCallbackContext;
     }
@@ -99,32 +96,6 @@ public class LocationRequestHandler extends Handler {
                             break;
                     }
                 }
-                break;
-            case GET_TOTAL_DISTANCE_CALCULATOR:
-                JSONObject totalDistance = new JSONObject();
-                try {
-                    totalDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) LocationResources.TOTAL_DISTANCE_CALCULATOR.getDistance() / 1000);
-                } catch (JSONException e) {
-                    CordovaPluginLog.e(TAG, "Error: ", e);
-                }
-                mCallbackContext.success(totalDistance);
-                LocationResources.TOTAL_DISTANCE_CALCULATOR.reset();
-                break;
-            case GET_CUSTOM_DISTANCE_CALCULATOR:
-                JSONObject customDistance = new JSONObject();
-                try {
-                    customDistance.put(LocationResources.JSON_KEY_DISTANCE, (double) CUSTOM_DISTANCE_CALCULATOR.getDistance() / 1000);
-                } catch (JSONException e) {
-                    CordovaPluginLog.e(TAG, "Error: ", e);
-                }
-                mCallbackContext.success(customDistance);
-                CUSTOM_DISTANCE_CALCULATOR.reset();
-                break;
-            case RUN_TOTAL_DISTANCE_CALCULATOR:
-                mCallbackContext.success();
-                break;
-            case RUN_CUSTOM_DISTANCE_CALCULATOR:
-                mCallbackContext.success();
                 break;
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";

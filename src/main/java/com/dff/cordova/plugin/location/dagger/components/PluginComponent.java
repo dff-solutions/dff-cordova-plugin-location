@@ -1,13 +1,13 @@
 package com.dff.cordova.plugin.location.dagger.components;
 
-import android.app.Application;
-import android.content.Context;
+import android.app.Service;
 
 import com.dff.cordova.plugin.location.LocationPlugin;
-import com.dff.cordova.plugin.location.classes.Executor;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
+import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
+
 
 import javax.inject.Singleton;
 
@@ -31,12 +31,7 @@ public interface PluginComponent {
 
     void inject(LocationPlugin locationPlugin);
 
-    @ApplicationContext
-    Context getContext();
+    void inject(LocationService locationService);
 
-    Executor getExecutor();
-
-    Application getApplication();
-
-
+    void inject(PendingLocationsIntentService pendingLocationsIntentService);
 }

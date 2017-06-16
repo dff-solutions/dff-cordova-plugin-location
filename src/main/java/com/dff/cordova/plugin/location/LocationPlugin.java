@@ -1,6 +1,7 @@
 package com.dff.cordova.plugin.location;
 
 import android.Manifest;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -22,6 +23,7 @@ import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
@@ -49,19 +51,24 @@ public class LocationPlugin extends CommonServicePlugin {
             Manifest.permission.ACCESS_FINE_LOCATION
         };
 
+    private static PluginComponent sComponent;
 
     @Inject
     Executor mExecutor;
 
-    private Context mContext;
+    @Inject
+    FileHelper mFileHelper;
 
-    PluginComponent pluginComponent;
+    @Inject
+    PreferencesHelper mPreferencesHelper;
+
+    private Context mContext;
 
     private ChangeProviderReceiver mChangeProviderReceiver;
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
     private IntentFilter mChangeProviderIntentFilter;
-    public CordovaInterface mCordovaInterface;
+    private CordovaInterface mCordovaInterface;
 
     private static HandlerThread mHandlerThread;
     private static ServiceHandler mServiceHandler;
@@ -73,22 +80,30 @@ public class LocationPlugin extends CommonServicePlugin {
         super(TAG);
     }
 
-    public CordovaInterface getCordovaInterface() {
-        return mCordovaInterface;
-    }
-
-    public void setCordovaInterface(CordovaInterface mCordovaInterface) {
-        this.mCordovaInterface = mCordovaInterface;
-    }
-
     /**
-     * request permissions if they are not granted by forwarding them to
-     * the common plugin
+     * Inject the target object into dagger
+     *
+     * @param object
+     * @param <T>
      */
-    private void requestLocationPermission() {
-        for (String permission : LOCATION_PERMISSIONS) {
-            CommonPlugin.addPermission(permission);
+    public static <T extends Service> void inject(T object) {
+        if (object instanceof LocationService || object instanceof PendingLocationsIntentService) {
+            if (LocationPlugin.sComponent != null) {
+                if (object instanceof LocationService) {
+                    LocationPlugin.sComponent.inject((LocationService) object);
+                }
+                if (object instanceof PendingLocationsIntentService) {
+                    LocationPlugin.sComponent.inject((PendingLocationsIntentService) object);
+                }
+            } else {
+                LocationPlugin.sComponent = DaggerPluginComponent
+                    .builder()
+                    .appModule(new AppModule(object.getApplication()))
+                    .build();
+            }
+            return;
         }
+        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " +object.getClass());
     }
 
     /**
@@ -99,13 +114,13 @@ public class LocationPlugin extends CommonServicePlugin {
     public void pluginInitialize() {
 
         //Instantiating the component
-        pluginComponent = DaggerPluginComponent.builder()
+        sComponent = DaggerPluginComponent.builder()
             // list of modules that are part of this component need to be created here too
             .appModule(new AppModule(cordova.getActivity().getApplication()))
             .activityModule(new ActivityModule(cordova.getActivity()))
             .build();
 
-        pluginComponent.inject(this);
+        sComponent.inject(this);
 
         requestLocationPermission();
         mContext = cordova.getActivity().getApplicationContext();
@@ -116,9 +131,9 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler.bindService();
         mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
-        PreferencesHelper preferencesHelper = new PreferencesHelper(mContext);
-        preferencesHelper.restoreProperties();
-        preferencesHelper.setIsServiceStarted(false);
+
+        mPreferencesHelper.restoreProperties();
+        mPreferencesHelper.setIsServiceStarted(false);
         //mContext.startService(new Intent(mContext, LocationService.class));
         mExecutor.restore();
         //new DistanceSimulator(mContext).simulateStaticJSON();
@@ -167,18 +182,6 @@ public class LocationPlugin extends CommonServicePlugin {
                         case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
                             LocationResources.IS_TO_CALCULATE_DISTANCE = true;
                             callbackContext.success();
-                            break;
-
-                        case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
-                            mExecutor.getTotalDistance(callbackContext, args);
-                            break;
-
-                        case LocationResources.ACTION_RUN_TOTAL_DISTANCE_CALCULATOR:
-                        case LocationResources.ACTION_GET_CUSTOM_DISTANCE_CALCULATOR:
-                        case LocationResources.ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR:
-
-                            mExecutor.sendActionToHandlerThread(mContext, callbackContext, mHandlerThread, mServiceHandler, action);
-
                             break;
 
                         case LocationResources.ACTION_SET_STOP_ID:
@@ -251,7 +254,25 @@ public class LocationPlugin extends CommonServicePlugin {
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
         LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
 
-        FileHelper.storePendingLocation(mContext);
-        FileHelper.storeLocationsMultimap(mContext);
+        mFileHelper.storePendingLocation();
+        mFileHelper.storeLocationsMultimap();
+    }
+
+    public CordovaInterface getCordovaInterface() {
+        return mCordovaInterface;
+    }
+
+    public void setCordovaInterface(CordovaInterface mCordovaInterface) {
+        this.mCordovaInterface = mCordovaInterface;
+    }
+
+    /**
+     * request permissions if they are not granted by forwarding them to
+     * the common plugin
+     */
+    private void requestLocationPermission() {
+        for (String permission : LOCATION_PERMISSIONS) {
+            CommonPlugin.addPermission(permission);
+        }
     }
 }

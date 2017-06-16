@@ -35,8 +35,8 @@ public class LocationResources {
     private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
 
     private static ListMultimap<String, Location> LOCATION_MULTIMAP = ArrayListMultimap.create();
-    public static final DistanceCalculator TOTAL_DISTANCE_CALCULATOR = new DistanceCalculator();
-    public static final DistanceCalculator CUSTOM_DISTANCE_CALCULATOR = new DistanceCalculator();
+
+
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
 
     //JS Actions
@@ -44,17 +44,11 @@ public class LocationResources {
     public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
     public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
     public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
-    public static final String ACTION_SET_MIN_ACCURACY = "location.action.SET_MIN_ACCURACY";
-    public static final String ACTION_SET_MAX_AGE = "location.action.SET_MAX_AGE";
+
     public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
     public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-    public static final String ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
-    public static final String ACTION_GET_TOTAL_DISTANCE_CALCULATOR = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
-    public static final String ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
-    public static final String ACTION_GET_CUSTOM_DISTANCE_CALCULATOR = "distance.action.GET_CUSTOM_DISTANCE_CALCULATOR";
     public static final String ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
     public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
-    public static final String ACTION_SET_MIN_TIME = "location.action.SET_MIN_TIME";
     public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
     public static final String ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
@@ -73,10 +67,6 @@ public class LocationResources {
             ACTION_GET_LOCATION_LIST,
             ACTION_INTENT_STORE_PENDING_LOCATIONS,
             ACTION_INTENT_RESTORE_PENDING_LOCATIONS,
-            ACTION_RUN_TOTAL_DISTANCE_CALCULATOR,
-            ACTION_GET_TOTAL_DISTANCE_CALCULATOR,
-            ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR,
-            ACTION_GET_CUSTOM_DISTANCE_CALCULATOR,
             ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP,
             ACTION_SET_LOCATION_LISTENER,
             ACTION_CANCEL_STOP_LISTENER,
@@ -168,10 +158,6 @@ public class LocationResources {
         START_LOCATION_SERVICE,
         STOP_LOCATION_SERVICE,
         GET_LOCATION,
-        RUN_TOTAL_DISTANCE_CALCULATOR,
-        GET_TOTAL_DISTANCE_CALCULATOR,
-        RUN_CUSTOM_DISTANCE_CALCULATOR,
-        GET_CUSTOM_DISTANCE_CALCULATOR,
         SET_LOCATION_LISTENER
     }
 
@@ -241,23 +227,6 @@ public class LocationResources {
         return jsonLocation;
     }
 
-    /**
-     * Return the location in string representation.
-     * Note: this function is used for test purposes.
-     *
-     * @return - The location in string representation.
-     */
-    public static String getTestLastGoodLocationToString() {
-        printDifference();
-        return LAST_GOOD_LOCATION.getLongitude() + "|" +
-            LAST_GOOD_LOCATION.getLatitude() + "|" +
-            getSpeedOfLastGoodLocation() + "|" +
-            LAST_GOOD_LOCATION.getBearing() + "| ACC = " +
-            LAST_GOOD_LOCATION.getAccuracy() + "| time age = " +
-            TimeHelper.getTimeAge(LAST_GOOD_LOCATION.getTime()) + "| ep time = " +
-            LAST_GOOD_LOCATION.getTime() + "| system curren time = " +
-            System.currentTimeMillis();
-    }
 
     /**
      * Get the speed of the last good saved location.

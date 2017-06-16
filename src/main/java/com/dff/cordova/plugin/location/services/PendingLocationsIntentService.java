@@ -3,8 +3,12 @@ package com.dff.cordova.plugin.location.services;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+
+import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
+
+import javax.inject.Inject;
 
 /**
  * Intent service that works async to perform expansive operations like writing and reading of files.
@@ -15,6 +19,9 @@ import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
  */
 public class PendingLocationsIntentService extends IntentService {
 
+    @Inject
+    FileHelper mFileHelper;
+
     private static final String TAG = "PendingLocationsIntentService";
 
     public PendingLocationsIntentService() {
@@ -23,6 +30,7 @@ public class PendingLocationsIntentService extends IntentService {
 
     @Override
     public void onCreate() {
+        LocationPlugin.inject(this);
         super.onCreate();
         Log.d(TAG, "onCreate()");
     }
@@ -46,12 +54,12 @@ public class PendingLocationsIntentService extends IntentService {
         if (action != null) {
             Log.d(TAG, "Action = " + intent.getAction());
             if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS)) {
-                FileHelper.storePendingLocation(this);
-                FileHelper.storeLocationsMultimap(this);
+                mFileHelper.storePendingLocation();
+                mFileHelper.storeLocationsMultimap();
             }
             if (action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
-                FileHelper.restorePendingLocation(this);
-                FileHelper.restoreLocationsMultimap(this);
+                mFileHelper.restorePendingLocation();
+                mFileHelper.restoreLocationsMultimap();
             }
         }
     }

@@ -46,7 +46,7 @@ public class StopHolder implements Runnable {
                 }
             } else {
                 LocationResources.STOP_DISTANCE_CALCULATOR.init(lastGoodLocation);
-                Log.d(TAG, "dist calc initial with  " + LocationResources.CUSTOM_DISTANCE_CALCULATOR.getDistance() + "m");
+                Log.d(TAG, "dist calc initial with  " + LocationResources.STOP_DISTANCE_CALCULATOR.getDistance() + "m");
             }
         }
         mHandler.postDelayed(this, LocationResources.DISTANCE_CALCULATOR_STOP_DELAY);

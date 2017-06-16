@@ -84,14 +84,14 @@ public class DistanceCalculator {
      * @param type    - The type of the request: 0 for fetching the total distance - 1 for the custom one.
      */
     public void restore(Context context, int type) {
-        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+//        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
 
         switch (type) {
             case 0:
-                mDistance = preferencesHelper.getStoredTotalDistance();
+//                mDistance = preferencesHelper.getStoredTotalDistance();
                 break;
             case 1:
-                mDistance = preferencesHelper.getStoreCustomDistance();
+//                mDistance = preferencesHelper.getStoreCustomDistance();
                 break;
         }
     }
