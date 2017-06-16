@@ -77,16 +77,7 @@
             src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/LocationsHolder.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorFullHolder.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/DistanceCalculatorCustomHolder.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
-        <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/DistanceSimulatorHolder.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
