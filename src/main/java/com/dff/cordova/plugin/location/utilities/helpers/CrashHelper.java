@@ -1,10 +1,12 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
-import android.content.Context;
 import android.util.Log;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 
-import dagger.Module;
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Class that deals with app crashes.
@@ -13,25 +15,24 @@ import dagger.Module;
  * @version 3.0
  * @since 06.12.2016
  */
-@Module
+@Singleton
 public class CrashHelper implements Thread.UncaughtExceptionHandler {
 
     private static final String TAG = "CrashHelper";
+    private FileHelper mFileHelper;
     private PreferencesHelper mPreferencesHelper;
-    private Context mContext;
     private Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler;
 
 
-    /**
-     * Custom constructor.
-     *
-     * @param context                  - The Context of the application/service.
-     * @param uncaughtExceptionHandler - The default uncaughtExceptionHandler.
-     */
-    public CrashHelper(Context context, Thread.UncaughtExceptionHandler uncaughtExceptionHandler) {
-        mPreferencesHelper = new PreferencesHelper(context);
-        mContext = context;
-        mDefaultUncaughtExceptionHandler = uncaughtExceptionHandler;
+    @Inject
+    public CrashHelper
+        (PreferencesHelper mPreferencesHelper,
+         FileHelper mFileHelper,
+         @DefaultUncaughException Thread.UncaughtExceptionHandler mDefaultUncaughtExceptionHandler) {
+
+        this.mPreferencesHelper = mPreferencesHelper;
+        this.mFileHelper = mFileHelper;
+        this.mDefaultUncaughtExceptionHandler = mDefaultUncaughtExceptionHandler;
     }
 
     /**
@@ -44,12 +45,10 @@ public class CrashHelper implements Thread.UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, Throwable throwable) {
         Log.e(TAG, "uncaughtException");
         try {
-            //LocationResources.testAddLocation();
             mPreferencesHelper.storeProperties();
-            FileHelper.storePendingLocation(mContext);
-            FileHelper.storeLocationsMultimap(mContext);
+            mFileHelper.storePendingLocation();
+            mFileHelper.storeLocationsMultimap();
             Log.d(TAG, "store pending locations and locations'multimap");
-
             Log.d(TAG, "set can location be cleared --> false");
         } catch (Exception e) {
             CordovaPluginLog.e(TAG, "Error: ", e);

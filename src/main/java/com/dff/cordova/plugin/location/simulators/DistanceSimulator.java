@@ -2,12 +2,11 @@ package com.dff.cordova.plugin.location.simulators;
 
 import android.content.Context;
 import android.location.Location;
-import android.os.Handler;
 import android.util.Log;
 
 
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
-import com.dff.cordova.plugin.location.utilities.holders.DistanceSimulatorHolder;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 
 import org.apache.cordova.CallbackContext;
 import org.json.simple.JSONArray;
@@ -20,12 +19,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import javax.inject.Inject;
+
 
 /**
  * Created by anahas on 18.04.2017.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 2.0
  * @since 18.04.2017
  */
 
@@ -36,10 +37,8 @@ public class DistanceSimulator {
     private Context mContext;
     private int mStopsCount;
 
-    public DistanceSimulator() {
-    }
-
-    public DistanceSimulator(Context context) {
+    @Inject
+    public DistanceSimulator(@ApplicationContext Context context) {
         mContext = context;
     }
 
@@ -67,7 +66,7 @@ public class DistanceSimulator {
         Log.d(TAG, "onInit()");
         mStopsCount = 0;
         ArrayList<Location> locationsList = readJSON();
-        runChangeLocationHolder(locationsList, getStopsCount(locationsList != null ? locationsList.size() : 0));
+//        runChangeLocationHolder(locationsList, getStopsCount(locationsList != null ? locationsList.size() : 0));
     }
 
     private String loadJsonFromAsset() {
@@ -140,12 +139,5 @@ public class DistanceSimulator {
         double result = size / 10;
         result = result % 10 == 0 ? result : result + 1;
         return (int) result;
-    }
-
-    private void runChangeLocationHolder(ArrayList<Location> locationsList, int stopsCount) {
-        Handler mChangeLocationHandler = new Handler();
-        int changeLocationDelay = 20;
-        DistanceSimulatorHolder mDistanceTesterHolder = new DistanceSimulatorHolder(mContext, locationsList, stopsCount, mChangeLocationHandler, changeLocationDelay);
-        mChangeLocationHandler.postDelayed(mDistanceTesterHolder, changeLocationDelay);
     }
 }

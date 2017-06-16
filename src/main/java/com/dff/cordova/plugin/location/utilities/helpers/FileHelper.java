@@ -2,9 +2,11 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.LocationResources;
+
 import org.apache.cordova.LOG;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,26 +34,30 @@ public class FileHelper {
     private static final String TAG = "FileHelper";
 
     private Context mContext;
+    private PreferencesHelper mPreferencesHelper;
     private MultimapHelper mMultimapHelper;
 
     @Inject
-    public FileHelper(@ApplicationContext Context mContext, MultimapHelper mMultimapHelper) {
+    public FileHelper(
+        @ApplicationContext Context mContext,
+        PreferencesHelper mPreferencesHelper,
+        MultimapHelper mMultimapHelper) {
+
         this.mContext = mContext;
+        this.mPreferencesHelper = mPreferencesHelper;
         this.mMultimapHelper = mMultimapHelper;
     }
 
     /**
      * Store all locations that exists in the location list in a file.
-     *
      */
     public void storePendingLocation() {
         Log.d(TAG, "onStorePendingLocation()");
-        PreferencesHelper preferencesHelper = new PreferencesHelper(mContext);
         FileOutputStream fos = null;
         ObjectOutputStream os;
         try {
             fos = mContext.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
-            switch (preferencesHelper.getReturnType()) {
+            switch (mPreferencesHelper.getReturnType()) {
                 case LocationResources.DFF_STRING:
                     ArrayList<String> pendingLocationDffString = LocationResources.getLocationListDffString();
                     if (pendingLocationDffString.size() > 0) {
@@ -93,13 +99,11 @@ public class FileHelper {
 
     /**
      * Restore all locations from file to the locations list.
-     *
      */
     public void restorePendingLocation() {
         LOG.d(TAG, "onRestorePendingLocations()");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        PreferencesHelper preferencesHelper = new PreferencesHelper(mContext);
 
         try {
             fis = mContext.openFileInput(LocationResources.LOCATION_FILE_NAME);
@@ -110,7 +114,7 @@ public class FileHelper {
 
                 String location;
                 while ((location = (String) ois.readObject()) != null) {
-                    switch (preferencesHelper.getReturnType()) {
+                    switch (mPreferencesHelper.getReturnType()) {
                         case LocationResources.DFF_STRING:
                             if (LocationResources.getLocationListDffString() != null) {
                                 LocationResources.addLocationToListAsDffString(location);
@@ -143,7 +147,7 @@ public class FileHelper {
                 if (fis != null) {
                     fis.close();
                 }
-                new PreferencesHelper(mContext).setLocationCanBeCleared(true);
+                mPreferencesHelper.setLocationCanBeCleared(true);
             } catch (IOException e) {
                 CordovaPluginLog.e(TAG, "Error: ", e);
             }
