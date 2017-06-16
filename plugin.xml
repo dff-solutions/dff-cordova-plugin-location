@@ -98,6 +98,7 @@
             target-dir="src/com/dff/cordova/plugin/location/simulators" />
 
         <!-- @Dagger -->
+        <!--Annotations-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ActivityContext.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
@@ -105,8 +106,28 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ApplicationContext.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
         <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Private.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/DefaultUncaughException.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceHandlerThread.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceLooper.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceMessenger.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+        <!--Components-->
+        <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/components/PluginComponent.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/components" />
+        <!--Module-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/ActivityModule.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
