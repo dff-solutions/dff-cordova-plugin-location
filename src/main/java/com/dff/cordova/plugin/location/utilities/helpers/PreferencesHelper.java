@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.dff.cordova.plugin.location.dagger.annotations.Private;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
 import javax.inject.Inject;
-
-import dagger.Module;
+import javax.inject.Singleton;
 
 /**
  * Class to save and restore shared preferences.
@@ -17,18 +17,19 @@ import dagger.Module;
  * @version 5.0
  * @since 06.12.2016
  */
-@Module
+@Singleton
 public class PreferencesHelper {
 
     private static final String TAG = "PreferenceHelper";
     private Context mContext;
 
-    @Inject
-    public SharedPreferences sharedPreferences;
+    private SharedPreferences mSharedPreferences;
 
-    public PreferencesHelper(Context context) {
-        mContext = context;
-        sharedPreferences = mContext.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+    @Inject
+    public PreferencesHelper(@Private SharedPreferences mSharedPreferences) {
+        this.mSharedPreferences = mSharedPreferences;
+//        mContext = context;
+//        mSharedPreferences = mContext.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     /**
@@ -38,7 +39,7 @@ public class PreferencesHelper {
      * @return whether the state has been successfully stored
      */
     public boolean setLocationCanBeCleared(Boolean state) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, state);
         //editor.putInt("counter", 12);
         Boolean res = editor.commit();
@@ -47,69 +48,69 @@ public class PreferencesHelper {
     }
 
     public boolean setReturnType(String type) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(LocationResources.SP_KEY_RETURN_TYPE, type);
         return editor.commit();
     }
 
     public boolean setMinTime(long minTime) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putLong(LocationResources.SP_KEY_MIN_TIME, minTime);
         return editor.commit();
     }
 
     public boolean setMinDistance(float minDistance) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putFloat(LocationResources.SP_KEY_MIN_DISTANCE, minDistance);
         return editor.commit();
     }
 
     public boolean setMinAccuracy(int minAccuracy) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(LocationResources.SP_KEY_MIN_ACCURACY, minAccuracy);
         return editor.commit();
     }
 
     public boolean setLocationMaxAge(int maxAge) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(LocationResources.SP_KEY_LOCATION_MAX_AGE, maxAge);
         return editor.commit();
     }
 
     public boolean setLocationRequestDelay(int requestDelay) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putInt(LocationResources.SP_KEY_LOCATION_REQUEST_DELAY, requestDelay);
         return editor.commit();
     }
 
     public boolean setStopdID(String stopdID) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(LocationResources.SP_KEY_STOPID, stopdID);
         return editor.commit();
     }
 
     public boolean setIsServiceStarted(boolean isStarted) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, isStarted);
         return editor.commit();
     }
 
     public boolean isServiceStarted() {
-        return sharedPreferences.getBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, false);
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_IS_SERVICE_STARTED, false);
     }
 
     public boolean setIsLocationsMappingEnabled(boolean isEnable) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putBoolean(LocationResources.SP_KEY_IS_LOCATIONS_MAPPING_ENABLED, isEnable);
         return editor.commit();
     }
 
     public boolean isLocationsMappingEnabled() {
-        return sharedPreferences.getBoolean(LocationResources.SP_KEY_IS_LOCATIONS_MAPPING_ENABLED, false);
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_IS_LOCATIONS_MAPPING_ENABLED, false);
     }
 
     public boolean storeTotalDistance(float distance) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putFloat(LocationResources.SP_KEY_TOTAL_DISTANCE, distance);
         Boolean res = editor.commit();
         Log.d(TAG, "Success of shared preference's commit (TOTAL DISTANCE) is: " + res);
@@ -117,7 +118,7 @@ public class PreferencesHelper {
     }
 
     public boolean storeCustomDistance(float distance) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, distance);
         Boolean res = editor.commit();
         Log.d(TAG, "Success of shared preference's commit (CUSTOM DISTANCE) is: " + res);
@@ -130,43 +131,43 @@ public class PreferencesHelper {
      * @return The state
      */
     public boolean getCanLocationBeCleared() {
-        return sharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
+        return mSharedPreferences.getBoolean(LocationResources.SP_KEY_CLEAR_LOCATIONS, false);
     }
 
     public String getReturnType() {
-        return sharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
+        return mSharedPreferences.getString(LocationResources.SP_KEY_RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
     }
 
     public long getMinTime() {
-        return sharedPreferences.getLong(LocationResources.SP_KEY_MIN_TIME, LocationResources.LOCATION_MIN_TIME);
+        return mSharedPreferences.getLong(LocationResources.SP_KEY_MIN_TIME, LocationResources.LOCATION_MIN_TIME);
     }
 
     public float getMinDistance() {
-        return sharedPreferences.getFloat(LocationResources.SP_KEY_MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
+        return mSharedPreferences.getFloat(LocationResources.SP_KEY_MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
     }
 
     public int getMinAccuracy() {
-        return sharedPreferences.getInt(LocationResources.SP_KEY_MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
     }
 
     public int getLocationMaxAge() {
-        return sharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_MAX_AGE, LocationResources.LOCATION_MAX_AGE);
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_MAX_AGE, LocationResources.LOCATION_MAX_AGE);
     }
 
     public int getLocationRequestDelay() {
-        return sharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_REQUEST_DELAY, LocationResources.LOCATION_DELAY);
+        return mSharedPreferences.getInt(LocationResources.SP_KEY_LOCATION_REQUEST_DELAY, LocationResources.LOCATION_DELAY);
     }
 
     public float getStoredTotalDistance() {
-        return sharedPreferences.getFloat(LocationResources.SP_KEY_TOTAL_DISTANCE, 0);
+        return mSharedPreferences.getFloat(LocationResources.SP_KEY_TOTAL_DISTANCE, 0);
     }
 
     public float getStoreCustomDistance() {
-        return sharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
+        return mSharedPreferences.getFloat(LocationResources.SP_KEY_CUSTOM_DISTANCE, 0);
     }
 
     public String getStopID() {
-        return sharedPreferences.getString(LocationResources.SP_KEY_STOPID, LocationResources.UNKNOWN);
+        return mSharedPreferences.getString(LocationResources.SP_KEY_STOPID, LocationResources.UNKNOWN);
     }
 
     /**
