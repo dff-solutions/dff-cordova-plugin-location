@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.location.Location;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
@@ -9,6 +10,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import dagger.Module;
 
@@ -28,7 +32,6 @@ import dagger.Module;
  * @version 1.2
  * @since 03.05.2017
  */
-@Module
 public class MultimapHelper {
 
     private static final String TAG = MultimapHelper.class.getSimpleName();
@@ -43,7 +46,11 @@ public class MultimapHelper {
         time
     }
 
-    public static Map<String, Collection<JSONObject>> convertLocationsToJsonMultimap(ListMultimap<String, Location> locationMultimap) {
+    @Inject
+    public MultimapHelper() {
+    }
+
+    public Map<String, Collection<JSONObject>> convertLocationsToJsonMultimap(ListMultimap<String, Location> locationMultimap) {
         ListMultimap<String, JSONObject> jsonObjectMultimap = ArrayListMultimap.create();
         for (String key : locationMultimap.keySet()) {
             Collection<Location> locationsCollection = locationMultimap.get(key);
@@ -58,7 +65,7 @@ public class MultimapHelper {
         return jsonObjectMultimap.asMap();
     }
 
-    private static JSONObject convertLocationToJSONObject(Location location) {
+    public JSONObject convertLocationToJSONObject(Location location) {
         assert location != null;
         JSONObject jsonLocation = new JSONObject();
         try {
@@ -77,7 +84,7 @@ public class MultimapHelper {
         return jsonLocation;
     }
 
-    public static Map<String, Object> parseJSONtoMap(String jsonString) {
+    public Map<String, Object> parseJSONtoMap(String jsonString) {
         Map<String, Object> map = null;
         try {
             map = new ObjectMapper().readValue(jsonString, Map.class);
@@ -90,7 +97,7 @@ public class MultimapHelper {
         return map;
     }
 
-    public static ListMultimap<String, Location> convertMapToLocationsMultiMap(Map<String, Object> map) {
+    public ListMultimap<String, Location> convertMapToLocationsMultiMap(Map<String, Object> map) {
         assert map != null;
         ListMultimap<String, Location> multimap = ArrayListMultimap.create();
 
@@ -120,7 +127,7 @@ public class MultimapHelper {
         return multimap;
     }
 
-    private static Location convertJSONToLocation(JSONObject jsonLocation) {
+    public Location convertJSONToLocation(JSONObject jsonLocation) {
         Location location = new Location("GPS");
         try {
             location.setLongitude(jsonLocation.getDouble(properties.longitude.name()));
@@ -138,7 +145,7 @@ public class MultimapHelper {
     }
 
 
-    private static ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
+    public ListMultimap<String, Location> convertJSONtoMultimap(String jsonString) {
         Log.d(TAG, "on convertJSONtoMultimap");
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new GuavaModule());

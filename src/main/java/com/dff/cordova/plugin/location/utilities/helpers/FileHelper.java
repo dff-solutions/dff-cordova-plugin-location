@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 import android.content.Context;
 import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import org.apache.cordova.LOG;
 import org.json.JSONException;
@@ -13,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import dagger.Module;
 
 /**
@@ -22,23 +26,31 @@ import dagger.Module;
  * @version 4.0.0
  * @since 05.12.2016
  */
-@Module
+@Singleton
 public class FileHelper {
 
     private static final String TAG = "FileHelper";
 
+    private Context mContext;
+    private MultimapHelper mMultimapHelper;
+
+    @Inject
+    public FileHelper(@ApplicationContext Context mContext, MultimapHelper mMultimapHelper) {
+        this.mContext = mContext;
+        this.mMultimapHelper = mMultimapHelper;
+    }
+
     /**
      * Store all locations that exists in the location list in a file.
      *
-     * @param context context of the application/service
      */
-    public static void storePendingLocation(Context context) {
+    public void storePendingLocation() {
         Log.d(TAG, "onStorePendingLocation()");
-        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        PreferencesHelper preferencesHelper = new PreferencesHelper(mContext);
         FileOutputStream fos = null;
         ObjectOutputStream os;
         try {
-            fos = context.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
+            fos = mContext.openFileOutput(LocationResources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
             switch (preferencesHelper.getReturnType()) {
                 case LocationResources.DFF_STRING:
                     ArrayList<String> pendingLocationDffString = LocationResources.getLocationListDffString();
@@ -82,16 +94,15 @@ public class FileHelper {
     /**
      * Restore all locations from file to the locations list.
      *
-     * @param context context of the application/service
      */
-    public static void restorePendingLocation(Context context) {
+    public void restorePendingLocation() {
         LOG.d(TAG, "onRestorePendingLocations()");
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        PreferencesHelper preferencesHelper = new PreferencesHelper(context);
+        PreferencesHelper preferencesHelper = new PreferencesHelper(mContext);
 
         try {
-            fis = context.openFileInput(LocationResources.LOCATION_FILE_NAME);
+            fis = mContext.openFileInput(LocationResources.LOCATION_FILE_NAME);
             int i = 0;
             if (fis.available() != 0) {
                 Log.d(TAG, "fis is available on restoring pending locations!");
@@ -132,7 +143,7 @@ public class FileHelper {
                 if (fis != null) {
                     fis.close();
                 }
-                new PreferencesHelper(context).setLocationCanBeCleared(true);
+                new PreferencesHelper(mContext).setLocationCanBeCleared(true);
             } catch (IOException e) {
                 CordovaPluginLog.e(TAG, "Error: ", e);
             }
@@ -140,16 +151,16 @@ public class FileHelper {
     }
 
 
-    public static void storeLocationsMultimap(Context context) {
+    public void storeLocationsMultimap() {
         FileOutputStream fos = null;
         ObjectOutputStream os;
 
         try {
             Log.d(TAG, "on storeLocationsMultimap");
-            fos = context.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
+            fos = mContext.openFileOutput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
 
-            Map<String, Collection<JSONObject>> map = MultimapHelper.convertLocationsToJsonMultimap(LocationResources
+            Map<String, Collection<JSONObject>> map = mMultimapHelper.convertLocationsToJsonMultimap(LocationResources
                 .getLocationsMultimap());
 
             JSONObject jsonObject = new JSONObject(map);
@@ -171,25 +182,25 @@ public class FileHelper {
         }
     }
 
-    public static void restoreLocationsMultimap(Context context) {
+    public void restoreLocationsMultimap() {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
 
         try {
-            fis = context.openFileInput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME);
+            fis = mContext.openFileInput(LocationResources.LOCATIONS_MULTIMAP_FILE_NAME);
             if (fis.available() != 0) {
                 Log.d(TAG, "fis is available on restoring locations'multimap!");
                 ois = new ObjectInputStream(fis);
 
-                LocationResources
-                    .setLocationsMultiMap(MultimapHelper
-                        .convertMapToLocationsMultiMap(MultimapHelper
-                            .parseJSONtoMap((String) ois.readObject())));
+//                LocationResources
+//                    .setLocationsMultiMap(MultimapHelper
+//                        .convertMapToLocationsMultiMap(MultimapHelper
+//                            .parseJSONtoMap((String) ois.readObject())));
 
                 Log.d(TAG, "on restoreLocationsMultimap");
                 LocationResources.logLocationsMultimap();
             }
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {
