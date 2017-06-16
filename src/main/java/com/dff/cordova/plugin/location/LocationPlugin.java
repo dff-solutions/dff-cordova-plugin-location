@@ -17,10 +17,13 @@ import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.dagger.components.DaggerPluginComponent;
 import com.dff.cordova.plugin.location.dagger.components.PluginComponent;
 import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
+import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
@@ -54,6 +57,17 @@ public class LocationPlugin extends CommonServicePlugin {
     private static PluginComponent sComponent;
 
     @Inject
+    @ApplicationContext
+    Context mContext;
+
+    @Inject
+    @LocationRequestHandlerThread
+    HandlerThread mHandlerThread;
+
+    @Inject
+    ServiceHandler mServiceHandler;
+
+    @Inject
     Executor mExecutor;
 
     @Inject
@@ -61,17 +75,14 @@ public class LocationPlugin extends CommonServicePlugin {
 
     @Inject
     PreferencesHelper mPreferencesHelper;
-
-    private Context mContext;
-
     private ChangeProviderReceiver mChangeProviderReceiver;
+
     private NewLocationReceiver mNewLocationReceiver;
     private IntentFilter mNewLocationIntentFilter;
-    private IntentFilter mChangeProviderIntentFilter;
-    private CordovaInterface mCordovaInterface;
 
-    private static HandlerThread mHandlerThread;
-    private static ServiceHandler mServiceHandler;
+    private IntentFilter mChangeProviderIntentFilter;
+
+    private CordovaInterface mCordovaInterface;
 
     /**
      * Def-Constructor
@@ -103,7 +114,7 @@ public class LocationPlugin extends CommonServicePlugin {
             }
             return;
         }
-        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " +object.getClass());
+        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " + object.getClass());
     }
 
     /**
@@ -117,26 +128,22 @@ public class LocationPlugin extends CommonServicePlugin {
         sComponent = DaggerPluginComponent.builder()
             // list of modules that are part of this component need to be created here too
             .appModule(new AppModule(cordova.getActivity().getApplication()))
+            .cordovaModule(new CordovaModule(cordova))
             .activityModule(new ActivityModule(cordova.getActivity()))
             .build();
 
         sComponent.inject(this);
 
-        requestLocationPermission();
-        mContext = cordova.getActivity().getApplicationContext();
-        mContext.stopService(new Intent(mContext, LocationService.class));
         mCordovaInterface = cordova;
-        mServiceHandler = new ServiceHandler(this.cordova, LocationService.class);
+
+        requestLocationPermission();
+        mContext.stopService(new Intent(mContext, LocationService.class));
+
         super.pluginInitialize(mServiceHandler);
         mServiceHandler.bindService();
-        mHandlerThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
         mHandlerThread.start();
 
-        mPreferencesHelper.restoreProperties();
-        mPreferencesHelper.setIsServiceStarted(false);
-        //mContext.startService(new Intent(mContext, LocationService.class));
-        mExecutor.restore();
-        //new DistanceSimulator(mContext).simulateStaticJSON();
+        restore();
     }
 
 
@@ -160,28 +167,29 @@ public class LocationPlugin extends CommonServicePlugin {
                     switch (action) {
                         case LocationResources.ACTION_START_SERVICE:
 
-                            mExecutor.startLocationService(mContext, mHandlerThread, mServiceHandler, args, callbackContext);
+                            mExecutor.startLocationService(mHandlerThread, mServiceHandler, args, callbackContext);
 
                             break;
                         case LocationResources.ACTION_STOP_SERVICE:
 
-                            mExecutor.stopLocationService(mContext, mHandlerThread, mServiceHandler, callbackContext);
-
+                            mExecutor.stopLocationService(mHandlerThread, mServiceHandler, callbackContext);
                             break;
+
                         case LocationResources.ACTION_GET_LOCATION:
-
-                            mExecutor.getLocation(mContext, callbackContext, mHandlerThread, mServiceHandler, args);
-
+                            mExecutor.getLocation(callbackContext, mHandlerThread, mServiceHandler, args);
                             break;
+
                         case LocationResources.ACTION_GET_LOCATION_LIST:
-
                             mExecutor.getLocationList(callbackContext, args);
-
                             break;
 
                         case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
                             LocationResources.IS_TO_CALCULATE_DISTANCE = true;
                             callbackContext.success();
+                            break;
+
+                        case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
+                            mExecutor.getTotalDistance(callbackContext, args);
                             break;
 
                         case LocationResources.ACTION_SET_STOP_ID:
@@ -208,10 +216,10 @@ public class LocationPlugin extends CommonServicePlugin {
                             break;
 
                         case LocationResources.ACTION_SET_STOP_LISTENER:
-                            mExecutor.setStopListener(mContext, callbackContext, args);
+                            mExecutor.setStopListener(callbackContext, args);
                             break;
                         case LocationResources.ACTION_CANCEL_STOP_LISTENER:
-                            mExecutor.stopStopListener(mContext);
+                            mExecutor.stopStopListener();
                             break;
                         case LocationResources.ACTION_SET_LOCATION_LISTENER:
                             int type = 1;
@@ -274,5 +282,11 @@ public class LocationPlugin extends CommonServicePlugin {
         for (String permission : LOCATION_PERMISSIONS) {
             CommonPlugin.addPermission(permission);
         }
+    }
+
+    private void restore() {
+        mPreferencesHelper.restoreProperties();
+        mPreferencesHelper.setIsServiceStarted(false);
+        mExecutor.restore();
     }
 }

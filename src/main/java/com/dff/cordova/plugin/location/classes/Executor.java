@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import dagger.Module;
 import dagger.Provides;
 
 /**
@@ -40,6 +41,7 @@ import dagger.Provides;
  * @since 15.12.2016
  */
 @Singleton
+@Module
 public class Executor {
 
     private static final String TAG = "Executor";
@@ -77,14 +79,13 @@ public class Executor {
 
     /**
      * Start the location service with params.
-     *
-     * @param context - The context of the application.
      */
-    public void startLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler,
+    public void startLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler,
                                      JSONArray args, CallbackContext callbackContext) {
-        context.startService(new Intent(context, LocationService.class));
+
+        mContext.startService(new Intent(mContext, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
-        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
+        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
         Bundle data = new Bundle();
         try {
             JSONObject params = args.getJSONObject(0);
@@ -109,12 +110,10 @@ public class Executor {
 
     /**
      * Stop the location service.
-     *
-     * @param context - The context of the application.
      */
-    public void stopLocationService(Context context, HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
+    public void stopLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
         Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
-        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
+        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
         msg.replyTo = new Messenger(handler);
         sendMessage(serviceHandler, msg, callbackContext);
         mPreferencesHelper.setIsServiceStarted(false);
@@ -124,16 +123,15 @@ public class Executor {
      * Get the last good location from the service if it's available.
      * Good location means in this context: accuracy < 20m.
      *
-     * @param context         - The context of the application.
      * @param callbackContext - The callback context used when calling back into JavaScript.
      * @param handlerThread   - The used handle thread
      * @param serviceHandler  - The used service handler.
      * @param args            - The exec() arguments.
      */
-    public void getLocation(Context context, CallbackContext callbackContext,
+    public void getLocation(CallbackContext callbackContext,
                             HandlerThread handlerThread, ServiceHandler serviceHandler, JSONArray args) {
         Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
-        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), context, callbackContext);
+        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
         msg.replyTo = new Messenger(handler);
         Bundle params = new Bundle();
         params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
@@ -193,19 +191,18 @@ public class Executor {
     /**
      * Forward the action to the handler thread.
      *
-     * @param context-         The context of the application.
      * @param callbackContext- The callback context used when calling back into JavaScript.
      * @param handlerThread-   The used handle thread
      * @param serviceHandler-  The used service handler.
      * @param action           The action to execute.
      */
-    public void sendActionToHandlerThread(Context context, CallbackContext callbackContext,
+    public void sendActionToHandlerThread(CallbackContext callbackContext,
                                           HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
         try {
             String[] what_action_filtered = action.split(Pattern.quote("."));
             Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
             LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-                context, callbackContext);
+                mContext, callbackContext);
             msg.replyTo = new Messenger(handler);
             sendMessage(serviceHandler, msg, callbackContext);
         } catch (IllegalArgumentException e) {
@@ -292,23 +289,20 @@ public class Executor {
     /**
      * Send broadcast receiver to set the stop listener
      *
-     * @param context         - the used context
      * @param callbackContext - the used callbackcontext
      */
-    public void setStopListener(Context context, CallbackContext callbackContext, JSONArray args) {
+    public void setStopListener(CallbackContext callbackContext, JSONArray args) {
         LocationResources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, LocationResources.STOP_HOLDER_COUNTER_LIMIT);
         LocationResources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, LocationResources.STOP_HOLDER_MIN_DISTANCE);
         LocationResources.STOP_HOLDER_DELAY = args.optInt(2, LocationResources.STOP_HOLDER_DELAY);
-        context.registerReceiver(new StandStillReceiver(context, callbackContext), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
+        mContext.registerReceiver(new StandStillReceiver(mContext, callbackContext), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
     }
 
     /**
      * Send broadcast receiver to stop the stop listener
-     *
-     * @param context - the used context
      */
-    public void stopStopListener(Context context) {
-        context.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
+    public void stopStopListener() {
+        mContext.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
     }
 
     private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
@@ -322,5 +316,11 @@ public class Executor {
             callbackContext.error("Error while sending a message within the location service: " + e);
         }
     }
+
+//    @Provides
+//    LocationRequestHandler provideRequestHandler(LocationRequestHandler locationRequestHandler) {
+//        Log.d(TAG, "hello injection");
+//        return locationRequestHandler;
+//    }
 
 }

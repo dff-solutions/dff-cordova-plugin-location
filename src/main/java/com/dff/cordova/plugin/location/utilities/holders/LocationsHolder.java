@@ -11,7 +11,7 @@ import javax.inject.Inject;
  * Class to hold the last good location within an interval of time.
  *
  * @author Anthony Nahas
- * @version 3.0
+ * @version 4.0
  * @since 01.12.2016
  */
 public class LocationsHolder implements Runnable {

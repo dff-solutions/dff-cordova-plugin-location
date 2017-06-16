@@ -54,6 +54,7 @@ public class LocationResources {
     public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
     public static final String ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
     public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
+    public static final String ACTION_GET_TOTAL_DISTANCE_CALCULATOR = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
     public static final String ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
     public static final String ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
@@ -146,8 +147,7 @@ public class LocationResources {
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //Settings related to the Distance calculator class
-    public static int DISTANCE_CALCULATOR_FULL_DELAY = 30000; //in ms 10sec for testing
-    public static int DISTANCE_CALCULATOR_CUSTOM_DELAY = 30000; //in ms - 30sec
+
     public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
 
