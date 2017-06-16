@@ -1,9 +1,9 @@
 package com.dff.cordova.plugin.location.dagger.annotations;
 
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import javax.inject.Qualifier;
+
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Created by anahas on 13.06.2017.
@@ -14,6 +14,6 @@ import javax.inject.Qualifier;
  */
 
 @Qualifier
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RUNTIME)
 public @interface ApplicationContext {
 }
