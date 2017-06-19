@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.HandlerThread;
-import android.os.Process;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -14,6 +13,7 @@ import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.actions.index.IndexActions;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
@@ -75,6 +75,10 @@ public class LocationPlugin extends CommonServicePlugin {
 
     @Inject
     PreferencesHelper mPreferencesHelper;
+
+    @Inject
+    IndexActions mIndex;
+
     private ChangeProviderReceiver mChangeProviderReceiver;
 
     private NewLocationReceiver mNewLocationReceiver;
@@ -143,7 +147,8 @@ public class LocationPlugin extends CommonServicePlugin {
         mServiceHandler.bindService();
         mHandlerThread.start();
 
-        restore();
+        mExecutor.execute(mIndex.mRestoreAction);
+//        restore();
     }
 
 
@@ -166,8 +171,12 @@ public class LocationPlugin extends CommonServicePlugin {
                     Log.d(TAG, "Action = " + action);
                     switch (action) {
                         case LocationResources.ACTION_START_SERVICE:
-
-                            mExecutor.startLocationService(mHandlerThread, mServiceHandler, args, callbackContext);
+                            mExecutor.execute(
+                                mIndex.mStartLocationServiceAction
+                                    .with(callbackContext)
+                                    .andHasArguments(args)
+                            );
+//                            mExecutor.startLocationService(mHandlerThread, mServiceHandler, args, callbackContext);
 
                             break;
                         case LocationResources.ACTION_STOP_SERVICE:
@@ -287,6 +296,6 @@ public class LocationPlugin extends CommonServicePlugin {
     private void restore() {
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(false);
-        mExecutor.restore();
+//        mExecutor.restore();
     }
 }

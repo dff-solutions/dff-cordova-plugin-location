@@ -14,6 +14,8 @@ import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
 
+import javax.inject.Inject;
+
 /**
  * Class to handle the answer sent from the location service handler.
  * On result, forward to the user (JS) using a callback context.
@@ -27,7 +29,6 @@ public class LocationRequestHandler extends Handler {
     private static final String TAG = "LocationRequestHandler";
     private Context mContext;
     private CallbackContext mCallbackContext;
-    private PreferencesHelper mPreferencesHelper;
 
     /**
      * Custom constructor
@@ -36,7 +37,10 @@ public class LocationRequestHandler extends Handler {
      * @param mContext         - The application/service context.
      * @param mCallbackContext - The callback context used to forward the result to the user.
      */
-    public LocationRequestHandler(Looper looper, Context mContext, CallbackContext mCallbackContext) {
+    @Inject
+    public LocationRequestHandler(
+        Context mContext,
+        Looper looper, CallbackContext mCallbackContext) {
         super(looper);
 //        mPreferencesHelper = new PreferencesHelper(mContext);
         this.mContext = mContext;

@@ -9,9 +9,12 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.abstracts.Action;
+import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
+import com.dff.cordova.plugin.location.interfaces.Executable;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
@@ -51,11 +54,15 @@ public class Executor {
     private PreferencesHelper mPreferencesHelper;
     private DistanceSimulator mDistanceSimulator;
 
+    //Actions
+    private RestoreAction mRestoreAction;
+
     @Inject
     public Executor
         (@ApplicationContext Context mContext,
          PreferencesHelper mPreferencesHelper,
-         DistanceSimulator mDistanceSimulator) {
+         DistanceSimulator mDistanceSimulator,
+         RestoreAction mRestoreAction) {
 
         this.mContext = mContext;
         this.mPreferencesHelper = mPreferencesHelper;
@@ -63,8 +70,12 @@ public class Executor {
     }
 
 
+    public <T extends Action> Action execute(T action) {
+        return action.execute();
+    }
+
     /**
-     * Restore stored value from the shared preference or respectively from file system.
+     *
      * <p>
      * //     * @param context - The context of the application
      */
@@ -83,6 +94,7 @@ public class Executor {
     public void startLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler,
                                      JSONArray args, CallbackContext callbackContext) {
 
+//        mRestoreAction.with(callbackContext).execute();
         mContext.startService(new Intent(mContext, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
         LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
@@ -188,27 +200,6 @@ public class Executor {
         }
     }
 
-    /**
-     * Forward the action to the handler thread.
-     *
-     * @param callbackContext- The callback context used when calling back into JavaScript.
-     * @param handlerThread-   The used handle thread
-     * @param serviceHandler-  The used service handler.
-     * @param action           The action to execute.
-     */
-    public void sendActionToHandlerThread(CallbackContext callbackContext,
-                                          HandlerThread handlerThread, ServiceHandler serviceHandler, String action) {
-        try {
-            String[] what_action_filtered = action.split(Pattern.quote("."));
-            Message msg = Message.obtain(null, LocationResources.WHAT.valueOf(what_action_filtered[2]).ordinal());
-            LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(),
-                mContext, callbackContext);
-            msg.replyTo = new Messenger(handler);
-            sendMessage(serviceHandler, msg, callbackContext);
-        } catch (IllegalArgumentException e) {
-            Log.e(TAG, "Error: ", e);
-        }
-    }
 
     public void getTotalDistance(CallbackContext callbackContext, JSONArray args) { //clean true - clear false
         boolean isClean = false;
@@ -316,11 +307,4 @@ public class Executor {
             callbackContext.error("Error while sending a message within the location service: " + e);
         }
     }
-
-//    @Provides
-//    LocationRequestHandler provideRequestHandler(LocationRequestHandler locationRequestHandler) {
-//        Log.d(TAG, "hello injection");
-//        return locationRequestHandler;
-//    }
-
 }

@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
@@ -108,5 +109,11 @@ public class AppModule {
     @LocationRequestHandlerThread
     HandlerThread provideLocationRequestHandlerThread() {
         return new HandlerThread("@LocationRequestHandlerThread", Process.THREAD_PRIORITY_BACKGROUND);
+    }
+
+    @Provides
+    @LocationRequestLooper
+    Looper provideRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
+        return handlerThread.getLooper();
     }
 }

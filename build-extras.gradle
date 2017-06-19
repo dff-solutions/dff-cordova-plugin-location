@@ -7,6 +7,10 @@ ext.postBuildExtras = {
     }
 
     dependencies {
+
+        //@EventBus
+        compile 'org.greenrobot:eventbus:3.0.0'
+
         //@Dagger 2
         compile 'com.google.dagger:dagger:2.10'
         compile 'com.google.dagger:dagger-android:2.10'
