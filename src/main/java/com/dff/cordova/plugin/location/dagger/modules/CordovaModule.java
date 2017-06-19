@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.dagger.modules;
 import android.os.Messenger;
 
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.dagger.annotations.ServiceHandlerMessenger;
 import com.dff.cordova.plugin.location.services.LocationService;
 
 import org.apache.cordova.CordovaInterface;
@@ -35,6 +36,7 @@ public class CordovaModule {
     }
 
     @Provides
+    @ServiceHandlerMessenger
     Messenger provideMessengerForServiceHandler(ServiceHandler serviceHandler) {
         return serviceHandler.getService();
     }

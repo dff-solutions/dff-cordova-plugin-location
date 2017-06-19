@@ -33,7 +33,7 @@ import javax.inject.Singleton;
  * @since 16.06.17
  */
 @Singleton
-public class StartLocationServiceAction extends Action implements Executable {
+public class StartLocationServiceAction extends Action {
 
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();
 
@@ -51,8 +51,8 @@ public class StartLocationServiceAction extends Action implements Executable {
     @Inject
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
-        ServiceHandler mServiceHandler,
         MessengerHelper mMessengerHelper,
+        ServiceHandler mServiceHandler,
         PreferencesHelper mPreferencesHelper,
         LocationRequestHandler mLocationRequestHandler
     ) {

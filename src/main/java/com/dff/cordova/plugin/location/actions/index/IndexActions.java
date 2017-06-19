@@ -23,8 +23,13 @@ public class IndexActions {
     public StopLocationServiceAction mStopLocationServiceAction;
 
     @Inject
-    public IndexActions(RestoreAction mRestoreAction) {
+    public IndexActions(
+        RestoreAction mRestoreAction,
+        StartLocationServiceAction mStartLocationServiceAction,
+        StopLocationServiceAction mStopLocationServiceAction
+    ) {
         this.mRestoreAction = mRestoreAction;
-        // TODO: 19.06.2017 update constructor
+        this.mStartLocationServiceAction = mStartLocationServiceAction;
+        this.mStopLocationServiceAction = mStopLocationServiceAction;
     }
 }

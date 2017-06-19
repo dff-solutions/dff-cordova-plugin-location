@@ -41,6 +41,14 @@
             <uses-feature android:name="android.hardware.location.gps" />
         </config-file>
 
+        <!--abstracts-->
+        <source-file src="src/main/java/com/dff/cordova/plugin/location/abstracts/Action.java"
+            target-dir="src/com/dff/cordova/plugin/location/abstracts" />
+
+        <!--interfaces-->
+        <source-file src="src/main/java/com/dff/cordova/plugin/location/interfaces/Executable.java"
+            target-dir="src/com/dff/cordova/plugin/location/interfaces" />
+
         <source-file src="src/main/java/com/dff/cordova/plugin/location/LocationPlugin.java"
             target-dir="src/com/dff/cordova/plugin/location" />
         <source-file
@@ -58,21 +66,7 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/resources/LocationResources.java"
             target-dir="src/com/dff/cordova/plugin/location/resources" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/FileHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/PreferencesHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/MultimapHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/LocationsHolder.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
@@ -113,6 +107,26 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/actions/StopLocationServiceAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
+
+        <!--Helpers-->
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/FileHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/MessengerHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/MultimapHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/PreferencesHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
+            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
 
         <!-- @Dagger -->
         <!--Annotations-->
@@ -182,6 +196,9 @@
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/AppModule.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/CordovaModule.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
 
         <!-- @Asset -->

@@ -8,6 +8,8 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -39,8 +41,8 @@ public class LocationRequestHandler extends Handler {
      */
     @Inject
     public LocationRequestHandler(
-        Context mContext,
-        Looper looper,
+        @ApplicationContext Context mContext,
+        @LocationRequestLooper Looper looper,
         PreferencesHelper mPreferencesHelper
     ) {
         super(looper);
