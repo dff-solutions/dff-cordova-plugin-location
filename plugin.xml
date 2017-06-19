@@ -137,11 +137,6 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestHandlerThread.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
 
-        //@LocationRequestHandlerThread
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestHandlerThread.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-
         //@LocationRequestLooper
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestLooper.java"
