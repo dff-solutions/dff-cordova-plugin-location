@@ -97,32 +97,86 @@
             src="src/main/java/com/dff/cordova/plugin/location/simulators/DistanceSimulator.java"
             target-dir="src/com/dff/cordova/plugin/location/simulators" />
 
+        <!--actions index-->
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/index/IndexActions.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions/index" />
+
+        <!-- actions -->
+        <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/RestoreAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/StartLocationServiceAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/StopLocationServiceAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!-- @Dagger -->
         <!--Annotations-->
+
+        //@ActivityContext
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ActivityContext.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@ApplicationContext
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ApplicationContext.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Private.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@DefaultUncaughException
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/DefaultUncaughException.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationRequestHandlerThread
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestHandlerThread.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationRequestHandlerThread
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestHandlerThread.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationRequestLooper
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestLooper.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationServiceHandlerThread
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceHandlerThread.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationServiceLooper
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceLooper.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@LocationServiceMessenger
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceMessenger.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@Private
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Private.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@ServiceHandlerMessenger
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ServiceHandlerMessenger.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@Shared
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
         <!--Components-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/components/PluginComponent.java"
