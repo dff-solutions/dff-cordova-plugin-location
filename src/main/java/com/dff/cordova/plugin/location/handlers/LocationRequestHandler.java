@@ -28,23 +28,24 @@ public class LocationRequestHandler extends Handler {
 
     private static final String TAG = "LocationRequestHandler";
     private Context mContext;
+    private PreferencesHelper mPreferencesHelper;
     private CallbackContext mCallbackContext;
 
     /**
      * Custom constructor
      *
-     * @param looper           - The used looper.
-     * @param mContext         - The application/service context.
-     * @param mCallbackContext - The callback context used to forward the result to the user.
+     * @param looper   - The used looper.
+     * @param mContext - The application/service context.
      */
     @Inject
     public LocationRequestHandler(
         Context mContext,
-        Looper looper, CallbackContext mCallbackContext) {
+        Looper looper,
+        PreferencesHelper mPreferencesHelper
+    ) {
         super(looper);
-//        mPreferencesHelper = new PreferencesHelper(mContext);
         this.mContext = mContext;
-        this.mCallbackContext = mCallbackContext;
+        this.mPreferencesHelper = mPreferencesHelper;
     }
 
     /**
@@ -109,5 +110,9 @@ public class LocationRequestHandler extends Handler {
         }
 
         super.handleMessage(msg);
+    }
+
+    public void setCallbackContext(CallbackContext mCallbackContext) {
+        this.mCallbackContext = mCallbackContext;
     }
 }

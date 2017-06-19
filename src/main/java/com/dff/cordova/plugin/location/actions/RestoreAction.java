@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.dff.cordova.plugin.location.abstracts.Action;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -29,7 +30,10 @@ public class RestoreAction extends Action {
     private CallbackContext mCallbackContext;
 
     @Inject
-    public RestoreAction(Context mContext, PreferencesHelper mPreferencesHelper) {
+    public RestoreAction(
+        @ApplicationContext Context mContext,
+        PreferencesHelper mPreferencesHelper
+    ) {
         this.mContext = mContext;
         this.mPreferencesHelper = mPreferencesHelper;
     }

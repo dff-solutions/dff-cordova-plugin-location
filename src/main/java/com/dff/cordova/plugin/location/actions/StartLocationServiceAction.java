@@ -3,8 +3,8 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Looper;
 import android.os.Message;
+import android.os.Messenger;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.service.ServiceHandler;
@@ -14,6 +14,7 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.interfaces.Executable;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
@@ -38,9 +39,10 @@ public class StartLocationServiceAction extends Action implements Executable {
 
     // TODO: 16.06.2017 @Injects
     private Context mContext;
-    private Looper mLooper;
     private ServiceHandler mServiceHandler;
+    private MessengerHelper mMessengerHelper;
     private PreferencesHelper mPreferencesHelper;
+    private LocationRequestHandler mLocationRequestHandler;
 
     private CallbackContext mCallbackContext;
     private JSONArray mArguments;
@@ -49,19 +51,22 @@ public class StartLocationServiceAction extends Action implements Executable {
     @Inject
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
-        Looper mLooper,
         ServiceHandler mServiceHandler,
-        PreferencesHelper mPreferencesHelper
+        MessengerHelper mMessengerHelper,
+        PreferencesHelper mPreferencesHelper,
+        LocationRequestHandler mLocationRequestHandler
     ) {
         this.mContext = mContext;
-        this.mLooper = mLooper;
         this.mServiceHandler = mServiceHandler;
+        this.mMessengerHelper = mMessengerHelper;
         this.mPreferencesHelper = mPreferencesHelper;
+        this.mLocationRequestHandler = mLocationRequestHandler;
     }
 
     @Override
     public Action with(CallbackContext callbackContext) {
         mCallbackContext = callbackContext;
+        mLocationRequestHandler.setCallbackContext(mCallbackContext);
         return this;
     }
 
@@ -76,8 +81,7 @@ public class StartLocationServiceAction extends Action implements Executable {
         // TODO: 16.06.2017
         mContext.startService(new Intent(mContext, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
-        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
-
+//        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
         Bundle data = new Bundle();
         try {
             JSONObject params = mArguments.getJSONObject(0);
@@ -96,7 +100,9 @@ public class StartLocationServiceAction extends Action implements Executable {
         data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, LocationResources.LOCATION_MIN_TIME);
         data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
         msg.setData(data);
-        sendMessage(mServiceHandler, msg, mCallbackContext);
+        msg.replyTo = new Messenger(mLocationRequestHandler);
+
+        mMessengerHelper.send(msg, mCallbackContext);
 
         return this;
     }
