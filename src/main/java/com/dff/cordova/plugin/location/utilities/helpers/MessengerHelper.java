@@ -5,7 +5,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.location.dagger.annotations.ServiceHandlerMessenger;
+import com.dff.cordova.plugin.common.service.ServiceHandler;
 
 import org.apache.cordova.CallbackContext;
 
@@ -27,13 +27,16 @@ public class MessengerHelper {
     private Messenger mMessenger;
 
     @Inject
-    public MessengerHelper(@ServiceHandlerMessenger Messenger mMessenger) {
+    public MessengerHelper() {
+    }
+
+    public void setMessenger(Messenger mMessenger) {
         this.mMessenger = mMessenger;
     }
 
     public void send(Message msg, CallbackContext callbackContext) {
         try {
-            if(mMessenger != null) {
+            if (mMessenger != null) {
                 mMessenger.send(msg);
             }
         } catch (RemoteException | NullPointerException e) {

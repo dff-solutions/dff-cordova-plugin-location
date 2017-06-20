@@ -32,7 +32,9 @@ public class CordovaModule {
     @Provides
     @Singleton
     ServiceHandler provideServiceHandler() {
-        return new ServiceHandler(mCordovaInterface, LocationService.class);
+        ServiceHandler serviceHandler = new ServiceHandler(mCordovaInterface, LocationService.class);
+        serviceHandler.bindService();
+        return serviceHandler;
     }
 
     @Provides

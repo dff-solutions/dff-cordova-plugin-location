@@ -28,6 +28,7 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
@@ -74,6 +75,9 @@ public class LocationPlugin extends CommonServicePlugin {
     FileHelper mFileHelper;
 
     @Inject
+    MessengerHelper mMessengerHelper;
+
+    @Inject
     PreferencesHelper mPreferencesHelper;
 
     @Inject
@@ -93,32 +97,6 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     public LocationPlugin() {
         super(TAG);
-    }
-
-    /**
-     * Inject the target object into dagger
-     *
-     * @param object
-     * @param <T>
-     */
-    public static <T extends Service> void inject(T object) {
-        if (object instanceof LocationService || object instanceof PendingLocationsIntentService) {
-            if (LocationPlugin.sComponent != null) {
-                if (object instanceof LocationService) {
-                    LocationPlugin.sComponent.inject((LocationService) object);
-                }
-                if (object instanceof PendingLocationsIntentService) {
-                    LocationPlugin.sComponent.inject((PendingLocationsIntentService) object);
-                }
-            } else {
-                LocationPlugin.sComponent = DaggerPluginComponent
-                    .builder()
-                    .appModule(new AppModule(object.getApplication()))
-                    .build();
-            }
-            return;
-        }
-        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " + object.getClass());
     }
 
     /**
@@ -144,11 +122,7 @@ public class LocationPlugin extends CommonServicePlugin {
         mContext.stopService(new Intent(mContext, LocationService.class));
 
         super.pluginInitialize(mServiceHandler);
-        mServiceHandler.bindService();
-        mHandlerThread.start();
-
-        mExecutor.execute(mIndex.mRestoreAction);
-//        restore();
+        init();
     }
 
 
@@ -275,12 +249,30 @@ public class LocationPlugin extends CommonServicePlugin {
         mFileHelper.storeLocationsMultimap();
     }
 
-    public CordovaInterface getCordovaInterface() {
-        return mCordovaInterface;
-    }
-
-    public void setCordovaInterface(CordovaInterface mCordovaInterface) {
-        this.mCordovaInterface = mCordovaInterface;
+    /**
+     * Inject the target object into dagger
+     *
+     * @param object
+     * @param <T>
+     */
+    public static <T extends Service> void inject(T object) {
+        if (object instanceof LocationService || object instanceof PendingLocationsIntentService) {
+            if (LocationPlugin.sComponent != null) {
+                if (object instanceof LocationService) {
+                    LocationPlugin.sComponent.inject((LocationService) object);
+                }
+                if (object instanceof PendingLocationsIntentService) {
+                    LocationPlugin.sComponent.inject((PendingLocationsIntentService) object);
+                }
+            } else {
+                LocationPlugin.sComponent = DaggerPluginComponent
+                    .builder()
+                    .appModule(new AppModule(object.getApplication()))
+                    .build();
+            }
+            return;
+        }
+        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " + object.getClass());
     }
 
     /**
@@ -293,9 +285,24 @@ public class LocationPlugin extends CommonServicePlugin {
         }
     }
 
+    private void init() {
+//        mServiceHandler.bindService();
+//        mHandlerThread.start();
+        mMessengerHelper.setMessenger(mServiceHandler.getService());
+        mExecutor.execute(mIndex.mRestoreAction);
+    }
+
     private void restore() {
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(false);
 //        mExecutor.restore();
+    }
+
+    public CordovaInterface getCordovaInterface() {
+        return mCordovaInterface;
+    }
+
+    public void setCordovaInterface(CordovaInterface mCordovaInterface) {
+        this.mCordovaInterface = mCordovaInterface;
     }
 }

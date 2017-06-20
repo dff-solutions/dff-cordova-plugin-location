@@ -108,7 +108,10 @@ public class AppModule {
     @Singleton
     @LocationRequestHandlerThread
     HandlerThread provideLocationRequestHandlerThread() {
-        return new HandlerThread("@LocationRequestHandlerThread", Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread handlerThread = new HandlerThread("@LocationRequestHandlerThread",
+            Process.THREAD_PRIORITY_BACKGROUND);
+        handlerThread.start();
+        return handlerThread;
     }
 
     @Provides
