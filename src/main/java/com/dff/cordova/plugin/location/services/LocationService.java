@@ -13,11 +13,14 @@ import android.widget.Toast;
 import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
+import com.dff.cordova.plugin.location.event.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -39,6 +42,9 @@ public class LocationService extends Service {
     @Inject
     @LocationServiceMessenger
     Messenger mMessenger;
+
+    @Inject
+    EventBus mEventBus;
 
     @Inject
     LocationServiceHandler mLocationServiceHandler;
@@ -100,7 +106,7 @@ public class LocationService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
-        //Toast.makeText(LocationService.this, "onBind()", Toast.LENGTH_SHORT).show();
+        mEventBus.post(new OnLocationServiceBindEvent());
         return mMessenger.getBinder();
     }
 

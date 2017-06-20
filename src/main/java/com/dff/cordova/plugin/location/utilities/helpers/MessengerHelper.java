@@ -1,13 +1,18 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
+import android.os.HandlerThread;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
+import com.dff.cordova.plugin.location.event.OnLocationServiceBindEvent;
 
 import org.apache.cordova.CallbackContext;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,14 +29,21 @@ public class MessengerHelper {
 
     private static final String TAG = MessengerHelper.class.getSimpleName();
 
+    private EventBus mEventBus;
+    private ServiceHandler mServiceHandler;
     private Messenger mMessenger;
 
     @Inject
-    public MessengerHelper() {
+    public MessengerHelper(EventBus mEventBus, ServiceHandler mServiceHandler) {
+        this.mEventBus = mEventBus;
+        this.mServiceHandler = mServiceHandler;
+
+        mEventBus.register(this);
     }
 
-    public void setMessenger(Messenger mMessenger) {
-        this.mMessenger = mMessenger;
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onLocationServiceBind(OnLocationServiceBindEvent event) {
+        this.mMessenger = mServiceHandler.getService();
     }
 
     public void send(Message msg, CallbackContext callbackContext) {

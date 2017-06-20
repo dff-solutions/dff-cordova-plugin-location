@@ -128,6 +128,11 @@
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
 
+        <!--events-->
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/event/OnLocationServiceBindEvent.java"
+            target-dir="src/com/dff/cordova/plugin/location/event" />
+
         <!-- @Dagger -->
         <!--Annotations-->
 

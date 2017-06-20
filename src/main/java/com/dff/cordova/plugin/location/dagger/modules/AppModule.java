@@ -22,6 +22,8 @@ import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -55,6 +57,12 @@ public class AppModule {
     @Provides
     Application provideApplication() {
         return mApp;
+    }
+
+    @Provides
+    @Singleton
+    EventBus provideEventBus() {
+        return EventBus.getDefault();
     }
 
     @Provides
@@ -116,7 +124,7 @@ public class AppModule {
 
     @Provides
     @LocationRequestLooper
-    Looper provideRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
+    Looper provdeLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
         return handlerThread.getLooper();
     }
 }

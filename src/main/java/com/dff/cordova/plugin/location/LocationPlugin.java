@@ -286,9 +286,7 @@ public class LocationPlugin extends CommonServicePlugin {
     }
 
     private void init() {
-//        mServiceHandler.bindService();
-//        mHandlerThread.start();
-        mMessengerHelper.setMessenger(mServiceHandler.getService());
+//        mMessengerHelper.setMessenger(mServiceHandler.getService());
         mExecutor.execute(mIndex.mRestoreAction);
     }
 
