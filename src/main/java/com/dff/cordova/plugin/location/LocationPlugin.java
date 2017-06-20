@@ -150,12 +150,14 @@ public class LocationPlugin extends CommonServicePlugin {
                                     .with(callbackContext)
                                     .andHasArguments(args)
                             );
-//                            mExecutor.startLocationService(mHandlerThread, mServiceHandler, args, callbackContext);
-
                             break;
-                        case LocationResources.ACTION_STOP_SERVICE:
 
-                            mExecutor.stopLocationService(mHandlerThread, mServiceHandler, callbackContext);
+                        case LocationResources.ACTION_STOP_SERVICE:
+                            mExecutor.execute(
+                                mIndex
+                                    .mStopLocationServiceAction
+                                    .with(callbackContext)
+                            );
                             break;
 
                         case LocationResources.ACTION_GET_LOCATION:

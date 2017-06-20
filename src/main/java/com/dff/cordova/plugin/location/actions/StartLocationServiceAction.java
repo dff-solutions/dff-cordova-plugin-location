@@ -37,9 +37,7 @@ public class StartLocationServiceAction extends Action {
 
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();
 
-    // TODO: 16.06.2017 @Injects
     private Context mContext;
-    private ServiceHandler mServiceHandler;
     private MessengerHelper mMessengerHelper;
     private PreferencesHelper mPreferencesHelper;
     private LocationRequestHandler mLocationRequestHandler;
@@ -52,12 +50,10 @@ public class StartLocationServiceAction extends Action {
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
         MessengerHelper mMessengerHelper,
-        ServiceHandler mServiceHandler,
         PreferencesHelper mPreferencesHelper,
         LocationRequestHandler mLocationRequestHandler
     ) {
         this.mContext = mContext;
-        this.mServiceHandler = mServiceHandler;
         this.mMessengerHelper = mMessengerHelper;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
@@ -78,10 +74,10 @@ public class StartLocationServiceAction extends Action {
 
     @Override
     public Action execute() {
-        // TODO: 16.06.2017
+
         mContext.startService(new Intent(mContext, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
-//        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
+
         Bundle data = new Bundle();
         try {
             JSONObject params = mArguments.getJSONObject(0);
@@ -101,7 +97,6 @@ public class StartLocationServiceAction extends Action {
         data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
         msg.setData(data);
         msg.replyTo = new Messenger(mLocationRequestHandler);
-
         mMessengerHelper.send(msg, mCallbackContext);
 
         return this;

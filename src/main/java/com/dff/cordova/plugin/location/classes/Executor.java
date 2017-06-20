@@ -89,38 +89,6 @@ public class Executor {
     }
 
     /**
-     * Start the location service with params.
-     */
-    public void startLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler,
-                                     JSONArray args, CallbackContext callbackContext) {
-
-//        mRestoreAction.with(callbackContext).execute();
-//        mContext.startService(new Intent(mContext, LocationService.class));
-//        Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
-//        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
-//        Bundle data = new Bundle();
-//        try {
-//            JSONObject params = args.getJSONObject(0);
-//            if (params != null) {
-//                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
-//                LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
-//                LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
-//                LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
-//                LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE, LocationResources.LOCATION_MAX_AGE);
-//                LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY, LocationResources.LOCATION_DELAY);
-//                mPreferencesHelper.storeProperties();
-//            }
-//        } catch (JSONException e) {
-//            Log.e(TAG, "Error: ", e);
-//        }
-//        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, LocationResources.LOCATION_MIN_TIME);
-//        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
-//        msg.setData(data);
-//        msg.replyTo = new Messenger(handler);
-//        sendMessage(serviceHandler, msg, callbackContext);
-    }
-
-    /**
      * Stop the location service.
      */
     public void stopLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {

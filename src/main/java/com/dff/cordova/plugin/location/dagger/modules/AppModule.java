@@ -124,7 +124,7 @@ public class AppModule {
 
     @Provides
     @LocationRequestLooper
-    Looper provdeLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
+    Looper provideLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
         return handlerThread.getLooper();
     }
 }
