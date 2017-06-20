@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
-import com.dff.cordova.plugin.location.event.OnLocationServiceBindEvent;
+import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;

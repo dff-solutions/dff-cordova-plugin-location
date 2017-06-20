@@ -1,13 +1,12 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
-import android.os.HandlerThread;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.event.OnLocationServiceBindEvent;
+import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 
 import org.apache.cordova.CallbackContext;
 import org.greenrobot.eventbus.EventBus;

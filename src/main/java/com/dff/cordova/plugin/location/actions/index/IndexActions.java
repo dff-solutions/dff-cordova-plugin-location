@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.actions.index;
 
+import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.actions.StartLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StopLocationServiceAction;
@@ -21,15 +22,18 @@ public class IndexActions {
     public RestoreAction mRestoreAction;
     public StartLocationServiceAction mStartLocationServiceAction;
     public StopLocationServiceAction mStopLocationServiceAction;
+    public GetLocationAction mGetLocationAction;
 
     @Inject
     public IndexActions(
         RestoreAction mRestoreAction,
         StartLocationServiceAction mStartLocationServiceAction,
-        StopLocationServiceAction mStopLocationServiceAction
+        StopLocationServiceAction mStopLocationServiceAction,
+        GetLocationAction mGetLocationAction
     ) {
         this.mRestoreAction = mRestoreAction;
         this.mStartLocationServiceAction = mStartLocationServiceAction;
         this.mStopLocationServiceAction = mStopLocationServiceAction;
+        this.mGetLocationAction = mGetLocationAction;
     }
 }

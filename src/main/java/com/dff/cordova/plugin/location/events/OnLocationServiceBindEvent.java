@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.event;
+package com.dff.cordova.plugin.location.events;
 
 /**
  * Created by anahas on 20.06.2017.

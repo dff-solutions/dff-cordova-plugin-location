@@ -1,63 +1,68 @@
 package com.dff.cordova.plugin.location.actions;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.os.Message;
 import android.os.Messenger;
 
 import com.dff.cordova.plugin.location.abstracts.Action;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
-import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
+import org.json.JSONArray;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Stop location service
+ * Get the last good location from the service if it's available.
+ * Good location means in this context: accuracy < 20m..
  *
  * @author Anthony Nahas
  * @version 1.0
- * @since 19.06.17
+ * @since 20.06.17
  */
 @Singleton
-public class StopLocationServiceAction extends Action {
+public class GetLocationAction extends Action {
 
-    private Context mContext;
     private MessengerHelper mMessengerHelper;
-    private PreferencesHelper mPreferencesHelper;
     private LocationRequestHandler mLocationRequestHandler;
 
     private CallbackContext mCallbackContext;
+    private JSONArray mArguments;
 
     @Inject
-    public StopLocationServiceAction(
-        @ApplicationContext Context mContext,
-        MessengerHelper mMessengerHelper,
-        PreferencesHelper mPreferencesHelper,
-        LocationRequestHandler mLocationRequestHandler
-    ) {
-        this.mContext = mContext;
+    public GetLocationAction
+        (
+            MessengerHelper mMessengerHelper,
+            LocationRequestHandler mLocationRequestHandler
+        ) {
+
         this.mMessengerHelper = mMessengerHelper;
-        this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
     }
 
     @Override
     public Action with(CallbackContext callbackContext) {
-        mCallbackContext = callbackContext;
+        this.mCallbackContext = callbackContext;
+        return this;
+    }
+
+    @Override
+    public Action andHasArguments(JSONArray args) {
+        this.mArguments = args;
         return this;
     }
 
     @Override
     public Action execute() {
-        Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
+        Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
+        Bundle params = new Bundle();
+        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, mArguments.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
+        msg.setData(params);
         mMessengerHelper.send(msg, mCallbackContext);
-        mPreferencesHelper.setIsServiceStarted(false);
         return this;
     }
 }

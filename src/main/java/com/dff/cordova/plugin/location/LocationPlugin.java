@@ -161,7 +161,11 @@ public class LocationPlugin extends CommonServicePlugin {
                             break;
 
                         case LocationResources.ACTION_GET_LOCATION:
-                            mExecutor.getLocation(callbackContext, mHandlerThread, mServiceHandler, args);
+                            mExecutor.execute(
+                                mIndex.mGetLocationAction
+                                    .with(callbackContext)
+                                    .andHasArguments(args)
+                            );
                             break;
 
                         case LocationResources.ACTION_GET_LOCATION_LIST:

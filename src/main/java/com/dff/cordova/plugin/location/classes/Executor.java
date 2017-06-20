@@ -88,36 +88,6 @@ public class Executor {
             .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
     }
 
-    /**
-     * Stop the location service.
-     */
-    public void stopLocationService(HandlerThread handlerThread, ServiceHandler serviceHandler, CallbackContext callbackContext) {
-//        Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
-//        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
-//        msg.replyTo = new Messenger(handler);
-//        sendMessage(serviceHandler, msg, callbackContext);
-//        mPreferencesHelper.setIsServiceStarted(false);
-    }
-
-    /**
-     * Get the last good location from the service if it's available.
-     * Good location means in this context: accuracy < 20m.
-     *
-     * @param callbackContext - The callback context used when calling back into JavaScript.
-     * @param handlerThread   - The used handle thread
-     * @param serviceHandler  - The used service handler.
-     * @param args            - The exec() arguments.
-     */
-    public void getLocation(CallbackContext callbackContext,
-                            HandlerThread handlerThread, ServiceHandler serviceHandler, JSONArray args) {
-//        Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
-//        LocationRequestHandler handler = new LocationRequestHandler(handlerThread.getLooper(), mContext, callbackContext);
-//        msg.replyTo = new Messenger(handler);
-//        Bundle params = new Bundle();
-//        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
-//        msg.setData(params);
-//        sendMessage(serviceHandler, msg, callbackContext);
-    }
 
     /**
      * Get the all pending location that are stored in the location list.

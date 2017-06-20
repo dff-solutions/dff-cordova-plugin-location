@@ -108,6 +108,10 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/StopLocationServiceAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/GetLocationAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!--Helpers-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
@@ -130,8 +134,8 @@
 
         <!--events-->
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/event/OnLocationServiceBindEvent.java"
-            target-dir="src/com/dff/cordova/plugin/location/event" />
+            src="src/main/java/com/dff/cordova/plugin/location/events/OnLocationServiceBindEvent.java"
+            target-dir="src/com/dff/cordova/plugin/location/events" />
 
         <!-- @Dagger -->
         <!--Annotations-->
