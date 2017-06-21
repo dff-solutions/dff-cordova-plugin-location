@@ -39,6 +39,8 @@ import dagger.Provides;
  * @since 12.06.17
  */
 
+// TODO: 21.06.2017 split app module to plugin and app module
+
 @Module
 public class AppModule {
 
