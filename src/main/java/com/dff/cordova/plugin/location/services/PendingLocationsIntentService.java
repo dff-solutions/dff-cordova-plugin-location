@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.dff.cordova.plugin.location.LocationPlugin;
+import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 
@@ -30,7 +31,10 @@ public class PendingLocationsIntentService extends IntentService {
 
     @Override
     public void onCreate() {
-        LocationPlugin.inject(this);
+        DaggerManager
+            .getInstance()
+            .in(getApplication())
+            .inject(this);
         super.onCreate();
         Log.d(TAG, "onCreate()");
     }

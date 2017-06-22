@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
@@ -29,6 +30,10 @@ public class GetLocationListAction extends Action {
 
     private CallbackContext mCallbackContext;
     private JSONArray mArguments;
+
+    @Inject
+    public GetLocationListAction() {
+    }
 
     @Override
     public Action with(CallbackContext callbackContext) {

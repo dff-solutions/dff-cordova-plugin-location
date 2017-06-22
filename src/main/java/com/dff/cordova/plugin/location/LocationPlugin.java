@@ -1,7 +1,7 @@
 package com.dff.cordova.plugin.location;
 
 import android.Manifest;
-import android.app.Service;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -17,16 +17,12 @@ import com.dff.cordova.plugin.location.actions.index.IndexActions;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
+import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
-import com.dff.cordova.plugin.location.dagger.components.DaggerPluginComponent;
 import com.dff.cordova.plugin.location.dagger.components.PluginComponent;
-import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
-import com.dff.cordova.plugin.location.dagger.modules.AppModule;
-import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.LocationService;
-import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -106,15 +102,20 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public void pluginInitialize() {
 
-        //Instantiating the component
-        sComponent = DaggerPluginComponent.builder()
-            // list of modules that are part of this component need to be created here too
-            .appModule(new AppModule(cordova.getActivity().getApplication()))
-            .cordovaModule(new CordovaModule(cordova))
-            .activityModule(new ActivityModule(cordova.getActivity()))
-            .build();
+        DaggerManager
+            .getInstance()
+            .in(cordova.getActivity().getApplication())
+            .and(cordova)
+            .inject(this);
 
-        sComponent.inject(this);
+        //Instantiating the component
+//        sComponent = DaggerPluginComponent.builder()
+//            // list of modules that are part of this component need to be created here too
+//            .appModule(new AppModule(cordova.getActivity().getApplication()))
+//            .cordovaModule(new CordovaModule(cordova))
+//            .build();
+//
+//        sComponent.inject(this);
 
         mCordovaInterface = cordova;
 
@@ -169,7 +170,12 @@ public class LocationPlugin extends CommonServicePlugin {
                             break;
 
                         case LocationResources.ACTION_GET_LOCATION_LIST:
-                            mExecutor.getLocationList(callbackContext, args);
+                            mExecutor.execute(
+                                mIndex
+                                    .mGetLocationAction
+                                    .with(callbackContext)
+                                    .andHasArguments(args)
+                            );
                             break;
 
                         case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
@@ -253,32 +259,6 @@ public class LocationPlugin extends CommonServicePlugin {
 
         mFileHelper.storePendingLocation();
         mFileHelper.storeLocationsMultimap();
-    }
-
-    /**
-     * Inject the target object into dagger
-     *
-     * @param object
-     * @param <T>
-     */
-    public static <T extends Service> void inject(T object) {
-        if (object instanceof LocationService || object instanceof PendingLocationsIntentService) {
-            if (LocationPlugin.sComponent != null) {
-                if (object instanceof LocationService) {
-                    LocationPlugin.sComponent.inject((LocationService) object);
-                }
-                if (object instanceof PendingLocationsIntentService) {
-                    LocationPlugin.sComponent.inject((PendingLocationsIntentService) object);
-                }
-            } else {
-                LocationPlugin.sComponent = DaggerPluginComponent
-                    .builder()
-                    .appModule(new AppModule(object.getApplication()))
-                    .build();
-            }
-            return;
-        }
-        Log.w(TAG, "Trying to inject a  unproved object into Dagger --> " + object.getClass());
     }
 
     /**

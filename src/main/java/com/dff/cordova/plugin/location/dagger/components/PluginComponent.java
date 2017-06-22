@@ -3,10 +3,9 @@ package com.dff.cordova.plugin.location.dagger.components;
 import android.app.Service;
 
 import com.dff.cordova.plugin.location.LocationPlugin;
-import com.dff.cordova.plugin.location.classes.Executor;
-import com.dff.cordova.plugin.location.dagger.modules.ActivityModule;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
+import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 
@@ -28,14 +27,13 @@ import dagger.Component;
     {
         AppModule.class,
         CordovaModule.class,
-        Executor.class,
-        ActivityModule.class
+        PluginModule.class
     })
 public interface PluginComponent {
 
     void inject(LocationPlugin locationPlugin);
-
-    void inject(LocationService locationService);
-
-    void inject(PendingLocationsIntentService pendingLocationsIntentService);
+//
+//    void inject(LocationService locationService);
+//
+//    void inject(PendingLocationsIntentService pendingLocationsIntentService);
 }

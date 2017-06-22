@@ -38,9 +38,6 @@ import dagger.Provides;
  * @version 1.0
  * @since 12.06.17
  */
-
-// TODO: 21.06.2017 split app module to plugin and app module
-
 @Module
 public class AppModule {
 
@@ -93,40 +90,5 @@ public class AppModule {
     @Provides
     Handler provideHandler() {
         return new Handler();
-    }
-
-    @Provides
-    @Singleton
-    @LocationServiceHandlerThread
-    HandlerThread provideLocationServiceHandlerThread() {
-        return new HandlerThread("@LocationServiceHandler", Process.THREAD_PRIORITY_BACKGROUND);
-    }
-
-    @Provides
-    @LocationServiceLooper
-    Looper provideLooper(Handler handler) {
-        return handler.getLooper();
-    }
-
-    @Provides
-    @LocationServiceMessenger
-    Messenger provideLocationServiceMessenger(LocationServiceHandler locationServiceHandler) {
-        return new Messenger(locationServiceHandler);
-    }
-
-    @Provides
-    @Singleton
-    @LocationRequestHandlerThread
-    HandlerThread provideLocationRequestHandlerThread() {
-        HandlerThread handlerThread = new HandlerThread("@LocationRequestHandlerThread",
-            Process.THREAD_PRIORITY_BACKGROUND);
-        handlerThread.start();
-        return handlerThread;
-    }
-
-    @Provides
-    @LocationRequestLooper
-    Looper provideLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
-        return handlerThread.getLooper();
     }
 }

@@ -10,7 +10,7 @@ import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dff.cordova.plugin.location.LocationPlugin;
+import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
@@ -40,14 +40,14 @@ public class LocationService extends Service {
     HandlerThread mHandlerThread;
 
     @Inject
+    LocationServiceHandler mLocationServiceHandler;
+
+    @Inject
     @LocationServiceMessenger
     Messenger mMessenger;
 
     @Inject
     EventBus mEventBus;
-
-    @Inject
-    LocationServiceHandler mLocationServiceHandler;
 
     @Inject
     CrashHelper mCrashHelper;
@@ -65,10 +65,12 @@ public class LocationService extends Service {
      */
     @Override
     public void onCreate() {
-        LocationPlugin.inject(this);
+        DaggerManager
+            .getInstance()
+            .in(getApplication())
+            .inject(this);
         super.onCreate();
         Log.d(TAG, "onCreate()");
-        mHandlerThread.start();
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
     }
 
