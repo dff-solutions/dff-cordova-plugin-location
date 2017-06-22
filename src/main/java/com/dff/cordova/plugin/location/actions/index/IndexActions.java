@@ -4,6 +4,7 @@ import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.GetLocationListAction;
 import com.dff.cordova.plugin.location.actions.GetTotalDistanceAction;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
+import com.dff.cordova.plugin.location.actions.SetStopIdAction;
 import com.dff.cordova.plugin.location.actions.StartLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StopLocationServiceAction;
 
@@ -27,6 +28,7 @@ public class IndexActions {
     public GetLocationAction mGetLocationAction;
     public GetLocationListAction mGetLocationListAction;
     public GetTotalDistanceAction mGetTotalDistanceAction;
+    public SetStopIdAction mSetStopIdAction;
 
     @Inject
     public IndexActions(
@@ -35,7 +37,8 @@ public class IndexActions {
         StopLocationServiceAction mStopLocationServiceAction,
         GetLocationAction mGetLocationAction,
         GetLocationListAction mGetLocationListAction,
-        GetTotalDistanceAction mGetTotalDistanceAction
+        GetTotalDistanceAction mGetTotalDistanceAction,
+        SetStopIdAction mSetStopIdAction
     ) {
         this.mRestoreAction = mRestoreAction;
         this.mStartLocationServiceAction = mStartLocationServiceAction;
@@ -43,5 +46,6 @@ public class IndexActions {
         this.mGetLocationAction = mGetLocationAction;
         this.mGetLocationListAction = mGetLocationListAction;
         this.mGetTotalDistanceAction = mGetTotalDistanceAction;
+        this.mSetStopIdAction = mSetStopIdAction;
     }
 }

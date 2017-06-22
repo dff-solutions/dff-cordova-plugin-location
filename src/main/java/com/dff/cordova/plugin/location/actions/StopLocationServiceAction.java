@@ -44,11 +44,10 @@ public class StopLocationServiceAction extends Action {
 
 
     @Override
-    public Action execute() {
+    public void execute() {
         Message msg = Message.obtain(null, LocationResources.WHAT.STOP_LOCATION_SERVICE.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, super.getCallbackContext());
         mPreferencesHelper.setIsServiceStarted(false);
-        return this;
     }
 }

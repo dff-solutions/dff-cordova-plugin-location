@@ -52,7 +52,7 @@ public class Executor {
 
     private Context mContext;
     private PreferencesHelper mPreferencesHelper;
-    private DistanceSimulator mDistanceSimulator;
+
 
     //Actions
     private RestoreAction mRestoreAction;
@@ -60,78 +60,22 @@ public class Executor {
     @Inject
     public Executor
         (@ApplicationContext Context mContext,
-         PreferencesHelper mPreferencesHelper,
-         DistanceSimulator mDistanceSimulator,
-         RestoreAction mRestoreAction) {
+         PreferencesHelper mPreferencesHelper) {
 
         this.mContext = mContext;
         this.mPreferencesHelper = mPreferencesHelper;
-        this.mDistanceSimulator = mDistanceSimulator;
     }
 
 
-    public <T extends Action> Action execute(T action) {
-        return action.execute();
+    public <T extends Action> void execute(T action) {
+        action.execute();
     }
 
-    /**
-     *
-     * <p>
-     * //     * @param context - The context of the application
-     */
-//    public static void restore(Context context) {
-//        context.startService(new Intent(context, PendingLocationsIntentService.class)
-//                .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
-//    }
-    public void restore() {
-        mContext.startService(new Intent(mContext, PendingLocationsIntentService.class)
-            .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
-    }
-
-
-
-    public void getTotalDistance(CallbackContext callbackContext, JSONArray args) { //clean true - clear false
-        boolean isClean = false;
-        try {
-            JSONObject params = args.getJSONObject(0);
-            LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.RESET, false);
-            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                LocationResources.STOP_ID = LocationResources.UNKNOWN;
-            }
-            isClean = params.optBoolean(LocationResources.CLEAN);
-        } catch (JSONException e) {
-            Log.e(TAG, "Error: ", e);
-        }
-        Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
-        if (clonedMultimap == null) {
-            callbackContext.error("Error: --> clonedMultimap may be null");
-            return;
-        }
-        if (isClean) {
-            clonedMultimap.removeAll(LocationResources.UNKNOWN);
-        }
-        ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
-        if (locationsList.size() > 1) {
-            mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
-            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                LocationResources.clearLocationsMultimap();
-            }
-        } else {
-            callbackContext.error("Error: --> locations list size = 0");
-        }
-    }
 
     public void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
         switch (action) {
             case LocationResources.ACTION_SET_STOP_ID:
-                try {
-                    JSONObject params = args.getJSONObject(0);
-                    LocationResources.STOP_ID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
-                    callbackContext.success();
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error: ", e);
-                    callbackContext.error("Error: " + e);
-                }
+
                 break;
 
             case LocationResources.ACTION_GET_LAST_STOP_ID:

@@ -38,13 +38,12 @@ public class GetLocationAction extends Action {
     }
 
     @Override
-    public Action execute() {
+    public void execute() {
         Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
         Bundle params = new Bundle();
         params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, super.getArguments().optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
         msg.setData(params);
         mMessengerHelper.send(msg, super.getCallbackContext());
-        return this;
     }
 }

@@ -33,7 +33,7 @@ public class GetLocationListAction extends Action {
 
 
     @Override
-    public Action execute() {
+    public void execute() {
         Boolean canReset = true;
         try {
             JSONObject params = super.getArguments().getJSONObject(0);
@@ -73,6 +73,5 @@ public class GetLocationListAction extends Action {
                 }
             }
         }
-        return this;
     }
 }

@@ -71,7 +71,7 @@ public class StartLocationServiceAction extends Action {
     }
 
     @Override
-    public Action execute() {
+    public void execute() {
 
         mContext.startService(new Intent(mContext, LocationService.class));
         Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
@@ -96,7 +96,5 @@ public class StartLocationServiceAction extends Action {
         msg.setData(data);
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, mCallbackContext);
-
-        return this;
     }
 }

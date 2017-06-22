@@ -120,6 +120,10 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/GetTotalDistanceAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/SetStopIdAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!--Helpers-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"

@@ -12,5 +12,5 @@ import com.dff.cordova.plugin.location.abstracts.Action;
 
 public interface Executable {
 
-    Action execute();
+    void execute();
 }

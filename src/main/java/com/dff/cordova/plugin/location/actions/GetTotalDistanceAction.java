@@ -36,7 +36,7 @@ public class GetTotalDistanceAction extends Action {
     }
 
     @Override
-    public Action execute() {
+    public void execute() {
         boolean isClean = false;
         try {
             JSONObject params = super.getArguments().getJSONObject(0);
@@ -51,7 +51,7 @@ public class GetTotalDistanceAction extends Action {
         Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
         if (clonedMultimap == null) {
             super.getCallbackContext().error("Error: --> clonedMultimap may be null");
-            return this;
+            return;
         }
         if (isClean) {
             clonedMultimap.removeAll(LocationResources.UNKNOWN);
@@ -65,6 +65,5 @@ public class GetTotalDistanceAction extends Action {
         } else {
             super.getCallbackContext().error("Error: --> locations list size = 0");
         }
-        return this;
     }
 }
