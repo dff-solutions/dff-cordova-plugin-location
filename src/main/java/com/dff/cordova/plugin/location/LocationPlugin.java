@@ -272,15 +272,9 @@ public class LocationPlugin extends CommonServicePlugin {
     }
 
     private void init() {
-//        mMessengerHelper.setMessenger(mServiceHandler.getService());
         mExecutor.execute(mIndex.mRestoreAction);
     }
 
-    private void restore() {
-        mPreferencesHelper.restoreProperties();
-        mPreferencesHelper.setIsServiceStarted(false);
-//        mExecutor.restore();
-    }
 
     public CordovaInterface getCordovaInterface() {
         return mCordovaInterface;

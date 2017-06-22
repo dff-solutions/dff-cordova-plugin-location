@@ -9,9 +9,6 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 
-import org.apache.cordova.CallbackContext;
-import org.json.JSONArray;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -29,9 +26,6 @@ public class GetLocationAction extends Action {
     private MessengerHelper mMessengerHelper;
     private LocationRequestHandler mLocationRequestHandler;
 
-    private CallbackContext mCallbackContext;
-    private JSONArray mArguments;
-
     @Inject
     public GetLocationAction
         (
@@ -44,25 +38,13 @@ public class GetLocationAction extends Action {
     }
 
     @Override
-    public Action with(CallbackContext callbackContext) {
-        this.mCallbackContext = callbackContext;
-        return this;
-    }
-
-    @Override
-    public Action andHasArguments(JSONArray args) {
-        this.mArguments = args;
-        return this;
-    }
-
-    @Override
     public Action execute() {
         Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
         Bundle params = new Bundle();
-        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, mArguments.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
+        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, super.getArguments().optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
         msg.setData(params);
-        mMessengerHelper.send(msg, mCallbackContext);
+        mMessengerHelper.send(msg, super.getCallbackContext());
         return this;
     }
 }

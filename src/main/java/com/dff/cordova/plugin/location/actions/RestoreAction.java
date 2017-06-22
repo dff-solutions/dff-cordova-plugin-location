@@ -9,8 +9,6 @@ import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
-import org.apache.cordova.CallbackContext;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -27,8 +25,6 @@ public class RestoreAction extends Action {
     private Context mContext;
     private PreferencesHelper mPreferencesHelper;
 
-    private CallbackContext mCallbackContext;
-
     @Inject
     public RestoreAction(
         @ApplicationContext Context mContext,
@@ -38,15 +34,6 @@ public class RestoreAction extends Action {
         this.mPreferencesHelper = mPreferencesHelper;
     }
 
-    public void setCallbackContext(CallbackContext mCallbackContext) {
-        this.mCallbackContext = mCallbackContext;
-    }
-
-    @Override
-    public Action with(CallbackContext callbackContext) {
-        mCallbackContext = callbackContext;
-        return this;
-    }
 
     @Override
     public Action execute() {
