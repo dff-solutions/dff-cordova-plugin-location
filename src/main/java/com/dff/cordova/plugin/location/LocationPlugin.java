@@ -172,7 +172,7 @@ public class LocationPlugin extends CommonServicePlugin {
                         case LocationResources.ACTION_GET_LOCATION_LIST:
                             mExecutor.execute(
                                 mIndex
-                                    .mGetLocationAction
+                                    .mGetLocationListAction
                                     .with(callbackContext)
                                     .andHasArguments(args)
                             );
@@ -183,8 +183,12 @@ public class LocationPlugin extends CommonServicePlugin {
                             callbackContext.success();
                             break;
 
-                        case LocationResources.ACTION_GET_TOTAL_DISTANCE_CALCULATOR:
-                            mExecutor.getTotalDistance(callbackContext, args);
+                        case LocationResources.ACTION_GET_TOTAL_DISTANCE:
+                            mExecutor.execute(
+                                mIndex.mGetTotalDistanceAction
+                                    .with(callbackContext)
+                                    .andHasArguments(args)
+                            );
                             break;
 
                         case LocationResources.ACTION_SET_STOP_ID:
