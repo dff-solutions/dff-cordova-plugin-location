@@ -17,10 +17,10 @@ import javax.inject.Singleton;
  * @since 23.06.17
  */
 @Singleton
-public class GetKeySetFromLocationsMultmapAction extends Action {
+public class GetKeySetFromLocationsMultimapAction extends Action {
 
     @Inject
-    public GetKeySetFromLocationsMultmapAction() {
+    public GetKeySetFromLocationsMultimapAction() {
     }
 
     @Override

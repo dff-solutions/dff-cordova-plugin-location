@@ -136,6 +136,10 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/GetLastStopIDAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/GetKeySetFromLocationsMultimapAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!--Helpers-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
@@ -155,6 +159,16 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
+
+        <!--configurations-->
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/configurations/JSActions.java"
+            target-dir="src/com/dff/cordova/plugin/location/configurations" />
+
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/configurations/ActionsManager.java"
+            target-dir="src/com/dff/cordova/plugin/location/configurations" />
+
 
         <!--events-->
         <source-file

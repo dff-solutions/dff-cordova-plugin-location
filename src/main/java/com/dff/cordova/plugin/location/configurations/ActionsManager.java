@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location;
+package com.dff.cordova.plugin.location.configurations;
 
 import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.actions.index.IndexActions;

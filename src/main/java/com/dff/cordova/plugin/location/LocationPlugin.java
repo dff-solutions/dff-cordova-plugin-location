@@ -13,10 +13,10 @@ import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.actions.index.IndexActions;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
+import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
@@ -146,11 +146,6 @@ public class LocationPlugin extends CommonServicePlugin {
                     } catch (Exception e) {
                         Log.e(TAG, "Error: --> ", e);
                     }
-
-
-                    case Res.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
-                    mExecutor.getKeySetFromLocationsMultimap(callbackContext);
-                    break;
 
                     case Res.ACTION_REGISTER_PROVIDER_LISTENER:
                     mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);

@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.actions.index;
 
 import com.dff.cordova.plugin.location.actions.ClearStopIDAction;
 import com.dff.cordova.plugin.location.actions.EnableMappingAction;
+import com.dff.cordova.plugin.location.actions.GetKeySetFromLocationsMultimapAction;
 import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.GetLocationListAction;
 import com.dff.cordova.plugin.location.actions.GetTotalDistanceAction;
@@ -33,6 +34,7 @@ public class IndexActions {
     public SetStopIdAction mSetStopIdAction;
     public ClearStopIDAction mClearStopIDAction;
     public EnableMappingAction mEnableMappingAction;
+    public GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction;
 
     @Inject
     public IndexActions(
@@ -44,7 +46,8 @@ public class IndexActions {
         GetTotalDistanceAction mGetTotalDistanceAction,
         SetStopIdAction mSetStopIdAction,
         ClearStopIDAction mClearStopIDAction,
-        EnableMappingAction mEnableMappingAction
+        EnableMappingAction mEnableMappingAction,
+        GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction
     ) {
         this.mRestoreAction = mRestoreAction;
         this.mStartLocationServiceAction = mStartLocationServiceAction;
@@ -55,5 +58,6 @@ public class IndexActions {
         this.mSetStopIdAction = mSetStopIdAction;
         this.mClearStopIDAction = mClearStopIDAction;
         this.mEnableMappingAction = mEnableMappingAction;
+        this.mGetKeySetFromLocationsMultimapAction = mGetKeySetFromLocationsMultimapAction;
     }
 }
