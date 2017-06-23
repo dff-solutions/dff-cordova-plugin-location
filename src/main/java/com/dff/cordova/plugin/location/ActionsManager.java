@@ -40,6 +40,7 @@ public class ActionsManager {
     private void init() {
         mActionsMap = new HashMap<>();
         mActionsMap.put(mJsActions.clear_stopID, mIndexActions.mClearStopIDAction);
+        mActionsMap.put(mJsActions.enable_locations_mapping, mIndexActions.mEnableMappingAction);
         mActionsMap.put(mJsActions.get_location, mIndexActions.mGetLocationAction);
         mActionsMap.put(mJsActions.get_location_list, mIndexActions.mGetLocationListAction);
         mActionsMap.put(mJsActions.get_total_distance, mIndexActions.mGetTotalDistanceAction);
