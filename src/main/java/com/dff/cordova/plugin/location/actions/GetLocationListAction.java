@@ -2,7 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,34 +37,34 @@ public class GetLocationListAction extends Action {
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                canReset = params.optBoolean(LocationResources.RESET, true);
+                canReset = params.optBoolean(Res.RESET, true);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        switch (LocationResources.LOCATION_RETURN_TYPE) {
-            case LocationResources.DFF_STRING:
-                ArrayList<String> dffStringLocationList = LocationResources.getLocationListDffString();
+        switch (Res.LOCATION_RETURN_TYPE) {
+            case Res.DFF_STRING:
+                ArrayList<String> dffStringLocationList = Res.getLocationListDffString();
 
                 if (dffStringLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(dffStringLocationList));
                     Log.d(TAG, "list > 0 ");
                     if (canReset) {
-                        LocationResources.clearDffStringLocationsList();
+                        Res.clearDffStringLocationsList();
                     }
                 } else {
                     callbackContext.success(new JSONArray());
                     Log.d(TAG, "list < 0 ");
                 }
                 break;
-            case LocationResources.JSON: {
-                ArrayList<JSONObject> jsonLocationList = LocationResources.getLocationListJson();
+            case Res.JSON: {
+                ArrayList<JSONObject> jsonLocationList = Res.getLocationListJson();
 
                 if (jsonLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(jsonLocationList));
                     Log.d(TAG, "list > 0 ");
                     if (canReset) {
-                        LocationResources.clearJsonLocationsList();
+                        Res.clearJsonLocationsList();
                     }
                 } else {
                     callbackContext.success(new JSONArray());

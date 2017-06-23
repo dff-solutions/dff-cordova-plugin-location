@@ -11,7 +11,7 @@ import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
@@ -63,7 +63,7 @@ public class Executor {
     public void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
         switch (action) {
 
-            case LocationResources.ACTION_CLEAR_STOP_ID:
+            case Res.ACTION_CLEAR_STOP_ID:
                 break;
             default:
                 callbackContext.error("404 - action not found");
@@ -71,7 +71,7 @@ public class Executor {
     }
 
     public void getKeySetFromLocationsMultimap(CallbackContext callbackContext) {
-        JSONArray jsonArray = new JSONArray(new ArrayList<>(LocationResources.getLocationsMultimap().keySet()));
+        JSONArray jsonArray = new JSONArray(new ArrayList<>(Res.getLocationsMultimap().keySet()));
         callbackContext.success(jsonArray);
     }
 
@@ -81,17 +81,17 @@ public class Executor {
      * @param callbackContext - the used callbackcontext
      */
     public void setStopListener(CallbackContext callbackContext, JSONArray args) {
-        LocationResources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, LocationResources.STOP_HOLDER_COUNTER_LIMIT);
-        LocationResources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, LocationResources.STOP_HOLDER_MIN_DISTANCE);
-        LocationResources.STOP_HOLDER_DELAY = args.optInt(2, LocationResources.STOP_HOLDER_DELAY);
-        mContext.registerReceiver(new StandStillReceiver(mContext, callbackContext), new IntentFilter(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
+        Res.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, Res.STOP_HOLDER_COUNTER_LIMIT);
+        Res.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, Res.STOP_HOLDER_MIN_DISTANCE);
+        Res.STOP_HOLDER_DELAY = args.optInt(2, Res.STOP_HOLDER_DELAY);
+        mContext.registerReceiver(new StandStillReceiver(mContext, callbackContext), new IntentFilter(Res.BROADCAST_ACTION_ON_STAND_STILL));
     }
 
     /**
      * Send broadcast receiver to stop the stop listener
      */
     public void stopStopListener() {
-        mContext.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_STOP));
+        mContext.sendBroadcast(new Intent(Res.BROADCAST_ACTION_STOP));
     }
 
     private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {

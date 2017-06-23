@@ -4,9 +4,8 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 
 import javax.inject.Inject;
@@ -57,11 +56,11 @@ public class PendingLocationsIntentService extends IntentService {
 
         if (action != null) {
             Log.d(TAG, "Action = " + intent.getAction());
-            if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS)) {
+            if (action.equals(Res.ACTION_INTENT_STORE_PENDING_LOCATIONS)) {
                 mFileHelper.storePendingLocation();
                 mFileHelper.storeLocationsMultimap();
             }
-            if (action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
+            if (action.equals(Res.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                 mFileHelper.restorePendingLocation();
                 mFileHelper.restoreLocationsMultimap();
             }

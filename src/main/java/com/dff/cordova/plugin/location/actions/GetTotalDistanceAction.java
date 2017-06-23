@@ -3,7 +3,7 @@ package com.dff.cordova.plugin.location.actions;
 import android.location.Location;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.google.common.collect.Multimap;
 
@@ -39,27 +39,27 @@ public class GetTotalDistanceAction extends Action {
         boolean isClean = false;
         try {
             JSONObject params = args.getJSONObject(0);
-            LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.RESET, false);
-            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                LocationResources.STOP_ID = LocationResources.UNKNOWN;
+            Res.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(Res.RESET, false);
+            if (!Res.IS_TO_CALCULATE_DISTANCE) {
+                Res.STOP_ID = Res.UNKNOWN;
             }
-            isClean = params.optBoolean(LocationResources.CLEAN);
+            isClean = params.optBoolean(Res.CLEAN);
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
+        Multimap<String, Location> clonedMultimap = Res.getLocationsMultimap();
         if (clonedMultimap == null) {
             callbackContext.error("Error: --> clonedMultimap may be null");
             return;
         }
         if (isClean) {
-            clonedMultimap.removeAll(LocationResources.UNKNOWN);
+            clonedMultimap.removeAll(Res.UNKNOWN);
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
             mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
-            if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                LocationResources.clearLocationsMultimap();
+            if (!Res.IS_TO_CALCULATE_DISTANCE) {
+                Res.clearLocationsMultimap();
             }
         } else {
             callbackContext.error("Error: --> locations list size = 0");

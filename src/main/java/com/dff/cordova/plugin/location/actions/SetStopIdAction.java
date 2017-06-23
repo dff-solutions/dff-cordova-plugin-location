@@ -2,7 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +30,7 @@ public class SetStopIdAction extends Action {
     public void execute() {
         try {
             JSONObject params = args.getJSONObject(0);
-            LocationResources.STOP_ID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
+            Res.STOP_ID = params.optString(Res.JSON_KEY_STOP_ID, Res.STOP_ID);
             callbackContext.success();
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);

@@ -22,7 +22,7 @@ import javax.inject.Singleton;
 @Singleton
 public class IndexActions {
 
-    // 3 Actions
+    // 8 Actions
     public RestoreAction mRestoreAction;
     public StartLocationServiceAction mStartLocationServiceAction;
     public StopLocationServiceAction mStopLocationServiceAction;

@@ -25,11 +25,11 @@ import java.util.Date;
  * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map class)
  * @since 30.11.2016
  */
-public class LocationResources {
+public class Res {
 
     /*+++++++++++++++++++++++++++++++++++INIT+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-    private static final String TAG = "LocationResources";
+    private static final String TAG = "Res";
     private static Location LAST_GOOD_LOCATION = null;
     private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
     private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
@@ -39,43 +39,42 @@ public class LocationResources {
 
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
 
-    //JS Actions
-    public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
-    public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
-    public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
-    public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
+//    //JS Actions
+//    public static final String ACTION_START_SERVICE = "location.action.START_SERVICE";
+//    public static final String ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
+//    public static final String ACTION_GET_LOCATION = "location.action.GET_LOCATION";
+//    public static final String ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
+//    public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
+//    public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
+//    public static final String ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
+//    public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
+//    public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
+//    public static final String ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
+//    public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
+//    public static final String ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
+//    public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
+//    public static final String ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
+//    public static final String ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
+//    public static final String ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
-    public static final String ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
-    public static final String ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
-    public static final String ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
-    public static final String ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
-    public static final String ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
-    public static final String ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
-    public static final String ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
-    public static final String ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
-    public static final String ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
-    public static final String ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
-    public static final String ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
-    public static final String ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
-
-    //@Test
-    public static final String ALL_JS_ACTIONS[] =
-        {
-            ACTION_START_SERVICE,
-            ACTION_STOP_SERVICE,
-            ACTION_GET_LOCATION,
-            ACTION_GET_LOCATION_LIST,
-            ACTION_INTENT_STORE_PENDING_LOCATIONS,
-            ACTION_INTENT_RESTORE_PENDING_LOCATIONS,
-            ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP,
-            ACTION_SET_LOCATION_LISTENER,
-            ACTION_CANCEL_STOP_LISTENER,
-            ACTION_ENABLE_MAPPING_LOCATIONS,
-            ACTION_SET_STOP_ID,
-            ACTION_REGISTER_PROVIDER_LISTENER,
-            ACTION_UNREGISTER_PROVIDER_LISTENER
-        };
+//    //@Test
+//    public static final String ALL_JS_ACTIONS[] =
+//        {
+//            ACTION_START_SERVICE,
+//            ACTION_STOP_SERVICE,
+//            ACTION_GET_LOCATION,
+//            ACTION_GET_LOCATION_LIST,
+//            ACTION_INTENT_STORE_PENDING_LOCATIONS,
+//            ACTION_INTENT_RESTORE_PENDING_LOCATIONS,
+//            ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP,
+//            ACTION_SET_LOCATION_LISTENER,
+//            ACTION_CANCEL_STOP_LISTENER,
+//            ACTION_ENABLE_MAPPING_LOCATIONS,
+//            ACTION_SET_STOP_ID,
+//            ACTION_REGISTER_PROVIDER_LISTENER,
+//            ACTION_UNREGISTER_PROVIDER_LISTENER
+//        };
 
     //Broadcasts Actions
     public static final String BROADCAST_ACTION_ON_STAND_STILL = "com.dff.cordova.plugin.location.broadcast.StandStillReceiver";
@@ -327,25 +326,6 @@ public class LocationResources {
             Collection<Location> locations = LOCATION_MULTIMAP.get(stopID);
             Log.d(TAG, "stopID: " + stopID + " --> " + locations);
         }
-    }
-
-    /**
-     * Print out the difference time between the current time of the operating system
-     * and the one the last good location.
-     * <p>
-     * NB: Used for test/debug purposes.
-     */
-    private static void printDifference() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "yyyy/MM/dd HH:mm:ss");
-        try {
-            Date d = new Date(LAST_GOOD_LOCATION.getTime());
-            Log.d("Location", "ep =" + dateFormat.format(d));
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        Date now = new Date();
-        Log.d("Location", "now = " + dateFormat.format(now));
     }
 
 }

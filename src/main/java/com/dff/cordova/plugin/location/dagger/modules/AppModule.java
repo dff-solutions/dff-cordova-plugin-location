@@ -4,23 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Messenger;
-import android.os.Process;
 import android.preference.PreferenceManager;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.dagger.annotations.Private;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
-import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -84,7 +74,7 @@ public class AppModule {
     @Singleton
     @Private
     SharedPreferences provideprivateSharedPreferences() {
-        return mApp.getSharedPreferences(LocationResources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return mApp.getSharedPreferences(Res.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @Provides

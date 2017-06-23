@@ -20,8 +20,7 @@ import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
-import com.dff.cordova.plugin.location.dagger.components.PluginComponent;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
@@ -50,8 +49,6 @@ public class LocationPlugin extends CommonServicePlugin {
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION
         };
-
-    private static PluginComponent sComponent;
 
     @Inject
     @ApplicationContext
@@ -108,15 +105,6 @@ public class LocationPlugin extends CommonServicePlugin {
             .and(cordova)
             .inject(this);
 
-        //Instantiating the component
-//        sComponent = DaggerPluginComponent.builder()
-//            // list of modules that are part of this component need to be created here too
-//            .appModule(new AppModule(cordova.getActivity().getApplication()))
-//            .cordovaModule(new CordovaModule(cordova))
-//            .build();
-//
-//        sComponent.inject(this);
-
         mCordovaInterface = cordova;
 
         requestLocationPermission();
@@ -145,7 +133,7 @@ public class LocationPlugin extends CommonServicePlugin {
                 public void run() {
                     Log.d(TAG, "Action = " + action);
                     switch (action) {
-                        case LocationResources.ACTION_START_SERVICE:
+                        case Res.ACTION_START_SERVICE:
                             mExecutor.execute(
                                 mIndex.mStartLocationServiceAction
                                     .with(callbackContext)
@@ -153,7 +141,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
 
-                        case LocationResources.ACTION_STOP_SERVICE:
+                        case Res.ACTION_STOP_SERVICE:
                             mExecutor.execute(
                                 mIndex
                                     .mStopLocationServiceAction
@@ -161,7 +149,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
 
-                        case LocationResources.ACTION_GET_LOCATION:
+                        case Res.ACTION_GET_LOCATION:
                             mExecutor.execute(
                                 mIndex.mGetLocationAction
                                     .with(callbackContext)
@@ -169,7 +157,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
 
-                        case LocationResources.ACTION_GET_LOCATION_LIST:
+                        case Res.ACTION_GET_LOCATION_LIST:
                             mExecutor.execute(
                                 mIndex
                                     .mGetLocationListAction
@@ -178,12 +166,12 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
 
-                        case LocationResources.ACTION_ENABLE_MAPPING_LOCATIONS:
-                            LocationResources.IS_TO_CALCULATE_DISTANCE = true;
+                        case Res.ACTION_ENABLE_MAPPING_LOCATIONS:
+                            Res.IS_TO_CALCULATE_DISTANCE = true;
                             callbackContext.success();
                             break;
 
-                        case LocationResources.ACTION_GET_TOTAL_DISTANCE:
+                        case Res.ACTION_GET_TOTAL_DISTANCE:
                             mExecutor.execute(
                                 mIndex.mGetTotalDistanceAction
                                     .with(callbackContext)
@@ -191,45 +179,45 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
 
-                        case LocationResources.ACTION_SET_STOP_ID:
+                        case Res.ACTION_SET_STOP_ID:
                             mExecutor.execute(
                                 mIndex.mSetStopIdAction
                                     .with(callbackContext)
                                     .andHasArguments(args)
                             );
                             break;
-                        case LocationResources.ACTION_GET_LAST_STOP_ID:
-                            callbackContext.success(LocationResources.STOP_ID);
+                        case Res.ACTION_GET_LAST_STOP_ID:
+                            callbackContext.success(Res.STOP_ID);
                             break;
 
-                        case LocationResources.ACTION_CLEAR_STOP_ID:
+                        case Res.ACTION_CLEAR_STOP_ID:
                             mExecutor.handleStopId(action, args, callbackContext);
                             break;
 
-                        case LocationResources.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
+                        case Res.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
                             mExecutor.getKeySetFromLocationsMultimap(callbackContext);
                             break;
 
-                        case LocationResources.ACTION_REGISTER_PROVIDER_LISTENER:
+                        case Res.ACTION_REGISTER_PROVIDER_LISTENER:
                             mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
-                            mChangeProviderIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
+                            mChangeProviderIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
                             LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
                             break;
 
-                        case LocationResources.ACTION_UNREGISTER_PROVIDER_LISTENER:
+                        case Res.ACTION_UNREGISTER_PROVIDER_LISTENER:
                             if (mChangeProviderReceiver != null) {
                                 LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
                                 callbackContext.success();
                             }
                             break;
 
-                        case LocationResources.ACTION_SET_STOP_LISTENER:
+                        case Res.ACTION_SET_STOP_LISTENER:
                             mExecutor.setStopListener(callbackContext, args);
                             break;
-                        case LocationResources.ACTION_CANCEL_STOP_LISTENER:
+                        case Res.ACTION_CANCEL_STOP_LISTENER:
                             mExecutor.stopStopListener();
                             break;
-                        case LocationResources.ACTION_SET_LOCATION_LISTENER:
+                        case Res.ACTION_SET_LOCATION_LISTENER:
                             int type = 1;
                             try {
                                 if (args.get(0) != null) {
@@ -240,7 +228,7 @@ public class LocationPlugin extends CommonServicePlugin {
                             }
 
                             mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
-                            mNewLocationIntentFilter = new IntentFilter(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION);
+                            mNewLocationIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION);
                             LocalBroadcastManager.getInstance(mContext).
                                 registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
                             break;
@@ -248,8 +236,8 @@ public class LocationPlugin extends CommonServicePlugin {
                             break;
 
                              /*
-                    else if (action.equals(LocationResources.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
-                            action.equals(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
+                    else if (action.equals(Res.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
+                            action.equals(Res.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
                         Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
                         pendingLocationsIntentService.setAction(action);
                         mContext.startService(pendingLocationsIntentService);

@@ -12,7 +12,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
@@ -68,15 +68,15 @@ public class LocationServiceHandler extends Handler {
     @Override
     public void handleMessage(Message msg) {
         Bundle result = new Bundle();
-        LocationResources.WHAT msg_what = LocationResources.WHAT.values()[msg.what];
+        Res.WHAT msg_what = Res.WHAT.values()[msg.what];
 
         switch (msg_what) {
             case START_LOCATION_SERVICE:
                 mAnswer = Message.obtain(null, msg.what);
                 isListening = mPreferencesHelper.isServiceStarted() ||
-                    initializeLocationManager(msg.getData().getLong(LocationResources.LOCATION_MIN_TIME_KEY),
-                        msg.getData().getFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY));
-                result.putBoolean(LocationResources.IS_LOCATION_MANAGER_LISTENING, isListening);
+                    initializeLocationManager(msg.getData().getLong(Res.LOCATION_MIN_TIME_KEY),
+                        msg.getData().getFloat(Res.LOCATION_MIN_DISTANCE_KEY));
+                result.putBoolean(Res.IS_LOCATION_MANAGER_LISTENING, isListening);
                 mPreferencesHelper.setIsServiceStarted(isListening);
                 mAnswer.setData(result);
                 try {
@@ -102,23 +102,23 @@ public class LocationServiceHandler extends Handler {
             case GET_LOCATION:
                 mAnswer = Message.obtain(null, msg.what);
                 Bundle params = msg.getData();
-                int returnType = params.getInt(LocationResources.LOCATION_RETURN_TYPE_KEY);
+                int returnType = params.getInt(Res.LOCATION_RETURN_TYPE_KEY);
                 Log.d(TAG, "return type = " + returnType);
-                if (LocationResources.getLastGoodLocation() != null) {
-                    if (mTimeHelper.getTimeAge(LocationResources.getLastGoodLocation().getTime()) <= LocationResources.LOCATION_MAX_AGE) {
+                if (Res.getLastGoodLocation() != null) {
+                    if (mTimeHelper.getTimeAge(Res.getLastGoodLocation().getTime()) <= Res.LOCATION_MAX_AGE) {
                         switch (returnType) {
                             case 0:
-                                Log.d(TAG, "lastGoodLocation as string = " + LocationResources.getLastGoodLocationAsString());
-                                result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 0);
+                                Log.d(TAG, "lastGoodLocation as string = " + Res.getLastGoodLocationAsString());
+                                result.putInt(Res.LOCATION_RETURN_TYPE_KEY, 0);
                                 break;
                             case 1:
-                                Log.d(TAG, "lastGoodLocation as JSON = " + LocationResources.getLastGoodLocationAsJson());
-                                result.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, 1);
+                                Log.d(TAG, "lastGoodLocation as JSON = " + Res.getLastGoodLocationAsJson());
+                                result.putInt(Res.LOCATION_RETURN_TYPE_KEY, 1);
                                 break;
                         }
                         mAnswer.setData(result);
                     } else {
-                        LocationResources.setLastGoodLocation(null);
+                        Res.setLastGoodLocation(null);
                         Log.d(TAG, "setLastGoodLocation --> null");
                     }
                 }
@@ -152,17 +152,17 @@ public class LocationServiceHandler extends Handler {
             public void onLocationChanged(Location location) {
                 Log.d(TAG, "onLocationChanged: " + location);
                 Log.d(TAG, "hasAccuracy = " + location.hasAccuracy());
-                if (location.hasAccuracy() && location.getAccuracy() <= LocationResources.LOCATION_MIN_ACCURACY) {
+                if (location.hasAccuracy() && location.getAccuracy() <= Res.LOCATION_MIN_ACCURACY) {
                     //mLastGoodLocation = location;
                     Log.d(TAG, "accuracy = " + location.getAccuracy());
                     location.setTime(System.currentTimeMillis());
-                    LocationResources.setLastGoodLocation(location);
+                    Res.setLastGoodLocation(location);
                     notifyOnChangedLocation();
                     Log.d(TAG, "setLastGoodLocation --> " + location);
-                    if (LocationResources.IS_TO_CALCULATE_DISTANCE) {
-                        Log.d(TAG, "Location is to calculate - mapping in " + LocationResources.STOP_ID);
-                        LocationResources.addLocationToMultimap(location);
-                        LocationResources.logLocationsMultimap();
+                    if (Res.IS_TO_CALCULATE_DISTANCE) {
+                        Log.d(TAG, "Location is to calculate - mapping in " + Res.STOP_ID);
+                        Res.addLocationToMultimap(location);
+                        Res.logLocationsMultimap();
                     }
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
@@ -242,7 +242,7 @@ public class LocationServiceHandler extends Handler {
     private void runLocationsHolder() {
         Log.d(TAG, "runLocationsHolder");
         mLocationsListHandler = new Handler();
-        mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), LocationResources.LOCATION_DELAY);
+        mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), Res.LOCATION_DELAY);
     }
 
     private void stopLocationHolder() {
@@ -277,12 +277,12 @@ public class LocationServiceHandler extends Handler {
     private void notifyOnChangedLocation() {
         LocalBroadcastManager
             .getInstance(mContext)
-            .sendBroadcast(new Intent().setAction(LocationResources.BROADCAST_ACTION_ON_NEW_LOCATION));
+            .sendBroadcast(new Intent().setAction(Res.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 
     private void notifyOnChangedProvider(boolean isGpsProviderEnabled) {
-        Intent intent = new Intent(LocationResources.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
-        intent.putExtra(LocationResources.IS_PROVIDER_ENABLED, isGpsProviderEnabled);
+        Intent intent = new Intent(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
+        intent.putExtra(Res.IS_PROVIDER_ENABLED, isGpsProviderEnabled);
 
         LocalBroadcastManager
             .getInstance(mContext)

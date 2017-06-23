@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -73,25 +73,25 @@ public class StartLocationServiceAction extends Action {
     public void execute() {
 
         mContext.startService(new Intent(mContext, LocationService.class));
-        Message msg = Message.obtain(null, LocationResources.WHAT.START_LOCATION_SERVICE.ordinal());
+        Message msg = Message.obtain(null, Res.WHAT.START_LOCATION_SERVICE.ordinal());
 
         Bundle data = new Bundle();
         try {
             JSONObject params = mArguments.getJSONObject(0);
             if (params != null) {
-                LocationResources.LOCATION_RETURN_TYPE = params.optString(LocationResources.RETURN_TYPE, LocationResources.LOCATION_RETURN_TYPE);
-                LocationResources.LOCATION_MIN_TIME = params.optLong(LocationResources.MIN_TIME, LocationResources.LOCATION_MIN_TIME);
-                LocationResources.LOCATION_MIN_DISTANCE = (float) params.optDouble(LocationResources.MIN_DISTANCE, LocationResources.LOCATION_MIN_DISTANCE);
-                LocationResources.LOCATION_MIN_ACCURACY = params.optInt(LocationResources.MIN_ACCURACY, LocationResources.LOCATION_MIN_ACCURACY);
-                LocationResources.LOCATION_MAX_AGE = params.optInt(LocationResources.MAX_AGE, LocationResources.LOCATION_MAX_AGE);
-                LocationResources.LOCATION_DELAY = params.optInt(LocationResources.DELAY, LocationResources.LOCATION_DELAY);
+                Res.LOCATION_RETURN_TYPE = params.optString(Res.RETURN_TYPE, Res.LOCATION_RETURN_TYPE);
+                Res.LOCATION_MIN_TIME = params.optLong(Res.MIN_TIME, Res.LOCATION_MIN_TIME);
+                Res.LOCATION_MIN_DISTANCE = (float) params.optDouble(Res.MIN_DISTANCE, Res.LOCATION_MIN_DISTANCE);
+                Res.LOCATION_MIN_ACCURACY = params.optInt(Res.MIN_ACCURACY, Res.LOCATION_MIN_ACCURACY);
+                Res.LOCATION_MAX_AGE = params.optInt(Res.MAX_AGE, Res.LOCATION_MAX_AGE);
+                Res.LOCATION_DELAY = params.optInt(Res.DELAY, Res.LOCATION_DELAY);
                 mPreferencesHelper.storeProperties();
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        data.putLong(LocationResources.LOCATION_MIN_TIME_KEY, LocationResources.LOCATION_MIN_TIME);
-        data.putFloat(LocationResources.LOCATION_MIN_DISTANCE_KEY, LocationResources.LOCATION_MIN_DISTANCE);
+        data.putLong(Res.LOCATION_MIN_TIME_KEY, Res.LOCATION_MIN_TIME);
+        data.putFloat(Res.LOCATION_MIN_DISTANCE_KEY, Res.LOCATION_MIN_DISTANCE);
         msg.setData(data);
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, mCallbackContext);

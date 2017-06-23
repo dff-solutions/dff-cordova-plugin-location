@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.common.AbstractPluginListener;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
 import org.apache.cordova.CallbackContext;
 
 /**
@@ -42,15 +42,15 @@ public class NewLocationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        Location lastGoodLocation = LocationResources.getLastGoodLocation();
+        Location lastGoodLocation = Res.getLastGoodLocation();
         Log.d(TAG, "location = " + lastGoodLocation);
         if (lastGoodLocation != null) {
             switch (mType) {
                 case 0:
-                    AbstractPluginListener.sendPluginResult(mCallbackContext, LocationResources.getLastGoodLocationAsString());
+                    AbstractPluginListener.sendPluginResult(mCallbackContext, Res.getLastGoodLocationAsString());
                     break;
                 case 1:
-                    AbstractPluginListener.sendPluginResult(mCallbackContext, LocationResources.getLastGoodLocationAsJson());
+                    AbstractPluginListener.sendPluginResult(mCallbackContext, Res.getLastGoodLocationAsJson());
                     break;
             }
 

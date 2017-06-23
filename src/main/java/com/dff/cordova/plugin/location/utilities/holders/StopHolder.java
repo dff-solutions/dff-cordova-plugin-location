@@ -4,7 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
-import com.dff.cordova.plugin.location.resources.LocationResources;
+import com.dff.cordova.plugin.location.resources.Res;
+
 import android.os.Handler;
 
 
@@ -30,25 +31,25 @@ public class StopHolder implements Runnable {
 
     @Override
     public void run() {
-        Location lastGoodLocation = LocationResources.getLastGoodLocation();
-        if (lastGoodLocation != null && LocationResources.STOP_DISTANCE_CALCULATOR != null) {
+        Location lastGoodLocation = Res.getLastGoodLocation();
+        if (lastGoodLocation != null && Res.STOP_DISTANCE_CALCULATOR != null) {
 
-            if (LocationResources.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
-                LocationResources.STOP_DISTANCE_CALCULATOR.getEndLocation() != null) {
-                if (LocationResources.STOP_DISTANCE_CALCULATOR.getAchievedDistance(lastGoodLocation) < LocationResources.STOP_HOLDER_MIN_DISTANCE) {
+            if (Res.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
+                Res.STOP_DISTANCE_CALCULATOR.getEndLocation() != null) {
+                if (Res.STOP_DISTANCE_CALCULATOR.getAchievedDistance(lastGoodLocation) < Res.STOP_HOLDER_MIN_DISTANCE) {
                     mCounter++;
-                    if (mCounter == LocationResources.STOP_HOLDER_COUNTER_LIMIT) {
-                        mContext.sendBroadcast(new Intent(LocationResources.BROADCAST_ACTION_ON_STAND_STILL));
+                    if (mCounter == Res.STOP_HOLDER_COUNTER_LIMIT) {
+                        mContext.sendBroadcast(new Intent(Res.BROADCAST_ACTION_ON_STAND_STILL));
                         mCounter = 0;
                     }
                 } else {
                     mCounter = 0;
                 }
             } else {
-                LocationResources.STOP_DISTANCE_CALCULATOR.init(lastGoodLocation);
-                Log.d(TAG, "dist calc initial with  " + LocationResources.STOP_DISTANCE_CALCULATOR.getDistance() + "m");
+                Res.STOP_DISTANCE_CALCULATOR.init(lastGoodLocation);
+                Log.d(TAG, "dist calc initial with  " + Res.STOP_DISTANCE_CALCULATOR.getDistance() + "m");
             }
         }
-        mHandler.postDelayed(this, LocationResources.DISTANCE_CALCULATOR_STOP_DELAY);
+        mHandler.postDelayed(this, Res.DISTANCE_CALCULATOR_STOP_DELAY);
     }
 }
