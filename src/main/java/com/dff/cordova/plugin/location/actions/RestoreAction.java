@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
@@ -22,14 +23,17 @@ import javax.inject.Singleton;
 public class RestoreAction extends Action {
 
     private Context mContext;
+    private JSActions mJsActions;
     private PreferencesHelper mPreferencesHelper;
 
     @Inject
     public RestoreAction(
         @ApplicationContext Context mContext,
+        JSActions mJsActions,
         PreferencesHelper mPreferencesHelper
     ) {
         this.mContext = mContext;
+        this.mJsActions = mJsActions;
         this.mPreferencesHelper = mPreferencesHelper;
     }
 
@@ -40,6 +44,6 @@ public class RestoreAction extends Action {
         mPreferencesHelper.setIsServiceStarted(false);
 
         mContext.startService(new Intent(mContext, PendingLocationsIntentService.class)
-            .setAction(Res.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+            .setAction(mJsActions.restore_pending_locations));
     }
 }

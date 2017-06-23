@@ -60,21 +60,6 @@ public class Executor {
     }
 
 
-    public void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
-        switch (action) {
-
-            case Res.ACTION_CLEAR_STOP_ID:
-                break;
-            default:
-                callbackContext.error("404 - action not found");
-        }
-    }
-
-    public void getKeySetFromLocationsMultimap(CallbackContext callbackContext) {
-        JSONArray jsonArray = new JSONArray(new ArrayList<>(Res.getLocationsMultimap().keySet()));
-        callbackContext.success(jsonArray);
-    }
-
     /**
      * Send broadcast receiver to set the stop listener
      *

@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by anahas on 23.06.2017.
@@ -21,7 +22,7 @@ import javax.inject.Inject;
  * @version 1.0
  * @since 23.06.17
  */
-
+@Singleton
 public class ClearStopIDAction extends Action {
 
     private static final String TAG = ClearStopIDAction.class.getSimpleName();

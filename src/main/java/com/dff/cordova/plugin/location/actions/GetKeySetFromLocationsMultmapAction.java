@@ -2,6 +2,10 @@ package com.dff.cordova.plugin.location.actions;
 
 import com.dff.cordova.plugin.location.resources.Res;
 
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -13,15 +17,15 @@ import javax.inject.Singleton;
  * @since 23.06.17
  */
 @Singleton
-public class EnableMappingAction extends Action {
+public class GetKeySetFromLocationsMultmapAction extends Action {
 
     @Inject
-    public EnableMappingAction() {
+    public GetKeySetFromLocationsMultmapAction() {
     }
 
     @Override
     public void execute() {
-        Res.IS_TO_CALCULATE_DISTANCE = true;
-        callbackContext.success();
+        JSONArray jsonArray = new JSONArray(new ArrayList<>(Res.getLocationsMultimap().keySet()));
+        callbackContext.success(jsonArray);
     }
 }

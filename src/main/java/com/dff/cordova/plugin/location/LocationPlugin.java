@@ -147,28 +147,6 @@ public class LocationPlugin extends CommonServicePlugin {
                         Log.e(TAG, "Error: --> ", e);
                     }
 
-                    case Res.ACTION_GET_TOTAL_DISTANCE:
-                    mExecutor.execute(
-                        mIndex.mGetTotalDistanceAction
-                            .with(callbackContext)
-                            .andHasArguments(args)
-                    );
-                    break;
-
-                    case Res.ACTION_SET_STOP_ID:
-                    mExecutor.execute(
-                        mIndex.mSetStopIdAction
-                            .with(callbackContext)
-                            .andHasArguments(args)
-                    );
-                    break;
-                    case Res.ACTION_GET_LAST_STOP_ID:
-                    callbackContext.success(Res.STOP_ID);
-                    break;
-
-                    case Res.ACTION_CLEAR_STOP_ID:
-                    mExecutor.handleStopId(action, args, callbackContext);
-                    break;
 
                     case Res.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
                     mExecutor.getKeySetFromLocationsMultimap(callbackContext);

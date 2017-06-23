@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
+import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.resources.Res;
 
 import javax.inject.Inject;
@@ -13,15 +14,14 @@ import javax.inject.Singleton;
  * @since 23.06.17
  */
 @Singleton
-public class EnableMappingAction extends Action {
+public class GetLastStopIDAction extends Action {
 
     @Inject
-    public EnableMappingAction() {
+    public GetLastStopIDAction() {
     }
 
     @Override
     public void execute() {
-        Res.IS_TO_CALCULATE_DISTANCE = true;
-        callbackContext.success();
+        callbackContext.success(Res.STOP_ID);
     }
 }
