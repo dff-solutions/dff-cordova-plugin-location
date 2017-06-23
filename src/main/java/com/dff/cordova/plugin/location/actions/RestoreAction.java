@@ -3,7 +3,6 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.content.Intent;
 
-import com.dff.cordova.plugin.location.abstracts.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
@@ -36,13 +35,11 @@ public class RestoreAction extends Action {
 
 
     @Override
-    public Action execute() {
+    public void execute() {
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(false);
 
         mContext.startService(new Intent(mContext, PendingLocationsIntentService.class)
             .setAction(LocationResources.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
-
-        return this;
     }
 }

@@ -199,6 +199,9 @@ public class LocationPlugin extends CommonServicePlugin {
                             );
                             break;
                         case LocationResources.ACTION_GET_LAST_STOP_ID:
+                            callbackContext.success(LocationResources.STOP_ID);
+                            break;
+
                         case LocationResources.ACTION_CLEAR_STOP_ID:
                             mExecutor.handleStopId(action, args, callbackContext);
                             break;

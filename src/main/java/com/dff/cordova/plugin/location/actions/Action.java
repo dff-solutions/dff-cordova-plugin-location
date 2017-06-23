@@ -1,4 +1,4 @@
-package com.dff.cordova.plugin.location.abstracts;
+package com.dff.cordova.plugin.location.actions;
 
 import com.dff.cordova.plugin.location.interfaces.Executable;
 
@@ -14,24 +14,17 @@ import org.json.JSONArray;
  */
 
 public abstract class Action implements Executable {
-    private CallbackContext mCallbackContext;
-    private JSONArray mArguments;
 
-    public CallbackContext getCallbackContext() {
-        return mCallbackContext;
-    }
-
-    public JSONArray getArguments() {
-        return mArguments;
-    }
+     CallbackContext callbackContext;
+     JSONArray args;
 
     public Action with(CallbackContext callbackContext) {
-        this.mCallbackContext = callbackContext;
+        this.callbackContext = callbackContext;
         return this;
     }
 
     public Action andHasArguments(JSONArray args) {
-        this.mArguments = args;
+        this.args = args;
         return this;
     }
 }

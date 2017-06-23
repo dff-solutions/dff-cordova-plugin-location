@@ -1,7 +1,5 @@
 package com.dff.cordova.plugin.location.interfaces;
 
-import com.dff.cordova.plugin.location.abstracts.Action;
-
 /**
  * Created by anahas on 16.06.2017.
  *

@@ -3,38 +3,26 @@ package com.dff.cordova.plugin.location.classes;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Location;
 import android.os.*;
-import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.abstracts.Action;
+import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.interfaces.Executable;
 import com.dff.cordova.plugin.location.resources.LocationResources;
-import com.dff.cordova.plugin.location.services.LocationService;
-import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
-import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-import com.google.common.collect.Multimap;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
-import dagger.Provides;
 
 /**
  * Class to execute incoming actions from JS.
@@ -74,31 +62,8 @@ public class Executor {
 
     public void handleStopId(String action, JSONArray args, CallbackContext callbackContext) {
         switch (action) {
-            case LocationResources.ACTION_SET_STOP_ID:
-
-                break;
-
-            case LocationResources.ACTION_GET_LAST_STOP_ID:
-                callbackContext.success(LocationResources.STOP_ID);
-                break;
 
             case LocationResources.ACTION_CLEAR_STOP_ID:
-                try {
-                    JSONObject params = args.getJSONObject(0);
-                    String requestedStopID = params.optString(LocationResources.JSON_KEY_STOP_ID, LocationResources.STOP_ID);
-                    if (params.optBoolean(LocationResources.RESET, false)) {
-                        LocationResources.STOP_ID = "UNKNOWN";
-                    }
-                    ArrayList<Location> locationsList = new ArrayList<>(LocationResources.getLocationsMultimap().get(requestedStopID));
-                    if (locationsList.isEmpty()) {
-                        callbackContext.error(TAG + " : " + "Error -->  arraylist of stopid isEmpty - size = 0");
-                        break;
-                    }
-                    mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
-                } catch (JSONException e) {
-                    Log.e(TAG, "Error: ", e);
-                    callbackContext.error("Error: " + e);
-                }
                 break;
             default:
                 callbackContext.error("404 - action not found");

@@ -3,7 +3,6 @@ package com.dff.cordova.plugin.location.actions;
 import android.location.Location;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.abstracts.Action;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.google.common.collect.Multimap;
@@ -39,7 +38,7 @@ public class GetTotalDistanceAction extends Action {
     public void execute() {
         boolean isClean = false;
         try {
-            JSONObject params = super.getArguments().getJSONObject(0);
+            JSONObject params = args.getJSONObject(0);
             LocationResources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(LocationResources.RESET, false);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.STOP_ID = LocationResources.UNKNOWN;
@@ -50,7 +49,7 @@ public class GetTotalDistanceAction extends Action {
         }
         Multimap<String, Location> clonedMultimap = LocationResources.getLocationsMultimap();
         if (clonedMultimap == null) {
-            super.getCallbackContext().error("Error: --> clonedMultimap may be null");
+            callbackContext.error("Error: --> clonedMultimap may be null");
             return;
         }
         if (isClean) {
@@ -58,12 +57,12 @@ public class GetTotalDistanceAction extends Action {
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
-            mDistanceSimulator.performDistanceCalculation(super.getCallbackContext(), locationsList);
+            mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
             if (!LocationResources.IS_TO_CALCULATE_DISTANCE) {
                 LocationResources.clearLocationsMultimap();
             }
         } else {
-            super.getCallbackContext().error("Error: --> locations list size = 0");
+            callbackContext.error("Error: --> locations list size = 0");
         }
     }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.os.Messenger;
 
-import com.dff.cordova.plugin.location.abstracts.Action;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.LocationResources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
@@ -42,8 +41,8 @@ public class GetLocationAction extends Action {
         Message msg = Message.obtain(null, LocationResources.WHAT.GET_LOCATION.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
         Bundle params = new Bundle();
-        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, super.getArguments().optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
+        params.putInt(LocationResources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, LocationResources.LOCATION_RETURN_TYPE_INT));
         msg.setData(params);
-        mMessengerHelper.send(msg, super.getCallbackContext());
+        mMessengerHelper.send(msg, callbackContext);
     }
 }
