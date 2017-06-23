@@ -4,6 +4,7 @@ import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.actions.index.IndexActions;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,5 +47,13 @@ public class ActionsManager {
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);
         mActionsMap.put(mJsActions.start_service, mIndexActions.mStartLocationServiceAction);
         mActionsMap.put(mJsActions.stop_service, mIndexActions.mStopLocationServiceAction);
+    }
+
+    public Action hash(String action) {
+        return mActionsMap.get(action);
+    }
+
+    public ArrayList<String> allJSAction() {
+        return mJsActions.all;
     }
 }

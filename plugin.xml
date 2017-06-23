@@ -128,6 +128,10 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/ClearStopIDAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/EnableMappingAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!--Helpers-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"

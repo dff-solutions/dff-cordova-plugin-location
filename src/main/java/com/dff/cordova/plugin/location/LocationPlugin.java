@@ -65,6 +65,9 @@ public class LocationPlugin extends CommonServicePlugin {
     Executor mExecutor;
 
     @Inject
+    ActionsManager mActionsManager;
+
+    @Inject
     FileHelper mFileHelper;
 
     @Inject
@@ -72,9 +75,6 @@ public class LocationPlugin extends CommonServicePlugin {
 
     @Inject
     PreferencesHelper mPreferencesHelper;
-
-    @Inject
-    IndexActions mIndex;
 
     private ChangeProviderReceiver mChangeProviderReceiver;
 
@@ -132,108 +132,84 @@ public class LocationPlugin extends CommonServicePlugin {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
-                    switch (action) {
-                        case Res.ACTION_START_SERVICE:
-                            mExecutor.execute(
-                                mIndex.mStartLocationServiceAction
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
-                            break;
 
-                        case Res.ACTION_STOP_SERVICE:
-                            mExecutor.execute(
-                                mIndex
-                                    .mStopLocationServiceAction
-                                    .with(callbackContext)
-                            );
-                            break;
+                    try {
+                        if (mActionsManager.allJSAction().contains(action)) {
+                            mExecutor.execute
+                                (
+                                    mActionsManager
+                                        .hash(action)
+                                        .with(callbackContext)
+                                        .andHasArguments(args)
+                                );
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error: --> ", e);
+                    }
 
-                        case Res.ACTION_GET_LOCATION:
-                            mExecutor.execute(
-                                mIndex.mGetLocationAction
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
-                            break;
+                    case Res.ACTION_GET_TOTAL_DISTANCE:
+                    mExecutor.execute(
+                        mIndex.mGetTotalDistanceAction
+                            .with(callbackContext)
+                            .andHasArguments(args)
+                    );
+                    break;
 
-                        case Res.ACTION_GET_LOCATION_LIST:
-                            mExecutor.execute(
-                                mIndex
-                                    .mGetLocationListAction
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
-                            break;
+                    case Res.ACTION_SET_STOP_ID:
+                    mExecutor.execute(
+                        mIndex.mSetStopIdAction
+                            .with(callbackContext)
+                            .andHasArguments(args)
+                    );
+                    break;
+                    case Res.ACTION_GET_LAST_STOP_ID:
+                    callbackContext.success(Res.STOP_ID);
+                    break;
 
-                        case Res.ACTION_ENABLE_MAPPING_LOCATIONS:
-                            Res.IS_TO_CALCULATE_DISTANCE = true;
-                            callbackContext.success();
-                            break;
+                    case Res.ACTION_CLEAR_STOP_ID:
+                    mExecutor.handleStopId(action, args, callbackContext);
+                    break;
 
-                        case Res.ACTION_GET_TOTAL_DISTANCE:
-                            mExecutor.execute(
-                                mIndex.mGetTotalDistanceAction
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
-                            break;
+                    case Res.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
+                    mExecutor.getKeySetFromLocationsMultimap(callbackContext);
+                    break;
 
-                        case Res.ACTION_SET_STOP_ID:
-                            mExecutor.execute(
-                                mIndex.mSetStopIdAction
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
-                            break;
-                        case Res.ACTION_GET_LAST_STOP_ID:
-                            callbackContext.success(Res.STOP_ID);
-                            break;
+                    case Res.ACTION_REGISTER_PROVIDER_LISTENER:
+                    mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
+                    mChangeProviderIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
+                    LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
+                    break;
 
-                        case Res.ACTION_CLEAR_STOP_ID:
-                            mExecutor.handleStopId(action, args, callbackContext);
-                            break;
+                    case Res.ACTION_UNREGISTER_PROVIDER_LISTENER:
+                    if (mChangeProviderReceiver != null) {
+                        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+                        callbackContext.success();
+                    }
+                    break;
 
-                        case Res.ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP:
-                            mExecutor.getKeySetFromLocationsMultimap(callbackContext);
-                            break;
+                    case Res.ACTION_SET_STOP_LISTENER:
+                    mExecutor.setStopListener(callbackContext, args);
+                    break;
+                    case Res.ACTION_CANCEL_STOP_LISTENER:
+                    mExecutor.stopStopListener();
+                    break;
+                    case Res.ACTION_SET_LOCATION_LISTENER:
+                    int type = 1;
+                    try {
+                        if (args.get(0) != null) {
+                            type = args.getInt(0);
+                        }
+                    } catch (JSONException e) {
+                        CordovaPluginLog.e(TAG, "Error: ", e);
+                    }
 
-                        case Res.ACTION_REGISTER_PROVIDER_LISTENER:
-                            mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
-                            mChangeProviderIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
-                            LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
-                            break;
-
-                        case Res.ACTION_UNREGISTER_PROVIDER_LISTENER:
-                            if (mChangeProviderReceiver != null) {
-                                LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
-                                callbackContext.success();
-                            }
-                            break;
-
-                        case Res.ACTION_SET_STOP_LISTENER:
-                            mExecutor.setStopListener(callbackContext, args);
-                            break;
-                        case Res.ACTION_CANCEL_STOP_LISTENER:
-                            mExecutor.stopStopListener();
-                            break;
-                        case Res.ACTION_SET_LOCATION_LISTENER:
-                            int type = 1;
-                            try {
-                                if (args.get(0) != null) {
-                                    type = args.getInt(0);
-                                }
-                            } catch (JSONException e) {
-                                CordovaPluginLog.e(TAG, "Error: ", e);
-                            }
-
-                            mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
-                            mNewLocationIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION);
-                            LocalBroadcastManager.getInstance(mContext).
-                                registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
-                            break;
-                        default:
-                            break;
+                    mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
+                    mNewLocationIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION);
+                    LocalBroadcastManager.getInstance(mContext).
+                        registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
+                    break;
+                    default:
+                    break;
 
                              /*
                     else if (action.equals(Res.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
@@ -243,13 +219,13 @@ public class LocationPlugin extends CommonServicePlugin {
                         mContext.startService(pendingLocationsIntentService);
                     }
                     */
-                    }
                 }
-            });
-            return true;
-        }
-        return false;
+            }
+        });
+        return true;
     }
+        return false;
+}
 
     @Override
     public void onDestroy() {
