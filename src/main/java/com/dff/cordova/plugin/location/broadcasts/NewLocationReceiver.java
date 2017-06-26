@@ -5,9 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.AbstractPluginListener;
 import com.dff.cordova.plugin.location.resources.Res;
+
 import org.apache.cordova.CallbackContext;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Broadcast receiver that is responsible to forward the requested location to JS:
@@ -16,21 +21,15 @@ import org.apache.cordova.CallbackContext;
  * @version 1.4
  * @since 23.12.2016
  */
+@Singleton
 public class NewLocationReceiver extends BroadcastReceiver {
 
     private static final String TAG = "BroadcastNewLocationReceiver";
     private CallbackContext mCallbackContext;
     private int mType = 1;
 
-    /**
-     * Custom constructor.
-     *
-     * @param mCallbackContext - The callbackcontext used to forward the location to JS.
-     * @param mType            -
-     */
-    public NewLocationReceiver(CallbackContext mCallbackContext, int mType) {
-        this.mCallbackContext = mCallbackContext;
-        this.mType = mType;
+    @Inject
+    public NewLocationReceiver() {
     }
 
     /**
@@ -55,5 +54,13 @@ public class NewLocationReceiver extends BroadcastReceiver {
             }
 
         }
+    }
+
+    public void setCallbackContext(CallbackContext mCallbackContext) {
+        this.mCallbackContext = mCallbackContext;
+    }
+
+    public void setType(int mType) {
+        this.mType = mType;
     }
 }

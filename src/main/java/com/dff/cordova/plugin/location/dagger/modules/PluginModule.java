@@ -4,9 +4,12 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Process;
 
+import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
+import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.broadcasts.BroadcastChangeProviderReceiver;
+import com.dff.cordova.plugin.location.dagger.annotations.broadcasts.BroadcastNewLocationReceiver;
 
 import javax.inject.Singleton;
 
@@ -39,8 +42,4 @@ public class PluginModule {
         return handlerThread.getLooper();
     }
 
-    @Provides
-    @Singleton
-    @BroadcastChangeProviderReceiver
-    Change
 }

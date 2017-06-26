@@ -140,6 +140,14 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/GetKeySetFromLocationsMultimapAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/RegisterProviderListenerAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/UnregisterProviderListenerAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <!--Helpers-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"

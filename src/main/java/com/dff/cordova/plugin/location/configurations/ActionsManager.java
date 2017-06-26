@@ -48,6 +48,8 @@ public class ActionsManager {
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);
         mActionsMap.put(mJsActions.start_service, mIndexActions.mStartLocationServiceAction);
         mActionsMap.put(mJsActions.stop_service, mIndexActions.mStopLocationServiceAction);
+        mActionsMap.put(mJsActions.register_provider_listener, mIndexActions.mRegisterProviderListenerAction);
+        mActionsMap.put(mJsActions.unregister_provider_listener, mIndexActions.mUnregisterProviderListenerAction);
     }
 
     public Action hash(String action) {

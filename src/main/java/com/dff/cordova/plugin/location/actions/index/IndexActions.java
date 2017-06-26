@@ -6,10 +6,12 @@ import com.dff.cordova.plugin.location.actions.GetKeySetFromLocationsMultimapAct
 import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.GetLocationListAction;
 import com.dff.cordova.plugin.location.actions.GetTotalDistanceAction;
+import com.dff.cordova.plugin.location.actions.RegisterProviderListenerAction;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.actions.SetStopIdAction;
 import com.dff.cordova.plugin.location.actions.StartLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StopLocationServiceAction;
+import com.dff.cordova.plugin.location.actions.UnregisterProviderListenerAction;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -35,6 +37,8 @@ public class IndexActions {
     public ClearStopIDAction mClearStopIDAction;
     public EnableMappingAction mEnableMappingAction;
     public GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction;
+    public RegisterProviderListenerAction mRegisterProviderListenerAction;
+    public UnregisterProviderListenerAction mUnregisterProviderListenerAction;
 
     @Inject
     public IndexActions(
@@ -47,7 +51,9 @@ public class IndexActions {
         SetStopIdAction mSetStopIdAction,
         ClearStopIDAction mClearStopIDAction,
         EnableMappingAction mEnableMappingAction,
-        GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction
+        GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction,
+        RegisterProviderListenerAction mRegisterProviderListenerAction,
+        UnregisterProviderListenerAction mUnregisterProviderListenerAction
     ) {
         this.mRestoreAction = mRestoreAction;
         this.mStartLocationServiceAction = mStartLocationServiceAction;
@@ -59,5 +65,7 @@ public class IndexActions {
         this.mClearStopIDAction = mClearStopIDAction;
         this.mEnableMappingAction = mEnableMappingAction;
         this.mGetKeySetFromLocationsMultimapAction = mGetKeySetFromLocationsMultimapAction;
+        this.mRegisterProviderListenerAction = mRegisterProviderListenerAction;
+        this.mUnregisterProviderListenerAction = mUnregisterProviderListenerAction;
     }
 }
