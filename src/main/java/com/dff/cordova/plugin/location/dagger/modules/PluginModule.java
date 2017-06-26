@@ -8,6 +8,7 @@ import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
+import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.broadcasts.BroadcastChangeProviderReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.broadcasts.BroadcastNewLocationReceiver;
 
@@ -39,6 +40,12 @@ public class PluginModule {
     @Provides
     @LocationRequestLooper
     Looper provideLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
+        return handlerThread.getLooper();
+    }
+
+    @Provides
+    @LocationServiceLooper
+    Looper provideLocationRequestLooper2(@LocationServiceLooper HandlerThread handlerThread) {
         return handlerThread.getLooper();
     }
 

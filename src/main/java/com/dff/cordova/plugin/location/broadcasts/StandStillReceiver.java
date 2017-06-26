@@ -6,11 +6,17 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
 import com.dff.cordova.plugin.common.AbstractPluginListener;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.holders.StopHolder;
+
 import org.apache.cordova.CallbackContext;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Broadcast receiver that forward a success callback to JS
@@ -19,6 +25,7 @@ import org.apache.cordova.CallbackContext;
  * @version 1.1
  * @since 27.02.2017
  */
+@Singleton
 public class StandStillReceiver extends BroadcastReceiver {
 
     private static final String TAG = "StandStillReceiver";
@@ -28,9 +35,9 @@ public class StandStillReceiver extends BroadcastReceiver {
     private StopHolder mStopHolder;
 
 
-    public StandStillReceiver(Context mContext, CallbackContext mCallbackContext) {
+    @Inject
+    public StandStillReceiver(@ApplicationContext Context mContext) {
         this.mContext = mContext;
-        this.mCallbackContext = mCallbackContext;
         runStopHolder();
     }
 
@@ -44,6 +51,10 @@ public class StandStillReceiver extends BroadcastReceiver {
             stopStopHolder();
             context.unregisterReceiver(this);
         }
+    }
+
+    public void setCallbackContext(CallbackContext mCallbackContext) {
+        this.mCallbackContext = mCallbackContext;
     }
 
     /**

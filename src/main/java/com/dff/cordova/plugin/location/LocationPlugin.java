@@ -76,6 +76,8 @@ public class LocationPlugin extends CommonServicePlugin {
     @Inject
     PreferencesHelper mPreferencesHelper;
 
+    private boolean isActionValid = false;
+
     private ChangeProviderReceiver mChangeProviderReceiver;
 
     private NewLocationReceiver mNewLocationReceiver;
@@ -136,6 +138,7 @@ public class LocationPlugin extends CommonServicePlugin {
 
                     try {
                         if (mActionsManager.allJSAction().contains(action)) {
+                            isActionValid = true;
                             mExecutor.execute
                                 (
                                     mActionsManager
@@ -148,25 +151,7 @@ public class LocationPlugin extends CommonServicePlugin {
                         Log.e(TAG, "Error: --> ", e);
                     }
 
-                    case Res.ACTION_REGISTER_PROVIDER_LISTENER:
-                    mChangeProviderReceiver = new ChangeProviderReceiver(callbackContext);
-                    mChangeProviderIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER);
-                    LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver, mChangeProviderIntentFilter);
-                    break;
 
-                    case Res.ACTION_UNREGISTER_PROVIDER_LISTENER:
-                    if (mChangeProviderReceiver != null) {
-                        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
-                        callbackContext.success();
-                    }
-                    break;
-
-                    case Res.ACTION_SET_STOP_LISTENER:
-                    mExecutor.setStopListener(callbackContext, args);
-                    break;
-                    case Res.ACTION_CANCEL_STOP_LISTENER:
-                    mExecutor.stopStopListener();
-                    break;
                     case Res.ACTION_SET_LOCATION_LISTENER:
                     int type = 1;
                     try {
@@ -194,12 +179,10 @@ public class LocationPlugin extends CommonServicePlugin {
                     }
                     */
                 }
-            }
-        });
-        return true;
+            });
+        }
+        return isActionValid;
     }
-        return false;
-}
 
     @Override
     public void onDestroy() {
@@ -223,7 +206,7 @@ public class LocationPlugin extends CommonServicePlugin {
     }
 
     private void init() {
-        mExecutor.execute(mIndex.mRestoreAction);
+//        mExecutor.execute(mIndex.mRestoreAction);
     }
 
 

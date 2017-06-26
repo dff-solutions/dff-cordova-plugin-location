@@ -1,6 +1,7 @@
 package com.dff.cordova.plugin.location.actions;
 
 import android.content.Context;
+import android.support.v4.content.LocalBroadcastManager;
 
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
@@ -32,6 +33,9 @@ public class UnregisterProviderListenerAction extends Action {
 
     @Override
     public void execute() {
-
+        if (mChangeProviderReceiver != null) {
+            LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
+            callbackContext.success();
+        }
     }
 }

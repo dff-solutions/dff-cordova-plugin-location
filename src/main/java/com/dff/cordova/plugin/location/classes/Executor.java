@@ -60,25 +60,6 @@ public class Executor {
     }
 
 
-    /**
-     * Send broadcast receiver to set the stop listener
-     *
-     * @param callbackContext - the used callbackcontext
-     */
-    public void setStopListener(CallbackContext callbackContext, JSONArray args) {
-        Res.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, Res.STOP_HOLDER_COUNTER_LIMIT);
-        Res.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, Res.STOP_HOLDER_MIN_DISTANCE);
-        Res.STOP_HOLDER_DELAY = args.optInt(2, Res.STOP_HOLDER_DELAY);
-        mContext.registerReceiver(new StandStillReceiver(mContext, callbackContext), new IntentFilter(Res.BROADCAST_ACTION_ON_STAND_STILL));
-    }
-
-    /**
-     * Send broadcast receiver to stop the stop listener
-     */
-    public void stopStopListener() {
-        mContext.sendBroadcast(new Intent(Res.BROADCAST_ACTION_STOP));
-    }
-
     private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
         try {
             Messenger messenger = serviceHandler.getService();

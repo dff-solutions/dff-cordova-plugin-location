@@ -30,8 +30,11 @@ public class JSActions {
     public final String get_last_stopID = "hash_map.action.GET_LAST_STOP_ID";
     public final String clear_stopID = "hash_map.action.CLEAR_STOP_ID";
     public final String get_total_distance = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
+    public final String register_stop_listener = "location.action.ACTION_REGISTER_STOP_LISTENER";
     public final String register_provider_listener = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
+    public final String unregister_stop_listener = "location.action.ACTION_UNREGISTER_STOP_LISTENER";
     public final String unregister_provider_listener = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
+
 
     public final ArrayList<String> all = getActions();
 
