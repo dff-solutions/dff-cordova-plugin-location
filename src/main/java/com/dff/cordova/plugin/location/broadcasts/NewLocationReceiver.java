@@ -18,7 +18,7 @@ import org.apache.cordova.CallbackContext;
  */
 public class NewLocationReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "NewLocationReceiver";
+    private static final String TAG = "BroadcastNewLocationReceiver";
     private CallbackContext mCallbackContext;
     private int mType = 1;
 

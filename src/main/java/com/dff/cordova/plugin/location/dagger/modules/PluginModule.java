@@ -1,17 +1,12 @@
 package com.dff.cordova.plugin.location.dagger.modules;
 
-import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.os.Messenger;
 import android.os.Process;
 
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
-import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.dagger.annotations.broadcasts.BroadcastChangeProviderReceiver;
 
 import javax.inject.Singleton;
 
@@ -43,4 +38,9 @@ public class PluginModule {
     Looper provideLocationRequestLooper(@LocationRequestHandlerThread HandlerThread handlerThread) {
         return handlerThread.getLooper();
     }
+
+    @Provides
+    @Singleton
+    @BroadcastChangeProviderReceiver
+    Change
 }
