@@ -79,6 +79,7 @@ public class LocationPlugin extends CommonServicePlugin {
     private ChangeProviderReceiver mChangeProviderReceiver;
 
     private NewLocationReceiver mNewLocationReceiver;
+
     private IntentFilter mNewLocationIntentFilter;
 
     private IntentFilter mChangeProviderIntentFilter;

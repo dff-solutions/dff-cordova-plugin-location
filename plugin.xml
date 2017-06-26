@@ -233,6 +233,16 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
 
+        //@ChangeProviderReceiver
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/broadcasts/ChangeProviderReceiver.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
+        //@NewLocationReceiver
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/broadcasts/NewLocationReceiver.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
+
         <!--Components-->
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/components/PluginComponent.java"
