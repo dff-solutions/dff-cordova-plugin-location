@@ -155,7 +155,7 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/actions/UnregisterStopListenerAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
-        
+
 
         <!--Helpers-->
         <source-file

@@ -1,6 +1,7 @@
 package com.dff.cordova.plugin.location.dagger.annotations;
 
 import java.lang.annotation.Retention;
+
 import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;

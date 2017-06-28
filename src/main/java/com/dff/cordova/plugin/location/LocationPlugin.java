@@ -167,17 +167,6 @@ public class LocationPlugin extends CommonServicePlugin {
                     LocalBroadcastManager.getInstance(mContext).
                         registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
                     break;
-                    default:
-                    break;
-
-                             /*
-                    else if (action.equals(Res.ACTION_INTENT_STORE_PENDING_LOCATIONS) ||
-                            action.equals(Res.ACTION_INTENT_RESTORE_PENDING_LOCATIONS)) {
-                        Intent pendingLocationsIntentService = new Intent(mContext, PendingLocationsIntentService.class);
-                        pendingLocationsIntentService.setAction(action);
-                        mContext.startService(pendingLocationsIntentService);
-                    }
-                    */
                 }
             });
         }
