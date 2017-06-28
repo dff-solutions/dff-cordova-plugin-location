@@ -32,8 +32,4 @@ import dagger.Component;
 public interface PluginComponent {
 
     void inject(LocationPlugin locationPlugin);
-//
-//    void inject(LocationService locationService);
-//
-//    void inject(PendingLocationsIntentService pendingLocationsIntentService);
 }

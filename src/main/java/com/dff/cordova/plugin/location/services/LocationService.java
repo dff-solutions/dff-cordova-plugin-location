@@ -10,6 +10,7 @@ import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
@@ -56,6 +57,9 @@ public class LocationService extends Service {
     FileHelper mFileHelper;
 
     @Inject
+    JSActions mJsActions;
+
+    @Inject
     PreferencesHelper mPreferencesHelper;
 
     private int count;
@@ -91,7 +95,7 @@ public class LocationService extends Service {
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
             startService(new Intent(this, PendingLocationsIntentService.class)
-                .setAction(Res.ACTION_INTENT_RESTORE_PENDING_LOCATIONS));
+                .setAction(mJsActions.restore_pending_locations));
             initializeLocationManagerAgain();
             Log.d(TAG, "init again");
         }

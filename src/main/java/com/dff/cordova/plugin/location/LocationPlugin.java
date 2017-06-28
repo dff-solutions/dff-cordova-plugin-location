@@ -78,14 +78,6 @@ public class LocationPlugin extends CommonServicePlugin {
 
     private boolean isActionValid = false;
 
-    private ChangeProviderReceiver mChangeProviderReceiver;
-
-    private NewLocationReceiver mNewLocationReceiver;
-
-    private IntentFilter mNewLocationIntentFilter;
-
-    private IntentFilter mChangeProviderIntentFilter;
-
     private CordovaInterface mCordovaInterface;
 
     /**
@@ -135,7 +127,6 @@ public class LocationPlugin extends CommonServicePlugin {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
-
                     try {
                         if (mActionsManager.allJSAction().contains(action)) {
                             isActionValid = true;
@@ -150,23 +141,6 @@ public class LocationPlugin extends CommonServicePlugin {
                     } catch (Exception e) {
                         Log.e(TAG, "Error: --> ", e);
                     }
-
-
-                    case Res.ACTION_SET_LOCATION_LISTENER:
-                    int type = 1;
-                    try {
-                        if (args.get(0) != null) {
-                            type = args.getInt(0);
-                        }
-                    } catch (JSONException e) {
-                        CordovaPluginLog.e(TAG, "Error: ", e);
-                    }
-
-                    mNewLocationReceiver = new NewLocationReceiver(callbackContext, type);
-                    mNewLocationIntentFilter = new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION);
-                    LocalBroadcastManager.getInstance(mContext).
-                        registerReceiver(mNewLocationReceiver, mNewLocationIntentFilter);
-                    break;
                 }
             });
         }
@@ -176,10 +150,6 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // TODO: 05.05.2017 assert != null
-        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mNewLocationReceiver);
-        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
-
         mFileHelper.storePendingLocation();
         mFileHelper.storeLocationsMultimap();
     }

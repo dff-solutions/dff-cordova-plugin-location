@@ -6,6 +6,7 @@ import com.dff.cordova.plugin.location.actions.GetKeySetFromLocationsMultimapAct
 import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.GetLocationListAction;
 import com.dff.cordova.plugin.location.actions.GetTotalDistanceAction;
+import com.dff.cordova.plugin.location.actions.RegisterLocationListenerAction;
 import com.dff.cordova.plugin.location.actions.RegisterProviderListenerAction;
 import com.dff.cordova.plugin.location.actions.RegisterStopListenerAction;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
@@ -39,6 +40,8 @@ public class IndexActions {
     public ClearStopIDAction mClearStopIDAction;
     public EnableMappingAction mEnableMappingAction;
     public GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction;
+    public RegisterLocationListenerAction mRegisterLocationListenerAction;
+
     public RegisterProviderListenerAction mRegisterProviderListenerAction;
     public UnregisterProviderListenerAction mUnregisterProviderListenerAction;
     public RegisterStopListenerAction mRegisterStopListenerAction;
@@ -56,6 +59,7 @@ public class IndexActions {
         ClearStopIDAction mClearStopIDAction,
         EnableMappingAction mEnableMappingAction,
         GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction,
+        RegisterLocationListenerAction mRegisterLocationListenerAction,
         RegisterProviderListenerAction mRegisterProviderListenerAction,
         UnregisterProviderListenerAction mUnregisterProviderListenerAction,
         RegisterStopListenerAction mRegisterStopListenerAction,
@@ -71,6 +75,7 @@ public class IndexActions {
         this.mClearStopIDAction = mClearStopIDAction;
         this.mEnableMappingAction = mEnableMappingAction;
         this.mGetKeySetFromLocationsMultimapAction = mGetKeySetFromLocationsMultimapAction;
+        this.mRegisterLocationListenerAction = mRegisterLocationListenerAction;
         this.mRegisterProviderListenerAction = mRegisterProviderListenerAction;
         this.mUnregisterProviderListenerAction = mUnregisterProviderListenerAction;
         this.mRegisterStopListenerAction = mRegisterStopListenerAction;
