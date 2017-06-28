@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location;
 
+import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.resources.Res;
 
 import org.apache.cordova.CallbackContext;
@@ -67,12 +68,11 @@ public class LocationPluginUniTest {
 
     @Test
     public void testAllJSActionOfExecution() throws JSONException {
-        List<String> jsActionsList
-            = new ArrayList<>(Arrays.asList(Res.ALL_JS_ACTIONS));
-
+        JSActions jsActions = new JSActions();
+        
         boolean foundAndExecuted;
 
-        for (String jsAction : jsActionsList) {
+        for (String jsAction : jsActions.all) {
             foundAndExecuted = mLocationPlugin.execute(jsAction, args, callbackContext);
             assertTrue("Action "
                     + jsAction
