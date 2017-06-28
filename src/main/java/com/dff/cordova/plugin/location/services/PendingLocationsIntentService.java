@@ -8,6 +8,7 @@ import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,9 @@ public class PendingLocationsIntentService extends IntentService {
 
     @Inject
     FileHelper mFileHelper;
+
+    @Inject
+    PreferencesHelper mPreferencesHelper;
 
     @Inject
     JSActions mJsActions;
@@ -67,6 +71,8 @@ public class PendingLocationsIntentService extends IntentService {
             if (action.equals(mJsActions.restore_pending_locations)) {
                 mFileHelper.restorePendingLocation();
                 mFileHelper.restoreLocationsMultimap();
+                mPreferencesHelper.restoreProperties();
+                mPreferencesHelper.setIsServiceStarted(false);
             }
         }
     }

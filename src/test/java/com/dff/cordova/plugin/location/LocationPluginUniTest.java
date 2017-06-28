@@ -69,7 +69,7 @@ public class LocationPluginUniTest {
     @Test
     public void testAllJSActionOfExecution() throws JSONException {
         JSActions jsActions = new JSActions();
-        
+
         boolean foundAndExecuted;
 
         for (String jsAction : jsActions.all) {

@@ -16,7 +16,6 @@ import javax.inject.Singleton;
 @Singleton
 public class JSActions {
 
-    public final String store_pending_locations = "location.action.intent.STORE_PENDING_LOCATIONS";
     //JS Actions
     //service
     public final String start_service = "location.action.START_SERVICE";
@@ -24,7 +23,8 @@ public class JSActions {
     //location
     public final String get_location = "location.action.GET_LOCATION";
     public final String get_location_list = "location.action.GET_LOCATION_LIST";
-    //restore
+    //re-store
+    public final String store_pending_locations = "location.action.intent.STORE_PENDING_LOCATIONS";
     public final String restore_pending_locations = "location.action.intent.RESTORE_PENDING_LOCATIONS";
     //distance calculation
     public final String get_multimap_keyset = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";

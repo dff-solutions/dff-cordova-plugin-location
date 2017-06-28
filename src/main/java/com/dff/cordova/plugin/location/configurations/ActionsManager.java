@@ -39,12 +39,13 @@ public class ActionsManager {
 
     private void init() {
         mActionsMap = new HashMap<>();
+        mActionsMap.put(mJsActions.store_pending_locations, mIndexActions.mStoreAction);
+        mActionsMap.put(mJsActions.restore_pending_locations, mIndexActions.mRestoreAction);
         mActionsMap.put(mJsActions.clear_stopID, mIndexActions.mClearStopIDAction);
         mActionsMap.put(mJsActions.enable_locations_mapping, mIndexActions.mEnableMappingAction);
         mActionsMap.put(mJsActions.get_location, mIndexActions.mGetLocationAction);
         mActionsMap.put(mJsActions.get_location_list, mIndexActions.mGetLocationListAction);
         mActionsMap.put(mJsActions.get_total_distance, mIndexActions.mGetTotalDistanceAction);
-        mActionsMap.put(mJsActions.restore_pending_locations, mIndexActions.mRestoreAction);
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);
         mActionsMap.put(mJsActions.start_service, mIndexActions.mStartLocationServiceAction);
         mActionsMap.put(mJsActions.stop_service, mIndexActions.mStopLocationServiceAction);

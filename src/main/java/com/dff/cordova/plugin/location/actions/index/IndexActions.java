@@ -13,6 +13,7 @@ import com.dff.cordova.plugin.location.actions.RestoreAction;
 import com.dff.cordova.plugin.location.actions.SetStopIdAction;
 import com.dff.cordova.plugin.location.actions.StartLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StopLocationServiceAction;
+import com.dff.cordova.plugin.location.actions.StoreAction;
 import com.dff.cordova.plugin.location.actions.UnregisterProviderListenerAction;
 import com.dff.cordova.plugin.location.actions.UnregisterStopListenerAction;
 
@@ -29,8 +30,9 @@ import javax.inject.Singleton;
 @Singleton
 public class IndexActions {
 
-    // 8 Actions
+    public StoreAction mStoreAction;
     public RestoreAction mRestoreAction;
+
     public StartLocationServiceAction mStartLocationServiceAction;
     public StopLocationServiceAction mStopLocationServiceAction;
     public GetLocationAction mGetLocationAction;
@@ -49,6 +51,7 @@ public class IndexActions {
 
     @Inject
     public IndexActions(
+        StoreAction mStoreAction,
         RestoreAction mRestoreAction,
         StartLocationServiceAction mStartLocationServiceAction,
         StopLocationServiceAction mStopLocationServiceAction,
@@ -65,6 +68,7 @@ public class IndexActions {
         RegisterStopListenerAction mRegisterStopListenerAction,
         UnregisterStopListenerAction mUnregisterStopListenerAction
     ) {
+        this.mStoreAction = mStoreAction;
         this.mRestoreAction = mRestoreAction;
         this.mStartLocationServiceAction = mStartLocationServiceAction;
         this.mStopLocationServiceAction = mStopLocationServiceAction;

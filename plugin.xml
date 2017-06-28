@@ -97,6 +97,9 @@
             target-dir="src/com/dff/cordova/plugin/location/actions/index" />
 
         <!-- actions -->
+        <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/StoreAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+
         <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/RestoreAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
 

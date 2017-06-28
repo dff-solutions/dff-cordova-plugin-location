@@ -122,6 +122,8 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
+        isActionValid = false;
+
         if (action != null) {
             mCordovaInterface.getThreadPool().execute(new Runnable() {
                 @Override
