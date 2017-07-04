@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.actions.index;
 import com.dff.cordova.plugin.location.actions.ClearStopIDAction;
 import com.dff.cordova.plugin.location.actions.EnableMappingAction;
 import com.dff.cordova.plugin.location.actions.GetKeySetFromLocationsMultimapAction;
+import com.dff.cordova.plugin.location.actions.GetLastStopIDAction;
 import com.dff.cordova.plugin.location.actions.GetLocationAction;
 import com.dff.cordova.plugin.location.actions.GetLocationListAction;
 import com.dff.cordova.plugin.location.actions.GetTotalDistanceAction;
@@ -14,6 +15,7 @@ import com.dff.cordova.plugin.location.actions.SetStopIdAction;
 import com.dff.cordova.plugin.location.actions.StartLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StopLocationServiceAction;
 import com.dff.cordova.plugin.location.actions.StoreAction;
+import com.dff.cordova.plugin.location.actions.UnregisterLocationListenerAction;
 import com.dff.cordova.plugin.location.actions.UnregisterProviderListenerAction;
 import com.dff.cordova.plugin.location.actions.UnregisterStopListenerAction;
 
@@ -39,11 +41,12 @@ public class IndexActions {
     public GetLocationListAction mGetLocationListAction;
     public GetTotalDistanceAction mGetTotalDistanceAction;
     public SetStopIdAction mSetStopIdAction;
+    public GetLastStopIDAction mGetLastStopIDAction;
     public ClearStopIDAction mClearStopIDAction;
     public EnableMappingAction mEnableMappingAction;
     public GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction;
     public RegisterLocationListenerAction mRegisterLocationListenerAction;
-
+    public UnregisterLocationListenerAction m
     public RegisterProviderListenerAction mRegisterProviderListenerAction;
     public UnregisterProviderListenerAction mUnregisterProviderListenerAction;
     public RegisterStopListenerAction mRegisterStopListenerAction;
@@ -59,6 +62,7 @@ public class IndexActions {
         GetLocationListAction mGetLocationListAction,
         GetTotalDistanceAction mGetTotalDistanceAction,
         SetStopIdAction mSetStopIdAction,
+        GetLastStopIDAction mGetLastStopIDAction,
         ClearStopIDAction mClearStopIDAction,
         EnableMappingAction mEnableMappingAction,
         GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction,
@@ -76,10 +80,12 @@ public class IndexActions {
         this.mGetLocationListAction = mGetLocationListAction;
         this.mGetTotalDistanceAction = mGetTotalDistanceAction;
         this.mSetStopIdAction = mSetStopIdAction;
+        this.mGetLastStopIDAction = mGetLastStopIDAction;
         this.mClearStopIDAction = mClearStopIDAction;
         this.mEnableMappingAction = mEnableMappingAction;
         this.mGetKeySetFromLocationsMultimapAction = mGetKeySetFromLocationsMultimapAction;
         this.mRegisterLocationListenerAction = mRegisterLocationListenerAction;
+
         this.mRegisterProviderListenerAction = mRegisterProviderListenerAction;
         this.mUnregisterProviderListenerAction = mUnregisterProviderListenerAction;
         this.mRegisterStopListenerAction = mRegisterStopListenerAction;

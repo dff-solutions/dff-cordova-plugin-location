@@ -15,7 +15,8 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by anahas on 28.06.2017.
+ * Action that deals with the local broadcast manager in order to register
+ * the new_location broadcast receiver
  *
  * @author Anthony Nahas
  * @version 1.0
@@ -54,7 +55,8 @@ public class RegisterLocationListenerAction extends Action {
         mNewLocationReceiver.setCallbackContext(callbackContext);
         mNewLocationReceiver.setType(type);
 
-        LocalBroadcastManager.getInstance(mContext).
-            registerReceiver(mNewLocationReceiver, new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION));
+        LocalBroadcastManager
+            .getInstance(mContext)
+            .registerReceiver(mNewLocationReceiver, new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 }

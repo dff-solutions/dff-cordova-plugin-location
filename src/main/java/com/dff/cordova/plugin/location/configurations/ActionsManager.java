@@ -47,6 +47,7 @@ public class ActionsManager {
         mActionsMap.put(mJsActions.get_location_list, mIndexActions.mGetLocationListAction);
         mActionsMap.put(mJsActions.get_total_distance, mIndexActions.mGetTotalDistanceAction);
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);
+        mActionsMap.put(mJsActions.get_last_stopID, mIndexActions.mGetLastStopIDAction);
         mActionsMap.put(mJsActions.start_service, mIndexActions.mStartLocationServiceAction);
         mActionsMap.put(mJsActions.stop_service, mIndexActions.mStopLocationServiceAction);
         mActionsMap.put(mJsActions.get_multimap_keyset, mIndexActions.mGetKeySetFromLocationsMultimapAction);
