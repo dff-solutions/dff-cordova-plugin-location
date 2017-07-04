@@ -46,7 +46,7 @@ public class IndexActions {
     public EnableMappingAction mEnableMappingAction;
     public GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction;
     public RegisterLocationListenerAction mRegisterLocationListenerAction;
-    public UnregisterLocationListenerAction m
+    public UnregisterLocationListenerAction mUnregisterLocationListenerAction;
     public RegisterProviderListenerAction mRegisterProviderListenerAction;
     public UnregisterProviderListenerAction mUnregisterProviderListenerAction;
     public RegisterStopListenerAction mRegisterStopListenerAction;
@@ -67,6 +67,7 @@ public class IndexActions {
         EnableMappingAction mEnableMappingAction,
         GetKeySetFromLocationsMultimapAction mGetKeySetFromLocationsMultimapAction,
         RegisterLocationListenerAction mRegisterLocationListenerAction,
+        UnregisterLocationListenerAction mUnregisterLocationListenerAction,
         RegisterProviderListenerAction mRegisterProviderListenerAction,
         UnregisterProviderListenerAction mUnregisterProviderListenerAction,
         RegisterStopListenerAction mRegisterStopListenerAction,
@@ -85,7 +86,7 @@ public class IndexActions {
         this.mEnableMappingAction = mEnableMappingAction;
         this.mGetKeySetFromLocationsMultimapAction = mGetKeySetFromLocationsMultimapAction;
         this.mRegisterLocationListenerAction = mRegisterLocationListenerAction;
-
+        this.mUnregisterLocationListenerAction = mUnregisterLocationListenerAction;
         this.mRegisterProviderListenerAction = mRegisterProviderListenerAction;
         this.mUnregisterProviderListenerAction = mUnregisterProviderListenerAction;
         this.mRegisterStopListenerAction = mRegisterStopListenerAction;

@@ -54,7 +54,10 @@ public class JSActions {
         for (Field field : getClass().getDeclaredFields()) {
             try {
                 field.setAccessible(true);
-                actions.add((String) field.get(this));
+                String action = (String) field.get(this);
+                if (action != null) {
+                    actions.add(action);
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }

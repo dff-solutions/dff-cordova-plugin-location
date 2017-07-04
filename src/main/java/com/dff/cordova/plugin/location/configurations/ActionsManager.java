@@ -52,6 +52,7 @@ public class ActionsManager {
         mActionsMap.put(mJsActions.stop_service, mIndexActions.mStopLocationServiceAction);
         mActionsMap.put(mJsActions.get_multimap_keyset, mIndexActions.mGetKeySetFromLocationsMultimapAction);
         mActionsMap.put(mJsActions.register_location_listener, mIndexActions.mRegisterLocationListenerAction);
+        mActionsMap.put(mJsActions.unregister_location_listener, mIndexActions.mUnregisterLocationListenerAction);
         mActionsMap.put(mJsActions.register_provider_listener, mIndexActions.mRegisterProviderListenerAction);
         mActionsMap.put(mJsActions.unregister_provider_listener, mIndexActions.mUnregisterProviderListenerAction);
         mActionsMap.put(mJsActions.register_stop_listener, mIndexActions.mRegisterStopListenerAction);
