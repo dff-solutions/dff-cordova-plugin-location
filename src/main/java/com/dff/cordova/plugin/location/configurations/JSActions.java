@@ -52,7 +52,12 @@ public class JSActions {
         ArrayList<String> actions = new ArrayList<>();
 
         for (Field field : getClass().getDeclaredFields()) {
-            actions.add(field.getName());
+            try {
+                field.setAccessible(true);
+                actions.add((String) field.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         return actions;
     }
