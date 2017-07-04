@@ -32,7 +32,6 @@ import dagger.Module;
  * @since 15.12.2016
  */
 @Singleton
-@Module
 public class Executor {
 
     private static final String TAG = "Executor";

@@ -4,23 +4,17 @@ import android.Manifest;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.HandlerThread;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.CommonPlugin;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
-import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
-import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;

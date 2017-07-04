@@ -37,27 +37,31 @@ public class AppModule {
         this.mApp = app;
     }
 
-    @Provides
-    @ApplicationContext
-    Context provideContext() {
+    public Application getApp() {
         return mApp;
     }
 
     @Provides
-    Application provideApplication() {
+    @ApplicationContext
+    public Context provideContext() {
+        return mApp;
+    }
+
+    @Provides
+    public Application provideApplication() {
         return mApp;
     }
 
     @Provides
     @Singleton
-    EventBus provideEventBus() {
+    public EventBus provideEventBus() {
         return EventBus.getDefault();
     }
 
     @Provides
     @Singleton
     @DefaultUncaughException
-    Thread.UncaughtExceptionHandler provideDefaultThreadUncaughtExceptionHandler() {
+    public Thread.UncaughtExceptionHandler provideDefaultThreadUncaughtExceptionHandler() {
         return Thread.getDefaultUncaughtExceptionHandler();
     }
 
@@ -66,19 +70,19 @@ public class AppModule {
     @Provides
     @Singleton
     @Shared
-    SharedPreferences providesSharedPreferences() {
+    public SharedPreferences providesSharedPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(mApp);
     }
 
     @Provides
     @Singleton
     @Private
-    SharedPreferences provideprivateSharedPreferences() {
+    public SharedPreferences providePrivateSharedPreferences() {
         return mApp.getSharedPreferences(Res.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @Provides
-    Handler provideHandler() {
+    public Handler provideHandler() {
         return new Handler();
     }
 }
