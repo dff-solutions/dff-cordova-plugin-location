@@ -5,8 +5,8 @@ import android.app.Application;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 
-
 import com.dff.cordova.plugin.location.dagger.components.DaggerTestPluginComponent;
+import com.dff.cordova.plugin.location.dagger.components.TestPluginComponent;
 import com.dff.cordova.plugin.location.dagger.modules.TestAppModule;
 import com.dff.cordova.plugin.location.dagger.modules.TestCordovaModule;
 import com.dff.cordova.plugin.location.dagger.modules.TestPluginModule;
@@ -14,11 +14,9 @@ import com.dff.cordova.plugin.location.dagger.modules.TestPluginModule;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
@@ -40,13 +38,8 @@ import javax.inject.Inject;
 @RunWith(RobolectricTestRunner.class)
 public abstract class LocationPluginTest {
 
+    public static TestPluginComponent Dagger;
     private Application mApplication = RuntimeEnvironment.application;
-
-    @Inject
-    JSActions mJsActions;
-
-    @Inject
-    ActionsManager mActionsManager;
 
     @Mock
     CordovaInterface cordova;
@@ -60,25 +53,38 @@ public abstract class LocationPluginTest {
     @Mock
     CallbackContext callbackContext;
 
+    @Inject
+    JSActions mJsActions;
+
+    @Inject
+    ActionsManager mActionsManager;
+
     // Tells Mockito to create the mocks based on the @Mock annotation
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-
-    @Before
-    public void setUp() {
-
-        DaggerTestPluginComponent
+    public LocationPluginTest() {
+        Dagger = DaggerTestPluginComponent
             .builder()
             .appModule(new TestAppModule(mApplication))
             .cordovaModule(new TestCordovaModule(cordova))
             .pluginModule(new TestPluginModule())
-            .build()
-            .inject(this);
+            .build();
+
+        Dagger.inject(this);
+    }
+
+    @Before
+    public void setUp() {
+        System.out.println("on setup");
     }
 
     @BeforeClass
     public static void setupOnce() {
         System.out.println("starting with the test");
+    }
+
+    public static void print(Object o) {
+        System.out.println(o);
     }
 }

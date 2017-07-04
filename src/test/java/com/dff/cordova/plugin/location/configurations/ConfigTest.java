@@ -1,14 +1,16 @@
 package com.dff.cordova.plugin.location.configurations;
 
 import com.dff.cordova.plugin.location.LocationPluginTest;
-import com.dff.cordova.plugin.location.actions.index.IndexActions;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import javax.inject.Inject;
+
+import static junit.framework.Assert.assertNotNull;
 
 
 /**
@@ -20,11 +22,19 @@ import org.mockito.junit.MockitoRule;
  */
 public class ConfigTest extends LocationPluginTest {
 
-    @Mock
-    private IndexActions mIndexActions;
+    @Inject
+    JSActions mJsActions;
+
+    @Inject
+    ActionsManager mActionsManager;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    public ConfigTest() {
+        super();
+        Dagger.inject(this);
+    }
 
     @Before
     public void setUp() {
@@ -32,7 +42,12 @@ public class ConfigTest extends LocationPluginTest {
     }
 
     @Test
-    public void test() {
+    public void checkAllJsAction() {
         System.out.println("setup config test");
+        for (String action : mJsActions.all) {
+            print(action);
+            assertNotNull(mActionsManager.hash(action));
+        }
     }
+
 }

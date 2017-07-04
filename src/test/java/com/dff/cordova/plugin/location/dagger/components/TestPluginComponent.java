@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.dagger.components;
 
 
 import com.dff.cordova.plugin.location.LocationPluginTest;
+import com.dff.cordova.plugin.location.configurations.ConfigTest;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
 import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
@@ -27,4 +28,7 @@ import dagger.Component;
 public interface TestPluginComponent {
 
     void inject(LocationPluginTest test);
+
+    void inject(ConfigTest test);
+
 }
