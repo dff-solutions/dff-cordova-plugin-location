@@ -7,9 +7,6 @@ import com.dff.cordova.plugin.location.configurations.JSActions;
 
 
 import com.dff.cordova.plugin.location.dagger.components.DaggerTestPluginComponent;
-import com.dff.cordova.plugin.location.dagger.modules.AppModule;
-import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
-import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
 import com.dff.cordova.plugin.location.dagger.modules.TestAppModule;
 import com.dff.cordova.plugin.location.dagger.modules.TestCordovaModule;
 import com.dff.cordova.plugin.location.dagger.modules.TestPluginModule;
@@ -41,7 +38,9 @@ import javax.inject.Inject;
  * @since 06.06.17
  */
 @RunWith(RobolectricTestRunner.class)
-public class LocationPluginTest {
+public abstract class LocationPluginTest {
+
+    private Application mApplication = RuntimeEnvironment.application;
 
     @Inject
     JSActions mJsActions;
@@ -49,16 +48,15 @@ public class LocationPluginTest {
     @Inject
     ActionsManager mActionsManager;
 
-    //	Tells Mockito to mock the objects
-    Application application = RuntimeEnvironment.application;
-
     @Mock
     CordovaInterface cordova;
 
     @Mock
     ExecutorService executorService;
+
     @Mock
     JSONArray args;
+
     @Mock
     CallbackContext callbackContext;
 
@@ -66,12 +64,13 @@ public class LocationPluginTest {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
+
     @Before
     public void setUp() {
 
         DaggerTestPluginComponent
             .builder()
-            .appModule(new TestAppModule(application))
+            .appModule(new TestAppModule(mApplication))
             .cordovaModule(new TestCordovaModule(cordova))
             .pluginModule(new TestPluginModule())
             .build()
@@ -81,10 +80,5 @@ public class LocationPluginTest {
     @BeforeClass
     public static void setupOnce() {
         System.out.println("starting with the test");
-    }
-
-
-    @Test
-    public void testAllJSActionOfExecution() throws JSONException {
     }
 }
