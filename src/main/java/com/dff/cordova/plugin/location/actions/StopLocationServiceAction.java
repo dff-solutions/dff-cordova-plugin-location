@@ -6,7 +6,7 @@ import android.os.Messenger;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
@@ -44,7 +44,7 @@ public class StopLocationServiceAction extends Action {
 
     @Override
     public void execute() {
-        Message msg = Message.obtain(null, Res.WHAT.STOP_LOCATION_SERVICE.ordinal());
+        Message msg = Message.obtain(null, Resources.WHAT.STOP_LOCATION_SERVICE.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, callbackContext);
         mPreferencesHelper.setIsServiceStarted(false);

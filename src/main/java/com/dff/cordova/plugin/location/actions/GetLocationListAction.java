@@ -2,7 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,34 +37,34 @@ public class GetLocationListAction extends Action {
         try {
             JSONObject params = args.getJSONObject(0);
             if (params != null) {
-                canReset = params.optBoolean(Res.RESET, true);
+                canReset = params.optBoolean(Resources.RESET, true);
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        switch (Res.LOCATION_RETURN_TYPE) {
-            case Res.DFF_STRING:
-                ArrayList<String> dffStringLocationList = Res.getLocationListDffString();
+        switch (Resources.LOCATION_RETURN_TYPE) {
+            case Resources.DFF_STRING:
+                ArrayList<String> dffStringLocationList = Resources.getLocationListDffString();
 
                 if (dffStringLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(dffStringLocationList));
                     Log.d(TAG, "list > 0 ");
                     if (canReset) {
-                        Res.clearDffStringLocationsList();
+                        Resources.clearDffStringLocationsList();
                     }
                 } else {
                     callbackContext.success(new JSONArray());
                     Log.d(TAG, "list < 0 ");
                 }
                 break;
-            case Res.JSON: {
-                ArrayList<JSONObject> jsonLocationList = Res.getLocationListJson();
+            case Resources.JSON: {
+                ArrayList<JSONObject> jsonLocationList = Resources.getLocationListJson();
 
                 if (jsonLocationList.size() > 0) {
                     callbackContext.success(new JSONArray(jsonLocationList));
                     Log.d(TAG, "list > 0 ");
                     if (canReset) {
-                        Res.clearJsonLocationsList();
+                        Resources.clearJsonLocationsList();
                     }
                 } else {
                     callbackContext.success(new JSONArray());

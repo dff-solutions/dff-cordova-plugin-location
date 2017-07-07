@@ -6,7 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,11 +37,11 @@ public class RegisterStopListenerAction extends Action {
     @Override
     public void execute() {
         mStandStillReceiver.setCallbackContext(callbackContext);
-        Res.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, Res.STOP_HOLDER_COUNTER_LIMIT);
-        Res.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, Res.STOP_HOLDER_MIN_DISTANCE);
-        Res.STOP_HOLDER_DELAY = args.optInt(2, Res.STOP_HOLDER_DELAY);
+        Resources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, Resources.STOP_HOLDER_COUNTER_LIMIT);
+        Resources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, Resources.STOP_HOLDER_MIN_DISTANCE);
+        Resources.STOP_HOLDER_DELAY = args.optInt(2, Resources.STOP_HOLDER_DELAY);
 
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mStandStillReceiver,
-            new IntentFilter(Res.BROADCAST_ACTION_ON_STAND_STILL));
+            new IntentFilter(Resources.BROADCAST_ACTION_ON_STAND_STILL));
     }
 }

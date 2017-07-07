@@ -3,7 +3,7 @@ package com.dff.cordova.plugin.location.actions;
 import android.location.Location;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.google.common.collect.Multimap;
 
@@ -39,27 +39,27 @@ public class GetTotalDistanceAction extends Action {
         boolean isClean = false;
         try {
             JSONObject params = args.getJSONObject(0);
-            Res.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(Res.RESET, false);
-            if (!Res.IS_TO_CALCULATE_DISTANCE) {
-                Res.STOP_ID = Res.UNKNOWN;
+            Resources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(Resources.RESET, false);
+            if (!Resources.IS_TO_CALCULATE_DISTANCE) {
+                Resources.STOP_ID = Resources.UNKNOWN;
             }
-            isClean = params.optBoolean(Res.CLEAN);
+            isClean = params.optBoolean(Resources.CLEAN);
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        Multimap<String, Location> clonedMultimap = Res.getLocationsMultimap();
+        Multimap<String, Location> clonedMultimap = Resources.getLocationsMultimap();
         if (clonedMultimap == null) {
             callbackContext.error("Error: --> clonedMultimap may be null");
             return;
         }
         if (isClean) {
-            clonedMultimap.removeAll(Res.UNKNOWN);
+            clonedMultimap.removeAll(Resources.UNKNOWN);
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
             mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
-            if (!Res.IS_TO_CALCULATE_DISTANCE) {
-                Res.clearLocationsMultimap();
+            if (!Resources.IS_TO_CALCULATE_DISTANCE) {
+                Resources.clearLocationsMultimap();
             }
         } else {
             callbackContext.error("Error: --> locations list size = 0");

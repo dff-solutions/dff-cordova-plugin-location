@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,6 +29,6 @@ public class UnregisterStopListenerAction extends Action {
 
     @Override
     public void execute() {
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(Res.BROADCAST_ACTION_STOP));
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(Resources.BROADCAST_ACTION_STOP));
     }
 }

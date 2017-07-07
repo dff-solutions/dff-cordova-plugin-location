@@ -6,7 +6,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -37,6 +37,6 @@ public class RegisterProviderListenerAction extends Action {
     public void execute() {
         mChangeProviderReceiver.setCallbackContext(callbackContext);
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver,
-            new IntentFilter(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER));
+            new IntentFilter(Resources.BROADCAST_ACTION_ON_CHANGED_PROVIDER));
     }
 }

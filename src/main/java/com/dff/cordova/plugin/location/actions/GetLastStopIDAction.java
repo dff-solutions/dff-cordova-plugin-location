@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
-import com.dff.cordova.plugin.location.actions.Action;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -22,6 +21,6 @@ public class GetLastStopIDAction extends Action {
 
     @Override
     public void execute() {
-        callbackContext.success(Res.STOP_ID);
+        callbackContext.success(Resources.STOP_ID);
     }
 }

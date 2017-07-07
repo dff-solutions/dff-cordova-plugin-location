@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONException;
 
@@ -57,6 +57,6 @@ public class RegisterLocationListenerAction extends Action {
 
         LocalBroadcastManager
             .getInstance(mContext)
-            .registerReceiver(mNewLocationReceiver, new IntentFilter(Res.BROADCAST_ACTION_ON_NEW_LOCATION));
+            .registerReceiver(mNewLocationReceiver, new IntentFilter(Resources.BROADCAST_ACTION_ON_NEW_LOCATION));
     }
 }

@@ -1,6 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
 
@@ -25,7 +25,7 @@ public class GetKeySetFromLocationsMultimapAction extends Action {
 
     @Override
     public void execute() {
-        JSONArray jsonArray = new JSONArray(new ArrayList<>(Res.getLocationsMultimap().keySet()));
+        JSONArray jsonArray = new JSONArray(new ArrayList<>(Resources.getLocationsMultimap().keySet()));
         callbackContext.success(jsonArray);
     }
 }

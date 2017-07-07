@@ -1,6 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,7 +21,7 @@ public class EnableMappingAction extends Action {
 
     @Override
     public void execute() {
-        Res.IS_TO_CALCULATE_DISTANCE = true;
+        Resources.IS_TO_CALCULATE_DISTANCE = true;
         callbackContext.success();
     }
 }
