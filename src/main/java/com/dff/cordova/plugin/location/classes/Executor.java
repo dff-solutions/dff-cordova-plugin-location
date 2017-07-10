@@ -39,21 +39,7 @@ public class Executor {
         this.mPreferencesHelper = mPreferencesHelper;
     }
 
-
     public <T extends Action> void execute(T action) {
         action.execute();
     }
-
-
-//    private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
-//        try {
-//            Messenger messenger = serviceHandler.getService();
-//            if (messenger != null) {
-//                messenger.send(msg);
-//            }
-//        } catch (RemoteException | NullPointerException e) {
-//            CordovaPluginLog.e(TAG, "Error: ", e);
-//            callbackContext.error("Error while sending a message within the location service: " + e);
-//        }
-//    }
 }
