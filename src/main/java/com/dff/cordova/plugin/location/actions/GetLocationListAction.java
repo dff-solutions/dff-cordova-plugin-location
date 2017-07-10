@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
@@ -26,8 +27,11 @@ public class GetLocationListAction extends Action {
 
     private static final String TAG = GetLocationListAction.class.getSimpleName();
 
+    private Res mRes;
+
     @Inject
-    public GetLocationListAction() {
+    public GetLocationListAction(Res mRes) {
+        this.mRes = mRes;
     }
 
 
@@ -42,35 +46,15 @@ public class GetLocationListAction extends Action {
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        switch (Resources.LOCATION_RETURN_TYPE) {
-            case Resources.DFF_STRING:
-                ArrayList<String> dffStringLocationList = Resources.getLocationListDffString();
-
-                if (dffStringLocationList.size() > 0) {
-                    callbackContext.success(new JSONArray(dffStringLocationList));
-                    Log.d(TAG, "list > 0 ");
-                    if (canReset) {
-                        Resources.clearDffStringLocationsList();
-                    }
-                } else {
-                    callbackContext.success(new JSONArray());
-                    Log.d(TAG, "list < 0 ");
-                }
-                break;
-            case Resources.JSON: {
-                ArrayList<JSONObject> jsonLocationList = Resources.getLocationListJson();
-
-                if (jsonLocationList.size() > 0) {
-                    callbackContext.success(new JSONArray(jsonLocationList));
-                    Log.d(TAG, "list > 0 ");
-                    if (canReset) {
-                        Resources.clearJsonLocationsList();
-                    }
-                } else {
-                    callbackContext.success(new JSONArray());
-                    Log.d(TAG, "list < 0 ");
-                }
+        if (mRes.getLocationList().size() > 0) {
+            callbackContext.success(new JSONArray(mRes.getLocationList()));
+            Log.d(TAG, "list > 0 ");
+            if (canReset) {
+                mRes.clearList();
             }
+        } else {
+            callbackContext.success(new JSONArray());
+            Log.d(TAG, "list < 0 ");
         }
     }
 }

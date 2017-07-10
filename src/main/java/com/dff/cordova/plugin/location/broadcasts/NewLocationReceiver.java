@@ -7,9 +7,11 @@ import android.location.Location;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.AbstractPluginListener;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.apache.cordova.CallbackContext;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -25,11 +27,15 @@ import javax.inject.Singleton;
 public class NewLocationReceiver extends BroadcastReceiver {
 
     private static final String TAG = "BroadcastNewLocationReceiver";
+
+    private Res mRes;
+
     private CallbackContext mCallbackContext;
     private int mType = 1;
 
     @Inject
-    public NewLocationReceiver() {
+    public NewLocationReceiver(Res mRes) {
+        this.mRes = mRes;
     }
 
     /**
@@ -41,18 +47,9 @@ public class NewLocationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        Location lastGoodLocation = Resources.getLastGoodLocation();
-        Log.d(TAG, "location = " + lastGoodLocation);
-        if (lastGoodLocation != null) {
-            switch (mType) {
-                case 0:
-                    AbstractPluginListener.sendPluginResult(mCallbackContext, Resources.getLastGoodLocationAsString());
-                    break;
-                case 1:
-                    AbstractPluginListener.sendPluginResult(mCallbackContext, Resources.getLastGoodLocationAsJson());
-                    break;
-            }
-
+        JSONObject locationJSON = mRes.getLocationJSON();
+        if (locationJSON != null) {
+            AbstractPluginListener.sendPluginResult(mCallbackContext, locationJSON);
         }
     }
 

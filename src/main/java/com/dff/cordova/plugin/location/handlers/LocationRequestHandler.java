@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -30,6 +31,7 @@ public class LocationRequestHandler extends Handler {
 
     private static final String TAG = "LocationRequestHandler";
     private Context mContext;
+    private Res mRes;
     private PreferencesHelper mPreferencesHelper;
     private CallbackContext mCallbackContext;
 
@@ -43,6 +45,7 @@ public class LocationRequestHandler extends Handler {
     public LocationRequestHandler(
         @ApplicationContext Context mContext,
         @LocationRequestLooper Looper looper,
+        Res mRes,
         PreferencesHelper mPreferencesHelper
     ) {
         super(looper);
@@ -75,33 +78,11 @@ public class LocationRequestHandler extends Handler {
             case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
                 data = msg.getData();
-                //String location = data.getString(Resources.DATA_LOCATION_KEY);
-                int returnType = data.getInt(Resources.LOCATION_RETURN_TYPE_KEY);
 
-                if (Resources.getLastGoodLocation() != null) {
-                    switch (returnType) {
-                        case 0:
-                            mCallbackContext.success(Resources.getLastGoodLocationAsString());
-                            break;
-                        case 1:
-                            mCallbackContext.success(Resources.getLastGoodLocationAsJson());
-                            break;
-                        default:
-                            mCallbackContext.success(Resources.getLastGoodLocationAsJson());
-                            break;
-                    }
-                } else {
-                    mCallbackContext.success("");
-                }
+                mCallbackContext.success(mRes.getLocationJSON());
+
                 if (mPreferencesHelper.getCanLocationBeCleared()) {
-                    switch (Resources.LOCATION_RETURN_TYPE) {
-                        case Resources.DFF_STRING:
-                            Resources.clearDffStringLocationsList();
-                            break;
-                        case Resources.JSON:
-                            Resources.clearJsonLocationsList();
-                            break;
-                    }
+                    mRes.clearList();
                 }
                 break;
             default:

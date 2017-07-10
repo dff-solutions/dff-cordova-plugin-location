@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.apache.cordova.LOG;
@@ -34,16 +35,19 @@ public class FileHelper {
     private Context mContext;
     private PreferencesHelper mPreferencesHelper;
     private MultimapHelper mMultimapHelper;
+    private Res mRes;
 
     @Inject
     public FileHelper(
         @ApplicationContext Context mContext,
         PreferencesHelper mPreferencesHelper,
-        MultimapHelper mMultimapHelper) {
+        MultimapHelper mMultimapHelper,
+        Res mRes) {
 
         this.mContext = mContext;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mMultimapHelper = mMultimapHelper;
+        this.mRes = mRes;
     }
 
     /**
@@ -112,25 +116,12 @@ public class FileHelper {
 
                 String location;
                 while ((location = (String) ois.readObject()) != null) {
-                    switch (mPreferencesHelper.getReturnType()) {
-                        case Resources.DFF_STRING:
-                            if (Resources.getLocationListDffString() != null) {
-                                Resources.addLocationToListAsDffString(location);
-                                Log.d(TAG, "location " + i + " = " + location);
-                                i++;
-                            } else {
-                                Log.d(TAG, "array (dff string) location list is null");
-                            }
-                            break;
-                        case Resources.JSON:
-                            if (Resources.getLocationListJson() != null) {
-                                Resources.addLocationToListAsJson(new JSONObject(location));
-                                Log.d(TAG, "location " + i + " = " + location);
-                                i++;
-                            } else {
-                                Log.d(TAG, "array location list is null");
-                            }
-                            break;
+                    if (mRes.getLocationList() != null) {
+                        mRes.addLocation(new JSONObject(location));
+                        Log.d(TAG, "location " + i + " = " + location);
+                        i++;
+                    } else {
+                        Log.d(TAG, "array location list is null");
                     }
                 }
             }

@@ -44,7 +44,7 @@ public class Res {
      * @param jsonLocation - a location object as stringified json location
      * @return - whether a location has been added
      */
-    public synchronized boolean addLocationTolist(JSONObject jsonLocation) {
+    public synchronized boolean addLocation(JSONObject jsonLocation) {
         if (!mLocationList.contains(jsonLocation)) {
             mLocationList.add(jsonLocation);
             return true;
@@ -56,7 +56,7 @@ public class Res {
     /**
      * Clear the last good locations list.
      */
-    public synchronized void clearDffStringLocationsList() {
+    public synchronized void clearList() {
         try {
             mLocationList.clear();
         } catch (ConcurrentModificationException e) {
@@ -82,8 +82,13 @@ public class Res {
         return mLastGoodLocation;
     }
 
+    /**
+     * Get location as JSON object
+     *
+     * @return - The Location in JSON.
+     */
     public synchronized JSONObject getLocationJSON() {
-        mLastGoodLocation.setSpeed(mLocationHelper.toKmh(mLastGoodLocation));
+        mLastGoodLocation.setSpeed((float) mLocationHelper.toKmh(mLastGoodLocation));
         return mLocationHelper.toJson(mLastGoodLocation);
     }
 

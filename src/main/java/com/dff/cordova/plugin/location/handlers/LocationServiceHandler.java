@@ -12,10 +12,10 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
-import com.dff.cordova.plugin.location.utilities.holders.LocationsHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,6 +49,7 @@ public class LocationServiceHandler extends Handler {
     private PreferencesHelper mPreferencesHelper;
     private TimeHelper mTimeHelper;
     private EventBus mEventBus;
+    private Res mRes;
 
 
     @Inject
@@ -57,13 +58,15 @@ public class LocationServiceHandler extends Handler {
          @ApplicationContext Context mContext,
          PreferencesHelper mPreferencesHelper,
          TimeHelper mTimeHelper,
-         EventBus mEventBus) {
+         EventBus mEventBus,
+         Res mRes) {
 
         super(looper);
         this.mContext = mContext;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mTimeHelper = mTimeHelper;
         this.mEventBus = mEventBus;
+        this.mRes = mRes;
     }
 
     /**
@@ -94,7 +97,6 @@ public class LocationServiceHandler extends Handler {
                 }
                 break;
             case STOP_LOCATION_SERVICE:
-                stopLocationHolder();
                 if (mLocationListener != null) {
                     mLocationManager.removeUpdates(mLocationListener);
                 }
@@ -110,22 +112,10 @@ public class LocationServiceHandler extends Handler {
                 Bundle params = msg.getData();
                 int returnType = params.getInt(Resources.LOCATION_RETURN_TYPE_KEY);
                 Log.d(TAG, "return type = " + returnType);
-                if (Resources.getLastGoodLocation() != null) {
-                    if (mTimeHelper.getTimeAge(Resources.getLastGoodLocation().getTime()) <= Resources.LOCATION_MAX_AGE) {
-                        switch (returnType) {
-                            case 0:
-                                Log.d(TAG, "lastGoodLocation as string = " + Resources.getLastGoodLocationAsString());
-                                result.putInt(Resources.LOCATION_RETURN_TYPE_KEY, 0);
-                                break;
-                            case 1:
-                                Log.d(TAG, "lastGoodLocation as JSON = " + Resources.getLastGoodLocationAsJson());
-                                result.putInt(Resources.LOCATION_RETURN_TYPE_KEY, 1);
-                                break;
-                        }
-                        mAnswer.setData(result);
-                    } else {
-                        Resources.setLastGoodLocation(null);
-                        Log.d(TAG, "setLastGoodLocation --> null");
+                if (mRes.getLocation() != null) {
+                    if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
+                        mRes.clearLocation();
+                        Log.d(TAG, "setLocation --> null");
                     }
                 }
                 try {
@@ -162,9 +152,9 @@ public class LocationServiceHandler extends Handler {
                     //mLastGoodLocation = location;
                     Log.d(TAG, "accuracy = " + location.getAccuracy());
                     location.setTime(System.currentTimeMillis());
-                    Resources.setLastGoodLocation(location);
+                    mRes.setLocation(location);
                     notifyOnChangedLocation();
-                    Log.d(TAG, "setLastGoodLocation --> " + location);
+                    Log.d(TAG, "setLocation --> " + location);
                     if (Resources.IS_TO_CALCULATE_DISTANCE) {
                         Log.d(TAG, "Location is to calculate - mapping in " + Resources.STOP_ID);
                         Resources.addLocationToMultimap(location);
@@ -208,7 +198,6 @@ public class LocationServiceHandler extends Handler {
             if (isProviderAvailable(provider)) {
                 mLocationManager.requestLocationUpdates(provider, minTime, minDistance, mLocationListener);
                 Log.d(TAG, "Location Manager is listening...");
-                runLocationsHolder();
                 return true;
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");
@@ -242,25 +231,6 @@ public class LocationServiceHandler extends Handler {
         return mLocationManager.getAllProviders().contains(provider);
     }
 
-    /**
-     * Run the location list handler in order to hold the last good location every interval of time.
-     */
-    private void runLocationsHolder() {
-        Log.d(TAG, "runLocationsHolder");
-        mLocationsListHandler = new Handler();
-        mLocationsListHandler.postDelayed(new LocationsHolder(mLocationsListHandler), Resources.LOCATION_DELAY);
-    }
-
-    private void stopLocationHolder() {
-        Log.d(TAG, "stop location holder");
-        try {
-            if (mLocationsListHandler != null) {
-                mLocationsListHandler.removeCallbacksAndMessages(null);
-            }
-        } catch (NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
-    }
 
     /**
      * Forward/reply to the request handle in order to close the action requested.

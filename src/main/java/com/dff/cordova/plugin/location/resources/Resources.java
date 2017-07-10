@@ -156,14 +156,6 @@ public class Resources {
         SET_LOCATION_LISTENER
     }
 
-    /**
-     * Update the last good location object.
-     *
-     * @param location - The location object to be updated.
-     */
-    public static void setLastGoodLocation(Location location) {
-        LAST_GOOD_LOCATION = location;
-    }
 
     /*+++++++++++++++++++++++++++++++++++GETTER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
@@ -184,116 +176,11 @@ public class Resources {
         return LOCATION_LIST_JSON;
     }
 
-    /**
-     * Return the last good location that has been persisted as string representation.
-     *
-     * @return - The last good location in string representation.
-     */
-    public synchronized static String getLastGoodLocationAsString() {
-        Location location = getLastGoodLocation();
-        assert location != null;
-        return location.getLongitude() + "|" +
-            location.getLatitude() + "|" +
-            getSpeedOfLastGoodLocation() + "|" +
-            location.getBearing();
-    }
-
-    /**
-     * Get location as JSON object
-     *
-     * @return - The Location in JSON.
-     */
-    public synchronized static JSONObject getLastGoodLocationAsJson() {
-        Location location = getLastGoodLocation();
-        assert location != null;
-        JSONObject jsonLocation = new JSONObject();
-        try {
-            jsonLocation.put("longitude", location.getLongitude());
-            jsonLocation.put("latitude", location.getLatitude());
-            jsonLocation.put("altitude", location.getAltitude());
-            jsonLocation.put("accuracy", location.getAccuracy());
-            jsonLocation.put("speed", getSpeedOfLastGoodLocation());
-            jsonLocation.put("bearing", location.getBearing());
-            jsonLocation.put("time", location.getTime());
-        } catch (JSONException e) {
-            Log.e(TAG, "Error: ", e);
-            return null;
-        }
-        return jsonLocation;
-    }
-
-
-    /**
-     * Get the speed of the last good saved location.
-     * If it's available, the speed will be converted to KM/h
-     *
-     * @return - The speed of the last good location.
-     */
-    private static double getSpeedOfLastGoodLocation() {
-        Location location = getLastGoodLocation();
-        assert location != null;
-        if (location.hasSpeed() && location.getSpeed() > 0) {
-            return Math.round(location.getSpeed() * 3.6);
-        }
-        return 0;
-    }
-
-
     /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
     /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 
-    /**
-     * Add a new location object to the last good location list for persistence purposes as dff string.
-     *
-     * @param location - The new location to store.
-     */
-    public static synchronized void addLocationToListAsDffString(String location) {
-        if (!LOCATION_LIST_DFF_STRING.contains(location)) {
-            LOCATION_LIST_DFF_STRING.add(location);
-            return;
-        }
-        Log.d(TAG, "location already exists");
-    }
 
-    /**
-     * Clear the last good locations list.
-     */
-    public static synchronized void clearDffStringLocationsList() {
-        try {
-            LOCATION_LIST_DFF_STRING.clear();
-        } catch (ConcurrentModificationException e) {
-            Log.e(TAG, "Error while clearing the location list: ", e);
-        }
-    }
-
-    /**
-     * Add a new location object to the last good location list for persistence purposes as json.
-     *
-     * @param location - The new location to store.
-     */
-    public static synchronized void addLocationToListAsJson(JSONObject location) {
-        if (!LOCATION_LIST_JSON.contains(location)) {
-            LOCATION_LIST_JSON.add(location);
-            return;
-        }
-        Log.d(TAG, "location already exists");
-    }
-
-    /**
-     * Clear the last good locations list.
-     */
-    public static synchronized void clearJsonLocationsList() {
-        try {
-            LOCATION_LIST_JSON.clear();
-        } catch (ConcurrentModificationException e) {
-            Log.e(TAG, "Error while clearing the location list: ", e);
-        }
-    }
-
-    public static void setLocationsMultiMap(ListMultimap<String, Location> multiMap) {
-        LOCATION_MULTIMAP = multiMap;
-    }
 
     public static synchronized void addLocationToMultimap(Location location) {
         LOCATION_MULTIMAP.put(STOP_ID, location);
