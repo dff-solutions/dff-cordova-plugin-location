@@ -32,7 +32,7 @@ import javax.inject.Inject;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 8.0.1
+ * @version pre-9.0.0
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
