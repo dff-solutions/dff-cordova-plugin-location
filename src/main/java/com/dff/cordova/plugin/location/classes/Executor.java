@@ -1,28 +1,14 @@
 package com.dff.cordova.plugin.location.classes;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.*;
 
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.actions.Action;
 import com.dff.cordova.plugin.location.actions.RestoreAction;
-import com.dff.cordova.plugin.location.broadcasts.StandStillReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
-import org.apache.cordova.CallbackContext;
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import dagger.Module;
 
 /**
  * Class to execute incoming actions from JS.
@@ -59,15 +45,15 @@ public class Executor {
     }
 
 
-    private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
-        try {
-            Messenger messenger = serviceHandler.getService();
-            if (messenger != null) {
-                messenger.send(msg);
-            }
-        } catch (RemoteException | NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-            callbackContext.error("Error while sending a message within the location service: " + e);
-        }
-    }
+//    private void sendMessage(ServiceHandler serviceHandler, Message msg, CallbackContext callbackContext) {
+//        try {
+//            Messenger messenger = serviceHandler.getService();
+//            if (messenger != null) {
+//                messenger.send(msg);
+//            }
+//        } catch (RemoteException | NullPointerException e) {
+//            CordovaPluginLog.e(TAG, "Error: ", e);
+//            callbackContext.error("Error while sending a message within the location service: " + e);
+//        }
+//    }
 }
