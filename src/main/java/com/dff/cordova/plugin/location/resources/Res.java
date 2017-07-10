@@ -3,6 +3,8 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 
+import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -24,11 +26,14 @@ public class Res {
 
     public static final String TAG = Res.class.getSimpleName();
 
+    private LocationHelper mLocationHelper;
+
     private Location mLastGoodLocation;
     private List<JSONObject> mLocationList;
 
     @Inject
-    public Res() {
+    public Res(LocationHelper mLocationHelper) {
+        this.mLocationHelper = mLocationHelper;
         mLocationList = new ArrayList<>();
     }
 
@@ -68,15 +73,30 @@ public class Res {
         return mLocationList;
     }
 
-    public synchronized Location getLastGoodLocation() {
+    /**
+     * Return the last good location object.
+     *
+     * @return - The last good location object.
+     */
+    public synchronized Location getLocation() {
         return mLastGoodLocation;
     }
 
-    public synchronized void setLastGoodLocation(Location mLastGoodLocation) {
+    public synchronized JSONObject getLocationJSON() {
+        mLastGoodLocation.setSpeed(mLocationHelper.toKmh(mLastGoodLocation));
+        return mLocationHelper.toJson(mLastGoodLocation);
+    }
+
+    /**
+     * Update the last good location object.
+     *
+     * @param mLastGoodLocation - The location object to be updated.
+     */
+    public synchronized void setLocation(Location mLastGoodLocation) {
         this.mLastGoodLocation = mLastGoodLocation;
     }
 
-    public synchronized void clearLastGoodLocation() {
+    public synchronized void clearLocation() {
         this.mLastGoodLocation = null;
     }
 }
