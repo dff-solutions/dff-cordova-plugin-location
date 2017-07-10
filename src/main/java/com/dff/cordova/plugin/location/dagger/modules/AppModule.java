@@ -10,7 +10,7 @@ import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
 import com.dff.cordova.plugin.location.dagger.annotations.Private;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -78,7 +78,7 @@ public class AppModule {
     @Singleton
     @Private
     public SharedPreferences providePrivateSharedPreferences() {
-        return mApp.getSharedPreferences(Res.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
+        return mApp.getSharedPreferences(Resources.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
     }
 
     @Provides

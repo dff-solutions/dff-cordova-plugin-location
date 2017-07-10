@@ -10,7 +10,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.AbstractPluginListener;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.holders.StopHolder;
 
 import org.apache.cordova.CallbackContext;
@@ -45,9 +45,9 @@ public class StandStillReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
         String action = intent.getAction();
-        if (action.equals(Res.BROADCAST_ACTION_ON_STAND_STILL)) {
+        if (action.equals(Resources.BROADCAST_ACTION_ON_STAND_STILL)) {
             AbstractPluginListener.sendPluginResult(mCallbackContext);
-        } else if (action.equals(Res.BROADCAST_ACTION_STOP)) {
+        } else if (action.equals(Resources.BROADCAST_ACTION_STOP)) {
             stopStopHolder();
             context.unregisterReceiver(this);
         }
@@ -64,7 +64,7 @@ public class StandStillReceiver extends BroadcastReceiver {
         Log.d(TAG, "stop holder has been just started!");
         mStopHandler = new Handler(Looper.getMainLooper());
         mStopHolder = new StopHolder(mStopHandler, mContext);
-        mStopHandler.postDelayed(mStopHolder, Res.DISTANCE_CALCULATOR_STOP_DELAY);
+        mStopHandler.postDelayed(mStopHolder, Resources.DISTANCE_CALCULATOR_STOP_DELAY);
     }
 
     /**

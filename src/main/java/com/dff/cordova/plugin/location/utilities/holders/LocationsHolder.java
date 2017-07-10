@@ -3,7 +3,7 @@ package com.dff.cordova.plugin.location.utilities.holders;
 import android.os.Handler;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 
@@ -38,25 +38,25 @@ public class LocationsHolder implements Runnable {
      */
     @Override
     public void run() {
-        if (Res.getLastGoodLocation() != null) {
-            switch (Res.LOCATION_RETURN_TYPE) {
-                case Res.DFF_STRING:
-                    String location = Res.getLastGoodLocationAsString() + "|" +
-                        Res.getLastGoodLocation().getTime();
-                    Res.addLocationToListAsDffString(location);
+        if (Resources.getLastGoodLocation() != null) {
+            switch (Resources.LOCATION_RETURN_TYPE) {
+                case Resources.DFF_STRING:
+                    String location = Resources.getLastGoodLocationAsString() + "|" +
+                        Resources.getLastGoodLocation().getTime();
+                    Resources.addLocationToListAsDffString(location);
                     Log.d(TAG, "Location has been added as (dffString) to the array list with size = "
-                        + Res.getLocationListDffString().size());
+                        + Resources.getLocationListDffString().size());
                     break;
-                case Res.JSON:
-                    Res.addLocationToListAsJson(Res.getLastGoodLocationAsJson());
+                case Resources.JSON:
+                    Resources.addLocationToListAsJson(Resources.getLastGoodLocationAsJson());
                     Log.d(TAG, "Location has been added as (JSON) to the array list with size = "
-                        + Res.getLocationListJson().size());
+                        + Resources.getLocationListJson().size());
                     break;
             }
         } else {
             Log.d(TAG, "The location is null and will not be added to the arraylist");
         }
         Log.d(TAG, "locationHandler with mCounter of " + mCounter++);
-        mHandler.postDelayed(this, Res.LOCATION_DELAY);
+        mHandler.postDelayed(this, Resources.LOCATION_DELAY);
     }
 }

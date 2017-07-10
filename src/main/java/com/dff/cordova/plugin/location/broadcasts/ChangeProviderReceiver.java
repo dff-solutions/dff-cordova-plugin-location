@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.AbstractPluginListener;
-import com.dff.cordova.plugin.location.resources.Res;
+import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.apache.cordova.CallbackContext;
 
@@ -35,8 +35,8 @@ public class ChangeProviderReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
 
-        if (intent.getAction().equals(Res.BROADCAST_ACTION_ON_CHANGED_PROVIDER)) {
-            boolean isGpsProviderEnabled = intent.getBooleanExtra(Res.IS_PROVIDER_ENABLED, true);
+        if (intent.getAction().equals(Resources.BROADCAST_ACTION_ON_CHANGED_PROVIDER)) {
+            boolean isGpsProviderEnabled = intent.getBooleanExtra(Resources.IS_PROVIDER_ENABLED, true);
             AbstractPluginListener.sendPluginResult(mCallbackContext, isGpsProviderEnabled);
         }
     }
