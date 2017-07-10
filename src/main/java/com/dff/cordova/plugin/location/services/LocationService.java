@@ -15,13 +15,15 @@ import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
+import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -93,6 +95,7 @@ public class LocationService extends Service {
         //testService(100);
         Log.d(TAG, "onStartCommand()");
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
+        mEventBus.register(this);
         if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
@@ -124,6 +127,7 @@ public class LocationService extends Service {
     public void onDestroy() {
         Log.d(TAG, "onDestroy()");
         super.onDestroy();
+        mEventBus.unregister(this);
         mHandlerThread.quitSafely();
         //Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();  //remove in production
     }
@@ -160,6 +164,11 @@ public class LocationService extends Service {
     public void onTaskRemoved(Intent rootIntent) {
         Log.d(TAG, "onTaskRemoved()");
         super.onTaskRemoved(rootIntent);  //remove in production
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(OnNewGoodLocation event) {
+        // TODO: 07.07.2017 add location to list
     }
 
     private void initializeLocationManagerAgain() {
