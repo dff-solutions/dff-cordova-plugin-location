@@ -19,3 +19,9 @@ plugins/
 /www/img/
 /www/service-worker.js
 /www/lib/
+/bash.exe.stackdump
+/gulpfile.js
+/ionic.config.json
+/.bowerrc
+/.editorconfig
+/bower.json
