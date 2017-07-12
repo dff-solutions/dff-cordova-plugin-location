@@ -258,19 +258,12 @@
         <source-file src="src/test/java/com/dff/cordova/plugin/location/LocationPluginTest.java"
             target-dir="src/test/java/com/dff/cordova/plugin/location" />
 
-
         <!-- @Asset -->
         <source-file src="mock/positions.json" target-dir="assets/" />
 
         <!-- @Gradle -->
-        <!--<source-file src="build-extras.gradle" target-dir="src/.." />-->
+        <source-file src="build-extras.gradle" target-dir="src/.." />
         <framework custom="true" src="build2.gradle" type="gradleReference" />
-
-        <framework src="com.android.support:support-v4:25.3.1" />
-        <framework src="com.googlecode.json-simple:json-simple:1.1" />
-        <framework src="com.google.guava:guava:20.0" />
-        <framework src="com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0" />
-        <framework src="com.google.code.gson:gson:2.7" />
 
     </platform>
 </plugin>
