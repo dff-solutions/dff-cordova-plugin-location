@@ -5,3 +5,17 @@ node_modules/
 platforms/
 plugins/
 /npm-debug.log
+/hooks/
+/resources/android/
+/res/
+/resources/ios/
+/scss/
+/resources/icon.png
+/resources/splash.png
+/resources/
+/www/manifest.json
+/www/css/
+/www/sounds/
+/www/img/
+/www/service-worker.js
+/www/lib/

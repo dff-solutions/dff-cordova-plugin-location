@@ -41,9 +41,7 @@
             <uses-feature android:name="android.hardware.location.gps" />
         </config-file>
 
-        <source-file
-            src="src/androidTest/java/com/dff/cordova/plugin/location/ExampleInstrumentedTest.java"
-            target-dir="src/androidTest/java/com/dff/cordova/plugin/location" />
+
         <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/Action.java"
             target-dir="src/main/java/com/dff/cordova/plugin/location/actions" />
         <source-file
@@ -238,25 +236,6 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
             target-dir="src/main/java/com/dff/cordova/plugin/location/utilities/holders" />
-        <source-file
-            src="src/test/java/com/dff/cordova/plugin/location/configurations/ConfigTest.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location/configurations" />
-        <source-file
-            src="src/test/java/com/dff/cordova/plugin/location/dagger/components/TestPluginComponent.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location/dagger/components" />
-        <source-file
-            src="src/test/java/com/dff/cordova/plugin/location/dagger/modules/TestAppModule.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/test/java/com/dff/cordova/plugin/location/dagger/modules/TestCordovaModule.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/test/java/com/dff/cordova/plugin/location/dagger/modules/TestPluginModule.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file src="src/test/java/com/dff/cordova/plugin/location/ExampleUnitTest.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location" />
-        <source-file src="src/test/java/com/dff/cordova/plugin/location/LocationPluginTest.java"
-            target-dir="src/test/java/com/dff/cordova/plugin/location" />
 
         <!-- @Asset -->
         <source-file src="mock/positions.json" target-dir="assets/" />
