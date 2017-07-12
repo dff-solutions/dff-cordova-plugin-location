@@ -1,4 +1,10 @@
-# demo app for the location plugin (module)
+# demo app for the location plugin (module) - ionic v1 & angularJS
+
+## Requirements
+- java
+- android sdk
+- cordova cli
+- ionic cli
 
 ## Supported platforms
 
