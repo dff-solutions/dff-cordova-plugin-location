@@ -16,7 +16,10 @@
 
 # Installation
 
+`ionic start myNewProject`
 `npm i`
+
+--> then replace the content of `demo.js` with the `app.js` files as well as `index.html`
 
 # Build
 
