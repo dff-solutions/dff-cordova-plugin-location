@@ -8,8 +8,6 @@ import android.os.Handler;
 import org.greenrobot.eventbus.EventBus;
 import org.mockito.Mockito;
 
-import dagger.Module;
-
 /**
  * Created by anahas on 28.06.2017.
  *

@@ -3,12 +3,10 @@ package com.dff.cordova.plugin.location.dagger.modules;
 import android.os.Messenger;
 
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
 
 import org.apache.cordova.CordovaInterface;
 import org.mockito.Mockito;
 
-import dagger.Module;
 
 import static org.mockito.Mockito.when;
 

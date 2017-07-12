@@ -8,8 +8,6 @@ import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
 
 import org.mockito.Mockito;
 
-import dagger.Module;
-
 import static org.mockito.Mockito.when;
 
 
