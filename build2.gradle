@@ -46,10 +46,32 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
     //@Dagger 2
-    compile 'com.google.dagger:dagger:2.11'
-    compile 'com.google.dagger:dagger-android:2.11'
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    compile 'com.google.dagger:dagger:2.10'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
+
+    compile 'com.google.dagger:dagger-android:2.10'
+    compile 'com.google.dagger:dagger-android-support:2.10' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.10'
     provided 'javax.annotation:jsr250-api:1.0'
 
 }
+
+
+//apply plugin: 'com.neenbedankt.android-apt'
+//
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//        jcenter()
+//    }
+//
+//    // Switch the Android Gradle plugin version requirement depending on the
+//    // installed version of Gradle. This dependency is documented at
+//    // http://tools.android.com/tech-docs/new-build-system/version-compatibility
+//    // and https://issues.apache.org/jira/browse/CB-8143
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:2.2.3'
+//        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+//    }
+
 
