@@ -242,7 +242,6 @@
 
         <!-- @Gradle -->
         <source-file src="build-extras.gradle" target-dir="src/.." />
-
         <framework custom="true" src="build2.gradle" type="gradleReference" />
 
     </platform>
