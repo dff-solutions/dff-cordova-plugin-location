@@ -71,12 +71,13 @@ public class LocationService extends Service {
      */
     @Override
     public void onCreate() {
+        Log.d(TAG, "onCreate()");
         DaggerManager
             .getInstance()
             .in(getApplication())
             .inject(this);
         super.onCreate();
-        Log.d(TAG, "onCreate()");
+        mEventBus.register(this);
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
     }
 
@@ -95,7 +96,6 @@ public class LocationService extends Service {
         //testService(100);
         Log.d(TAG, "onStartCommand()");
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
-        mEventBus.register(this);
         if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
