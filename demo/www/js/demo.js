@@ -64,7 +64,7 @@ app.run(function ($ionicPlatform, $ionicPopup) {
           console.error("Error - LocationPlugin: " + reason);
         },
         {
-          returnType: "json",
+          // returnType: "json",
           minTime: 3000,
           minAccuracy: 50000,
           locationMaxAge: 20,

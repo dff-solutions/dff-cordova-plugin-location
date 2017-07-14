@@ -97,8 +97,7 @@ LocationPlugin.prototype.getLastStopID = function (success, error) {
  * Get the last good saved location of the device.
  * good means accuracy < min accuracy (per default 20m)
  *
- * @param success - Success callback function
- * @param error - Error callback function
+ * @param success - Success callback @param error - Error callback function
  * @param returnType - 0 for String Location | 1 for JSON Location
  */
 LocationPlugin.prototype.getLocation = function (returnType, success, error) {
@@ -149,25 +148,6 @@ LocationPlugin.prototype.getFullDistance = function () {
     }, FEATURE, ACTION_GET_TOTAL_DISTANCE, [])
 };
 
-/**
- * Run the mechanism in order to calculate the total achieved distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.prototype.runTotalDistanceCalculator = function (success, error) {
-    exec(success, error, FEATURE, ACTION_RUN_TOTAL_DISTANCE_CALCULATOR, []);
-};
-
-/**
- * Run the mechanism in order to calculate a custom achieved distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.prototype.runCustomDistanceCalculator = function (success, error) {
-    exec(success, error, FEATURE, ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR, []);
-};
 
 /**
  * Get the calculated total distance.
