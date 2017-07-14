@@ -30,7 +30,9 @@ public class LocationHelper {
     public JSONObject toJson(Location location) {
         Gson gson = new Gson();
         try {
-            return new JSONObject(gson.toJson(location));
+            if (location != null) {
+                return new JSONObject(gson.toJson(location));
+            }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }

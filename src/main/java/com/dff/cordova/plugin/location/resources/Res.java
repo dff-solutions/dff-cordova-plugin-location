@@ -88,8 +88,11 @@ public class Res {
      * @return - The Location in JSON.
      */
     public synchronized JSONObject getLocationJSON() {
-        mLastGoodLocation.setSpeed((float) mLocationHelper.toKmh(mLastGoodLocation));
-        return mLocationHelper.toJson(mLastGoodLocation);
+        Location location = mLastGoodLocation;
+        if (location != null) {
+            location.setSpeed((float) mLocationHelper.toKmh(location));
+        }
+        return mLocationHelper.toJson(location);
     }
 
     /**
