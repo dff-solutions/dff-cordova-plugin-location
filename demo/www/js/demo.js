@@ -72,6 +72,21 @@ app.run(function ($ionicPlatform, $ionicPopup) {
         }
       );
 
+      window.LocationPlugin.startService(function () {
+          console.log("Location service has been just started");
+
+        }, function (reason) {
+          console.error("Error - LocationPlugin: " + reason);
+        },
+        {
+          // returnType: "json",
+          minTime: 3000,
+          minAccuracy: 50000,
+          locationMaxAge: 20,
+          locationRequestDelay: 5000
+        }
+      );
+
       // Location Listener
 
       window.LocationPlugin.setLocationListener(1,
