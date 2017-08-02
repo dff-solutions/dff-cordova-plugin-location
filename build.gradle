@@ -38,10 +38,10 @@ android {
 //        test.java.srcDirs += ['build/generated/source/apt/test/debug']
     }
 
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_7
-//        targetCompatibility JavaVersion.VERSION_1_7
-//    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 
     dependencies {
         compile 'com.github.tbroyer:gradle-apt-plugin:v0.10'
