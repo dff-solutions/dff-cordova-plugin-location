@@ -104,21 +104,16 @@ var error = function(errorMsg) {
  * @param params - forward params in order to adjust the functionality of the plugin.
  */
 LocationPlugin.startService(success, error, params);
-```
 
-#### params:
-```js
 params {
-    returnType: 'dffString' || 'json', //default json
+    //returnType: 'dffString' || 'json', //default json
     minTime: 15000, // 15sec - default 0
     minDistance: 50, // 50m - default 0
     minAccuracy: 20, // 20m - default 20
     locationMaxAge: 30, // 30sec - default 30
     locationRequestDelay: 20000 // 50sec - default 50k
 }
-```
 
-```js
 minTime| long: minimum time interval between location updates, in milliseconds
 minDistance| float: minimum distance between location updates, in meters
 minAccuracy| int: minimum accuracy to allocation a good location 
