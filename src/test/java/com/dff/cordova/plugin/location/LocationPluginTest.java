@@ -76,7 +76,7 @@ public abstract class LocationPluginTest {
 
     @Before
     public void setUp() {
-        System.out.println("on setup");
+//        System.out.println("on setup");
     }
 
     @BeforeClass

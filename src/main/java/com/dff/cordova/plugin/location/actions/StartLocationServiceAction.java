@@ -96,4 +96,20 @@ public class StartLocationServiceAction extends Action {
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, mCallbackContext);
     }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    public MessengerHelper getMessengerHelper() {
+        return mMessengerHelper;
+    }
+
+    public PreferencesHelper getPreferencesHelper() {
+        return mPreferencesHelper;
+    }
+
+    public LocationRequestHandler getLocationRequestHandler() {
+        return mLocationRequestHandler;
+    }
 }
