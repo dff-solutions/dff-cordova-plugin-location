@@ -242,7 +242,7 @@
         <source-file src="mock/positions.json" target-dir="assets/" />
 
         <!-- @Gradle -->
-        <source-file src="build-extras.gradle" target-dir="src/.." />
+        <!--<source-file src="build-extras.gradle" target-dir="src/.." />-->
         <framework custom="true" src="build-location-plugin.gradle" type="gradleReference" />
 
     </platform>
