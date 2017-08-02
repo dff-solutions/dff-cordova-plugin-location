@@ -385,3 +385,8 @@ LocationPlugin.unregisterGPSProviderListener = function (success, error) {
 + setMaxAge()
 + setMinTime()
 + setMAxAccuracy()
+
+# test
+```
+./gradlew runTest
+```
