@@ -9,18 +9,18 @@ import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
@@ -28,7 +28,7 @@ import javax.inject.Inject;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -131,7 +131,7 @@ public class StartServiceTest extends LocationPluginTest {
         StartLocationServiceAction action = new StartLocationServiceAction(
             context,
             mMessengerHelper,
-            null,
+            mPreferencesHelper,
             mLocationRequestHandler);
 
         mExecutor.execute(
@@ -139,5 +139,48 @@ public class StartServiceTest extends LocationPluginTest {
                 .with(callbackContext)
                 .andHasArguments(args));
         verify(context, times(1)).startService(ArgumentMatchers.<Intent>any());
+    }
+
+    @Test
+    public void checkArgumentsAndShouldStoreProperties() throws JSONException {
+
+        JSONObject json = new JSONObject();
+        json.put(Resources.MIN_TIME, 30);
+        json.put(Resources.MIN_DISTANCE, 50);
+        json.put(Resources.MIN_ACCURACY, 20);
+        json.put(Resources.MAX_AGE, 30);
+        json.put(Resources.DELAY, 50);
+
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(json);
+
+//        when(json.optLong(Resources.MIN_TIME)).thenReturn((long) 30);
+//        when(json.optDouble(Resources.MIN_DISTANCE)).thenReturn((double) 50);
+//        when(json.optInt(Resources.MIN_ACCURACY)).thenReturn(20);
+//        when(json.optInt(Resources.MAX_AGE)).thenReturn(30);
+//        when(json.optInt(Resources.DELAY)).thenReturn(50);
+
+//        when(jsonArray.getJSONObject(0)).thenReturn(json);
+
+        PreferencesHelper preferencesHelper = spy(mPreferencesHelper);
+
+        StartLocationServiceAction action = new StartLocationServiceAction(
+            mContext,
+            mMessengerHelper,
+            preferencesHelper,
+            mLocationRequestHandler);
+
+        mExecutor.execute(
+            action
+                .with(callbackContext)
+                .andHasArguments(jsonArray));
+
+        assertTrue("min time from json should be saved", Resources.LOCATION_MIN_TIME == 30);
+        assertTrue("min distance from json should be saved", Resources.LOCATION_MIN_DISTANCE == 50);
+        assertTrue("min accuracy from json should be saved", Resources.LOCATION_MIN_ACCURACY == 20);
+        assertTrue("max age from json should be saved", Resources.LOCATION_MAX_AGE == 30);
+        assertTrue("location delay from json should be saved", Resources.LOCATION_DELAY == 50);
+
+        verify(preferencesHelper).storeProperties();
     }
 }

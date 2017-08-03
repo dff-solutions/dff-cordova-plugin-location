@@ -40,8 +40,7 @@ public class StartLocationServiceAction extends Action {
     private LocationRequestHandler mLocationRequestHandler;
 
     private CallbackContext mCallbackContext;
-    private JSONArray mArguments;
-
+    private JSONArray mArgs;
     //RequestHandler
     @Inject
     public StartLocationServiceAction(
@@ -65,7 +64,7 @@ public class StartLocationServiceAction extends Action {
 
     @Override
     public Action andHasArguments(JSONArray args) {
-        mArguments = args;
+        mArgs = args;
         return this;
     }
 
@@ -77,9 +76,8 @@ public class StartLocationServiceAction extends Action {
 
         Bundle data = new Bundle();
         try {
-            JSONObject params = mArguments.getJSONObject(0);
+            JSONObject params = mArgs.getJSONObject(0);
             if (params != null) {
-                Resources.LOCATION_RETURN_TYPE = params.optString(Resources.RETURN_TYPE, Resources.LOCATION_RETURN_TYPE);
                 Resources.LOCATION_MIN_TIME = params.optLong(Resources.MIN_TIME, Resources.LOCATION_MIN_TIME);
                 Resources.LOCATION_MIN_DISTANCE = (float) params.optDouble(Resources.MIN_DISTANCE, Resources.LOCATION_MIN_DISTANCE);
                 Resources.LOCATION_MIN_ACCURACY = params.optInt(Resources.MIN_ACCURACY, Resources.LOCATION_MIN_ACCURACY);
@@ -95,5 +93,13 @@ public class StartLocationServiceAction extends Action {
         msg.setData(data);
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, mCallbackContext);
+    }
+
+    public CallbackContext getCallbackContext() {
+        return mCallbackContext;
+    }
+
+    public JSONArray getArgs() {
+        return mArgs;
     }
 }
