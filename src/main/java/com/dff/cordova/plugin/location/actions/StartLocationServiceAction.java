@@ -29,7 +29,7 @@ import javax.inject.Singleton;
  * @version 1.0
  * @since 16.06.17
  */
-@Singleton
+//@Singleton
 public class StartLocationServiceAction extends Action {
 
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();
@@ -95,21 +95,5 @@ public class StartLocationServiceAction extends Action {
         msg.setData(data);
         msg.replyTo = new Messenger(mLocationRequestHandler);
         mMessengerHelper.send(msg, mCallbackContext);
-    }
-
-    public Context getContext() {
-        return mContext;
-    }
-
-    public MessengerHelper getMessengerHelper() {
-        return mMessengerHelper;
-    }
-
-    public PreferencesHelper getPreferencesHelper() {
-        return mPreferencesHelper;
-    }
-
-    public LocationRequestHandler getLocationRequestHandler() {
-        return mLocationRequestHandler;
     }
 }

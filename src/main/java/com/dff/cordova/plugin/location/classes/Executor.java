@@ -23,20 +23,10 @@ public class Executor {
     private static final String TAG = "Executor";
 
 
-    private Context mContext;
-    private PreferencesHelper mPreferencesHelper;
-
-
-    //Actions
-    private RestoreAction mRestoreAction;
-
     @Inject
     public Executor
         (@ApplicationContext Context mContext,
          PreferencesHelper mPreferencesHelper) {
-
-        this.mContext = mContext;
-        this.mPreferencesHelper = mPreferencesHelper;
     }
 
     public <T extends Action> void execute(T action) {
