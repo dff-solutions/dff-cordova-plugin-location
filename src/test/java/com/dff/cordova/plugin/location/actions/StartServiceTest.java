@@ -7,13 +7,19 @@ import com.dff.cordova.plugin.location.LocationPluginTest;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -22,6 +28,7 @@ import javax.inject.Inject;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,6 +44,10 @@ import static org.mockito.Mockito.verify;
 public class StartServiceTest extends LocationPluginTest {
 
     private final String mStartServiceAction = "location.action.START_SERVICE";
+
+    @Inject
+    @ApplicationContext
+    Context mContext;
 
     @Inject
     JSActions mJsActions;
@@ -56,8 +67,14 @@ public class StartServiceTest extends LocationPluginTest {
     @Mock
     CallbackContext callbackContext;
 
-    @Spy
-    Context mContext;
+    @Mock
+    MessengerHelper mMessengerHelper;
+
+    @Mock
+    PreferencesHelper mPreferencesHelper;
+
+    @Mock
+    LocationRequestHandler mLocationRequestHandler;
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -103,10 +120,24 @@ public class StartServiceTest extends LocationPluginTest {
                 .with(callbackContext)
                 .andHasArguments(args));
 
+
         mExecutor.execute(action);
         verify(action, times(1)).execute();
+    }
 
-        mContext = spy(action.getContext());
-        verify(mContext).startService(new Intent(mContext, LocationService.class));
+    @Test
+    public void checkIntentFiredToStartService() {
+        Context context = spy(mContext);
+        StartLocationServiceAction action = new StartLocationServiceAction(
+            context,
+            mMessengerHelper,
+            null,
+            mLocationRequestHandler);
+
+        mExecutor.execute(
+            action
+                .with(callbackContext)
+                .andHasArguments(args));
+        verify(context, times(1)).startService(ArgumentMatchers.<Intent>any());
     }
 }
