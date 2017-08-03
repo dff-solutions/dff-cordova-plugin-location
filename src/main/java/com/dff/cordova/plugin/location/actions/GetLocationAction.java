@@ -8,6 +8,8 @@ import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 
+import org.apache.cordova.CallbackContext;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -34,6 +36,12 @@ public class GetLocationAction extends Action {
 
         this.mMessengerHelper = mMessengerHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
+    }
+
+    @Override
+    public Action with(CallbackContext callbackContext) {
+        mLocationRequestHandler.setCallbackContext(callbackContext);
+        return this;
     }
 
     @Override

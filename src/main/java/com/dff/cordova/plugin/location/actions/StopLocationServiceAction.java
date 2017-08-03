@@ -10,6 +10,8 @@ import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
+import org.apache.cordova.CallbackContext;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -39,6 +41,12 @@ public class StopLocationServiceAction extends Action {
         this.mMessengerHelper = mMessengerHelper;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
+    }
+
+    @Override
+    public Action with(CallbackContext callbackContext) {
+        mLocationRequestHandler.setCallbackContext(callbackContext);
+        return this;
     }
 
 

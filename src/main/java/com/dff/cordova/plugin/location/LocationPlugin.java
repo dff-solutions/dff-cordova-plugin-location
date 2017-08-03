@@ -70,8 +70,6 @@ public class LocationPlugin extends CommonServicePlugin {
     @Inject
     PreferencesHelper mPreferencesHelper;
 
-    private boolean isActionValid = false;
-
     private CordovaInterface mCordovaInterface;
 
     /**
@@ -116,31 +114,27 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-        isActionValid = false;
-
-        if (action != null) {
+        if (action != null && mActionsManager.allJSAction().contains(action)) {
             mCordovaInterface.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
                     try {
-                        if (mActionsManager.allJSAction().contains(action)) {
-                            isActionValid = true;
-                            mExecutor.execute
-                                (
-                                    mActionsManager
-                                        .hash(action)
-                                        .with(callbackContext)
-                                        .andHasArguments(args)
-                                );
-                        }
+                        mExecutor.execute
+                            (
+                                mActionsManager
+                                    .hash(action)
+                                    .with(callbackContext)
+                                    .andHasArguments(args)
+                            );
                     } catch (Exception e) {
                         Log.e(TAG, "Error: --> ", e);
                     }
                 }
             });
+            return true;
         }
-        return isActionValid;
+        return false;
     }
 
     @Override

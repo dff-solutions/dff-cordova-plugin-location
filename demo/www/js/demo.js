@@ -76,27 +76,24 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
   console.log("on init main controller");
 
   $scope.distance = "Get Total";
+  //get locationList
+  /*
+   window.LocationPlugin.getLocationsList(function (list) {
+   console.log("on get location list : --> ");
+   console.log(list);
+   }, function (reason) {
+   console.error(reason);
+   }, {clear: true});
+   */
+
+  // window.LocationPlugin.registerGPSProviderListener(function (isLocationEnabled) {
+  //   console.log("Is Location (GPS) enbaled ? --> " + isLocationEnabled);
+  //   console.log(isLocationEnabled);
+  // });
 
   $scope.startService = function () {
     window.LocationPlugin.startService(function () {
         console.log("Location service has been just started");
-
-        //get locationList
-        /*
-         window.LocationPlugin.getLocationsList(function (list) {
-         console.log("on get location list : --> ");
-         console.log(list);
-         }, function (reason) {
-         console.error(reason);
-         }, {clear: true});
-         */
-
-        // window.LocationPlugin.registerGPSProviderListener(function (isLocationEnabled) {
-        //   console.log("Is Location (GPS) enbaled ? --> " + isLocationEnabled);
-        //   console.log(isLocationEnabled);
-        // });
-
-
       }, function (reason) {
         console.error("Error - LocationPlugin: " + reason);
       },
@@ -111,8 +108,16 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
   };
 
   $scope.stopService = function () {
-    window.LocationPlugin.stopServie(function () {
+    window.LocationPlugin.stopService(function () {
       console.log("Location Service has been successfully stopped");
+    }, function (err) {
+      console.error(err);
+    })
+  };
+
+  $scope.getLocation = function () {
+    window.LocationPlugin.getLocation(function (location) {
+      console.log(location);
     }, function (err) {
       console.error(err);
     })
