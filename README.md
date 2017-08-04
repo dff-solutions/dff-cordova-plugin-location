@@ -16,6 +16,7 @@ Location based tracking system
 - 9.0.0: Feat: changed the software architect design - using DI with dagger2 - intergration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
+  properties of the json location changed to the native properties of a location object -
 - 8.0.1: Fix: @getTotalDistance 
 - 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
@@ -225,13 +226,32 @@ LocationPlugin.getLocation(returnType, function(location) {
   //example for json location
   // Object {Accuracy: 12, Latitude: 51.53692106, Speed: 0, Altitude: 205, Longitude: 9.92879299…}
    ```json
-    accuracy: 8,
-    altitude: 203,
-    bearing: 262.5,
-    latitude: 51.53701007,
-    longitude: 9.9288611,
-    speed: 4,
-    time: 1482827340101
+    mAccuracy: 9388
+    mAltitude: 221
+    mBearing: 0
+    mDistance: 0
+    mElapsedRealtimeNanos: 223773113411914
+    mExtras: Object
+    mHasAccuracy: true
+    mHasAltitude: true
+    mHasBearing: false
+    mHasSpeed: true
+    mInitialBearing: 0
+    mIsFromMockProvider: false
+    mLat1: 0
+    mLat2: 0
+    mLatitude: 51.536967158317566
+    mLon1: 0
+    mLon2: 0
+    mLongitude: 9.92862582206726
+    mProvider: "gps"
+    mResults: Array[2]
+    0: 0
+    1: 0
+    length: 2
+    __proto__: Array[0]
+    mSpeed: 0
+    mTime: 1501852189843
     ```
   
 }, error);
