@@ -100,8 +100,8 @@ LocationPlugin.prototype.getLastStopID = function (success, error) {
  * @param success - Success callback @param error - Error callback function
  * @param returnType - 0 for String Location | 1 for JSON Location
  */
-LocationPlugin.prototype.getLocation = function (returnType, success, error) {
-    exec(success, error, FEATURE, ACTION_GET_LOCATION, [returnType]);
+LocationPlugin.prototype.getLocation = function (success, error) {
+    exec(success, error, FEATURE, ACTION_GET_LOCATION, []);
 };
 
 //used in chrome for test purposes!
@@ -221,8 +221,8 @@ LocationPlugin.prototype.stopService = function (success, error) {
  * @param error - Error callback function
  * @param returnType -  0 for String Location | 1 for JSON Location
  */
-LocationPlugin.prototype.setLocationListener = function (returnType, success, error) {
-    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, [returnType]);
+LocationPlugin.prototype.setLocationListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
 };
 
 
