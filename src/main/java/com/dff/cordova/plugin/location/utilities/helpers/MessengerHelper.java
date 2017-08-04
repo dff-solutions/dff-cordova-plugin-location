@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
@@ -42,10 +43,12 @@ public class MessengerHelper {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onLocationServiceBind(OnLocationServiceBindEvent event) {
+        Log.d(TAG, "on location service bind");
         this.mMessenger = mServiceHandler.getService();
     }
 
     public void send(Message msg, CallbackContext callbackContext) {
+        this.mMessenger = mServiceHandler.getService();
         try {
             if (mMessenger != null) {
                 mMessenger.send(msg);

@@ -16,6 +16,7 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import org.apache.cordova.CallbackContext;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -74,12 +75,18 @@ public class LocationRequestHandler extends Handler {
                 break;
             case STOP_LOCATION_SERVICE:
                 mContext.stopService(new Intent(mContext, LocationService.class));
+                mCallbackContext.success();
                 break;
             case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
-                data = msg.getData();
 
-                mCallbackContext.success(mRes.getLocationJSON());
+                JSONObject location = mRes.getLocationJSON();
+
+                if (location != null) {
+                    mCallbackContext.success(mRes.getLocationJSON());
+                } else {
+                    mCallbackContext.error("last good location is null");
+                }
 
                 if (mPreferencesHelper.getCanLocationBeCleared()) {
                     mRes.clearList();

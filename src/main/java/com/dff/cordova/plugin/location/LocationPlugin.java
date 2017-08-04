@@ -132,8 +132,10 @@ public class LocationPlugin extends CommonServicePlugin {
                     }
                 }
             });
+            Log.d(TAG, "action has been found and executed");
             return true;
         }
+        Log.d(TAG, "404 - action not found");
         return false;
     }
 
