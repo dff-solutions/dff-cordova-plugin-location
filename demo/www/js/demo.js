@@ -99,7 +99,7 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
       },
       {
         // returnType: "json",
-        minTime: 3000,
+        minTime: 0,
         minAccuracy: 50000,
         locationMaxAge: 20,
         locationRequestDelay: 5000
