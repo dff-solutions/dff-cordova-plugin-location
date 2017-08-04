@@ -51,6 +51,7 @@ public class LocationRequestHandler extends Handler {
     ) {
         super(looper);
         this.mContext = mContext;
+        this.mRes = mRes;
         this.mPreferencesHelper = mPreferencesHelper;
     }
 

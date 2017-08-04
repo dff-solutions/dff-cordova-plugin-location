@@ -42,18 +42,7 @@ public class RegisterLocationListenerAction extends Action {
 
     @Override
     public void execute() {
-
-        int type = 1;
-        try {
-            if (args.get(0) != null) {
-                type = args.getInt(0);
-            }
-        } catch (JSONException e) {
-            Log.e(TAG, "Error: ", e);
-        }
-
         mNewLocationReceiver.setCallbackContext(callbackContext);
-        mNewLocationReceiver.setType(type);
 
         LocalBroadcastManager
             .getInstance(mContext)

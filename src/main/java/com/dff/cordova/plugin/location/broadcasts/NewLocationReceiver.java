@@ -29,9 +29,8 @@ public class NewLocationReceiver extends BroadcastReceiver {
     private static final String TAG = "BroadcastNewLocationReceiver";
 
     private Res mRes;
-
     private CallbackContext mCallbackContext;
-    private int mType = 1;
+
 
     @Inject
     public NewLocationReceiver(Res mRes) {
@@ -55,9 +54,5 @@ public class NewLocationReceiver extends BroadcastReceiver {
 
     public void setCallbackContext(CallbackContext mCallbackContext) {
         this.mCallbackContext = mCallbackContext;
-    }
-
-    public void setType(int mType) {
-        this.mType = mType;
     }
 }

@@ -91,8 +91,9 @@ public class Res {
         Location location = mLastGoodLocation;
         if (location != null) {
             location.setSpeed((float) mLocationHelper.toKmh(location));
+            return mLocationHelper.toJson(location);
         }
-        return mLocationHelper.toJson(location);
+        return null;
     }
 
     /**

@@ -48,9 +48,6 @@ public class GetLocationAction extends Action {
     public void execute() {
         Message msg = Message.obtain(null, Resources.WHAT.GET_LOCATION.ordinal());
         msg.replyTo = new Messenger(mLocationRequestHandler);
-        Bundle params = new Bundle();
-        params.putInt(Resources.LOCATION_RETURN_TYPE_KEY, args.optInt(0, Resources.LOCATION_RETURN_TYPE_INT));
-        msg.setData(params);
         mMessengerHelper.send(msg, callbackContext);
     }
 }
