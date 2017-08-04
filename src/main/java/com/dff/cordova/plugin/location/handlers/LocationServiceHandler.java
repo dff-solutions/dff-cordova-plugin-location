@@ -110,9 +110,6 @@ public class LocationServiceHandler extends Handler {
                 break;
             case GET_LOCATION:
                 mAnswer = Message.obtain(null, msg.what);
-                Bundle params = msg.getData();
-                int returnType = params.getInt(Resources.LOCATION_RETURN_TYPE_KEY);
-                Log.d(TAG, "return type = " + returnType);
                 if (mRes.getLocation() != null) {
                     if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
                         mRes.clearLocation();

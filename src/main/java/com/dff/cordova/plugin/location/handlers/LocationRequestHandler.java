@@ -89,10 +89,6 @@ public class LocationRequestHandler extends Handler {
                 } else {
                     mCallbackContext.error("last good location is null");
                 }
-
-                if (mPreferencesHelper.getCanLocationBeCleared()) {
-                    mRes.clearList();
-                }
                 break;
             default:
                 String errorMsg = "no 'what' property of the msg has been found!";
