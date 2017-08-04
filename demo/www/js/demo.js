@@ -99,7 +99,8 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
       },
       {
         // returnType: "json",
-        minTime: 0,
+        minTime: 15000,
+        minDistance : 50,
         minAccuracy: 50000,
         locationMaxAge: 20,
         locationRequestDelay: 5000
@@ -117,6 +118,14 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
 
   $scope.getLocation = function () {
     window.LocationPlugin.getLocation(function (location) {
+      console.log(location);
+    }, function (err) {
+      console.error(err);
+    })
+  };
+
+  $scope.setListener = function () {
+    window.LocationPlugin.setLocationListener(function (location) {
       console.log(location);
     }, function (err) {
       console.error(err);
