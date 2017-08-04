@@ -12,6 +12,7 @@ import android.util.Log;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -42,24 +43,24 @@ public class LocationServiceHandler extends Handler {
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
     private Message mAnswer;
-    private Handler mLocationsListHandler;
 
     //    Injection -->
     private Context mContext;
+    private Res mRes;
     private PreferencesHelper mPreferencesHelper;
     private TimeHelper mTimeHelper;
     private EventBus mEventBus;
-    private Res mRes;
 
 
     @Inject
     public LocationServiceHandler
         (@LocationServiceLooper Looper looper,
          @ApplicationContext Context mContext,
+         @Shared Res mRes,
          PreferencesHelper mPreferencesHelper,
          TimeHelper mTimeHelper,
-         EventBus mEventBus,
-         Res mRes) {
+         EventBus mEventBus
+         ) {
 
         super(looper);
         this.mContext = mContext;

@@ -2,14 +2,13 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -30,7 +29,7 @@ public class GetLocationListAction extends Action {
     private Res mRes;
 
     @Inject
-    public GetLocationListAction(Res mRes) {
+    public GetLocationListAction(@Shared Res mRes) {
         this.mRes = mRes;
     }
 

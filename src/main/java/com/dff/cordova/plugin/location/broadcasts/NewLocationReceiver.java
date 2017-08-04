@@ -7,6 +7,7 @@ import android.location.Location;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.AbstractPluginListener;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
@@ -20,7 +21,7 @@ import javax.inject.Singleton;
  * Broadcast receiver that is responsible to forward the requested location to JS:
  *
  * @author Anthony Nahas
- * @version 1.4
+ * @version 1.5
  * @since 23.12.2016
  */
 @Singleton
@@ -33,7 +34,7 @@ public class NewLocationReceiver extends BroadcastReceiver {
 
 
     @Inject
-    public NewLocationReceiver(Res mRes) {
+    public NewLocationReceiver(@Shared Res mRes) {
         this.mRes = mRes;
     }
 

@@ -3,7 +3,6 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 import android.location.Location;
 import android.util.Log;
 
-import com.dff.cordova.plugin.location.resources.Res;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

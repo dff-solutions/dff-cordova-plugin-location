@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Created by anahas on 16.06.2017.
@@ -29,7 +28,6 @@ import javax.inject.Singleton;
  * @version 1.0
  * @since 16.06.17
  */
-//@Singleton
 public class StartLocationServiceAction extends Action {
 
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();

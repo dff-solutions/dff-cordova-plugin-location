@@ -10,7 +10,9 @@ import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
 import com.dff.cordova.plugin.location.dagger.annotations.Private;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
+import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,6 +34,7 @@ import dagger.Provides;
 public class AppModule {
 
     private Application mApp;
+    private Res mRes;
 
     public AppModule(Application app) {
         this.mApp = app;
@@ -84,5 +87,17 @@ public class AppModule {
     @Provides
     public Handler provideHandler() {
         return new Handler();
+    }
+
+    @Provides
+    @Singleton
+    @Shared
+    public Res provideRes(LocationHelper locationHelper) {
+        if (mRes != null) {
+            return mRes;
+        }
+
+        mRes = new Res(locationHelper);
+        return mRes;
     }
 }

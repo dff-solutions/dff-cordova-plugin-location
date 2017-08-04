@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
@@ -40,14 +41,14 @@ public class FileHelper {
     @Inject
     public FileHelper(
         @ApplicationContext Context mContext,
+        @Shared Res mRes,
         PreferencesHelper mPreferencesHelper,
-        MultimapHelper mMultimapHelper,
-        Res mRes) {
+        MultimapHelper mMultimapHelper) {
 
         this.mContext = mContext;
+        this.mRes = mRes;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mMultimapHelper = mMultimapHelper;
-        this.mRes = mRes;
     }
 
     /**

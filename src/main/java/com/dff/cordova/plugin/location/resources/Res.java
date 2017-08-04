@@ -15,13 +15,12 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by anahas on 07.07.2017.
+ * Resources class to deal with the allocated location object and the location list
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 2.0
  * @since 07.07.17
  */
-@Singleton
 public class Res {
 
     public static final String TAG = Res.class.getSimpleName();
@@ -31,7 +30,6 @@ public class Res {
     private Location mLastGoodLocation;
     private List<JSONObject> mLocationList;
 
-    @Inject
     public Res(LocationHelper mLocationHelper) {
         this.mLocationHelper = mLocationHelper;
         mLocationList = new ArrayList<>();
@@ -45,8 +43,8 @@ public class Res {
      * @return - whether a location has been added
      */
     public synchronized boolean addLocation(JSONObject jsonLocation) {
-        if (!mLocationList.contains(jsonLocation)) {
-            mLocationList.add(jsonLocation);
+        if (!getLocationList().contains(jsonLocation)) {
+            getLocationList().add(jsonLocation);
             return true;
         }
         Log.d(TAG, "location already exists");
@@ -103,9 +101,11 @@ public class Res {
      */
     public synchronized void setLocation(Location mLastGoodLocation) {
         this.mLastGoodLocation = mLastGoodLocation;
+        addLocation(mLocationHelper.toJson(mLastGoodLocation));
+        Log.d(TAG, "size of the location list --> " + getLocationList().size());
     }
 
     public synchronized void clearLocation() {
-        this.mLastGoodLocation = null;
+        mLastGoodLocation = null;
     }
 }
