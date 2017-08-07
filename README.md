@@ -16,7 +16,8 @@ Location based tracking system
 - 9.0.0: Feat: changed the software architect design - using DI with dagger2 - intergration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
-  properties of the json location changed to the native properties of a location object -
+  properties of the json location changed to the native properties of a location object - getLocation method will not
+  reset/clear the location list anymore --> implemented a new action: clear location list action
 - 8.0.1: Fix: @getTotalDistance 
 - 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
@@ -181,7 +182,7 @@ LocationPlugin.setStopID = function (success, error, params) {
 };
 ```
 ----
-#### getLastStopdID
+#### getLastStopID
 ```js
 /**
  * Get the last stored stop id
@@ -274,6 +275,20 @@ LocationPlugin.getLocation(returnType, function(location) {
   error, {  reset: false });
  ```
  ----
+ 
+ #### clearLocationList
+ ```js
+ /*
+ * Clear the location list
+ *
+ * @param success - Success callback function.
+ * @param error - Error callback function.
+ */
+ LocationPlugin.prototype.clearLocationsList = function (success, error) {
+     exec(success, error, FEATURE, CLEAR_LOCATION_LIST);
+ };
+  ```
+  ----
 #### runTotalDistanceCalculator
 ```js
 /**
