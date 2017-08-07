@@ -16,6 +16,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -60,33 +61,18 @@ public class FileHelper {
         ObjectOutputStream os;
         try {
             fos = mContext.openFileOutput(Resources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
-            switch (mPreferencesHelper.getReturnType()) {
-                case Resources.DFF_STRING:
-                    ArrayList<String> pendingLocationDffString = Resources.getLocationListDffString();
-                    if (pendingLocationDffString.size() > 0) {
-                        Log.d(TAG, "PendingLocationsList count = " + pendingLocationDffString.size());
-                        //Mode_Append / private
-                        os = new ObjectOutputStream(fos);
-                        for (String location : pendingLocationDffString) {
-                            os.writeObject(location);
-                        }
-                        os.writeObject(null);
-                        os.close();
-                    }
-                    break;
-                case Resources.JSON:
-                    ArrayList<JSONObject> pendingLocationJSON = Resources.getLocationListJson();
-                    if (pendingLocationJSON.size() > 0) {
-                        Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
-                        os = new ObjectOutputStream(fos);
-                        for (JSONObject location : pendingLocationJSON) {
-                            os.writeObject(location.toString());
-                        }
-                        os.writeObject(null);
-                        os.close();
-                    }
-                    break;
+
+            List<JSONObject> pendingLocationJSON = mRes.getLocationList();
+            if (pendingLocationJSON.size() > 0) {
+                Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
+                os = new ObjectOutputStream(fos);
+                for (JSONObject location : pendingLocationJSON) {
+                    os.writeObject(location.toString());
+                }
+                os.writeObject(null);
+                os.close();
             }
+
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
