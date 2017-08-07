@@ -99,8 +99,8 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
       },
       {
         // returnType: "json",
-        minTime: 15000,
-        minDistance : 50,
+        minTime: 5000,
+        minDistance: 0,
         minAccuracy: 50000,
         locationMaxAge: 20,
         locationRequestDelay: 5000
@@ -132,13 +132,22 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
     })
   };
 
-  $scope.test = function () {
+  $scope.getLocationList = function () {
     window.LocationPlugin.getLocationsList(function (list) {
       console.log("on get location list : --> ");
       console.log(list);
     }, function (reason) {
       console.error(reason);
-    }, {reset: true}); //, {clear: true}
+    }, {reset: false}); //, {clear: true}
+  };
+
+  $scope.clearLocationList = function () {
+    window.LocationPlugin.clearLocationsList(function (msg) {
+      console.log("on clearing location list : --> ");
+      console.log(msg);
+    }, function (reason) {
+      console.error(reason);
+    }); //, {clear: true}
   };
 
   $scope.enableMapping = function () {
