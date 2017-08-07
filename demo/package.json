@@ -1,67 +1,68 @@
 {
-    "name": "demo-app-location-plugin",
-    "version": "1.2.0",
-    "description": "TestApp: An Ionic project",
-    "scripts": {
-        "remove-location-plugin": "ionic cordova plugin remove dff-cordova-plugin-location",
-        "i dev_stable": " ionic cordova plugin remove dff-cordova-plugin-location && ionic cordova plugin addhttps://github.com/dff-solutions/dff-cordova-plugin-location#8.0.1",
-        "add-location-plugin": "ionic cordova plugin add C:\\git\\Plugins\\dff-cordova-plugin-location",
-        "update-location-plugin": "npm run remove-location-plugin && npm run add-location-plugin",
-        "update-android": "ionic cordova platform remove android && ionic cordova platform add android@latest ",
-        "build-android": "ionic cordova build android",
-        "hard-reset": "npm run update-location-plugin && ionic cordova run android",
-        "run": "ionic cordova run android"
+  "name": "demo-app-location-plugin",
+  "version": "1.2.0",
+  "description": "TestApp: An Ionic project",
+  "scripts": {
+    "remove-location-plugin": "ionic cordova plugin remove dff-cordova-plugin-location",
+    "i dev_stable": " ionic cordova plugin remove dff-cordova-plugin-location && ionic cordova plugin addhttps://github.com/dff-solutions/dff-cordova-plugin-location#8.0.1",
+    "add-location-plugin": "ionic cordova plugin add C:\\git\\Plugins\\dff-cordova-plugin-location",
+    "update-location-plugin": "npm run remove-location-plugin && npm run add-location-plugin",
+    "update-android": "ionic cordova platform remove android && ionic cordova platform add android@latest ",
+    "build-android": "ionic cordova build android",
+    "hard-reset": "npm run update-location-plugin && ionic cordova run android",
+    "run": "ionic cordova run android"
+  },
+  "dependencies": {
+    "cordova-android": "^6.2.3",
+    "cordova-plugin-console": "^1.0.7",
+    "cordova-plugin-device": "^1.1.6",
+    "cordova-plugin-splashscreen": "^4.0.3",
+    "cordova-plugin-statusbar": "^2.2.3",
+    "cordova-plugin-whitelist": "^1.3.2",
+    "dff-cordova-plugin-common": "file:///C:\\git\\Plugins\\dff-cordova-plugin-common",
+    "dff-cordova-plugin-error": "file:///C:\\git\\dff-cordova-plugin-error",
+    "dff-cordova-plugin-location": "file:///C:\\git\\Plugins\\dff-cordova-plugin-location",
+    "gulp": "^3.5.6",
+    "gulp-concat": "^2.2.0",
+    "gulp-minify-css": "^0.3.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^2.0.4",
+    "ionic-plugin-keyboard": "^2.2.1"
+  },
+  "devDependencies": {
+    "@ionic/cli-plugin-cordova": "1.6.2",
+    "@ionic/cli-plugin-gulp": "1.1.1",
+    "@ionic/cli-plugin-ionic1": "2.1.1",
+    "bower": "^1.3.3",
+    "gulp-util": "^2.2.14",
+    "ionic": "3.7.0",
+    "shelljs": "^0.3.0"
+  },
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [],
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-console": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-whitelist": {},
+      "ionic-plugin-keyboard": {},
+      "dff-cordova-plugin-common": {},
+      "dff-cordova-plugin-error": {}
     },
-    "dependencies": {
-        "cordova-android": "^6.2.3",
-        "cordova-plugin-console": "^1.0.7",
-        "cordova-plugin-device": "^1.1.6",
-        "cordova-plugin-splashscreen": "^4.0.3",
-        "cordova-plugin-statusbar": "^2.2.3",
-        "cordova-plugin-whitelist": "^1.3.2",
-        "dff-cordova-plugin-common": "file:///C:\\git\\Plugins\\dff-cordova-plugin-common",
-        "dff-cordova-plugin-location": "file:///C:\\git\\Plugins\\dff-cordova-plugin-location",
-        "gulp": "^3.5.6",
-        "gulp-concat": "^2.2.0",
-        "gulp-minify-css": "^0.3.0",
-        "gulp-rename": "^1.2.0",
-        "gulp-sass": "^2.0.4",
-        "ionic-plugin-keyboard": "^2.2.1"
-    },
-    "devDependencies": {
-        "@ionic/cli-plugin-cordova": "1.6.2",
-        "@ionic/cli-plugin-gulp": "1.1.1",
-        "@ionic/cli-plugin-ionic1": "2.1.1",
-        "bower": "^1.3.3",
-        "gulp-util": "^2.2.14",
-        "ionic": "3.7.0",
-        "shelljs": "^0.3.0"
-    },
-    "cordovaPlugins": [],
-    "cordovaPlatforms": [],
-    "cordova": {
-        "plugins": {
-            "cordova-plugin-console": {},
-            "cordova-plugin-device": {},
-            "cordova-plugin-splashscreen": {},
-            "cordova-plugin-statusbar": {},
-            "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {},
-            "dff-cordova-plugin-common": {},
-            "dff-cordova-plugin-location": {}
-        },
-        "platforms": [
-            "android"
-        ]
-    },
-    "keywords": [
-        "cordova",
-        "cordova-android",
-        "location",
-        "tracking system",
-        "GPS",
-        "distance"
-    ],
-    "author": "Anthony Nahas",
-    "license": "Apache-2.0"
+    "platforms": [
+      "android"
+    ]
+  },
+  "keywords": [
+    "cordova",
+    "cordova-android",
+    "location",
+    "tracking system",
+    "GPS",
+    "distance"
+  ],
+  "author": "Anthony Nahas",
+  "license": "Apache-2.0"
 }
