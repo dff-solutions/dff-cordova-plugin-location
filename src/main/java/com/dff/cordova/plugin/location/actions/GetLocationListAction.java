@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
+
 /**
  * Get the all pending location that are stored in the location list.
  * These location has been stored to be sent back later.

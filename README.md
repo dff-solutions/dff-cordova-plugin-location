@@ -13,7 +13,7 @@ Location based tracking system
 - Android: 8.0.1
 
 ## Releases:
-- 9.0.0: Feat: changed the software architect design - using DI with dagger2 - intergration of the EVENT_BUS -
+- 9.0.0: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
   properties of the json location changed to the native properties of a location object - getLocation method will not
