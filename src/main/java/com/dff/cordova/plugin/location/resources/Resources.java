@@ -26,15 +26,7 @@ import java.util.ConcurrentModificationException;
 public class Resources {
 
     /*+++++++++++++++++++++++++++++++++++INIT+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-    private static final String TAG = "Resources";
-    private static Location LAST_GOOD_LOCATION = null;
-    private static ArrayList<String> LOCATION_LIST_DFF_STRING = new ArrayList<>();
-    private static ArrayList<JSONObject> LOCATION_LIST_JSON = new ArrayList<>();
-
-    private static ListMultimap<String, Location> LOCATION_MULTIMAP = ArrayListMultimap.create();
-
-
+    // TODO: 07.08.2017 @DI for distance calculator
     public static final DistanceCalculator STOP_DISTANCE_CALCULATOR = new DistanceCalculator();
 
     //Broadcasts Actions
@@ -69,7 +61,6 @@ public class Resources {
     public static final String JSON_KEY_DISTANCE = "value";
 
     public static final String JSON_KEY_STOP_ID = "stopID";
-
 
     //Settings with default values
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
@@ -106,7 +97,6 @@ public class Resources {
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
     //Settings related to the Distance calculator class
-
     public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
     /**
