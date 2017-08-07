@@ -29,15 +29,14 @@ import javax.inject.Singleton;
 public class StandStillReceiver extends BroadcastReceiver {
 
     private static final String TAG = "StandStillReceiver";
-    private Context mContext;
     private CallbackContext mCallbackContext;
     private Handler mStopHandler;
     private StopHolder mStopHolder;
 
-
+    // TODO: 07.08.2017 to test
     @Inject
-    public StandStillReceiver(@ApplicationContext Context mContext) {
-        this.mContext = mContext;
+    public StandStillReceiver(StopHolder mStopHolder) {
+        this.mStopHolder = mStopHolder;
         runStopHolder();
     }
 
@@ -63,7 +62,7 @@ public class StandStillReceiver extends BroadcastReceiver {
     private void runStopHolder() {
         Log.d(TAG, "stop holder has been just started!");
         mStopHandler = new Handler(Looper.getMainLooper());
-        mStopHolder = new StopHolder(mStopHandler, mContext);
+        mStopHolder.setHandler(mStopHandler);
         mStopHandler.postDelayed(mStopHolder, Resources.DISTANCE_CALCULATOR_STOP_DELAY);
     }
 

@@ -4,9 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
+
+import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import android.os.Handler;
+
+import javax.inject.Inject;
 
 
 /**
@@ -19,19 +24,24 @@ import android.os.Handler;
 public class StopHolder implements Runnable {
 
     private static final String TAG = "StopHolder";
-    private Handler mHandler;
     private Context mContext;
+    private Res mRes;
+    private Handler mHandler;
     private int mCounter = 0;
 
 
-    public StopHolder(Handler mHandler, Context mContext) {
-        this.mHandler = mHandler;
+    @Inject
+    public StopHolder
+        (
+            @ApplicationContext Context mContext,
+            Res mRes) {
         this.mContext = mContext;
+        this.mRes = mRes;
     }
 
     @Override
     public void run() {
-        Location lastGoodLocation = Resources.getLastGoodLocation();
+        Location lastGoodLocation = mRes.getLocation();
         if (lastGoodLocation != null && Resources.STOP_DISTANCE_CALCULATOR != null) {
 
             if (Resources.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
@@ -51,5 +61,13 @@ public class StopHolder implements Runnable {
             }
         }
         mHandler.postDelayed(this, Resources.DISTANCE_CALCULATOR_STOP_DELAY);
+    }
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+
+    public void setHandler(Handler mHandler) {
+        this.mHandler = mHandler;
     }
 }
