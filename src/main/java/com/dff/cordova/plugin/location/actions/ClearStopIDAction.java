@@ -46,7 +46,12 @@ public class ClearStopIDAction extends Action {
             }
             ArrayList<Location> locationsList = new ArrayList<>(Resources.getLocationsMultimap().get(requestedStopID));
             if (locationsList.isEmpty()) {
-                callbackContext.error(TAG + " : " + "Error -->  arraylist of stopid isEmpty - size = 0");
+                callbackContext.error
+                    (TAG
+                        + " : "
+                        + "Error -->  arraylist of stopid isEmpty - size = 0"
+                        + "\t requested stop id --> "
+                        + requestedStopID);
                 return;
             }
             mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
