@@ -77,6 +77,12 @@ service and initialized the location manager | Fix: initialize the location mana
 
 The plugin is available via the global variable `**LocationPlugin**`.
 
+## @Deprecated
++ setMaxAge()
++ setMinTime()
++ setMAxAccuracy()
++ runTotalDistanceCalculator()
++ runCustomDistanceCalculator()
 
 ## Methods
 
@@ -139,75 +145,7 @@ LocationPlugin.stopService(success, error);
 ```
 ----
 
-----
-#### enableMapping
-```js
-/**
- * Enable mapping in order the persist the received locations in the locations'multi map
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.enableMapping = function (success, error) {
-    exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
-};
-```
 
-
-#### getKeySet
-```js
-/**
- * Returns a view collection of all distinct keys contained in this multimap.
- * 
- * note: keyset is typeof json array:D
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.getKeySet = function (function (keySet)
-{console.log(keyset)}, error);
-```
-
-----
-#### setStopID
-```js
-/**
- * set a new stop id as key for the location hash map
- *
- * @param success  - Success callback function
- * @param error rror - Error callback function.
- * @param params- stop id to hash it in the location hash map --> {stopID: id}
- */
-LocationPlugin.setStopID = function (success, error, params) {
-};
-```
-----
-#### getLastStopID
-```js
-/**
- * Get the last stored stop id
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.getLastStopID = function (function(stopID) {console.log(stopID)}, error) {
-};
-```
-----
-#### getStopDistance
-```js
-/**
- * Clear the stop id key and get the achieved distance to the appropriate stop
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- * @param params -  {stopID: id, clear:false}
- * | stop id to import from the locations multimap
- * | reset - to clear the stopID --> stopID = UNKNOWN
- */
-LocationPlugin.getStopDistance = function (function(distance) {console.log(distance)}, error, params) {
-};
-```
 ----
 #### getLocation
 ```js
@@ -289,27 +227,77 @@ LocationPlugin.getLocation(returnType, function(location) {
  };
   ```
   ----
-#### runTotalDistanceCalculator
-```js
-/**
- * Run the mechanism in order to calculate the total achieved distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.runTotalDistanceCalculator(success, error);
-```
 ----
-#### runCustomDistanceCalculator
-```js
-/**
- * Run the mechanism in order to calculate a custom achieved distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.runCustomDistanceCalculator(success, error);
-```
+ 
+#### enableMapping
+  ```js
+  /**
+   * Enable mapping in order the persist the received locations in the locations'multi map
+   *
+   * @param success - Success callback function
+   * @param error - Error callback function.
+   */
+  LocationPlugin.enableMapping = function (success, error) {
+      exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
+  };
+  ```
+  
+  
+  #### getKeySet
+  ```js
+  /**
+   * Returns a view collection of all distinct keys contained in this multimap.
+   * 
+   * note: keyset is typeof json array:D
+   *
+   * @param success - Success callback function
+   * @param error - Error callback function.
+   */
+  LocationPlugin.getKeySet = function (function (keySet)
+  {console.log(keyset)}, error);
+  ```
+  
+  ----
+  #### setStopID
+  ```js
+  /**
+   * set a new stop id as key for the location hash map
+   *
+   * @param success  - Success callback function
+   * @param error rror - Error callback function.
+   * @param params- stop id to hash it in the location hash map --> {stopID: id}
+   */
+  LocationPlugin.setStopID = function (success, error, params) {
+  };
+  ```
+  ----
+  #### getLastStopID
+  ```js
+  /**
+   * Get the last stored stop id
+   *
+   * @param success - Success callback function
+   * @param error - Error callback function.
+   */
+  LocationPlugin.getLastStopID = function (function(stopID) {console.log(stopID)}, error) {
+  };
+  ```
+  ----
+  #### getStopDistance
+  ```js
+  /**
+   * Clear the stop id key and get the achieved distance to the appropriate stop
+   *
+   * @param success - Success callback function
+   * @param error - Error callback function.
+   * @param params -  {stopID: id, clear:false}
+   * | stop id to import from the locations multimap
+   * | reset - to clear the stopID --> stopID = UNKNOWN
+   */
+  LocationPlugin.getStopDistance = function (function(distance) {console.log(distance)}, error, params) {
+  };
+  ```
+  
 ----
 #### getTotalDistance
 ```js
@@ -419,10 +407,6 @@ LocationPlugin.unregisterGPSProviderListener = function (success, error) {
 };
 ```
 
-## @Deprecated
-+ setMaxAge()
-+ setMinTime()
-+ setMAxAccuracy()
 
 # test
 ```
