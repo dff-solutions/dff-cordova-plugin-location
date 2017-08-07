@@ -138,7 +138,7 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
       console.log(list);
     }, function (reason) {
       console.error(reason);
-    }, {reset: false}); //, {clear: true}
+    }, {reset: true}); //, {clear: true}
   };
 
   $scope.clearLocationList = function () {
