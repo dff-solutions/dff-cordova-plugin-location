@@ -1,7 +1,12 @@
 package com.dff.cordova.plugin.location.actions;
 
+import android.util.Log;
+
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -25,7 +30,15 @@ public class ClearLocationListAction extends Action {
 
     @Override
     public void execute() {
+        JSONObject message = new JSONObject();
+        int size = mRes.getLocationList().size();
         mRes.clearList();
-        callbackContext.success();
+        try {
+            message.put("oldSize", size);
+            message.put("currentSize", mRes.getLocationList().size());
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: -->", e);
+        }
+        callbackContext.success(message);
     }
 }
