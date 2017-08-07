@@ -78,7 +78,6 @@ public class Resources {
     public static float LOCATION_MIN_DISTANCE = 0; //in m
     public static int LOCATION_DELAY = 50000; // in ms 50sec
     public static String LOCATION_RETURN_TYPE = JSON;
-    public static int LOCATION_RETURN_TYPE_INT = 1; // 1 = json, 0 = string
 
     //Settings for the stop holder
     public static int STOP_HOLDER_COUNTER_LIMIT = 10;
@@ -101,7 +100,7 @@ public class Resources {
     public static final String SP_KEY_LOCATION_REQUEST_DELAY = "locationRequestDelayKey";
     public static final String SP_KEY_IS_SERVICE_STARTED = "isServiceStartedKey";
     public static final String SP_KEY_IS_LOCATIONS_MAPPING_ENABLED = "isLocationsMappingEnabledKey";
-    public static final String SP_KEY_STOPID = "stopIDKey";
+    public static final String SP_KEY_STOP_ID = "stopIDKey";
     public static String LOCATION_FILE_NAME = "pendinglocations.sav";
     public static String LOCATIONS_MULTIMAP_FILE_NAME = "locationsmultimap.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
@@ -109,7 +108,6 @@ public class Resources {
     //Settings related to the Distance calculator class
 
     public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
-
 
     /**
      * Enumeration to deal while parsing the actions.
@@ -120,59 +118,4 @@ public class Resources {
         GET_LOCATION,
         SET_LOCATION_LISTENER
     }
-
-
-    /*+++++++++++++++++++++++++++++++++++GETTER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-    /**
-     * Return the last good location object.
-     *
-     * @return - The last good location object.
-     */
-    public synchronized static Location getLastGoodLocation() {
-        return LAST_GOOD_LOCATION;
-    }
-
-    public synchronized static ArrayList<String> getLocationListDffString() {
-        return LOCATION_LIST_DFF_STRING;
-    }
-
-    public synchronized static ArrayList<JSONObject> getLocationListJson() {
-        return LOCATION_LIST_JSON;
-    }
-
-    /*++++++++++++++++++++++++++SETTER++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-    /*++++++++++++++++++++++++++OTHERS++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
-
-    public static synchronized void addLocationToMultimap(Location location) {
-        LOCATION_MULTIMAP.put(STOP_ID, location);
-    }
-
-    public static synchronized void clearLocationsMultimap() {
-        try {
-            LOCATION_MULTIMAP.clear();
-        } catch (ConcurrentModificationException e) {
-            CordovaPluginLog.e(TAG, "Error @ConcurrentModificationException: while clearing the location hash map: ", e);
-        }
-    }
-
-    public static synchronized ListMultimap<String, Location> getLocationsMultimap() {
-        try {
-            return LOCATION_MULTIMAP;
-        } catch (ConcurrentModificationException e) {
-            CordovaPluginLog.e(TAG, "Error @ConcurrentModificationException: while getting the location hash map: ", e);
-        }
-        return null;
-    }
-
-    public static synchronized void logLocationsMultimap() {
-        assert LOCATION_MULTIMAP != null;
-        for (String stopID : LOCATION_MULTIMAP.keySet()) {
-            Collection<Location> locations = LOCATION_MULTIMAP.get(stopID);
-            CordovaPluginLog.d(TAG, "stopID: " + stopID + " --> " + locations);
-        }
-    }
-
 }

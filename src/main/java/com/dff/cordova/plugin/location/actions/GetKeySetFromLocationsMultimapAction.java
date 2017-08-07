@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
@@ -19,13 +20,16 @@ import javax.inject.Singleton;
 @Singleton
 public class GetKeySetFromLocationsMultimapAction extends Action {
 
+    private Res mRes;
+
     @Inject
-    public GetKeySetFromLocationsMultimapAction() {
+    public GetKeySetFromLocationsMultimapAction(Res mRes) {
+        this.mRes = mRes;
     }
 
     @Override
     public void execute() {
-        JSONArray jsonArray = new JSONArray(new ArrayList<>(Resources.getLocationsMultimap().keySet()));
+        JSONArray jsonArray = new JSONArray(new ArrayList<>(mRes.getLocationListMultimap().keySet()));
         callbackContext.success(jsonArray);
     }
 }

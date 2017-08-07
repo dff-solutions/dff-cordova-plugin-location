@@ -12,10 +12,11 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by anahas on 23.06.2017.
+ * class that deals on the one hand with js actions in order to map them
+ * (js - java)
  *
  * @author Anthony Nahas
- * @version 1.2
+ * @version 1.3
  * @since 23.06.17
  */
 @Singleton

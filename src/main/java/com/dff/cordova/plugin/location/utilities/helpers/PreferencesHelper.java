@@ -85,7 +85,7 @@ public class PreferencesHelper {
 
     public boolean setStopdID(String stopdID) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(Resources.SP_KEY_STOPID, stopdID);
+        editor.putString(Resources.SP_KEY_STOP_ID, stopdID);
         return editor.commit();
     }
 
@@ -167,7 +167,7 @@ public class PreferencesHelper {
     }
 
     public String getStopID() {
-        return mSharedPreferences.getString(Resources.SP_KEY_STOPID, Resources.UNKNOWN);
+        return mSharedPreferences.getString(Resources.SP_KEY_STOP_ID, Resources.UNKNOWN);
     }
 
     /**

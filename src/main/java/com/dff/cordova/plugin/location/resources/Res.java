@@ -3,16 +3,22 @@ package com.dff.cordova.plugin.location.resources;
 import android.location.Location;
 import android.util.Log;
 
+import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
 
 /**
  * Resources class to deal with the allocated location object and the location list
@@ -29,6 +35,8 @@ public class Res {
 
     private Location mLastGoodLocation;
     private List<JSONObject> mLocationList;
+
+    private ListMultimap<String, Location> mLocationMultimap = ArrayListMultimap.create();
 
     public Res(LocationHelper mLocationHelper) {
         this.mLocationHelper = mLocationHelper;
@@ -72,6 +80,20 @@ public class Res {
     }
 
     /**
+     * Get the locations multimap - synchronized
+     *
+     * @return - the target multimap
+     */
+    public synchronized ListMultimap<String, Location> getLocationListMultimap() {
+        try {
+            return mLocationMultimap;
+        } catch (ConcurrentModificationException e) {
+            CordovaPluginLog.e(TAG, "Error: @ConcurrentModificationException - while getting the location hash map: ", e);
+        }
+        return null;
+    }
+
+    /**
      * Return the last good location object.
      *
      * @return - The last good location object.
@@ -107,5 +129,32 @@ public class Res {
 
     public synchronized void clearLocation() {
         mLastGoodLocation = null;
+    }
+
+    public synchronized void mapLocation(Location location) {
+        mLocationMultimap.put(STOP_ID, location);
+    }
+
+    /**
+     * clear the location list's multimap
+     */
+    public synchronized void clearLocationListMultimap() {
+        try {
+            mLocationMultimap.clear(); // // TODO: 07.08.2017 instead clear --> new multimap
+        } catch (ConcurrentModificationException e) {
+            CordovaPluginLog.e(TAG, "Error: @ConcurrentModificationException - while clearing the location hash map: ", e);
+        }
+    }
+
+    /**
+     * Log the location list's multimap
+     */
+    public synchronized void logLocationListMultimap() {
+        if (mLocationMultimap != null) {
+            for (String stopID : mLocationMultimap.keySet()) {
+                Collection<Location> locations = mLocationMultimap.get(stopID);
+                Log.d(TAG, "stopID: " + stopID + " --> " + locations);
+            }
+        }
     }
 }

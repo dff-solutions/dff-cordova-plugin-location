@@ -140,8 +140,8 @@ public class FileHelper {
             fos = mContext.openFileOutput(Resources.LOCATIONS_MULTIMAP_FILE_NAME, Context.MODE_PRIVATE);
             os = new ObjectOutputStream(fos);
 
-            Map<String, Collection<JSONObject>> map = mMultimapHelper.convertLocationsToJsonMultimap(Resources
-                .getLocationsMultimap());
+            Map<String, Collection<JSONObject>> map = mMultimapHelper.convertLocationsToJsonMultimap
+                (mRes.getLocationListMultimap());
 
             JSONObject jsonObject = new JSONObject(map);
             Log.d(TAG, jsonObject.toString());
@@ -178,7 +178,7 @@ public class FileHelper {
 //                            .parseJSONtoMap((String) ois.readObject())));
 
                 Log.d(TAG, "on restoreLocationsMultimap");
-                Resources.logLocationsMultimap();
+                mRes.logLocationListMultimap();
             }
         } catch (IOException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
