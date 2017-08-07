@@ -105,7 +105,7 @@ LocationPlugin.prototype.getLocationsList = function (success, error, params) {
 * @param error - Error callback function.
 */
 LocationPlugin.prototype.clearLocationsList = function (success, error) {
-    exec(success, error, FEATURE, CLEAR_LOCATION_LIST);
+    exec(success, error, FEATURE, ACTION_CLEAR_LOCATION_LIST);
 };
 
 /**
