@@ -61,6 +61,9 @@
             src="src/main/java/com/dff/cordova/plugin/location/actions/GetLocationAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
         <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/actions/ClearLocationListAction.java"
+            target-dir="src/com/dff/cordova/plugin/location/actions" />
+        <source-file
             src="src/main/java/com/dff/cordova/plugin/location/actions/GetLocationListAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
         <source-file
@@ -242,7 +245,7 @@
         <source-file src="mock/positions.json" target-dir="assets/" />
 
         <!-- @Gradle -->
-        <!--<source-file src="build-extras.gradle" target-dir="src/.." />-->
+        <source-file src="build-extras.gradle" target-dir="src/.." />
         <framework custom="true" src="build-location-plugin.gradle" type="gradleReference" />
 
     </platform>

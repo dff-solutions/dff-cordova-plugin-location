@@ -7,10 +7,10 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by anahas on 23.06.2017.
+ * JsActions
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 23.06.17
  */
 @Singleton
@@ -22,6 +22,7 @@ public class JSActions {
     public final String stop_service = "location.action.STOP_SERVICE";
     //location
     public final String get_location = "location.action.GET_LOCATION";
+    public final String clear_location_list = "location.action.CLEAR_LOCATION_LIST";
     public final String get_location_list = "location.action.GET_LOCATION_LIST";
     //re-store
     public final String store_pending_locations = "location.action.intent.STORE_PENDING_LOCATIONS";

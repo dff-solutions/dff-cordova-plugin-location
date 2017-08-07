@@ -15,7 +15,7 @@ import javax.inject.Singleton;
  * Created by anahas on 23.06.2017.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 23.06.17
  */
 @Singleton
@@ -44,6 +44,7 @@ public class ActionsManager {
         mActionsMap.put(mJsActions.clear_stopID, mIndexActions.mClearStopIDAction);
         mActionsMap.put(mJsActions.enable_locations_mapping, mIndexActions.mEnableMappingAction);
         mActionsMap.put(mJsActions.get_location, mIndexActions.mGetLocationAction);
+        mActionsMap.put(mJsActions.clear_location_list, mIndexActions.mClearLocationListAction);
         mActionsMap.put(mJsActions.get_location_list, mIndexActions.mGetLocationListAction);
         mActionsMap.put(mJsActions.get_total_distance, mIndexActions.mGetTotalDistanceAction);
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);

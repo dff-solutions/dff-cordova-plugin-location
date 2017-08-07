@@ -11,8 +11,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-
 /**
  * Get the all pending location that are stored in the location list.
  * These location has been stored to be sent back later.
@@ -21,7 +19,6 @@ import javax.inject.Singleton;
  * @version 1.0
  * @since 21.06.2017
  */
-@Singleton
 public class GetLocationListAction extends Action {
 
     private static final String TAG = GetLocationListAction.class.getSimpleName();

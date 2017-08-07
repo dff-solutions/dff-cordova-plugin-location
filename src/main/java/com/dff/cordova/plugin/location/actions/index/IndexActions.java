@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.actions.index;
 
+import com.dff.cordova.plugin.location.actions.ClearLocationListAction;
 import com.dff.cordova.plugin.location.actions.ClearStopIDAction;
 import com.dff.cordova.plugin.location.actions.EnableMappingAction;
 import com.dff.cordova.plugin.location.actions.GetKeySetFromLocationsMultimapAction;
@@ -20,16 +21,14 @@ import com.dff.cordova.plugin.location.actions.UnregisterProviderListenerAction;
 import com.dff.cordova.plugin.location.actions.UnregisterStopListenerAction;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
- * Created by anahas on 19.06.2017.
+ * Class that deals with all executable actions
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 19.06.17
  */
-@Singleton
 public class IndexActions {
 
     public StoreAction mStoreAction;
@@ -39,6 +38,7 @@ public class IndexActions {
     public StopLocationServiceAction mStopLocationServiceAction;
     public GetLocationAction mGetLocationAction;
     public GetLocationListAction mGetLocationListAction;
+    public ClearLocationListAction mClearLocationListAction;
     public GetTotalDistanceAction mGetTotalDistanceAction;
     public SetStopIdAction mSetStopIdAction;
     public GetLastStopIDAction mGetLastStopIDAction;
@@ -59,6 +59,7 @@ public class IndexActions {
         StartLocationServiceAction mStartLocationServiceAction,
         StopLocationServiceAction mStopLocationServiceAction,
         GetLocationAction mGetLocationAction,
+        ClearLocationListAction mClearLocationListAction,
         GetLocationListAction mGetLocationListAction,
         GetTotalDistanceAction mGetTotalDistanceAction,
         SetStopIdAction mSetStopIdAction,
@@ -78,6 +79,7 @@ public class IndexActions {
         this.mStartLocationServiceAction = mStartLocationServiceAction;
         this.mStopLocationServiceAction = mStopLocationServiceAction;
         this.mGetLocationAction = mGetLocationAction;
+        this.mClearLocationListAction = mClearLocationListAction;
         this.mGetLocationListAction = mGetLocationListAction;
         this.mGetTotalDistanceAction = mGetTotalDistanceAction;
         this.mSetStopIdAction = mSetStopIdAction;
