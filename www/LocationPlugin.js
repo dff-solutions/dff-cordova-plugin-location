@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 7.2.3
+ * @version 9.0.0-pre1
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -19,9 +19,6 @@ const ACTION_CLEAR_LOCATION_LIST = "location.action.CLEAR_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
 const ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
-const ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
-const ACTION_RUN_CUSTOM_DISTANCE_CALCULATOR = "distance.action.RUN_CUSTOM_DISTANCE_CALCULATOR";
-const ACTION_GET_CUSTOM_DISTANCE = "distance.action.GET_CUSTOM_DISTANCE_CALCULATOR";
 const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
 const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
 const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
