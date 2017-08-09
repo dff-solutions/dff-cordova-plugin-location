@@ -96,6 +96,8 @@ public class LocationService extends Service {
         //testService(100);
         Log.d(TAG, "onStartCommand()");
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
+        Log.d(TAG, "is service started --> " + mPreferencesHelper.isServiceStarted());
+        Log.d(TAG, "is location manager listening --> " + LocationServiceHandler.isListening);
         if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
