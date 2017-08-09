@@ -2,8 +2,7 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.content.Context;
 
-import com.dff.cordova.plugin.location.actions.Action;
-import com.dff.cordova.plugin.location.actions.RestoreAction;
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 

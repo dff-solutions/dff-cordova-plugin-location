@@ -6,6 +6,7 @@ import android.location.Location;
 import android.util.Log;
 
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 
@@ -34,7 +35,7 @@ public class StopHolder implements Runnable {
     public StopHolder
         (
             @ApplicationContext Context mContext,
-            Res mRes) {
+            @Shared Res mRes) {
         this.mContext = mContext;
         this.mRes = mRes;
     }

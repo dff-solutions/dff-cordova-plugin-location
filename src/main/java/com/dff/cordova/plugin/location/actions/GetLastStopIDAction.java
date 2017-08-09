@@ -1,5 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;

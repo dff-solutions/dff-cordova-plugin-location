@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.content.Intent;
 
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;

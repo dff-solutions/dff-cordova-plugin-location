@@ -1,8 +1,7 @@
 package com.dff.cordova.plugin.location.configurations;
 
-import com.dff.cordova.plugin.location.actions.Action;
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.actions.index.IndexActions;
-import com.dff.cordova.plugin.location.configurations.JSActions;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -164,7 +164,7 @@ LocationPlugin.getLocation(returnType, function(location) {
   
   //example for json location
   // Object {Accuracy: 12, Latitude: 51.53692106, Speed: 0, Altitude: 205, Longitude: 9.92879299…}
-   ```json
+   {
     mAccuracy: 9388
     mAltitude: 221
     mBearing: 0
@@ -191,7 +191,7 @@ LocationPlugin.getLocation(returnType, function(location) {
     __proto__: Array[0]
     mSpeed: 0
     mTime: 1501852189843
-    ```
+    }
   
 }, error);
 ```

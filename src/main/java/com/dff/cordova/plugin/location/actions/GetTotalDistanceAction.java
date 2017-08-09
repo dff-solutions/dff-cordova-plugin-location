@@ -3,6 +3,8 @@ package com.dff.cordova.plugin.location.actions;
 import android.location.Location;
 import android.util.Log;
 
+import com.dff.cordova.plugin.common.action.Action;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
@@ -32,7 +34,7 @@ public class GetTotalDistanceAction extends Action {
     private DistanceSimulator mDistanceSimulator;
 
     @Inject
-    public GetTotalDistanceAction(Res mRes, DistanceSimulator mDistanceSimulator) {
+    public GetTotalDistanceAction(@Shared Res mRes, DistanceSimulator mDistanceSimulator) {
         this.mRes = mRes;
         this.mDistanceSimulator = mDistanceSimulator;
     }

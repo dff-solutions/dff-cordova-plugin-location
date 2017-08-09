@@ -1,9 +1,9 @@
 package com.dff.cordova.plugin.location.actions;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.os.Messenger;
 
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;

@@ -49,4 +49,5 @@
     <plugin name="dff-cordova-plugin-error" spec="file:///C:\git\dff-cordova-plugin-error" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="dff-cordova-plugin-common" spec="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git#2.0.5" />
+    <plugin name="dff-cordova-plugin-location" spec="C:\git\Plugins\dff-cordova-plugin-location" />
 </widget>

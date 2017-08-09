@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.broadcasts.NewLocationReceiver;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 

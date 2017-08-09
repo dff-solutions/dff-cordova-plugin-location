@@ -1,7 +1,8 @@
 package com.dff.cordova.plugin.location.actions;
 
+import com.dff.cordova.plugin.common.action.Action;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
-import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONArray;
 
@@ -23,7 +24,7 @@ public class GetKeySetFromLocationsMultimapAction extends Action {
     private Res mRes;
 
     @Inject
-    public GetKeySetFromLocationsMultimapAction(Res mRes) {
+    public GetKeySetFromLocationsMultimapAction(@Shared Res mRes) {
         this.mRes = mRes;
     }
 

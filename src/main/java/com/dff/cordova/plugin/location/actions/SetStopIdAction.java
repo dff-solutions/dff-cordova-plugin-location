@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
 
+import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.json.JSONException;
