@@ -168,10 +168,10 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/PluginComponent.java"
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/LocationPluginComponent.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/components" />
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/ServiceComponent.java"
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/LocationServiceComponent.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/components" />
         <source-file src="src/main/java/com/dff/cordova/plugin/location/dagger/DaggerManager.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger" />
@@ -199,8 +199,6 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/handlers/LocationServiceHandler.java"
             target-dir="src/com/dff/cordova/plugin/location/handlers" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/interfaces/Executable.java"
-            target-dir="src/com/dff/cordova/plugin/location/interfaces" />
         <source-file src="src/main/java/com/dff/cordova/plugin/location/LocationPlugin.java"
             target-dir="src/com/dff/cordova/plugin/location" />
         <source-file src="src/main/java/com/dff/cordova/plugin/location/resources/Res.java"
