@@ -35,12 +35,12 @@ public class Res {
 
     private Location mLastGoodLocation;
     private List<JSONObject> mLocationList;
-
-    private ListMultimap<String, Location> mLocationMultimap = ArrayListMultimap.create();
+    private ListMultimap<String, Location> mLocationMultimap;
 
     public Res(LocationHelper mLocationHelper) {
         this.mLocationHelper = mLocationHelper;
         mLocationList = new ArrayList<>();
+        mLocationMultimap = ArrayListMultimap.create();
     }
 
     /**
