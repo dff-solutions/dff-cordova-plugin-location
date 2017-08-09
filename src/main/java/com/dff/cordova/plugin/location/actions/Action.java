@@ -1,6 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
-import com.dff.cordova.plugin.location.interfaces.Executable;
+import com.dff.cordova.plugin.common.interfaces.Executable;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONArray;
@@ -15,8 +15,8 @@ import org.json.JSONArray;
 
 public abstract class Action implements Executable {
 
-     CallbackContext callbackContext;
-     JSONArray args;
+    CallbackContext callbackContext;
+    JSONArray args;
 
     public Action with(CallbackContext callbackContext) {
         this.callbackContext = callbackContext;

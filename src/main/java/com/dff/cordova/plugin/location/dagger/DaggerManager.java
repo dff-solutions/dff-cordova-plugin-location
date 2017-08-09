@@ -4,10 +4,10 @@ import android.app.Application;
 import android.app.Service;
 
 import com.dff.cordova.plugin.location.LocationPlugin;
-import com.dff.cordova.plugin.location.dagger.components.DaggerPluginComponent;
-import com.dff.cordova.plugin.location.dagger.components.DaggerServiceComponent;
-import com.dff.cordova.plugin.location.dagger.components.PluginComponent;
-import com.dff.cordova.plugin.location.dagger.components.ServiceComponent;
+import com.dff.cordova.plugin.location.dagger.components.DaggerLocationPluginComponent;
+import com.dff.cordova.plugin.location.dagger.components.DaggerLocationServiceComponent;
+import com.dff.cordova.plugin.location.dagger.components.LocationPluginComponent;
+import com.dff.cordova.plugin.location.dagger.components.LocationServiceComponent;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
 import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
@@ -29,8 +29,8 @@ public class DaggerManager {
 
     private static DaggerManager mDaggerManager;
 
-    private PluginComponent mPluginComponent;
-    private ServiceComponent mServiceComponent;
+    private LocationPluginComponent mLocationPluginComponent;
+    private LocationServiceComponent mLocationServiceComponent;
 
     private AppModule mAppModule;
     private CordovaModule mCordovaModule;
@@ -66,21 +66,21 @@ public class DaggerManager {
 
 
     public void inject(LocationPlugin locationPlugin) {
-        if (mPluginComponent == null) {
-            mPluginComponent = DaggerPluginComponent
+        if (mLocationPluginComponent == null) {
+            mLocationPluginComponent = DaggerLocationPluginComponent
                 .builder()
                 .appModule(mAppModule)
                 .cordovaModule(mCordovaModule)
                 .pluginModule(mPluginModule)
                 .build();
         }
-        mPluginComponent.inject(locationPlugin);
+        mLocationPluginComponent.inject(locationPlugin);
     }
 
     public <T extends Service> void inject(T service) {
-        if (mServiceComponent == null) {
+        if (mLocationServiceComponent == null) {
 
-            mServiceComponent = DaggerServiceComponent
+            mLocationServiceComponent = DaggerLocationServiceComponent
                 .builder()
                 .appModule(mAppModule)
                 .serviceModule(new ServiceModule())
@@ -88,9 +88,9 @@ public class DaggerManager {
         }
 
         if (service instanceof LocationService) {
-            mServiceComponent.inject((LocationService) service);
+            mLocationServiceComponent.inject((LocationService) service);
         } else if (service instanceof PendingLocationsIntentService) {
-            mServiceComponent.inject((PendingLocationsIntentService) service);
+            mLocationServiceComponent.inject((PendingLocationsIntentService) service);
         }
     }
 }

@@ -38,6 +38,7 @@ public class Res {
 
     private ListMultimap<String, Location> mLocationMultimap = ArrayListMultimap.create();
 
+    @Inject
     public Res(LocationHelper mLocationHelper) {
         this.mLocationHelper = mLocationHelper;
         mLocationList = new ArrayList<>();
