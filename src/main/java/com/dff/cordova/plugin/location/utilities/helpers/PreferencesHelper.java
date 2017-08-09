@@ -47,12 +47,6 @@ public class PreferencesHelper {
         return res;
     }
 
-    public boolean setReturnType(String type) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putString(Resources.SP_KEY_RETURN_TYPE, type);
-        return editor.commit();
-    }
-
     public boolean setMinTime(long minTime) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putLong(Resources.SP_KEY_MIN_TIME, minTime);
@@ -117,14 +111,6 @@ public class PreferencesHelper {
         return res;
     }
 
-    public boolean storeCustomDistance(float distance) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putFloat(Resources.SP_KEY_CUSTOM_DISTANCE, distance);
-        Boolean res = editor.commit();
-        Log.d(TAG, "Success of shared preference's commit (CUSTOM DISTANCE) is: " + res);
-        return res;
-    }
-
     /**
      * Restore the state of "can Location be cleared"
      *
@@ -174,7 +160,6 @@ public class PreferencesHelper {
      * Store saved properties from the resources into shared preference
      */
     public void storeProperties() {
-        setReturnType(Resources.LOCATION_RETURN_TYPE);
         setMinTime(Resources.LOCATION_MIN_TIME);
         setMinDistance(Resources.LOCATION_MIN_DISTANCE);
         setMinAccuracy(Resources.LOCATION_MIN_ACCURACY);
@@ -188,7 +173,6 @@ public class PreferencesHelper {
      * Restore saved properties from shared preference to the resources
      */
     public void restoreProperties() {
-        Resources.LOCATION_RETURN_TYPE = getReturnType();
         Resources.LOCATION_MIN_TIME = getMinTime();
         Resources.LOCATION_MIN_DISTANCE = getMinDistance();
         Resources.LOCATION_MIN_ACCURACY = getMinAccuracy();
