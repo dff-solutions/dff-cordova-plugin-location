@@ -43,8 +43,6 @@
         </config-file>
 
 
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/Action.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/actions/ClearStopIDAction.java"
             target-dir="src/com/dff/cordova/plugin/location/actions" />
@@ -112,15 +110,10 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/broadcasts/StandStillReceiver.java"
             target-dir="src/com/dff/cordova/plugin/location/broadcasts" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/C.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
             target-dir="src/com/dff/cordova/plugin/location/classes" />
         <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/Executor.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/classes/LastGoodLocation.java"
             target-dir="src/com/dff/cordova/plugin/location/classes" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/configurations/ActionsManager.java"
