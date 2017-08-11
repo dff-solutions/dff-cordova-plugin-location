@@ -132,7 +132,13 @@ public class Res {
     }
 
     public synchronized void mapLocation(Location location) {
-        mLocationMultimap.put(STOP_ID, location);
+        boolean mapped = mLocationMultimap.put(STOP_ID, location);
+        Log.d(TAG, "mapping success --> " + mapped);
+        Log.d(TAG, "size of the location multimap list --> " + getLocationListMultimap().size());
+        Log.d(TAG, "keyset and keyset size of the location multimap list --> "
+            + getLocationListMultimap().keySet()
+            + " size --> "
+            + getLocationListMultimap().keySet().size());
     }
 
     /**
