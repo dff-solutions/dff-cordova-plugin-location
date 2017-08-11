@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-    id="dff-cordova-plugin-location" spec="9.0.0-rc1" version="9.0.0-rc1"
+    id="dff-cordova-plugin-location" spec="9.0.0-rc2" version="9.0.0-rc2"
     xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -185,6 +185,9 @@
             target-dir="src/com/dff/cordova/plugin/location/events" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/events/OnNewGoodLocation.java"
+            target-dir="src/com/dff/cordova/plugin/location/events" />
+        <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/events/onResRequestEvent.java"
             target-dir="src/com/dff/cordova/plugin/location/events" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java"

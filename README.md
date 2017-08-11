@@ -10,15 +10,20 @@ Location based tracking system
 
 ## Plugin@latest
 
+- Android: 9.0.0-rc2
+
+## Plugin@stable
+
 - Android: 8.0.1
 
 ## Releases:
-- 9.0.0: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
+- 9.0.0-rc2: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
   properties of the json location changed to the native properties of a location object - getLocation method will not
   reset/clear the location list anymore --> implemented a new action: clear location list action - 
-  enable mapping action has a optional boolean param in order to enable/disable location's mapping
+  enable mapping action has a optional boolean param in order to enable/disable location's mapping - 
+  get total distance and getStopDistance have a new success callback that contains a json obj with (keyset/stopID and distance)
 - 8.0.1: Fix: @getTotalDistance 
 - 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
