@@ -28,7 +28,7 @@ public class EnableMappingAction extends Action {
 
     @Override
     public void execute() {
-        
+
         Resources.IS_TO_CALCULATE_DISTANCE = args.optBoolean(0, true);
         mPreferencesHelper.setIsLocationsMappingEnabled(true);
         callbackContext.success();

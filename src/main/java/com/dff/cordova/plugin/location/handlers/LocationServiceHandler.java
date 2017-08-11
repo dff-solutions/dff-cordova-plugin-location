@@ -156,7 +156,7 @@ public class LocationServiceHandler extends Handler {
                     if (Resources.IS_TO_CALCULATE_DISTANCE) {
                         Log.d(TAG, "Location is to calculate - mapping in " + Resources.STOP_ID);
                         mRes.mapLocation(location);
-                        mRes.logLocationListMultimap();
+//                        mRes.logLocationListMultimap();
                     }
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();

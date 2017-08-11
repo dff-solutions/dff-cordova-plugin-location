@@ -96,9 +96,10 @@ public class LocationPlugin extends CommonServicePlugin {
 
         requestLocationPermission();
         mContext.stopService(new Intent(mContext, LocationService.class));
-
+        //@plugin version 7.2.3
+        mPreferencesHelper.restoreProperties();
+        mPreferencesHelper.setIsServiceStarted(false);
         super.pluginInitialize(mServiceHandler);
-        init();
     }
 
 
@@ -155,11 +156,6 @@ public class LocationPlugin extends CommonServicePlugin {
             CommonPlugin.addPermission(permission);
         }
     }
-
-    private void init() {
-//        mExecutor.execute(mIndex.mRestoreAction);
-    }
-
 
     public CordovaInterface getCordovaInterface() {
         return mCordovaInterface;

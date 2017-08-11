@@ -24,7 +24,7 @@ import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
  * Resources class to deal with the allocated location object and the location list
  *
  * @author Anthony Nahas
- * @version 2.0
+ * @version 9.0.0-rc1
  * @since 07.07.17
  */
 public class Res {
@@ -133,7 +133,7 @@ public class Res {
 
     public synchronized void mapLocation(Location location) {
         boolean mapped = mLocationMultimap.put(STOP_ID, location);
-        Log.d(TAG, "mapping success --> " + mapped);
+        Log.d(TAG, "mapping success --> " + mapped + " with " + Resources.STOP_ID);
         Log.d(TAG, "size of the location multimap list --> " + getLocationListMultimap().size());
         Log.d(TAG, "keyset and keyset size of the location multimap list --> "
             + getLocationListMultimap().keySet()

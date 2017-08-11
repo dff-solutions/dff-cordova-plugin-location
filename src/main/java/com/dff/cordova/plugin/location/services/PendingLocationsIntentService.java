@@ -71,7 +71,7 @@ public class PendingLocationsIntentService extends IntentService {
                 mFileHelper.restorePendingLocation();
                 mFileHelper.restoreLocationsMultimap();
                 mPreferencesHelper.restoreProperties();
-                mPreferencesHelper.setIsServiceStarted(false);
+//                mPreferencesHelper.setIsServiceStarted(false);
             }
         }
     }
