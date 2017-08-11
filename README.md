@@ -17,7 +17,8 @@ Location based tracking system
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
   properties of the json location changed to the native properties of a location object - getLocation method will not
-  reset/clear the location list anymore --> implemented a new action: clear location list action
+  reset/clear the location list anymore --> implemented a new action: clear location list action - 
+  enable mapping action has a optional boolean param in order to enable/disable location's mapping
 - 8.0.1: Fix: @getTotalDistance 
 - 8.0.0: Ref: converted the Location plugin as well as android module library @Instrumental Tests! RELEASE 8.0.0
 - 7.2.4: Ref: updated git url in package.json
@@ -236,9 +237,11 @@ LocationPlugin.getLocation(returnType, function(location) {
    *
    * @param success - Success callback function
    * @param error - Error callback function.
+   * @param enable? - optional boolean param in order to enable/disable locations'mapping
+   * The default value is true
    */
-  LocationPlugin.enableMapping = function (success, error) {
-      exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
+  LocationPlugin.enableMapping = function (success, error,enable?) {
+      exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, [enable]);
   };
   ```
   
