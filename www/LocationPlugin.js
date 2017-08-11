@@ -161,8 +161,8 @@ LocationPlugin.prototype.getStopDistance = function (success, error, params) {
  * @param success - Success callback function
  * @param error - Error callback function.
  */
-LocationPlugin.prototype.enableMapping = function (success, error) {
-    exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, []);
+LocationPlugin.prototype.enableMapping = function (success, error, enableMapping) {
+    exec(success, error, FEATURE, ACTION_ENABLE_MAPPING_LOCATIONS, [enableMapping]);
 };
 
 /**

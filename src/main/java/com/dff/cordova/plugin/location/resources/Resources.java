@@ -44,7 +44,7 @@ public class Resources {
     public static final String IS_PROVIDER_ENABLED = "location.IS_PROVIDER_ENABLED";
 
     //JSON keys (params)
-    public static final String RETURN_TYPE = "returnType";
+    public static final String ENABLE_MAPPING = "enableMapping";
     public static final String MIN_TIME = "minTime";
     public static final String MIN_DISTANCE = "minDistance";
     public static final String MIN_ACCURACY = "minAccuracy";
