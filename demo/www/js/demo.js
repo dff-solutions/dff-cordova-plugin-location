@@ -152,7 +152,7 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
 
   $scope.enableMapping = function () {
     window.LocationPlugin.enableMapping(function () {
-      console.log("oenable Mapping");
+      console.log("enable Mapping");
     }, function (error) {
       console.error("on runTotalDistanceCalculator error:", error);
     })
@@ -169,7 +169,7 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
 
   $scope.getStopID = function (id) {
     window.LocationPlugin.getStopDistance(function (result) {
-        console.log("id = " + id + " --> " + result + " m");
+        console.log(result);
       }, function (error) {
         console.error(error);
       },
@@ -179,8 +179,9 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
 
 
   $scope.getKeySet = function () {
-    window.LoctionPlugin.getKeySet(function (result) {
-      console.log("KEY SET : " + result);
+    window.LocationPlugin.getKeySet(function (result) {
+      console.log("KEY SET --> ");
+      console.log(result);
     }, function (error) {
       console.error("Error: " + error);
     })
@@ -195,28 +196,23 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
   };
 
   $scope.getTotalNET = function () {
-    window.LocationPlugin.getTotalDistance(function (distance) {
-      console.log("total distance NET = " + distance);
-      $scope.distance = distance;
+    window.LocationPlugin.getTotalDistance(function (result) {
+      console.log("total distance NET --> ");
+      console.log(result);
+      $scope.distance = result.distance;
     }, function (error) {
       console.error("Error: " + error);
     }, {reset: false, clean: true});
   };
 
   $scope.getTotal = function () {
-    window.LocationPlugin.getTotalDistance(function (distance) {
-      console.log("total distance = " + distance);
-      $scope.distance = distance;
+    window.LocationPlugin.getTotalDistance(function (result) {
+      console.log("total distance --> ");
+      console.log(result);
+      $scope.distance = result.distance;
     }, function (error) {
       console.error("Error: " + error);
     }, {reset: true});
   };
 
-  $scope.takePhoto = function () {
-    window.CameraPlugin.takePhoto(function (base64) {
-      console.log("taking photo success --> " + base64);
-    }, function (error) {
-      console.error(error);
-    }, true);
-  };
 }]);
