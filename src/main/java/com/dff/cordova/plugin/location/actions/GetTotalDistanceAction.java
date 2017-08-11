@@ -63,7 +63,8 @@ public class GetTotalDistanceAction extends Action {
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
-            mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
+            mDistanceSimulator.performDistanceCalculation(callbackContext,
+                mRes.getLocationListMultimap().keySet().toString(), locationsList);
             if (!Resources.IS_TO_CALCULATE_DISTANCE) {
                 mRes.clearLocationListMultimap();
             }

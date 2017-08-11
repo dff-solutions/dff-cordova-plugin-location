@@ -33,8 +33,6 @@ public class ClearStopIDAction extends Action {
     private Res mRes;
     private DistanceSimulator mDistanceSimulator;
 
-    CallbackContext callbackContext;
-
     @Inject
     public ClearStopIDAction(@Shared Res mRes, DistanceSimulator mDistanceSimulator) {
         this.mRes = mRes;
@@ -59,9 +57,8 @@ public class ClearStopIDAction extends Action {
                         + requestedStopID);
                 return;
             }
-            mDistanceSimulator.performDistanceCalculation(callbackContext, locationsList);
+            mDistanceSimulator.performDistanceCalculation(callbackContext, requestedStopID, locationsList);
         } catch (JSONException e) {
-            callbackContext.error("Error: " + e);
             Log.e(TAG, "Error: ", e);
         }
     }

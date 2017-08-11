@@ -130,7 +130,9 @@ public class FileHelper {
         }
     }
 
-
+    /**
+     * Stre the location's multimap in sav file
+     */
     public void storeLocationsMultimap() {
         FileOutputStream fos = null;
         ObjectOutputStream os;
@@ -162,6 +164,10 @@ public class FileHelper {
         }
     }
 
+    /**
+     * Restore the locations multimap by reading the target file and making
+     * converting the target json object
+     */
     public void restoreLocationsMultimap() {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -172,15 +178,15 @@ public class FileHelper {
                 Log.d(TAG, "fis is available on restoring locations'multimap!");
                 ois = new ObjectInputStream(fis);
 
-//                Resources
-//                    .setLocationsMultiMap(MultimapHelper
-//                        .convertMapToLocationsMultiMap(MultimapHelper
-//                            .parseJSONtoMap((String) ois.readObject())));
+                mRes
+                    .setLocationMultimap(mMultimapHelper
+                        .convertMapToLocationsMultiMap(mMultimapHelper
+                            .parseJSONtoMap((String) ois.readObject())));
 
                 Log.d(TAG, "on restoreLocationsMultimap");
                 mRes.logLocationListMultimap();
             }
-        } catch (IOException e) {
+        } catch (IOException | ClassNotFoundException e) {
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {

@@ -127,6 +127,17 @@ public class Res {
         Log.d(TAG, "size of the location list --> " + getLocationList().size());
     }
 
+    /**
+     * setter multimap for restore purpoeses
+     *
+     * @param mLocationMultimap - the locations multimap to restore
+     */
+    public synchronized void setLocationMultimap(ListMultimap<String, Location> mLocationMultimap) {
+        this.mLocationMultimap = mLocationMultimap;
+        Log.d(TAG,"on restore locations'multimap - size --> " + this.mLocationMultimap.size());
+        Log.d(TAG,"on restore locations'multimap - keySet --> " + this.mLocationMultimap.keySet());
+    }
+
     public synchronized void clearLocation() {
         mLastGoodLocation = null;
     }

@@ -9,8 +9,9 @@ import com.dff.cordova.plugin.location.classes.DistanceCalculator;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 
 import org.apache.cordova.CallbackContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
@@ -42,7 +43,7 @@ public class DistanceSimulator {
         mContext = context;
     }
 
-    public void performDistanceCalculation(CallbackContext callbackContext, ArrayList<Location> locationsList) {
+    public void performDistanceCalculation(CallbackContext callbackContext, String stopID, ArrayList<Location> locationsList) {
 
         int counter = 0;
         Location location;
@@ -59,7 +60,14 @@ public class DistanceSimulator {
         }
         float result = distanceCalculator.getDistance();
         Log.d(TAG, "Calculation result = " + result);
-        callbackContext.success(String.valueOf(result));
+        org.json.JSONObject json = new org.json.JSONObject();
+        try {
+            json.put("stopID", stopID);
+            json.put("distance", result);
+        } catch (JSONException e) {
+            Log.e(TAG, "Error: ", e);
+        }
+        callbackContext.success(json);
     }
 
     private void simulateStaticJSON() {
@@ -106,7 +114,12 @@ public class DistanceSimulator {
 
     private ArrayList<Location> readDffStringLocation(JSONObject jsonObject) {
         ArrayList<Location> locationsList = new ArrayList<>();
-        JSONArray dffStringLocationArray = (JSONArray) jsonObject.get("rows");
+        JSONArray dffStringLocationArray = null;
+        try {
+            dffStringLocationArray = (JSONArray) jsonObject.get("rows");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d(TAG, dffStringLocationArray.toString());
         for (Object DffStringLocationList : dffStringLocationArray) {
             JSONArray DffStringLocation = (JSONArray) DffStringLocationList;

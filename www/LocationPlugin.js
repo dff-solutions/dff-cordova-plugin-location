@@ -15,6 +15,7 @@ const ACTION_START_SERVICE = "location.action.START_SERVICE";
 const ACTION_STOP_SERVICE = "location.action.STOP_SERVICE";
 const ACTION_GET_LOCATION = "location.action.GET_LOCATION";
 const ACTION_GET_LOCATION_LIST = "location.action.GET_LOCATION_LIST";
+const ACTION_GET_TOTAL_DISTANCE = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
 const ACTION_CLEAR_LOCATION_LIST = "location.action.CLEAR_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
@@ -184,23 +185,6 @@ LocationPlugin.prototype.getKeySet = function (success, error) {
  */
 LocationPlugin.prototype.getLastStopID = function (success, error) {
     exec(success, error, FEATURE, ACTION_GET_LAST_STOP_ID, []);
-};
-
-/**
- * NB: only for test purposes
- */
-LocationPlugin.prototype.getFullDistance = function () {
-    exec(function (distance) {
-        console.log("getFullDistance on success");
-        if (distance) {
-            console.log(distance);
-        }
-        else {
-            console.log("Distance is not available ");
-        }
-    }, function (msg) {
-        console.log(msg);
-    }, FEATURE, ACTION_GET_TOTAL_DISTANCE, [])
 };
 
 
