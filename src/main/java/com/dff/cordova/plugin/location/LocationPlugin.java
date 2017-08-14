@@ -28,7 +28,7 @@ import org.json.JSONException;
 import javax.inject.Inject;
 
 /**
- * Cordova Plugin class that deals with the android's Location API, in order to get the location of the device as
+ * Cordova Plugin classes that deals with the android's Location API, in order to get the location of the device as
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas

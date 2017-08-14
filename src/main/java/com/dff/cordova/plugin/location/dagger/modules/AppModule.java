@@ -22,7 +22,7 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
- * The @Module annotation tells Dagger that the AppModule class will provide dependencies for a part
+ * The @Module annotation tells Dagger that the AppModule classes will provide dependencies for a part
  * of the mApp. It is normal to have multiple Dagger modules in a project, and it is typical
  * for one of them to provide app-wide dependencies.
  *
@@ -69,7 +69,7 @@ public class AppModule {
     }
 
     // Dagger will only look for methods annotated with @Provides
-    // Application reference must come from AppModule.class
+    // Application reference must come from AppModule.classes
     @Provides
     @Singleton
     @Shared

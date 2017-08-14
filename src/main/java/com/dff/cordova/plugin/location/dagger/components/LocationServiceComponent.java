@@ -11,7 +11,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 /**
- * Created by anahas on 22.06.2017.
+ * Location Plugin's services component
  *
  * @author Anthony Nahas
  * @version 1.0

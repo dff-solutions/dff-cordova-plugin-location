@@ -21,7 +21,7 @@ import javax.inject.Singleton;
 import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
 
 /**
- * Resources class to deal with the allocated location object and the location list
+ * Resources classes to deal with the allocated location object and the location list
  *
  * @author Anthony Nahas
  * @version 9.0.0-rc1

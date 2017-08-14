@@ -11,7 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * class that deals on the one hand with js actions in order to map them
+ * classes that deals on the one hand with js actions in order to map them
  * (js - java)
  *
  * @author Anthony Nahas

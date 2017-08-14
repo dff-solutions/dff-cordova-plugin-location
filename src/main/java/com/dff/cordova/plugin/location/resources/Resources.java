@@ -20,7 +20,7 @@ import java.util.ConcurrentModificationException;
  *
  * @author Anthony Nahas
  * @version 7.2.3
- * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map class)
+ * @see 'https://google.github.io/guava/releases/19.0/api/docs/com/google/common/collect/Multimap.html' (for multi hash map classes)
  * @since 30.11.2016
  */
 public class Resources {
@@ -96,7 +96,7 @@ public class Resources {
     public static String LOCATIONS_MULTIMAP_FILE_NAME = "locationsmultimap.sav";
     public static String SHARED_PREFERENCE_NAME = "preferences";
 
-    //Settings related to the Distance calculator class
+    //Settings related to the Distance calculator classes
     public static int DISTANCE_CALCULATOR_STOP_DELAY = 60000; //1min
 
     /**

@@ -86,20 +86,20 @@ public class StartServiceTest extends LocationPluginTest {
 
     @Test
     public void checkStartServiceActionValue() {
-        assertEquals("start service action should be available in js actions class--> ",
+        assertEquals("start service action should be available in js actions classes--> ",
             mJsActions.start_service,
             mStartServiceAction);
     }
 
     @Test
     public void checkStartServiceActionsMapping() {
-        assertNotNull("start service action should be mapped in the action manager class",
+        assertNotNull("start service action should be mapped in the action manager classes",
             mActionsManager.hash(mStartServiceAction));
     }
 
     @Test
     public void checkStartServiceActionClass() {
-        assertEquals("start service action class should be returned by the action manager after hashing",
+        assertEquals("start service action classes should be returned by the action manager after hashing",
             mActionsManager.hash(mStartServiceAction).getClass(), StartLocationServiceAction.class);
     }
 

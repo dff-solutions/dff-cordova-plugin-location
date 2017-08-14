@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 
 /**
- * Simple class to handle tasks related to the time.
+ * Simple classes to handle tasks related to the time.
  *
  * @author Anthony Nahas
  * @version 1.0
