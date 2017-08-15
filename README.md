@@ -174,7 +174,7 @@ LocationPlugin.stopService(success, error);
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.getLocation(returnType, function(location) {
+LocationPlugin.getLocation(function(location) {
   console.log("location");
   //example for string location
   //9.92885613|51.53705706|0.0|0.0
@@ -335,19 +335,7 @@ LocationPlugin.getTotalDistance(function(distnace){
 }, error, {reset: false, clean: true});
 ```
 ----
-#### getCustomDistance
-```js
-/**
- * Get the calculated custom distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.getCustomDistance(function(distance) {
-  console.log(distance);
-}, error);
-```
-----
+
 #### restorePendingLocations
 ```js
 /**
@@ -365,11 +353,10 @@ LocationPlugin.restorePendingLocations = function (success, error);
 /**
  * Set a location listener in order to receive the newest location.
  *
- * @param returnType -  0 for String Location | 1 for JSON Location
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.setLocationListener = function (returnType, success, error);
+LocationPlugin.setLocationListener = function (success, error);
 ```
 ----
 #### setStopListener
