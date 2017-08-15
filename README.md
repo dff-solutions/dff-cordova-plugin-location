@@ -8,6 +8,8 @@ Location based tracking system
 
 - Android 
 
+#### supported dff-web-core - 1.3.0
+
 ## Plugin@latest
 
 - Android: 9.0.0-rc2
@@ -74,6 +76,16 @@ service and initialized the location manager | Fix: initialize the location mana
 - cordova plugin add [https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
 - or
 - ionic plugin add [https://github.com/dff-solutions/dff-cordova-plugin-location.git]()
+
+## Plugin Migration from <9.0.0 to > 9.0.0
+- getLocation has no params (@returnType)
+- getLocationList has params without returnType key property
+- new: clearLocationList action
+- new: get key set
+- no params for getLastStopID
+- setLocationListener has no params (@returnType)
+- location is only in json format
+
 
 ## Documentation
 - <a href="https://dff-solutions.github.io/dff-cordova-plugin-location/" target="_blank" >JAVA DOC</a>
