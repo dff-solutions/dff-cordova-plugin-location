@@ -107,6 +107,7 @@ The plugin is available via the global variable `**LocationPlugin**`.
 ###### Assumption
 
 - Success Callback Function
+- Success Callback Function
 ```js
 var success = function() {
   // (Y) do what every you want...! 
@@ -135,12 +136,10 @@ var error = function(errorMsg) {
 LocationPlugin.startService(success, error, params);
 
 params {
-    //returnType: 'dffString' || 'json', //default json
     minTime: 15000, // 15sec - default 0
     minDistance: 50, // 50m - default 0
     minAccuracy: 20, // 20m - default 20
-    locationMaxAge: 30, // 30sec - default 30
-    locationRequestDelay: 20000 // 50sec - default 50k
+    locationMaxAge: 30 // 30sec - default 30
 }
 
 minTime| long: minimum time interval between location updates, in milliseconds

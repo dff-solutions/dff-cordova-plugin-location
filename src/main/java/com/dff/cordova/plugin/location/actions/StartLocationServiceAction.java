@@ -81,7 +81,6 @@ public class StartLocationServiceAction extends Action {
                 Resources.LOCATION_MIN_DISTANCE = (float) params.optDouble(Resources.MIN_DISTANCE, Resources.LOCATION_MIN_DISTANCE);
                 Resources.LOCATION_MIN_ACCURACY = params.optInt(Resources.MIN_ACCURACY, Resources.LOCATION_MIN_ACCURACY);
                 Resources.LOCATION_MAX_AGE = params.optInt(Resources.MAX_AGE, Resources.LOCATION_MAX_AGE);
-                Resources.LOCATION_DELAY = params.optInt(Resources.DELAY, Resources.LOCATION_DELAY);
                 mPreferencesHelper.storeProperties();
             }
         } catch (JSONException e) {

@@ -71,12 +71,6 @@ public class PreferencesHelper {
         return editor.commit();
     }
 
-    public boolean setLocationRequestDelay(int requestDelay) {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.putInt(Resources.SP_KEY_LOCATION_REQUEST_DELAY, requestDelay);
-        return editor.commit();
-    }
-
     public boolean setStopdID(String stopdID) {
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(Resources.SP_KEY_STOP_ID, stopdID);
@@ -140,10 +134,6 @@ public class PreferencesHelper {
         return mSharedPreferences.getInt(Resources.SP_KEY_LOCATION_MAX_AGE, Resources.LOCATION_MAX_AGE);
     }
 
-    public int getLocationRequestDelay() {
-        return mSharedPreferences.getInt(Resources.SP_KEY_LOCATION_REQUEST_DELAY, Resources.LOCATION_DELAY);
-    }
-
     public float getStoredTotalDistance() {
         return mSharedPreferences.getFloat(Resources.SP_KEY_TOTAL_DISTANCE, 0);
     }
@@ -164,7 +154,6 @@ public class PreferencesHelper {
         setMinDistance(Resources.LOCATION_MIN_DISTANCE);
         setMinAccuracy(Resources.LOCATION_MIN_ACCURACY);
         setLocationMaxAge(Resources.LOCATION_MAX_AGE);
-        setLocationRequestDelay(Resources.LOCATION_DELAY);
         setIsLocationsMappingEnabled(Resources.IS_TO_CALCULATE_DISTANCE);
         setStopdID(Resources.STOP_ID);
     }
@@ -177,7 +166,6 @@ public class PreferencesHelper {
         Resources.LOCATION_MIN_DISTANCE = getMinDistance();
         Resources.LOCATION_MIN_ACCURACY = getMinAccuracy();
         Resources.LOCATION_MAX_AGE = getLocationMaxAge();
-        Resources.LOCATION_DELAY = getLocationRequestDelay();
         Resources.IS_TO_CALCULATE_DISTANCE = isLocationsMappingEnabled();
         Resources.STOP_ID = getStopID();
     }
