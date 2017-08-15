@@ -10,9 +10,11 @@ Location based tracking system
 
 #### supported dff-web-core - 1.3.0
 
+#### dependencies: dff-cordova-plugin-common 2.0.5 "Common"
+
 ## Plugin@latest
 
-- Android: 9.0.0-rc2
+- Android: 9.0.0-rc3
 
 ## Plugin@stable
 
@@ -182,32 +184,13 @@ LocationPlugin.getLocation(function(location) {
   //example for json location
   // Object {Accuracy: 12, Latitude: 51.53692106, Speed: 0, Altitude: 205, Longitude: 9.92879299…}
    {
-    mAccuracy: 9388
-    mAltitude: 221
-    mBearing: 0
-    mDistance: 0
-    mElapsedRealtimeNanos: 223773113411914
-    mExtras: Object
-    mHasAccuracy: true
-    mHasAltitude: true
-    mHasBearing: false
-    mHasSpeed: true
-    mInitialBearing: 0
-    mIsFromMockProvider: false
-    mLat1: 0
-    mLat2: 0
-    mLatitude: 51.536967158317566
-    mLon1: 0
-    mLon2: 0
-    mLongitude: 9.92862582206726
-    mProvider: "gps"
-    mResults: Array[2]
-    0: 0
-    1: 0
-    length: 2
-    __proto__: Array[0]
-    mSpeed: 0
-    mTime: 1501852189843
+    accuracy: 9401
+    altitude: 198
+    bearing: 0
+    latitude: 51.537010073661804
+    longitude: 9.929113984107971
+    speed: 0
+    time: 1502787852011
     }
   
 }, error);
@@ -359,7 +342,7 @@ LocationPlugin.restorePendingLocations = function (success, error);
 LocationPlugin.setLocationListener = function (success, error);
 ```
 ----
-#### setStopListener
+#### setStopListener (todo: need core update for GLocation class!!)
 ```js
 /**
  * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)

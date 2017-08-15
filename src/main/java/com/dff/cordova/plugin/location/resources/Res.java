@@ -4,6 +4,7 @@ import android.location.Location;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.classes.GLocation;
 import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -15,8 +16,6 @@ import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
 
@@ -24,7 +23,7 @@ import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
  * Resources classes to deal with the allocated location object and the location list
  *
  * @author Anthony Nahas
- * @version 9.0.0-rc1
+ * @version 9.0.0-rc3
  * @since 07.07.17
  */
 public class Res {
@@ -33,7 +32,7 @@ public class Res {
 
     private LocationHelper mLocationHelper;
 
-    private Location mLastGoodLocation;
+    private GLocation mLocation;
     private List<JSONObject> mLocationList;
     private ListMultimap<String, Location> mLocationMultimap;
 
@@ -98,33 +97,28 @@ public class Res {
      *
      * @return - The last good location object.
      */
-    public synchronized Location getLocation() {
-        return mLastGoodLocation;
+    public synchronized GLocation getLocation() {
+        return mLocation;
     }
 
-    /**
-     * Get location as JSON object
-     *
-     * @return - The Location in JSON.
-     */
-    public synchronized JSONObject getLocationJSON() {
-        Location location = mLastGoodLocation;
-        if (location != null) {
-            location.setSpeed((float) mLocationHelper.toKmh(location));
-            return mLocationHelper.toJson(location);
-        }
-        return null;
-    }
 
     /**
      * Update the last good location object.
      *
-     * @param mLastGoodLocation - The location object to be updated.
+     * @param mLocation - The location object to be updated.
      */
-    public synchronized void setLocation(Location mLastGoodLocation) {
-        this.mLastGoodLocation = mLastGoodLocation;
-        addLocation(mLocationHelper.toJson(mLastGoodLocation));
+    public synchronized void setLocation(Location mLocation) {
+        mLocation.setSpeed((float) mLocationHelper.toKmh(mLocation));
+        this.mLocation = new GLocation(mLocation);
+
+        addLocation(this.mLocation.toJson());
         Log.d(TAG, "size of the location list --> " + getLocationList().size());
+
+        if (Resources.IS_TO_CALCULATE_DISTANCE) {
+            Log.d(TAG, "Location is to calculate - mapping in " + Resources.STOP_ID);
+            mapLocation(mLocation);
+//                        mRes.logLocationListMultimap();
+        }
     }
 
     /**
@@ -134,12 +128,12 @@ public class Res {
      */
     public synchronized void setLocationMultimap(ListMultimap<String, Location> mLocationMultimap) {
         this.mLocationMultimap = mLocationMultimap;
-        Log.d(TAG,"on restore locations'multimap - size --> " + this.mLocationMultimap.size());
-        Log.d(TAG,"on restore locations'multimap - keySet --> " + this.mLocationMultimap.keySet());
+        Log.d(TAG, "on restore locations'multimap - size --> " + this.mLocationMultimap.size());
+        Log.d(TAG, "on restore locations'multimap - keySet --> " + this.mLocationMultimap.keySet());
     }
 
     public synchronized void clearLocation() {
-        mLastGoodLocation = null;
+        mLocation = null;
     }
 
     public synchronized void mapLocation(Location location) {

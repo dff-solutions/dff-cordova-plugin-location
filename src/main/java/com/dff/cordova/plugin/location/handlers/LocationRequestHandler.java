@@ -82,10 +82,10 @@ public class LocationRequestHandler extends Handler {
             case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
 
-                JSONObject location = mRes.getLocationJSON();
+                JSONObject location = mRes.getLocation().toJson();
 
                 if (location != null) {
-                    mCallbackContext.success(mRes.getLocationJSON());
+                    mCallbackContext.success(location);
                 } else {
                     mCallbackContext.error("last good location is null");
                 }

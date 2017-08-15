@@ -19,7 +19,7 @@ import javax.inject.Inject;
  * Class to hold the achieved distance between 2 intervals (stand still watcher).
  *
  * @author Anthony Nahas
- * @version 1.1
+ * @version 1.2
  * @since 27.02.2017
  */
 public class StopHolder implements Runnable {
@@ -29,6 +29,9 @@ public class StopHolder implements Runnable {
     private Res mRes;
     private Handler mHandler;
     private int mCounter = 0;
+
+    // TODO: 15.08.2017
+    private Location mLocation;
 
 
     @Inject
@@ -42,12 +45,11 @@ public class StopHolder implements Runnable {
 
     @Override
     public void run() {
-        Location lastGoodLocation = mRes.getLocation();
-        if (lastGoodLocation != null && Resources.STOP_DISTANCE_CALCULATOR != null) {
+        if (mLocation != null && Resources.STOP_DISTANCE_CALCULATOR != null) {
 
             if (Resources.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
                 Resources.STOP_DISTANCE_CALCULATOR.getEndLocation() != null) {
-                if (Resources.STOP_DISTANCE_CALCULATOR.getAchievedDistance(lastGoodLocation) < Resources.STOP_HOLDER_MIN_DISTANCE) {
+                if (Resources.STOP_DISTANCE_CALCULATOR.getAchievedDistance(mLocation) < Resources.STOP_HOLDER_MIN_DISTANCE) {
                     mCounter++;
                     if (mCounter == Resources.STOP_HOLDER_COUNTER_LIMIT) {
                         mContext.sendBroadcast(new Intent(Resources.BROADCAST_ACTION_ON_STAND_STILL));
@@ -57,7 +59,7 @@ public class StopHolder implements Runnable {
                     mCounter = 0;
                 }
             } else {
-                Resources.STOP_DISTANCE_CALCULATOR.init(lastGoodLocation);
+                Resources.STOP_DISTANCE_CALCULATOR.init(mLocation);
                 Log.d(TAG, "dist calc initial with  " + Resources.STOP_DISTANCE_CALCULATOR.getDistance() + "m");
             }
         }

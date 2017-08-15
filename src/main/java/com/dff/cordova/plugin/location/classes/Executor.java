@@ -1,10 +1,7 @@
 package com.dff.cordova.plugin.location.classes;
 
-import android.content.Context;
 
 import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -23,9 +20,7 @@ public class Executor {
 
 
     @Inject
-    public Executor
-        (@ApplicationContext Context mContext,
-         PreferencesHelper mPreferencesHelper) {
+    public Executor() {
     }
 
     public <T extends Action> void execute(T action) {

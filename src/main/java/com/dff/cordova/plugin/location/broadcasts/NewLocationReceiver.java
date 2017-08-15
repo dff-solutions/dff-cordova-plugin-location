@@ -47,7 +47,7 @@ public class NewLocationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive");
-        JSONObject locationJSON = mRes.getLocationJSON();
+        JSONObject locationJSON = mRes.getLocation().toJson();
         if (locationJSON != null) {
             AbstractPluginListener.sendPluginResult(mCallbackContext, locationJSON);
         }

@@ -111,7 +111,7 @@ public class LocationServiceHandler extends Handler {
             case GET_LOCATION:
                 mAnswer = Message.obtain(null, msg.what);
                 if (mRes.getLocation() != null) {
-                    if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
+                    if (!(mTimeHelper.getTimeAge(mRes.getLocation().time) <= Resources.LOCATION_MAX_AGE)) {
                         mRes.clearLocation();
                         Log.d(TAG, "setLocation --> null");
                     }
@@ -153,11 +153,6 @@ public class LocationServiceHandler extends Handler {
                     mRes.setLocation(location);
                     notifyOnChangedLocation();
                     Log.d(TAG, "setLocation --> " + location);
-                    if (Resources.IS_TO_CALCULATE_DISTANCE) {
-                        Log.d(TAG, "Location is to calculate - mapping in " + Resources.STOP_ID);
-                        mRes.mapLocation(location);
-//                        mRes.logLocationListMultimap();
-                    }
                 }
                 //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
             }

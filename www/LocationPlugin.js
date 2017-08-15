@@ -200,16 +200,6 @@ LocationPlugin.prototype.getTotalDistance = function (success, error, params) {
 };
 
 /**
- * Get the calculated custom distance.
- *
- * @param success - Success callback function
- * @param error - Error callback function.
- */
-LocationPlugin.prototype.getCustomDistance = function (success, error) {
-    exec(success, error, FEATURE, ACTION_GET_CUSTOM_DISTANCE, []);
-};
-
-/**
  * Store in a file the pending locations that are allocated in the location array list.
  *
  * NB: (for test purposes)!

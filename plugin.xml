@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-    id="dff-cordova-plugin-location" spec="9.0.0-rc2" version="9.0.0-rc2"
+    id="dff-cordova-plugin-location" spec="9.0.0-rc3" version="9.0.0-rc3"
     xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -114,6 +114,8 @@
             src="src/main/java/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
             target-dir="src/com/dff/cordova/plugin/location/classes" />
         <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/Executor.java"
+            target-dir="src/com/dff/cordova/plugin/location/classes" />
+        <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/GLocation.java"
             target-dir="src/com/dff/cordova/plugin/location/classes" />
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/configurations/ActionsManager.java"
