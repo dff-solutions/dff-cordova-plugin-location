@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.*;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
@@ -17,20 +16,18 @@ import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
-
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.List;
 
 /**
  * Class to handle the communication between the user's request and the location service.
  * The request will be processed and the result will be forward to the location request handler.
  *
  * @author Anthony Nahas
- * @version 7.2.0
+ * @version 9.0.0-rc4
  * @since 29.11.2016
  */
 @Singleton
@@ -60,7 +57,7 @@ public class LocationServiceHandler extends Handler {
          PreferencesHelper mPreferencesHelper,
          TimeHelper mTimeHelper,
          EventBus mEventBus
-         ) {
+        ) {
 
         super(looper);
         this.mContext = mContext;
@@ -111,7 +108,7 @@ public class LocationServiceHandler extends Handler {
             case GET_LOCATION:
                 mAnswer = Message.obtain(null, msg.what);
                 if (mRes.getLocation() != null) {
-                    if (!(mTimeHelper.getTimeAge(mRes.getLocation().time) <= Resources.LOCATION_MAX_AGE)) {
+                    if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
                         mRes.clearLocation();
                         Log.d(TAG, "setLocation --> null");
                     }

@@ -2,31 +2,27 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.classes.GLocation;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
-
 import org.apache.cordova.LOG;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class to read/write data in a file.
  *
  * @author Anthony Nahas
- * @version 4.0.0
+ * @version 9.0.0-rc4
  * @since 05.12.2016
  */
 @Singleton
@@ -62,12 +58,12 @@ public class FileHelper {
         try {
             fos = mContext.openFileOutput(Resources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
 
-            List<JSONObject> pendingLocationJSON = mRes.getLocationList();
+            List<GLocation> pendingLocationJSON = mRes.getLocationList();
             if (pendingLocationJSON.size() > 0) {
                 Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
                 os = new ObjectOutputStream(fos);
-                for (JSONObject location : pendingLocationJSON) {
-                    os.writeObject(location.toString());
+                for (GLocation location : pendingLocationJSON) {
+                    os.writeObject(location.toJson().toString());
                 }
                 os.writeObject(null);
                 os.close();
@@ -104,8 +100,12 @@ public class FileHelper {
                 String location;
                 while ((location = (String) ois.readObject()) != null) {
                     if (mRes.getLocationList() != null) {
-                        mRes.addLocation(new JSONObject(location));
-                        Log.d(TAG, "location " + i + " = " + location);
+                        GLocation gLocation = new GLocation();
+                        gLocation = gLocation.fromJson(location);
+                        if (gLocation != null) {
+                            mRes.addLocation(gLocation);
+                            Log.d(TAG, "location " + i + " = " + location);
+                        }
                         i++;
                     } else {
                         Log.d(TAG, "array location list is null");
@@ -113,7 +113,7 @@ public class FileHelper {
                 }
             }
 
-        } catch (IOException | ClassNotFoundException | JSONException e) { //
+        } catch (IOException | ClassNotFoundException e) { //
             CordovaPluginLog.e(TAG, "Error: ", e);
         } finally {
             try {
