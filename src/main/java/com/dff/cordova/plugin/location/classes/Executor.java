@@ -10,7 +10,7 @@ import javax.inject.Singleton;
  * Class to execute incoming actions from JS.
  *
  * @author Anthony Nahas
- * @version 8.0.1
+ * @version 9.0.0-rc4
  * @since 15.12.2016
  */
 @Singleton
