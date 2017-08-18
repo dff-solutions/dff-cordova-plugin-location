@@ -9,8 +9,6 @@ import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
@@ -23,7 +21,7 @@ import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
  * Resources classes to deal with the allocated location object and the location list
  *
  * @author Anthony Nahas
- * @version 9.0.0-rc3
+ * @version 9.0.0-rc4
  * @since 07.07.17
  */
 public class Res {
@@ -33,7 +31,7 @@ public class Res {
     private LocationHelper mLocationHelper;
 
     private GLocation mLocation;
-    private List<JSONObject> mLocationList;
+    private List<GLocation> mLocationList;
     private ListMultimap<String, Location> mLocationMultimap;
 
     public Res(LocationHelper mLocationHelper) {
@@ -49,7 +47,7 @@ public class Res {
      * @param jsonLocation - a location object as stringified json location
      * @return - whether a location has been added
      */
-    public synchronized boolean addLocation(JSONObject jsonLocation) {
+    public synchronized boolean addLocation(GLocation jsonLocation) {
         if (!getLocationList().contains(jsonLocation)) {
             getLocationList().add(jsonLocation);
             return true;
@@ -74,7 +72,7 @@ public class Res {
      *
      * @return - the target location list
      */
-    public synchronized List<JSONObject> getLocationList() {
+    public synchronized List<GLocation> getLocationList() {
         return mLocationList;
     }
 
@@ -111,7 +109,7 @@ public class Res {
         mLocation.setSpeed((float) mLocationHelper.toKmh(mLocation));
         this.mLocation = new GLocation(mLocation);
 
-        addLocation(this.mLocation.toJson());
+        addLocation(this.mLocation);
         Log.d(TAG, "size of the location list --> " + getLocationList().size());
 
         if (Resources.IS_TO_CALCULATE_DISTANCE) {
