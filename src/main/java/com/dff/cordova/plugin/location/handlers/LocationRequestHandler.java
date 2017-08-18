@@ -7,15 +7,14 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
-
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.services.LocationService;
+import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.apache.cordova.CallbackContext;
 import org.json.JSONObject;
 
@@ -26,7 +25,7 @@ import javax.inject.Inject;
  * On result, forward to the user (JS) using a callback context.
  *
  * @author Anthony Nahas
- * @version 6.0.0
+ * @version 9.0.0-rc4
  * @since 30.11.2016
  */
 public class LocationRequestHandler extends Handler {
@@ -34,6 +33,7 @@ public class LocationRequestHandler extends Handler {
     private static final String TAG = "LocationRequestHandler";
     private Context mContext;
     private Res mRes;
+    private LocationHelper mLocationHelper;
     private PreferencesHelper mPreferencesHelper;
     private CallbackContext mCallbackContext;
 
@@ -48,11 +48,13 @@ public class LocationRequestHandler extends Handler {
         @ApplicationContext Context mContext,
         @LocationRequestLooper Looper looper,
         @Shared Res mRes,
+        LocationHelper mLocationHelper,
         PreferencesHelper mPreferencesHelper
     ) {
         super(looper);
         this.mContext = mContext;
         this.mRes = mRes;
+        this.mLocationHelper = mLocationHelper;
         this.mPreferencesHelper = mPreferencesHelper;
     }
 
@@ -82,7 +84,7 @@ public class LocationRequestHandler extends Handler {
             case GET_LOCATION:
                 Log.d(TAG, "what = " + msg.what);
 
-                JSONObject location = mRes.getLocation().toJson();
+                JSONObject location = mLocationHelper.toJson(mRes.getLocation());
 
                 if (location != null) {
                     mCallbackContext.success(location);
