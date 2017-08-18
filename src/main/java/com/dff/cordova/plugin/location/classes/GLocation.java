@@ -2,9 +2,8 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.location.Location;
 import android.util.Log;
-
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -12,11 +11,10 @@ import org.json.JSONObject;
  * GLocation class maps the location object from the sdl
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 2.0
  * @since 15.08.2017
  */
-
-public class GLocation {
+public class GLocation implements IGLocation {
 
     public static final String TAG = "GLocation";
 
@@ -28,13 +26,16 @@ public class GLocation {
     public static final String BEARING = "bearing";
     public static final String TIME = "time";
 
-    public double longitude;
-    public double latitude;
-    public double altitude;
-    public float accuracy;
-    public float speed;
-    public float bearing;
-    public long time;
+    private double longitude;
+    private double latitude;
+    private double altitude;
+    private float accuracy;
+    private float speed;
+    private float bearing;
+    private long time;
+
+    public GLocation() {
+    }
 
     public GLocation(Location location) {
         if (location != null) {
@@ -51,6 +52,7 @@ public class GLocation {
             }
         }
     }
+
 
     @Override
     public int hashCode() {
@@ -94,5 +96,86 @@ public class GLocation {
             Log.e(TAG, "Error: ", e);
         }
         return new JSONObject();
+    }
+
+    public synchronized GLocation fromJson(String json) {
+        Gson gson = new Gson();
+        try {
+            return gson.fromJson(json, GLocation.class);
+        } catch (Exception e) {
+            Log.e(TAG, "Error: ", e);
+        }
+        return null;
+    }
+
+    @Override
+    public double getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public double getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public double getAltitude() {
+        return altitude;
+    }
+
+    @Override
+    public float getAccuracy() {
+        return accuracy;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public float getBearing() {
+        return bearing;
+    }
+
+    @Override
+    public long getTime() {
+        return time;
+    }
+
+
+    @Override
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    @Override
+    public void setLatitude(double latitude) {
+        this.longitude = latitude;
+    }
+
+    @Override
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    @Override
+    public void setAccuracy(float accuracy) {
+        this.accuracy = accuracy;
+    }
+
+    @Override
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    @Override
+    public void setBearing(float bearing) {
+        this.bearing = bearing;
+    }
+
+    @Override
+    public void setTime(long time) {
+        this.time = time;
     }
 }
