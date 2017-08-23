@@ -2,9 +2,9 @@ package com.dff.cordova.plugin.location.resources;
 
 import android.location.Location;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.classes.GLocation;
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.ListMultimap;
@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
-
 
 import static com.dff.cordova.plugin.location.resources.Resources.STOP_ID;
 
@@ -30,9 +29,9 @@ public class Res {
 
     private LocationHelper mLocationHelper;
 
-    private GLocation mLocation;
-    private List<GLocation> mLocationList;
-    private ListMultimap<String, Location> mLocationMultimap;
+    private volatile IGLocation mLocation;
+    private volatile List<IGLocation> mLocationList;
+    private volatile ListMultimap<String, Location> mLocationMultimap;
 
     public Res(LocationHelper mLocationHelper) {
         this.mLocationHelper = mLocationHelper;
@@ -47,7 +46,7 @@ public class Res {
      * @param jsonLocation - a location object as stringified json location
      * @return - whether a location has been added
      */
-    public synchronized boolean addLocation(GLocation jsonLocation) {
+    public synchronized boolean addLocation(IGLocation jsonLocation) {
         if (!getLocationList().contains(jsonLocation)) {
             getLocationList().add(jsonLocation);
             return true;
@@ -72,7 +71,7 @@ public class Res {
      *
      * @return - the target location list
      */
-    public synchronized List<GLocation> getLocationList() {
+    public synchronized List<IGLocation> getLocationList() {
         return mLocationList;
     }
 
@@ -95,7 +94,7 @@ public class Res {
      *
      * @return - The last good location object.
      */
-    public synchronized GLocation getLocation() {
+    public synchronized IGLocation getLocation() {
         return mLocation;
     }
 
