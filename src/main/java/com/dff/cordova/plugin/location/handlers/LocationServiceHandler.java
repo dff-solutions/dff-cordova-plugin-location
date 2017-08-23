@@ -12,6 +12,7 @@ import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.events.OnChangedLocation;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -149,9 +150,9 @@ public class LocationServiceHandler extends Handler {
                     location.setTime(System.currentTimeMillis());
                     mRes.setLocation(location);
                     notifyOnChangedLocation();
+                    mEventBus.post(new OnChangedLocation(mRes));
                     Log.d(TAG, "setLocation --> " + location);
                 }
-                //Toast.makeText(LocationService.this, location.toString(), Toast.LENGTH_LONG).show();
             }
 
             @Override
