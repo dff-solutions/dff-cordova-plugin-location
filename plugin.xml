@@ -193,6 +193,9 @@
             src="src/main/java/com/dff/cordova/plugin/location/events/OnNewGoodLocation.java"
             target-dir="src/com/dff/cordova/plugin/location/events"/>
         <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/events/OnChangedLocation.java"
+            target-dir="src/com/dff/cordova/plugin/location/events"/>
+        <source-file
             src="src/main/java/com/dff/cordova/plugin/location/events/onResRequestEvent.java"
             target-dir="src/com/dff/cordova/plugin/location/events"/>
         <source-file
