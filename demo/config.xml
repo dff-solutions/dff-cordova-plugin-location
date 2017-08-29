@@ -40,7 +40,6 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-console" spec="^1.0.7" />
     <plugin name="cordova-plugin-device" spec="^1.1.6" />
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
@@ -49,5 +48,6 @@
     <plugin name="dff-cordova-plugin-error" spec="file:///C:\git\dff-cordova-plugin-error" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
     <plugin name="dff-cordova-plugin-common" spec="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git#2.0.5" />
-    <plugin name="dff-cordova-plugin-location" spec="C:\git\Plugins\dff-cordova-plugin-location" />
+    <engine name="android" spec="latest" />
+    <plugin name="dff-cordova-plugin-realm" spec="C:\git\Plugins\dff-cordova-plugin-realm" />
 </widget>

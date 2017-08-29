@@ -3,14 +3,14 @@
   "version": "1.2.0",
   "description": "TestApp: An Ionic project",
   "scripts": {
-    "remove-location-plugin": "ionic cordova plugin remove dff-cordova-plugin-location",
+    "remove-location-plugin": "ionic cordova plugin remove dff-cordova-plugin-realm",
     "i dev_stable": " ionic cordova plugin remove dff-cordova-plugin-location && ionic cordova plugin addhttps://github.com/dff-solutions/dff-cordova-plugin-location#8.0.1",
-    "add-location-plugin": "ionic cordova plugin add C:\\git\\Plugins\\dff-cordova-plugin-location",
+    "add-location-plugin": "ionic cordova plugin add C:\\git\\Plugins\\dff-cordova-plugin-realm",
     "update-location-plugin": "npm run remove-location-plugin && npm run add-location-plugin",
     "update-android": "ionic cordova platform remove android && ionic cordova platform add android@latest ",
     "build-android": "ionic cordova build android",
     "hard-reset": "npm run update-location-plugin && ionic cordova run android --livereload",
-    "run": "ionic cordova run android"
+    "run": "ionic cordova run android --stacktrace"
   },
   "dependencies": {
     "cordova-android": "^6.2.3",
