@@ -1,13 +1,11 @@
 package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.classes.GLocation;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
-
 import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +46,7 @@ public class GetLocationListAction extends Action {
             Log.e(TAG, "Error: ", e);
         }
         if (mRes.getLocationList().size() > 0) {
-            List<GLocation> clonedList = mRes.getLocationList();
+            List<IGLocation> clonedList = mRes.getLocationList();
             Gson gson = new Gson();
             try {
                 if (clonedList != null) {

@@ -1,5 +1,8 @@
 package com.dff.cordova.plugin.location.interfaces;
 
+import com.dff.cordova.plugin.location.classes.GLocation;
+import org.json.JSONObject;
+
 public interface IGLocation extends IGetGLocation {
 
     void setLongitude(double longitude);
@@ -15,4 +18,8 @@ public interface IGLocation extends IGetGLocation {
     void setBearing(float bearing);
 
     void setTime(long time);
+
+    JSONObject toJson();
+
+    GLocation fromJson(String json);
 }

@@ -6,6 +6,7 @@ import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.classes.GLocation;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import org.apache.cordova.LOG;
@@ -58,11 +59,11 @@ public class FileHelper {
         try {
             fos = mContext.openFileOutput(Resources.LOCATION_FILE_NAME, Context.MODE_PRIVATE);
 
-            List<GLocation> pendingLocationJSON = mRes.getLocationList();
+            List<IGLocation> pendingLocationJSON = mRes.getLocationList();
             if (pendingLocationJSON.size() > 0) {
                 Log.d(TAG, "PendingLocationsList count = " + pendingLocationJSON.size());
                 os = new ObjectOutputStream(fos);
-                for (GLocation location : pendingLocationJSON) {
+                for (IGLocation location : pendingLocationJSON) {
                     os.writeObject(location.toJson().toString());
                 }
                 os.writeObject(null);

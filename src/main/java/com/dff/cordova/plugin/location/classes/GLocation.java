@@ -88,6 +88,7 @@ public class GLocation implements IGLocation {
      *
      * @return - The Location in JSON.
      */
+    @Override
     public synchronized JSONObject toJson() {
         Gson gson = new Gson();
         try {
@@ -98,6 +99,7 @@ public class GLocation implements IGLocation {
         return new JSONObject();
     }
 
+    @Override
     public synchronized GLocation fromJson(String json) {
         Gson gson = new Gson();
         try {

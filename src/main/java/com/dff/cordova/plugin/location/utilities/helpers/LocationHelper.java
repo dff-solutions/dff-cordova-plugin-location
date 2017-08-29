@@ -2,7 +2,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.location.Location;
 import android.util.Log;
-import com.dff.cordova.plugin.location.classes.GLocation;
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +25,7 @@ public class LocationHelper {
     public LocationHelper() {
     }
 
-    public JSONObject toJson(GLocation location) {
+    public JSONObject toJson(IGLocation location) {
         Gson gson = new Gson();
         try {
             if (location != null) {
