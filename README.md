@@ -298,7 +298,11 @@ LocationPlugin.getLocation(function(location) {
    * | stop id to import from the locations multimap
    * | reset - to clear the stopID --> stopID = UNKNOWN
    */
-  LocationPlugin.getStopDistance = function (function(distance) {console.log(distance)}, error, params) {
+  LocationPlugin.getStopDistance = function (function(result) {
+      console.log(resul.stopdID); 
+      console.log(resul.distance);
+      }, error, params) {
+   
   };
   ```
   
@@ -315,8 +319,9 @@ LocationPlugin.getLocation(function(location) {
  * @param error - Error callback function.
  * @param params - {reset: false, clean: true}
  */
-LocationPlugin.getTotalDistance(function(distnace){
-      console.log(distnace);
+LocationPlugin.getTotalDistance(function(result){
+      console.log(resul.stopdID);
+      console.log(resul.distance);
 }, error, {reset: false, clean: true});
 ```
 ----
