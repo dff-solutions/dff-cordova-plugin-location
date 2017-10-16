@@ -99,7 +99,7 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
       },
       {
         // returnType: "json",
-        minTime: 5000,
+        minTime: 0,
         minDistance: 0,
         minAccuracy: 50000,
         locationMaxAge: 20,
@@ -213,6 +213,14 @@ app.controller('main', ['$scope', function ($scope, $ionicPopup) {
     }, function (error) {
       console.error("Error: " + error);
     }, {reset: true});
+  };
+
+  $scope.camera = function () {
+    window.CameraPlugin.takePhoto(function (base64) {
+      console.log(base64);
+    }, function (error) {
+      console.error(error);
+    }, true);
   };
 
 }]);

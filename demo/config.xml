@@ -50,4 +50,5 @@
     <plugin name="dff-cordova-plugin-common" spec="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git#2.0.5" />
     <engine name="android" spec="latest" />
     <plugin name="dff-cordova-plugin-realm" spec="C:\git\Plugins\dff-cordova-plugin-realm" />
+    <allow-navigation href="http://192.168.2.174:8100" />
 </widget>
