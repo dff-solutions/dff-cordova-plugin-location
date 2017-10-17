@@ -21,6 +21,7 @@ Location based tracking system
 - Android: 8.0.1
 
 ## Releases:
+- 9.0.0-rc6 - Feat: @Override clone, toString, hash and equal
 - 9.0.0-rc4_ Feat: integration GLocation objs in location's arraylist
 - 9.0.0-rc3:  Feat: implemented GLocation class --> @js and @server
 - 9.0.0-rc2: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -

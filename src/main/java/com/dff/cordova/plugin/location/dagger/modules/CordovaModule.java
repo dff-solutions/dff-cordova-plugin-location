@@ -1,17 +1,14 @@
 package com.dff.cordova.plugin.location.dagger.modules;
 
 import android.os.Messenger;
-
 import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.dagger.annotations.ServiceHandlerMessenger;
 import com.dff.cordova.plugin.location.services.LocationService;
-
+import dagger.Module;
+import dagger.Provides;
 import org.apache.cordova.CordovaInterface;
 
 import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 
 /**
  * Created by anahas on 16.06.2017
