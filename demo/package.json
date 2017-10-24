@@ -20,7 +20,6 @@
     "cordova-plugin-statusbar": "^2.2.3",
     "cordova-plugin-whitelist": "^1.3.2",
     "dff-cordova-plugin-common": "git+https://github.com/dff-solutions/dff.CordovaPlugin.Common.git",
-    "dff-cordova-plugin-error": "file:///C:\\git\\dff-cordova-plugin-error",
     "dff-cordova-plugin-location": "file:///C:\\git\\Plugins\\dff-cordova-plugin-location",
     "gulp": "^3.5.6",
     "gulp-concat": "^2.2.0",
@@ -44,8 +43,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-whitelist": {},
-      "ionic-plugin-keyboard": {},
-      "dff-cordova-plugin-error": {}
+      "ionic-plugin-keyboard": {}
     },
     "platforms": [
       "android"
