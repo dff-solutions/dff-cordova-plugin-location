@@ -2,10 +2,8 @@ package com.dff.cordova.plugin.location.dagger.modules;
 
 import android.os.HandlerThread;
 import android.os.Looper;
-
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
-
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.when;

@@ -14,16 +14,17 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 9.0.0-rc5
+- Android: 9.0.0-rc6
 
 ## Plugin@stable
 
 - Android: 8.0.1
 
 ## Releases:
-- 9.0.0-rc6 - Feat: @Override clone, toString, hash and equal
-- 9.0.0-rc4_ Feat: integration GLocation objs in location's arraylist
-- 9.0.0-rc3:  Feat: implemented GLocation class --> @js and @server
+- 9.0.0-rc6: Fix: @service cnx --> on unbind service 
+- 9.0.0-rc5: Feat: @Override clone, toString, hash and equal
+- 9.0.0-rc4: Feat: integration GLocation objs in location's arraylist
+- 9.0.0-rc3: Feat: implemented GLocation class --> @js and @server
 - 9.0.0-rc2: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 

@@ -12,7 +12,7 @@ import android.location.Location;
 
 public class OnNewGoodLocation {
 
-   public Location location;
+   private Location location;
 
     public OnNewGoodLocation(Location location) {
         this.location = location;
