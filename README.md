@@ -10,22 +10,21 @@ Location based tracking system
 
 #### supported dff-web-core - 1.3.0
 
-#### dependencies: dff-cordova-plugin-common 2.0.5 "Common"
+#### dependencies: dff-cordova-plugin-common 2.0.9 "Common"
 
 ## Plugin@latest
 
-- Android: 9.0.0-rc6
+- Android: 9.0.0
 
 ## Plugin@stable
 
-- Android: 8.0.1
+- Android: 9.0.0
 
 ## Releases:
-- 9.0.0-rc6: Fix: @service cnx --> on unbind service 
-- 9.0.0-rc5: Feat: @Override clone, toString, hash and equal
-- 9.0.0-rc4: Feat: integration GLocation objs in location's arraylist
-- 9.0.0-rc3: Feat: implemented GLocation class --> @js and @server
-- 9.0.0-rc2: Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
+- 9.0.0 Fix: @service cnx --> on unbind service | Feat: @Override clone, toString, hash and equal
+| Feat: integration GLocation objs in location's arraylist
+| Feat: implemented GLocation class --> @js and @server
+| Feat: changed the software architect design - using DI with dagger2 - integration of the EVENT_BUS -
   start location service @param removed return type - stp service action has success callback - 
   setLocationListener and getLocation methods do not accept any params any more --> return type is always json - 
   properties of the json location changed to the native properties of a location object - getLocation method will not
