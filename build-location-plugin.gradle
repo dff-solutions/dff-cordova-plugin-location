@@ -38,6 +38,7 @@ android {
         compile 'com.google.guava:guava:19.0'
         compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0'
         compile 'com.google.code.gson:gson:2.7'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
         //@EventBus
         compile 'org.greenrobot:eventbus:3.0.0'
         //@Dagger 2

@@ -4,6 +4,8 @@ import android.location.Location;
 import android.util.Log;
 import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.google.gson.Gson;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,12 +58,42 @@ public class GLocation implements IGLocation {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        // you pick a hard-coded, randomly chosen, non-zero, odd number
+        // ideally different for each class
+        return new HashCodeBuilder(17, 37).
+            append(longitude).
+            append(latitude).
+            append(altitude).
+            append(accuracy).
+            append(speed).
+            append(bearing).
+            append(time).
+            toHashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return super.equals(obj);
+        //check for self-comparison
+        if (this == obj) return true;
+
+        //use instanceof instead of getClass here for two reasons
+        //1. if need be, it can match any supertype, and not just one class;
+        //2. it renders an explict check for "that == null" redundant, since
+        //it does the check for null already - "null instanceof [type]" always
+        //returns false. (See Effective Java by Joshua Bloch.)
+        if (!(obj instanceof GLocation)) return false;
+
+        GLocation gLocation = (GLocation) obj;
+
+        return new EqualsBuilder()
+            .append(longitude, gLocation.getLongitude())
+            .append(latitude, gLocation.getLatitude())
+            .append(altitude, gLocation.getAltitude())
+            .append(accuracy, gLocation.getAccuracy())
+            .append(speed, gLocation.getSpeed())
+            .append(bearing, gLocation.getBearing())
+            .append(time, gLocation.getTime())
+            .isEquals();
     }
 
     @Override
@@ -74,13 +106,11 @@ public class GLocation implements IGLocation {
             + " : "
             +
             latitude
-            +
-            "\n"
+            + "\n"
             + ACC
             + " : "
             + accuracy
-            +
-            "\n";
+            + "\n";
     }
 
     /**
@@ -144,7 +174,6 @@ public class GLocation implements IGLocation {
     public long getTime() {
         return time;
     }
-
 
     @Override
     public void setLongitude(double longitude) {

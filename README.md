@@ -21,6 +21,7 @@ Location based tracking system
 - Android: 9.0.0
 
 ## Releases:
+- 9.0.1: Feat: using apache common lang lib for eql and hash methods + Test @GLocation class
 - 9.0.0 Fix: @service cnx --> on unbind service | Feat: @Override clone, toString, hash and equal
 | Feat: integration GLocation objs in location's arraylist
 | Feat: implemented GLocation class --> @js and @server
