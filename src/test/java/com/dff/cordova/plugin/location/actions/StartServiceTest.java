@@ -85,26 +85,26 @@ public class StartServiceTest extends LocationPluginTest {
     }
 
     @Test
-    public void checkStartServiceActionValue() {
+    public void checkStartServiceActionValue() throws Exception  {
         assertEquals("start service action should be available in js actions classes--> ",
             mJsActions.start_service,
             mStartServiceAction);
     }
 
     @Test
-    public void checkStartServiceActionsMapping() {
+    public void checkStartServiceActionsMapping() throws Exception {
         assertNotNull("start service action should be mapped in the action manager classes",
             mActionsManager.hash(mStartServiceAction));
     }
 
     @Test
-    public void checkStartServiceActionClass() {
+    public void checkStartServiceActionClass() throws Exception {
         assertEquals("start service action classes should be returned by the action manager after hashing",
             mActionsManager.hash(mStartServiceAction).getClass(), StartLocationServiceAction.class);
     }
 
     @Test
-    public void checkStartServiceActionExecutionMock() {
+    public void checkStartServiceActionExecutionMock() throws Exception {
 
         mExecutor.execute(mockedAction);
 
@@ -112,7 +112,7 @@ public class StartServiceTest extends LocationPluginTest {
     }
 
     @Test
-    public void checkStartServiceActionExecution() {
+    public void checkStartServiceActionExecution() throws Exception {
 
         StartLocationServiceAction action = spy((StartLocationServiceAction)
             mActionsManager
@@ -120,13 +120,12 @@ public class StartServiceTest extends LocationPluginTest {
                 .with(callbackContext)
                 .andHasArguments(args));
 
-
         mExecutor.execute(action);
         verify(action, times(1)).execute();
     }
 
     @Test
-    public void checkIntentFiredToStartService() {
+    public void checkIntentFiredToStartService() throws Exception {
         Context context = spy(mContext);
         StartLocationServiceAction action = new StartLocationServiceAction(
             context,
