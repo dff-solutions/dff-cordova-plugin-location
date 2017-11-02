@@ -41,17 +41,13 @@ public class GLocation implements IGLocation {
 
     public GLocation(Location location) {
         if (location != null) {
-            try {
-                longitude = location.getLongitude();
-                latitude = location.getLatitude();
-                altitude = location.getAltitude();
-                accuracy = location.getAccuracy();
-                speed = location.getSpeed();
-                bearing = location.getBearing();
-                time = location.getTime();
-            } catch (NullPointerException e) {
-                Log.e(TAG, "Error: ", e);
-            }
+            longitude = location.getLongitude();
+            latitude = location.getLatitude();
+            altitude = location.getAltitude();
+            accuracy = location.getAccuracy();
+            speed = location.getSpeed();
+            bearing = location.getBearing();
+            time = location.getTime();
         }
     }
 
@@ -74,14 +70,14 @@ public class GLocation implements IGLocation {
     @Override
     public boolean equals(Object obj) {
         //check for self-comparison
-        if ( this == obj ) return true;
+        if (this == obj) return true;
 
         //use instanceof instead of getClass here for two reasons
         //1. if need be, it can match any supertype, and not just one class;
         //2. it renders an explict check for "that == null" redundant, since
         //it does the check for null already - "null instanceof [type]" always
         //returns false. (See Effective Java by Joshua Bloch.)
-        if ( !(obj instanceof GLocation) ) return false;
+        if (!(obj instanceof GLocation)) return false;
 
         GLocation gLocation = (GLocation) obj;
 

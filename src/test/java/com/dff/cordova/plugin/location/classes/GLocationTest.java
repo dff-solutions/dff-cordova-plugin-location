@@ -76,19 +76,14 @@ public class GLocationTest extends LocationPluginTest {
         Location location = new Location("GPS");
         location.setLongitude(mGenerator.randomizeDouble(80, 30));
         location.setLatitude(mGenerator.randomizeDouble(20, 5));
-        location.setAltitude(mGenerator.randomizeDouble(100, 3));
         location.setBearing(mGenerator.randomizeFloat());
         location.setSpeed(mGenerator.randomizeFloat());
         location.setTime(System.currentTimeMillis());
 
         GLocation gLocation = new GLocation(location);
-        assertNotNull(gLocation.getLongitude());
-        assertNotNull(gLocation.getLatitude());
-        assertNotNull(gLocation.getAltitude());
-        assertNotNull(gLocation.getAccuracy());
-        assertNotNull(gLocation.getSpeed());
-        assertNotNull(gLocation.getBearing());
-        assertNotNull(gLocation.getTime());
+
+        assertEquals(gLocation.getAltitude(), 0.0);
+        assertEquals(gLocation.getAccuracy(), 0.0f);
     }
 
     @Test
