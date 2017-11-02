@@ -1,13 +1,15 @@
 package com.dff.cordova.plugin.location.classes;
 
 import android.annotation.TargetApi;
+import android.location.Location;
 import android.os.Build;
 import android.util.Log;
 import com.dff.cordova.plugin.location.LocationPluginTest;
 import org.json.JSONObject;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.robolectric.annotation.Config;
 
 import java.util.Date;
@@ -15,10 +17,23 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static junit.framework.Assert.*;
 
+/**
+ * Test class for the GLocation object and methods
+ *
+ * @author Anthony Nahas
+ * @version 1.0
+ * @since 02.11.17
+ */
 @Config(manifest = Config.NONE)
 public class GLocationTest extends LocationPluginTest {
 
     private static final String TAG = GLocationTest.class.getSimpleName();
+
+    @Mock
+    Location locationMock;
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private GLocation mRandomLocation;
 
@@ -35,6 +50,48 @@ public class GLocationTest extends LocationPluginTest {
     }
 
     @Test
+    public void testConstructor() throws Exception {
+        Location location = new Location("GPS");
+        location.setLongitude(mGenerator.randomizeDouble(80, 30));
+        location.setLatitude(mGenerator.randomizeDouble(20, 5));
+        location.setAltitude(mGenerator.randomizeDouble(100, 3));
+        location.setAccuracy(mGenerator.randomizeFloat(1000, 3));
+        location.setBearing(mGenerator.randomizeFloat());
+        location.setSpeed(mGenerator.randomizeFloat());
+        location.setTime(System.currentTimeMillis());
+
+        GLocation gLocation = new GLocation(location);
+
+        assertEquals(gLocation.getLongitude(), location.getLongitude());
+        assertEquals(gLocation.getLatitude(), location.getLatitude());
+        assertEquals(gLocation.getAltitude(), location.getAltitude());
+        assertEquals(gLocation.getAccuracy(), location.getAccuracy());
+        assertEquals(gLocation.getSpeed(), location.getSpeed());
+        assertEquals(gLocation.getBearing(), location.getBearing());
+        assertEquals(gLocation.getTime(), location.getTime());
+    }
+
+    @Test
+    public void testConstructorShouldFail() throws Exception {
+        Location location = new Location("GPS");
+        location.setLongitude(mGenerator.randomizeDouble(80, 30));
+        location.setLatitude(mGenerator.randomizeDouble(20, 5));
+        location.setAltitude(mGenerator.randomizeDouble(100, 3));
+        location.setBearing(mGenerator.randomizeFloat());
+        location.setSpeed(mGenerator.randomizeFloat());
+        location.setTime(System.currentTimeMillis());
+
+        GLocation gLocation = new GLocation(location);
+        assertNotNull(gLocation.getLongitude());
+        assertNotNull(gLocation.getLatitude());
+        assertNotNull(gLocation.getAltitude());
+        assertNotNull(gLocation.getAccuracy());
+        assertNotNull(gLocation.getSpeed());
+        assertNotNull(gLocation.getBearing());
+        assertNotNull(gLocation.getTime());
+    }
+
+    @Test
     public void testHashForEmptyGLocationObj() throws Exception {
         GLocation gLocation = new GLocation();
         assertTrue(gLocation.hashCode() != 0);
@@ -43,6 +100,23 @@ public class GLocationTest extends LocationPluginTest {
     @Test
     public void testToJsonMethod() throws Exception {
         assertNotNull(mRandomLocation);
+
+        JSONObject jsonLocation = mRandomLocation.toJson();
+        assertNotNull(jsonLocation);
+
+        assertEquals(mRandomLocation.getLongitude(), jsonLocation.getDouble(GLocation.LNG));
+        assertEquals(mRandomLocation.getLatitude(), jsonLocation.getDouble(GLocation.LAT));
+        assertEquals(mRandomLocation.getAltitude(), jsonLocation.getDouble(GLocation.ALT));
+        assertEquals(mRandomLocation.getAccuracy(), (float) jsonLocation.getDouble(GLocation.ACC));
+        assertEquals(mRandomLocation.getSpeed(), (float) jsonLocation.getDouble(GLocation.SPD));
+        assertEquals(mRandomLocation.getBearing(), (float) jsonLocation.getDouble(GLocation.BEARING));
+        assertEquals(mRandomLocation.getTime(), jsonLocation.getLong(GLocation.TIME));
+    }
+
+    @Test
+    public void testToJsonMethodToFail() throws Exception {
+        JSONObject jsonLocation = new GLocation().toJson();
+        assertNotNull("when GLocation is empty, toJson will create an empty Json Object", jsonLocation);
     }
 
     @Test
@@ -93,7 +167,7 @@ public class GLocationTest extends LocationPluginTest {
 
     @After
     public void tearDown() throws Exception {
-
+        Log.i(TAG, "done");
     }
 
     private class Generator {
@@ -115,9 +189,9 @@ public class GLocationTest extends LocationPluginTest {
 
         public GLocation randomizeLocation() {
             GLocation randomLocation = new GLocation();
-            randomLocation.setLongitude(this.randomizeFloat(100, 10));
-            randomLocation.setLatitude(this.randomizeFloat(50, 0));
-            randomLocation.setAltitude(this.randomizeFloat(20, 0));
+            randomLocation.setLongitude(this.randomizeDouble(100, 10));
+            randomLocation.setLatitude(this.randomizeDouble(50, 0));
+            randomLocation.setAltitude(this.randomizeDouble(20, 0));
             randomLocation.setSpeed(this.randomizeFloat());
             randomLocation.setBearing(this.randomizeFloat(360, 0));
             randomLocation.setTime(System.currentTimeMillis());
