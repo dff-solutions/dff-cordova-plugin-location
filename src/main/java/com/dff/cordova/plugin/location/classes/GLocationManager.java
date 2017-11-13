@@ -41,7 +41,7 @@ public class GLocationManager implements LocationListener {
         mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
     }
 
-    private boolean initializeLocationManager() {
+    public boolean init() {
         try {
             String provider = LocationManager.GPS_PROVIDER;
             if (isProviderAvailable(provider)) {

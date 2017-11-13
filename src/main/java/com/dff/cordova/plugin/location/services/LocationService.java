@@ -9,7 +9,7 @@ import android.os.IBinder;
 import android.os.Messenger;
 import android.util.Log;
 import android.widget.Toast;
-
+import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
@@ -18,11 +18,9 @@ import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
-import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -43,6 +41,9 @@ public class LocationService extends Service {
     @Inject
     @LocationServiceHandlerThread
     HandlerThread mHandlerThread;
+
+    @Inject
+    GLocationManager mGLocationManager;
 
     @Inject
     LocationServiceHandler mLocationServiceHandler;
@@ -177,12 +178,15 @@ public class LocationService extends Service {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(OnStartLocationService event) {
-//        event.getCallbackContext();
-        isListening = mPreferencesHelper.isServiceStarted() ||
-            initializeLocationManager(msg.getData().getLong(Resources.LOCATION_MIN_TIME_KEY),
-                msg.getData().getFloat(Resources.LOCATION_MIN_DISTANCE_KEY));
+        Boolean isListening = mPreferencesHelper.isServiceStarted() || mGLocationManager.init();
+        Log.i(TAG, "location service is running --> " + isListening);
+        if (isListening) {
+            event.getCallbackContext().success();
+        } else {
+            event.getCallbackContext().error("Location Manager is not listening since the service could not be " +
+                "started");
+        }
     }
-
 
 
     private void initializeLocationManagerAgain() {
@@ -197,3 +201,4 @@ public class LocationService extends Service {
         }
     }
 }
+

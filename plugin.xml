@@ -201,7 +201,7 @@
             src="src/main/java/com/dff/cordova/plugin/location/events/onResRequestEvent.java"
             target-dir="src/com/dff/cordova/plugin/location/events"/>
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnStartLocationServic1.java"
+            src="src/main/java/com/dff/cordova/plugin/location/events/OnStartLocationService.java"
             target-dir="src/com/dff/cordova/plugin/location/events"/>
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java"
