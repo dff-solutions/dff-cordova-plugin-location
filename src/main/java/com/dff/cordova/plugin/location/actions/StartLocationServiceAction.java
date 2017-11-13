@@ -51,6 +51,7 @@ public class StartLocationServiceAction extends Action {
     ) {
         this.mContext = mContext;
 //        this.mMessengerHelper = mMessengerHelper;
+        this.mEventBus = mEventBus;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
     }
