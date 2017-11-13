@@ -4,18 +4,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.Messenger;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.services.LocationService;
-import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.apache.cordova.CallbackContext;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,22 +32,25 @@ public class StartLocationServiceAction extends Action {
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();
 
     private Context mContext;
-    private MessengerHelper mMessengerHelper;
+    private EventBus mEventBus;
+    //    private MessengerHelper mMessengerHelper;
     private PreferencesHelper mPreferencesHelper;
     private LocationRequestHandler mLocationRequestHandler;
 
     private CallbackContext mCallbackContext;
     private JSONArray mArgs;
+
     //RequestHandler
     @Inject
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
-        MessengerHelper mMessengerHelper,
+//        MessengerHelper mMessengerHelper,
+        EventBus mEventBus,
         PreferencesHelper mPreferencesHelper,
         LocationRequestHandler mLocationRequestHandler
     ) {
         this.mContext = mContext;
-        this.mMessengerHelper = mMessengerHelper;
+//        this.mMessengerHelper = mMessengerHelper;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
     }
@@ -86,11 +87,12 @@ public class StartLocationServiceAction extends Action {
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-        data.putLong(Resources.LOCATION_MIN_TIME_KEY, Resources.LOCATION_MIN_TIME);
-        data.putFloat(Resources.LOCATION_MIN_DISTANCE_KEY, Resources.LOCATION_MIN_DISTANCE);
-        msg.setData(data);
-        msg.replyTo = new Messenger(mLocationRequestHandler);
-        mMessengerHelper.send(msg, mCallbackContext);
+//        data.putLong(Resources.LOCATION_MIN_TIME_KEY, Resources.LOCATION_MIN_TIME);
+//        data.putFloat(Resources.LOCATION_MIN_DISTANCE_KEY, Resources.LOCATION_MIN_DISTANCE);
+//        msg.setData(data);
+//        msg.replyTo = new Messenger(mLocationRequestHandler);
+//        mMessengerHelper.send(msg, mCallbackContext);
+        mEventBus.post(new OnStartLocationService(mCallbackContext));
     }
 
     public CallbackContext getCallbackContext() {

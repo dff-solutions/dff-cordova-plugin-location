@@ -8,7 +8,6 @@ import android.location.LocationManager;
 import android.os.*;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceLooper;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
@@ -220,22 +219,6 @@ public class LocationServiceHandler extends Handler {
      */
     private boolean isProviderAvailable(String provider) {
         return mLocationManager.getAllProviders().contains(provider);
-    }
-
-
-    /**
-     * Forward/reply to the request handle in order to close the action requested.
-     *
-     * @param msg - The message to forward.
-     */
-    private static void replyToRequestHandler(Message msg) {
-        Log.d(TAG, "get: reply to request handler");
-        Message answer = Message.obtain(null, msg.what);
-        try {
-            msg.replyTo.send(answer);
-        } catch (RemoteException | NullPointerException e) {
-            CordovaPluginLog.e(TAG, "Error: ", e);
-        }
     }
 
     /**

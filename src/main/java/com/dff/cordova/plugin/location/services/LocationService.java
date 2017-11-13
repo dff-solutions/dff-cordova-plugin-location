@@ -16,7 +16,9 @@ import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandler
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
+import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
+import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -172,6 +174,16 @@ public class LocationService extends Service {
     public void onMessageEvent(OnNewGoodLocation event) {
         // TODO: 07.07.2017 add location to list
     }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(OnStartLocationService event) {
+//        event.getCallbackContext();
+        isListening = mPreferencesHelper.isServiceStarted() ||
+            initializeLocationManager(msg.getData().getLong(Resources.LOCATION_MIN_TIME_KEY),
+                msg.getData().getFloat(Resources.LOCATION_MIN_DISTANCE_KEY));
+    }
+
+
 
     private void initializeLocationManagerAgain() {
         mPreferencesHelper.restoreProperties();
