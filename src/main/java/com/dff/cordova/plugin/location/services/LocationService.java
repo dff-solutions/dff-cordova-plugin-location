@@ -13,6 +13,7 @@ import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
@@ -42,6 +43,7 @@ public class LocationService extends Service {
     HandlerThread mHandlerThread;
 
     @Inject
+    @Shared
     GLocationManager mGLocationManager;
 
     @Inject
@@ -65,8 +67,6 @@ public class LocationService extends Service {
 
     @Inject
     PreferencesHelper mPreferencesHelper;
-
-    private int count;
 
     /**
      * Initialization of properties and handling the location on app crash.

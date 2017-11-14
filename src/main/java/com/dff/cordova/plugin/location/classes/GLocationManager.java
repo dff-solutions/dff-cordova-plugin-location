@@ -15,11 +15,13 @@ import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import org.greenrobot.eventbus.EventBus;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
 import java.util.List;
 
-@Singleton
+/**
+ * @author Anthony Nahas
+ * @version 1.0
+ * @since 11.17
+ */
 public class GLocationManager implements LocationListener {
 
     private static final String TAG = GLocationManager.class.getSimpleName();
@@ -30,7 +32,6 @@ public class GLocationManager implements LocationListener {
     private LocationManager mLocationManager;
     private boolean isListening;
 
-    @Inject
     public GLocationManager(
         @ApplicationContext Context mContext,
         @Shared Res mRes,

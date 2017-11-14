@@ -18,7 +18,7 @@ import javax.inject.Singleton;
  * @since 16.06.17
  */
 @Module
-public class CordovaModule {
+public class CordovaModule { // todo --> ref --> remove
 
     private CordovaInterface mCordovaInterface;
 

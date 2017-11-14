@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-
+import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
 import com.dff.cordova.plugin.location.dagger.annotations.Private;
@@ -13,13 +13,11 @@ import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
-
+import dagger.Module;
+import dagger.Provides;
 import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 
 /**
  * The @Module annotation tells Dagger that the AppModule classes will provide dependencies for a part
@@ -33,8 +31,9 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private Application mApp;
     private Res mRes;
+    private Application mApp;
+    private GLocationManager mGLocationManager;
 
     public AppModule(Application app) {
         this.mApp = app;
@@ -99,5 +98,19 @@ public class AppModule {
 
         mRes = new Res(locationHelper);
         return mRes;
+    }
+
+    @Provides
+    @Singleton
+    @Shared
+    public GLocationManager provideGLocationManager(@ApplicationContext Context mContext,
+                                                    @Shared Res mRes,
+                                                    EventBus mEventBus) {
+        if (mGLocationManager != null) {
+            return mGLocationManager;
+        }
+
+        mGLocationManager = new GLocationManager(mContext, mRes, mEventBus);
+        return mGLocationManager;
     }
 }
