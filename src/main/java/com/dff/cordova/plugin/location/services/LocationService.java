@@ -8,7 +8,6 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Messenger;
 import android.util.Log;
-import android.widget.Toast;
 import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
@@ -100,8 +99,8 @@ public class LocationService extends Service {
         Log.d(TAG, "onStartCommand()");
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         Log.d(TAG, "is service started --> " + mPreferencesHelper.isServiceStarted());
-        Log.d(TAG, "is location manager listening --> " + LocationServiceHandler.isListening);
-        if (mPreferencesHelper.isServiceStarted() && !LocationServiceHandler.isListening) {
+        Log.d(TAG, "is location manager listening --> " + mGLocationManager.isListening());
+        if (mPreferencesHelper.isServiceStarted() && !mGLocationManager.isListening()) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
             initializeLocationManagerAgain();
@@ -178,27 +177,22 @@ public class LocationService extends Service {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(OnStartLocationService event) {
-        Boolean isListening = mPreferencesHelper.isServiceStarted() || mGLocationManager.init();
-        Log.i(TAG, "location service is running --> " + isListening);
-        if (isListening) {
+        mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
+        Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
+        if (mGLocationManager.isListening()) {
             event.getCallbackContext().success();
         } else {
             event.getCallbackContext().error("Location Manager is not listening since the service could not be " +
-                "started");
+                "started or No provider has been found to request a new location");
         }
     }
 
-
+    /**
+     * On uncaught exception - the process will be respawn
+     */
     private void initializeLocationManagerAgain() {
         mPreferencesHelper.restoreProperties();
-        mPreferencesHelper.setIsServiceStarted(mLocationServiceHandler.initializeLocationManagerOnRespawn());
-    }
-
-    private void testService(int max) {
-        while (count < max) {
-            Toast.makeText(LocationService.this, "Test within " + count + " counts!", Toast.LENGTH_SHORT).show();
-            count++;
-        }
+        mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
     }
 }
 

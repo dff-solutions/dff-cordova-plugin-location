@@ -238,13 +238,4 @@ public class LocationServiceHandler extends Handler {
             .getInstance(mContext)
             .sendBroadcast(intent);
     }
-
-    /**
-     * On uncaught exception - the process will be respawn
-     *
-     * @return whether the location manager has been initialized or not
-     */
-    public boolean initializeLocationManagerOnRespawn() {
-        return initializeLocationManager(mPreferencesHelper.getMinTime(), mPreferencesHelper.getMinDistance());
-    }
 }

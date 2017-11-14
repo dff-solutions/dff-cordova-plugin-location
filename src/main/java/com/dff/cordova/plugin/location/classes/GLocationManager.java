@@ -28,6 +28,7 @@ public class GLocationManager implements LocationListener {
     private Res mRes;
     private EventBus mEventBus;
     private LocationManager mLocationManager;
+    private boolean isListening;
 
     @Inject
     public GLocationManager(
@@ -137,5 +138,13 @@ public class GLocationManager implements LocationListener {
         LocalBroadcastManager
             .getInstance(mContext)
             .sendBroadcast(intent);
+    }
+
+    public boolean isListening() {
+        return isListening;
+    }
+
+    public void setListening(boolean listening) {
+        isListening = listening;
     }
 }
