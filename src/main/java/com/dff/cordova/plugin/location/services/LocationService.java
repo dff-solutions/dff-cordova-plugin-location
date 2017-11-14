@@ -3,10 +3,7 @@ package com.dff.cordova.plugin.location.services;
 import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Intent;
-import android.os.Build;
-import android.os.HandlerThread;
-import android.os.IBinder;
-import android.os.Messenger;
+import android.os.*;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
@@ -177,6 +174,7 @@ public class LocationService extends Service {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(OnStartLocationService event) {
+        Looper.prepare();
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
         if (mGLocationManager.isListening()) {
