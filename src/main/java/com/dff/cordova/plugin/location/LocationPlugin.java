@@ -1,15 +1,12 @@
 package com.dff.cordova.plugin.location;
 
 import android.Manifest;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.HandlerThread;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.CommonPlugin;
 import com.dff.cordova.plugin.common.service.CommonServicePlugin;
-import com.dff.cordova.plugin.common.service.ServiceHandler;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
@@ -19,7 +16,6 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
@@ -96,7 +92,7 @@ public class LocationPlugin extends CommonServicePlugin {
         //@plugin version 7.2.3
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(false);
-        super.pluginInitialize(mServiceHandler);
+        super.pluginInitialize();
     }
 
 
