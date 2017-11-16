@@ -14,7 +14,6 @@ import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
-import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
@@ -28,7 +27,7 @@ import javax.inject.Inject;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 9.0.0-rc4
+ * @version 9.0.1-beta
  * @since 28.11.2016
  */
 public class LocationPlugin extends CommonServicePlugin {
@@ -56,9 +55,6 @@ public class LocationPlugin extends CommonServicePlugin {
 
     @Inject
     FileHelper mFileHelper;
-
-    @Inject
-    MessengerHelper mMessengerHelper;
 
     @Inject
     PreferencesHelper mPreferencesHelper;

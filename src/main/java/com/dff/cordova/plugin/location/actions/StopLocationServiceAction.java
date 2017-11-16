@@ -4,7 +4,6 @@ import android.content.Context;
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 
@@ -22,19 +21,16 @@ import javax.inject.Singleton;
 public class StopLocationServiceAction extends Action {
 
     private Context mContext;
-    private MessengerHelper mMessengerHelper;
     private PreferencesHelper mPreferencesHelper;
     private LocationRequestHandler mLocationRequestHandler;
 
     @Inject
     public StopLocationServiceAction(
         @ApplicationContext Context mContext,
-        MessengerHelper mMessengerHelper,
         PreferencesHelper mPreferencesHelper,
         LocationRequestHandler mLocationRequestHandler
     ) {
         this.mContext = mContext;
-        this.mMessengerHelper = mMessengerHelper;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
     }
@@ -48,9 +44,6 @@ public class StopLocationServiceAction extends Action {
 
     @Override
     public void execute() {
-//        Message msg = Message.obtain(null, Resources.WHAT.STOP_LOCATION_SERVICE.ordinal());
-//        msg.replyTo = new Messenger(mLocationRequestHandler);
-//        mMessengerHelper.send(msg, callbackContext);
         mPreferencesHelper.setIsServiceStarted(false);
     }
 }
