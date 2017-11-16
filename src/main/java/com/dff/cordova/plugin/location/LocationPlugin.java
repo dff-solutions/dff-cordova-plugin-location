@@ -53,9 +53,6 @@ public class LocationPlugin extends CommonServicePlugin {
     HandlerThread mHandlerThread;
 
     @Inject
-    ServiceHandler mServiceHandler;
-
-    @Inject
     Executor mExecutor;
 
     @Inject
@@ -143,7 +140,6 @@ public class LocationPlugin extends CommonServicePlugin {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mServiceHandler.unbindService();
         mFileHelper.storePendingLocation();
         mFileHelper.storeLocationsMultimap();
     }
