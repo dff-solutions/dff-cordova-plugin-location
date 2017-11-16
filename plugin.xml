@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-        id="dff-cordova-plugin-location" spec="9.0.1" version="9.0.1"
+        id="dff-cordova-plugin-location" spec="9.0.1-beta" version="9.0.1-beta"
         xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
     <description>Location Plugin</description>
     <keywords>cordova,device,location,GPS,distance</keywords>
-    <author>dff solutions</author>
+    <author>dff-solutions/AnthonyNahas</author>
 
     <js-module name="LocationPlugin" src="www/LocationPlugin.js">
         <clobbers target="LocationPlugin"/>
