@@ -1,14 +1,7 @@
 package com.dff.cordova.plugin.location.dagger.modules;
 
-import android.os.Messenger;
-import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.dagger.annotations.ServiceHandlerMessenger;
-import com.dff.cordova.plugin.location.services.LocationService;
 import dagger.Module;
-import dagger.Provides;
 import org.apache.cordova.CordovaInterface;
-
-import javax.inject.Singleton;
 
 /**
  * Created by anahas on 16.06.2017
@@ -26,17 +19,4 @@ public class CordovaModule { // todo --> ref --> remove
         this.mCordovaInterface = mCordovaInterface;
     }
 
-    @Provides
-    @Singleton
-    ServiceHandler provideServiceHandler() {
-        ServiceHandler serviceHandler = new ServiceHandler(mCordovaInterface, LocationService.class);
-        serviceHandler.bindService();
-        return serviceHandler;
-    }
-
-    @Provides
-    @ServiceHandlerMessenger
-    Messenger provideMessengerForServiceHandler(ServiceHandler serviceHandler) {
-        return serviceHandler.getService();
-    }
 }
