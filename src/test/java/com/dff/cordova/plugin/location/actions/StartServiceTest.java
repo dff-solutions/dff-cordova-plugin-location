@@ -2,7 +2,6 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.content.Context;
 import android.content.Intent;
-
 import com.dff.cordova.plugin.location.LocationPluginTest;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
@@ -10,10 +9,9 @@ import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
-import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.apache.cordova.CallbackContext;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,12 +24,8 @@ import org.mockito.junit.MockitoRule;
 
 import javax.inject.Inject;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static junit.framework.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by anahas on 02.08.2017.
@@ -50,6 +44,9 @@ public class StartServiceTest extends LocationPluginTest {
     Context mContext;
 
     @Inject
+    EventBus mEventBus;
+
+    @Inject
     JSActions mJsActions;
 
     @Inject
@@ -66,9 +63,6 @@ public class StartServiceTest extends LocationPluginTest {
 
     @Mock
     CallbackContext callbackContext;
-
-    @Mock
-    MessengerHelper mMessengerHelper;
 
     @Mock
     PreferencesHelper mPreferencesHelper;
@@ -129,7 +123,7 @@ public class StartServiceTest extends LocationPluginTest {
         Context context = spy(mContext);
         StartLocationServiceAction action = new StartLocationServiceAction(
             context,
-            mMessengerHelper,
+            mEventBus,
             mPreferencesHelper,
             mLocationRequestHandler);
 
@@ -165,7 +159,7 @@ public class StartServiceTest extends LocationPluginTest {
 
         StartLocationServiceAction action = new StartLocationServiceAction(
             mContext,
-            mMessengerHelper,
+            mEventBus,
             preferencesHelper,
             mLocationRequestHandler);
 
