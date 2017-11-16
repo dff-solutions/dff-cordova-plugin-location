@@ -50,16 +50,22 @@ public class GLocationManager implements LocationListener {
                 mLocationManager.requestLocationUpdates(provider, Resources.LOCATION_MIN_TIME,
                     Resources.LOCATION_MIN_DISTANCE, this);
                 Log.d(TAG, "Location Manager is listening...");
-                return true;
+                isListening = true;
             } else {
                 Log.e(TAG, "Location Manager: provider unavailable");
-                return false;
+                isListening = false;
             }
+            return isListening;
         } catch (Exception e) {
             Log.e(TAG, "Error while requesting location updates", e);
             listAllProviders();
             return false;
         }
+    }
+
+    public void removeUpdates() {
+        mLocationManager.removeUpdates(this);
+
     }
 
     @Override

@@ -1,14 +1,14 @@
 package com.dff.cordova.plugin.location.actions;
 
-import android.os.Message;
-import android.os.Messenger;
-
+import android.util.Log;
 import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.location.interfaces.IGLocation;
+import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
-import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
-
-import org.apache.cordova.CallbackContext;
+import com.dff.cordova.plugin.location.utilities.helpers.LocationHelper;
+import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,30 +24,41 @@ import javax.inject.Singleton;
 @Singleton
 public class GetLocationAction extends Action {
 
-    private MessengerHelper mMessengerHelper;
-    private LocationRequestHandler mLocationRequestHandler;
+    private static final String TAG = GetLocationAction.class.getSimpleName();
+
+    private Res mRes;
+    private TimeHelper mTimeHelper;
+    private LocationHelper mLocationHelper;
 
     @Inject
     public GetLocationAction
         (
-            MessengerHelper mMessengerHelper,
-            LocationRequestHandler mLocationRequestHandler
+            @Shared Res mRes,
+            TimeHelper mTimeHelper,
+            LocationHelper mLocationHelper
         ) {
 
-        this.mMessengerHelper = mMessengerHelper;
-        this.mLocationRequestHandler = mLocationRequestHandler;
-    }
-
-    @Override
-    public Action with(CallbackContext callbackContext) {
-        mLocationRequestHandler.setCallbackContext(callbackContext);
-        return this;
+        this.mRes = mRes;
+        this.mTimeHelper = mTimeHelper;
+        this.mLocationHelper = mLocationHelper;
     }
 
     @Override
     public void execute() {
-        Message msg = Message.obtain(null, Resources.WHAT.GET_LOCATION.ordinal());
-        msg.replyTo = new Messenger(mLocationRequestHandler);
-        mMessengerHelper.send(msg, callbackContext);
+
+        IGLocation location = mRes.getLocation();
+
+        if (location != null) {
+            if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
+                mRes.clearLocation();
+                Log.d(TAG, "setLocation --> null");
+                callbackContext.error("location is null --> deprecated");
+                return;
+            }
+            JSONObject locationJSON = mLocationHelper.toJson(location);
+            callbackContext.success(locationJSON);
+            return;
+        }
+        callbackContext.error("last good location is null");
     }
 }

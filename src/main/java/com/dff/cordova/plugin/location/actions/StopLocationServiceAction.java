@@ -1,16 +1,11 @@
 package com.dff.cordova.plugin.location.actions;
 
 import android.content.Context;
-import android.os.Message;
-import android.os.Messenger;
-
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
-import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.MessengerHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-
 import org.apache.cordova.CallbackContext;
 
 import javax.inject.Inject;
@@ -53,9 +48,9 @@ public class StopLocationServiceAction extends Action {
 
     @Override
     public void execute() {
-        Message msg = Message.obtain(null, Resources.WHAT.STOP_LOCATION_SERVICE.ordinal());
-        msg.replyTo = new Messenger(mLocationRequestHandler);
-        mMessengerHelper.send(msg, callbackContext);
+//        Message msg = Message.obtain(null, Resources.WHAT.STOP_LOCATION_SERVICE.ordinal());
+//        msg.replyTo = new Messenger(mLocationRequestHandler);
+//        mMessengerHelper.send(msg, callbackContext);
         mPreferencesHelper.setIsServiceStarted(false);
     }
 }

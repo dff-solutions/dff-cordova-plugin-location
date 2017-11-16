@@ -14,6 +14,7 @@ import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
+import com.dff.cordova.plugin.location.events.OnStopLocationService;
 import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
@@ -172,9 +173,8 @@ public class LocationService extends Service {
         // TODO: 07.07.2017 add location to list
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnStartLocationService event) {
-        Looper.prepare();
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
         if (mGLocationManager.isListening()) {
@@ -183,6 +183,13 @@ public class LocationService extends Service {
             event.getCallbackContext().error("Location Manager is not listening since the service could not be " +
                 "started or No provider has been found to request a new location");
         }
+    }
+
+    @Subscribe
+    public void onMessageEvent(OnStopLocationService event) {
+        mGLocationManager.removeUpdates();
+        stopSelf();
+        event.getCallbackContext().success();
     }
 
     /**
