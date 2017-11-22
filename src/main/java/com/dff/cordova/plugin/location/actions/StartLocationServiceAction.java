@@ -89,8 +89,6 @@ public class StartLocationServiceAction extends Action {
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
         }
-
-        mEventBus.post(new OnStartLocationService(mCallbackContext));
     }
 
     @Override
