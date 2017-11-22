@@ -8,5 +8,5 @@ package com.dff.cordova.plugin.location.events;
  * @since 20.06.17
  */
 
-public class OnLocationServiceBindEvent {
+public class OnLocationManagerInitialized {
 }

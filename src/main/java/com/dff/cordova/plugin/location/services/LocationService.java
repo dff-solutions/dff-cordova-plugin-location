@@ -3,15 +3,15 @@ package com.dff.cordova.plugin.location.services;
 import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Intent;
-import android.os.*;
+import android.os.Build;
+import android.os.IBinder;
+import android.os.Messenger;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceHandlerThread;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
-import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.events.OnStopLocationService;
@@ -29,16 +29,12 @@ import javax.inject.Inject;
  * Location Service performs a long running operation in order to the location of the device on change.
  *
  * @author Anthony Nahas
- * @version 2.0
+ * @version 9.0
  * @since 28.11.2016
  */
 public class LocationService extends Service {
 
     private static final String TAG = "LocationService";
-
-    @Inject
-    @LocationServiceHandlerThread
-    HandlerThread mHandlerThread;
 
     @Inject
     @Shared
@@ -78,6 +74,7 @@ public class LocationService extends Service {
             .inject(this);
         super.onCreate();
         mEventBus.register(this);
+        mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
     }
 
@@ -101,9 +98,10 @@ public class LocationService extends Service {
         if (mPreferencesHelper.isServiceStarted() && !mGLocationManager.isListening()) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
-            initializeLocationManagerAgain();
+            initializeLocationManager();
             Log.d(TAG, "init again");
         }
+        mEventBus.post(new OnStartLocationService());
         return super.onStartCommand(intent, flags, startId); //start sticky
     }
 
@@ -117,8 +115,7 @@ public class LocationService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(TAG, "onBind()");
-        mEventBus.post(new OnLocationServiceBindEvent());
-        return mMessenger.getBinder();
+        return null;
     }
 
     /**
@@ -128,38 +125,27 @@ public class LocationService extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "onDestroy()");
-        super.onDestroy();
+        mGLocationManager.setListening(false);
         mEventBus.unregister(this);
-        mHandlerThread.quitSafely();
-        //Toast.makeText(LocationService.this, "onDestroy()", Toast.LENGTH_SHORT).show();  //remove in production
+        super.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         Log.d(TAG, "onLowMemory()");
         super.onLowMemory();
-        //Toast.makeText(LocationService.this, "onLowMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public void onTrimMemory(int level) {
         Log.d(TAG, "onTrimMemory()");
         super.onTrimMemory(level);
-        //Toast.makeText(LocationService.this, "onTrimMemory()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
     public boolean onUnbind(Intent intent) {
         Log.d(TAG, "onUnbind()");
-        //Toast.makeText(LocationService.this, "onUnbind()", Toast.LENGTH_SHORT).show(); //remove in production
         return super.onUnbind(intent);
-    }
-
-    @Override
-    public void onRebind(Intent intent) {
-        Log.d(TAG, "onRebind()");
-        super.onRebind(intent);
-        //Toast.makeText(LocationService.this, "onRebind()", Toast.LENGTH_SHORT).show(); //remove in production
     }
 
     @Override
@@ -173,18 +159,6 @@ public class LocationService extends Service {
         // TODO: 07.07.2017 add location to list
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(OnStartLocationService event) {
-        mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
-        Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
-        if (mGLocationManager.isListening()) {
-            event.getCallbackContext().success();
-        } else {
-            event.getCallbackContext().error("Location Manager is not listening since the service could not be " +
-                "started or No provider has been found to request a new location");
-        }
-    }
-
     @Subscribe
     public void onMessageEvent(OnStopLocationService event) {
         mGLocationManager.removeUpdates();
@@ -195,7 +169,7 @@ public class LocationService extends Service {
     /**
      * On uncaught exception - the process will be respawn
      */
-    private void initializeLocationManagerAgain() {
+    private void initializeLocationManager() {
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
     }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-        id="dff-cordova-plugin-location" spec="9.1.0-beta" version="9.1.0-beta"
+        id="dff-cordova-plugin-location" spec="9.1.0-beta.2" version="9.1.0-beta.2"
         xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -189,7 +189,7 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/ServiceModule.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules"/>
         <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnLocationServiceBindEvent.java"
+            src="src/main/java/com/dff/cordova/plugin/location/events/OnLocationManagerInitialized.java"
             target-dir="src/com/dff/cordova/plugin/location/events"/>
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/events/OnNewGoodLocation.java"

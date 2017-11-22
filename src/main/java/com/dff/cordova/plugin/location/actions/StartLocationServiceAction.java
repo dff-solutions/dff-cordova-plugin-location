@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import com.dff.cordova.plugin.common.action.Action;
+import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
@@ -12,6 +14,8 @@ import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +34,7 @@ public class StartLocationServiceAction extends Action {
     public static final String TAG = StartLocationServiceAction.class.getSimpleName();
 
     private Context mContext;
+    private GLocationManager mGLocationManager;
     private EventBus mEventBus;
     private PreferencesHelper mPreferencesHelper;
     private LocationRequestHandler mLocationRequestHandler;
@@ -40,14 +45,18 @@ public class StartLocationServiceAction extends Action {
     @Inject
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
+        @Shared GLocationManager mGLocationManager,
         EventBus mEventBus,
         PreferencesHelper mPreferencesHelper,
         LocationRequestHandler mLocationRequestHandler
     ) {
         this.mContext = mContext;
+        this.mGLocationManager = mGLocationManager;
         this.mEventBus = mEventBus;
         this.mPreferencesHelper = mPreferencesHelper;
         this.mLocationRequestHandler = mLocationRequestHandler;
+
+        this.mEventBus.register(this);
     }
 
     @Override
@@ -82,6 +91,24 @@ public class StartLocationServiceAction extends Action {
         }
 
         mEventBus.post(new OnStartLocationService(mCallbackContext));
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        this.mEventBus.unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(OnStartLocationService event) {
+
+        Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
+        if (mGLocationManager.isListening()) {
+            mCallbackContext.success();
+        } else {
+            mCallbackContext.error("Location Manager is not listening since the service could not be " +
+                "started or No provider has been found to request a new location");
+        }
     }
 
     public CallbackContext getCallbackContext() {

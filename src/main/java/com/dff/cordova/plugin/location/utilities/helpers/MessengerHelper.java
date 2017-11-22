@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
 import com.dff.cordova.plugin.common.service.ServiceHandler;
-import com.dff.cordova.plugin.location.events.OnLocationServiceBindEvent;
+import com.dff.cordova.plugin.location.events.OnLocationManagerInitialized;
 
 import org.apache.cordova.CallbackContext;
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +42,7 @@ public class MessengerHelper {
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onLocationServiceBind(OnLocationServiceBindEvent event) {
+    public void onLocationServiceBind(OnLocationManagerInitialized event) {
         Log.d(TAG, "on location service bind");
         this.mMessenger = mServiceHandler.getService();
     }
