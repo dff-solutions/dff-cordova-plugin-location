@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.HandlerThread;
 import android.util.Log;
-import com.dff.cordova.plugin.common.CommonPlugin;
-import com.dff.cordova.plugin.common.service.CommonServicePlugin;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
@@ -17,6 +15,7 @@ import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -30,7 +29,7 @@ import javax.inject.Inject;
  * @version 9.0.1-beta
  * @since 28.11.2016
  */
-public class LocationPlugin extends CommonServicePlugin {
+public class LocationPlugin extends CordovaPlugin {
 
     private static final String TAG = "LocationPlugin";
     private static final String[] LOCATION_PERMISSIONS =
@@ -60,13 +59,6 @@ public class LocationPlugin extends CommonServicePlugin {
     PreferencesHelper mPreferencesHelper;
 
     private CordovaInterface mCordovaInterface;
-
-    /**
-     * Def-Constructor
-     */
-    public LocationPlugin() {
-        super(TAG);
-    }
 
     /**
      * Initialization of the plugin and the private properties.
@@ -131,7 +123,6 @@ public class LocationPlugin extends CommonServicePlugin {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mFileHelper.storePendingLocation();
         mFileHelper.storeLocationsMultimap();
     }
@@ -142,7 +133,7 @@ public class LocationPlugin extends CommonServicePlugin {
      */
     private void requestLocationPermission() {
         for (String permission : LOCATION_PERMISSIONS) {
-            CommonPlugin.addPermission(permission);
+//            CommonPlugin.addPermission(permission);
         }
     }
 
