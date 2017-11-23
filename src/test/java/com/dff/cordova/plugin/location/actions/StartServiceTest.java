@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import com.dff.cordova.plugin.location.LocationPluginTest;
 import com.dff.cordova.plugin.location.classes.Executor;
+import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -47,6 +49,10 @@ public class StartServiceTest extends LocationPluginTest {
     EventBus mEventBus;
 
     @Inject
+    @Shared
+    GLocationManager mGLocationManager;
+
+    @Inject
     JSActions mJsActions;
 
     @Inject
@@ -79,7 +85,7 @@ public class StartServiceTest extends LocationPluginTest {
     }
 
     @Test
-    public void checkStartServiceActionValue() throws Exception  {
+    public void checkStartServiceActionValue() throws Exception {
         assertEquals("start service action should be available in js actions classes--> ",
             mJsActions.start_service,
             mStartServiceAction);
@@ -123,6 +129,7 @@ public class StartServiceTest extends LocationPluginTest {
         Context context = spy(mContext);
         StartLocationServiceAction action = new StartLocationServiceAction(
             context,
+            mGLocationManager,
             mEventBus,
             mPreferencesHelper,
             mLocationRequestHandler);
@@ -159,6 +166,7 @@ public class StartServiceTest extends LocationPluginTest {
 
         StartLocationServiceAction action = new StartLocationServiceAction(
             mContext,
+            mGLocationManager,
             mEventBus,
             preferencesHelper,
             mLocationRequestHandler);
@@ -172,8 +180,6 @@ public class StartServiceTest extends LocationPluginTest {
         assertTrue("min distance from json should be saved", Resources.LOCATION_MIN_DISTANCE == 50);
         assertTrue("min accuracy from json should be saved", Resources.LOCATION_MIN_ACCURACY == 20);
         assertTrue("max age from json should be saved", Resources.LOCATION_MAX_AGE == 30);
-        assertTrue("location delay from json should be saved", Resources.LOCATION_DELAY == 50);
-
         verify(preferencesHelper).storeProperties();
     }
 }
