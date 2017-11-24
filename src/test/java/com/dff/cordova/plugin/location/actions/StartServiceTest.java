@@ -9,7 +9,6 @@ import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
-import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
@@ -73,9 +72,6 @@ public class StartServiceTest extends LocationPluginTest {
     @Mock
     PreferencesHelper mPreferencesHelper;
 
-    @Mock
-    LocationRequestHandler mLocationRequestHandler;
-
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -131,8 +127,7 @@ public class StartServiceTest extends LocationPluginTest {
             context,
             mGLocationManager,
             mEventBus,
-            mPreferencesHelper,
-            mLocationRequestHandler);
+            mPreferencesHelper);
 
         mExecutor.execute(
             action
@@ -168,8 +163,7 @@ public class StartServiceTest extends LocationPluginTest {
             mContext,
             mGLocationManager,
             mEventBus,
-            preferencesHelper,
-            mLocationRequestHandler);
+            preferencesHelper);
 
         mExecutor.execute(
             action

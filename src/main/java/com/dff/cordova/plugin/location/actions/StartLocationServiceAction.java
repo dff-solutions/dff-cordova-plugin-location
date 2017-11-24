@@ -8,7 +8,6 @@ import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
-import com.dff.cordova.plugin.location.handlers.LocationRequestHandler;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -37,7 +36,6 @@ public class StartLocationServiceAction extends Action {
     private GLocationManager mGLocationManager;
     private EventBus mEventBus;
     private PreferencesHelper mPreferencesHelper;
-    private LocationRequestHandler mLocationRequestHandler;
 
     private CallbackContext mCallbackContext;
     private JSONArray mArgs;
@@ -47,14 +45,12 @@ public class StartLocationServiceAction extends Action {
         @ApplicationContext Context mContext,
         @Shared GLocationManager mGLocationManager,
         EventBus mEventBus,
-        PreferencesHelper mPreferencesHelper,
-        LocationRequestHandler mLocationRequestHandler
+        PreferencesHelper mPreferencesHelper
     ) {
         this.mContext = mContext;
         this.mGLocationManager = mGLocationManager;
         this.mEventBus = mEventBus;
         this.mPreferencesHelper = mPreferencesHelper;
-        this.mLocationRequestHandler = mLocationRequestHandler;
 
         this.mEventBus.register(this);
     }
@@ -62,7 +58,6 @@ public class StartLocationServiceAction extends Action {
     @Override
     public Action with(CallbackContext callbackContext) {
         mCallbackContext = callbackContext;
-        mLocationRequestHandler.setCallbackContext(mCallbackContext);
         return this;
     }
 
