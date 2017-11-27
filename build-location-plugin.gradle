@@ -2,7 +2,7 @@ android {
     defaultConfig {
 
         // Enabling multidex support.
-        multiDexEnabled true
+//        multiDexEnabled true
 
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_7
