@@ -29,7 +29,7 @@ import javax.inject.Inject;
  * Location Service performs a long running operation in order to the location of the device on change.
  *
  * @author Anthony Nahas
- * @version 9.0
+ * @version 9.1.0-beta.4
  * @since 28.11.2016
  */
 public class LocationService extends Service {
@@ -95,7 +95,7 @@ public class LocationService extends Service {
         Log.d(TAG, "can be cleared = " + mPreferencesHelper.getCanLocationBeCleared());
         Log.d(TAG, "is service started --> " + mPreferencesHelper.isServiceStarted());
         Log.d(TAG, "is location manager listening --> " + mGLocationManager.isListening());
-        if (mPreferencesHelper.isServiceStarted() && !mGLocationManager.isListening()) {
+        if (!mPreferencesHelper.isServiceStarted() || !mGLocationManager.isListening()) {
             startService(new Intent(this, PendingLocationsIntentService.class)
                 .setAction(mJsActions.restore_pending_locations));
             initializeLocationManager();

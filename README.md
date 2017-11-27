@@ -10,17 +10,16 @@ Location based tracking system
 
 #### supported dff-web-core - 1.3.0
 
-#### dependencies: dff-cordova-plugin-common 2.0.9 "Common"
-
 ## Plugin@latest
 
-- Android: 9.0.0
+- Android: 9.1.0-beta.4
 
 ## Plugin@stable
 
 - Android: 9.0.0
 
 ## Releases:
+-  9.1.0-beta.4: Ref: supporting stop location service to re-init the location manager
 - 9.0.1: Feat: using apache common lang lib for eql and hash methods + Test @GLocation class
 - 9.0.0 Fix: @service cnx --> on unbind service | Feat: @Override clone, toString, hash and equal
 | Feat: integration GLocation objs in location's arraylist
