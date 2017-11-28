@@ -161,9 +161,10 @@ public class LocationService extends Service {
 
     @Subscribe
     public void onMessageEvent(OnStopLocationService event) {
+        mPreferencesHelper.setIsServiceStarted(false);
         mGLocationManager.removeUpdates();
-        stopSelf();
         event.getCallbackContext().success();
+        stopSelf();
     }
 
     /**
