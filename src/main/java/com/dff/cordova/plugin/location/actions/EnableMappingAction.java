@@ -4,8 +4,6 @@ import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 
-import org.json.JSONObject;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -29,8 +27,9 @@ public class EnableMappingAction extends Action {
     @Override
     public void execute() {
 
-        Resources.IS_TO_CALCULATE_DISTANCE = args.optBoolean(0, true);
-        mPreferencesHelper.setIsLocationsMappingEnabled(true);
+        boolean isToEnable = args.optBoolean(0, true);
+        Resources.IS_TO_CALCULATE_DISTANCE = isToEnable;
+        mPreferencesHelper.setIsLocationsMappingEnabled(isToEnable);
         callbackContext.success();
     }
 }
