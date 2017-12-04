@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-        id="dff-cordova-plugin-location" spec="9.1.0-beta.5" version="9.1.0-beta.5"
+        id="dff-cordova-plugin-location" spec="9.1.0-beta.6" version="9.1.0-beta.6"
         xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
