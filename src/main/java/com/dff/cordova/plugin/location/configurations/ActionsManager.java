@@ -3,12 +3,11 @@ package com.dff.cordova.plugin.location.configurations;
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.actions.index.IndexActions;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * classes that deals on the one hand with js actions in order to map them
@@ -39,12 +38,12 @@ public class ActionsManager {
 
     private void init() {
         mActionsMap = new HashMap<>();
+        mActionsMap.put(mJsActions.clear_location_list, mIndexActions.mClearLocationListAction);
+        mActionsMap.put(mJsActions.clear_stopID, mIndexActions.mClearStopIDAction);
         mActionsMap.put(mJsActions.store_pending_locations, mIndexActions.mStoreAction);
         mActionsMap.put(mJsActions.restore_pending_locations, mIndexActions.mRestoreAction);
-        mActionsMap.put(mJsActions.clear_stopID, mIndexActions.mClearStopIDAction);
         mActionsMap.put(mJsActions.enable_locations_mapping, mIndexActions.mEnableMappingAction);
         mActionsMap.put(mJsActions.get_location, mIndexActions.mGetLocationAction);
-        mActionsMap.put(mJsActions.clear_location_list, mIndexActions.mClearLocationListAction);
         mActionsMap.put(mJsActions.get_location_list, mIndexActions.mGetLocationListAction);
         mActionsMap.put(mJsActions.get_total_distance, mIndexActions.mGetTotalDistanceAction);
         mActionsMap.put(mJsActions.set_stopID, mIndexActions.mSetStopIdAction);

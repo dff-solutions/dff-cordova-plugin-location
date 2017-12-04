@@ -11,7 +11,6 @@ import com.dff.cordova.plugin.location.utilities.helpers.TimeHelper;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Get the last good location from the service if it's available.
@@ -21,7 +20,6 @@ import javax.inject.Singleton;
  * @version 1.0
  * @since 20.06.17
  */
-@Singleton
 public class GetLocationAction extends Action {
 
     private static final String TAG = GetLocationAction.class.getSimpleName();

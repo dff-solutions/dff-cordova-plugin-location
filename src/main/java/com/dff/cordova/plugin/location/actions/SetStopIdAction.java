@@ -1,15 +1,12 @@
 package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.resources.Resources;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Created by anahas on 22.06.2017.
@@ -18,7 +15,6 @@ import javax.inject.Singleton;
  * @version 1.0
  * @since 22.06.17
  */
-@Singleton
 public class SetStopIdAction extends Action {
 
     private static final String TAG = SetStopIdAction.class.getSimpleName();
