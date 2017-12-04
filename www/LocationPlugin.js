@@ -3,7 +3,7 @@
  * the location plugin, the Java native code.
  *
  * @author Anthony Nahas
- * @version 9.1.0-beta.5
+ * @version 9.1.0-beta.6
  * @since 28.11.2016
  */
 const exec = require('cordova/exec');
@@ -20,15 +20,16 @@ const ACTION_CLEAR_LOCATION_LIST = "location.action.CLEAR_LOCATION_LIST";
 const ACTION_INTENT_STORE_PENDING_LOCATIONS = "location.action.intent.STORE_PENDING_LOCATIONS";
 const ACTION_INTENT_RESTORE_PENDING_LOCATIONS = "location.action.intent.RESTORE_PENDING_LOCATIONS";
 const ACTION_RUN_TOTAL_DISTANCE_CALCULATOR = "distance.action.RUN_TOTAL_DISTANCE_CALCULATOR";
-const ACTION_SET_LOCATION_LISTENER = "location.action.SET_LOCATION_LISTENER";
-const ACTION_SET_STOP_LISTENER = "location.action.SET_STOP_LISTENER";
-const ACTION_CANCEL_STOP_LISTENER = "location.action.CANCEL_STOP_LISTENER";
 const ACTION_ENABLE_MAPPING_LOCATIONS = "location.action.ACTION_ENABLE_MAPPING_LOCATIONS";
 const ACTION_SET_STOP_ID = "hash_map.action.SET_STOP_ID";
 const ACTION_GET_LAST_STOP_ID = "hash_map.action.GET_LAST_STOP_ID";
 const ACTION_CLEAR_STOP_ID = "hash_map.action.CLEAR_STOP_ID";
 const ACTION_GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP = "location.action.GET_KEY_SET_FROM_LOCATIONS_MULTI_MAP";
+const ACTION_REGISTER_LOCATION_LISTENER = "location.action.ACTION_REGISTER_LOCATION_LISTENER";
+const ACTION_REGISTER_STOP_LISTENER = "location.action.ACTION_REGISTER_STOP_LISTENER";
 const ACTION_REGISTER_PROVIDER_LISTENER = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
+const ACTION_UNREGISTER_LOCATION_LISTENER = "location.action.ACTION_UNREGISTER_LOCATION_LISTENER";
+const ACTION_UNREGISTER_STOP_LISTENER = "location.action.ACTION_UNREGISTER_STOP_LISTENER";
 const ACTION_UNREGISTER_PROVIDER_LISTENER = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
 
@@ -104,31 +105,6 @@ LocationPlugin.prototype.getLocationsList = function (success, error, params) {
 */
 LocationPlugin.prototype.clearLocationsList = function (success, error) {
     exec(success, error, FEATURE, ACTION_CLEAR_LOCATION_LIST);
-};
-
-/**
- * Set a location listener in order to receive the newest location.
- *
- * @param success - Success callback function
- * @param error - Error callback function
- * @param returnType -  0 for String Location | 1 for JSON Location
- */
-LocationPlugin.prototype.setLocationListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_SET_LOCATION_LISTENER, []);
-};
-
-
-/**
- * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)
- *
- * @param success - Success callback function
- * @param error - Error callback function
- * @param frequency - how often
- * @param minDistance - the minimum distance that should be achieved
- * @param delay - the delay time between the first and a subsequent reorganization
- */
-LocationPlugin.prototype.setStopListener = function (success, error, frequency, minDistance, delay) {
-    exec(success, error, FEATURE, ACTION_SET_STOP_LISTENER, [frequency, minDistance, delay]);
 };
 
 /**
@@ -223,13 +199,41 @@ LocationPlugin.prototype.restorePendingLocations = function (success, error) {
 };
 
 /**
+ * Set a location listener in order to receive the newest location.
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ */
+LocationPlugin.prototype.registerLocationListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_REGISTER_LOCATION_LISTENER, []);
+};
+
+LocationPlugin.prototype.unregisterLocationListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_UNREGISTER_LOCATION_LISTENER, []);
+};
+
+/**
+ * Set a stop listener that recognize a stop with criteria (min 50m every 30secs - 10 times)
+ *
+ * @param success - Success callback function
+ * @param error - Error callback function
+ * @param frequency - how often
+ * @param minDistance - the minimum distance that should be achieved
+ * @param delay - the delay time between the first and a subsequent reorganization
+ */
+LocationPlugin.prototype.registerStopListener = function (success, error, frequency, minDistance, delay) {
+    exec(success, error, FEATURE, ACTION_REGISTER_STOP_LISTENER, [frequency, minDistance, delay]);
+};
+
+
+/**
  * Cancel the stop listener
  *
  * @param success - Success callback function
  * @param error - Error callback function
  */
-LocationPlugin.prototype.cancelStopListener = function (success, error) {
-    exec(success, error, FEATURE, ACTION_CANCEL_STOP_LISTENER, []);
+LocationPlugin.prototype.unregisterStopListener = function (success, error) {
+    exec(success, error, FEATURE, ACTION_UNREGISTER_STOP_LISTENER, []);
 };
 
 
