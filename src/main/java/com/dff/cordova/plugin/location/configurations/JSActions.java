@@ -1,10 +1,11 @@
 package com.dff.cordova.plugin.location.configurations;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
+import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /**
  * JsActions
@@ -15,6 +16,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 public class JSActions {
+
+    private static final String TAG = JSActions.class.getSimpleName();
 
     //JS Actions
     //service
@@ -35,11 +38,11 @@ public class JSActions {
     public final String clear_stopID = "hash_map.action.CLEAR_STOP_ID";
     public final String get_total_distance = "distance.action.GET_TOTAL_DISTANCE_CALCULATOR";
     //register
-    public final String register_location_listener = "location.action.SET_LOCATION_LISTENER";
+    public final String register_location_listener = "location.action.ACTION_REGISTER_LOCATION_LISTENER";
     public final String register_stop_listener = "location.action.ACTION_REGISTER_STOP_LISTENER";
     public final String register_provider_listener = "location.action.ACTION_REGISTER_PROVIDER_LISTENER";
     //unregister
-    public final String unregister_location_listener = "location.action.CANCEL_STOP_LISTENER";
+    public final String unregister_location_listener = "location.action.ACTION_UNREGISTER_LOCATION_LISTENER";
     public final String unregister_stop_listener = "location.action.ACTION_UNREGISTER_STOP_LISTENER";
     public final String unregister_provider_listener = "location.action.ACTION_UNREGISTER_PROVIDER_LISTENER";
 
@@ -60,7 +63,7 @@ public class JSActions {
                     actions.add(action);
                 }
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error while reflecting: ", e);
             }
         }
         return actions;
