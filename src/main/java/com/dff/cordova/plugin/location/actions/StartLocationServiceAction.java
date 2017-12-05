@@ -96,11 +96,13 @@ public class StartLocationServiceAction extends Action {
     public void onMessageEvent(OnStartLocationService event) {
 
         Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
-        if (mGLocationManager.isListening()) {
-            mCallbackContext.success();
-        } else {
-            mCallbackContext.error("Location Manager is not listening since the service could not be " +
-                "started or No provider has been found to request a new location");
+        if (mCallbackContext != null) {
+            if (mGLocationManager.isListening()) {
+                mCallbackContext.success();
+            } else {
+                mCallbackContext.error("Location Manager is not listening since the service could not be " +
+                    "started or No provider has been found to request a new location");
+            }
         }
     }
 
