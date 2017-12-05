@@ -1,6 +1,8 @@
 package com.dff.cordova.plugin.location.dagger.modules;
 
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import dagger.Module;
+import dagger.Provides;
 import org.apache.cordova.CordovaInterface;
 
 /**
@@ -19,4 +21,9 @@ public class CordovaModule { // todo --> ref --> remove
         this.mCordovaInterface = mCordovaInterface;
     }
 
+    @Provides
+    @Shared
+    public CordovaInterface provideCordvaInterface() {
+        return mCordovaInterface;
+    }
 }
