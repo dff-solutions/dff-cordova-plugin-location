@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
+import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnRequestPermissionResult;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -39,7 +40,7 @@ public class Executor {
     private ArrayList<Action> mPostPoneActions;
 
     @Inject
-    public Executor(CordovaInterface mCordova, EventBus mEventBus) {
+    public Executor(@Shared CordovaInterface mCordova, EventBus mEventBus) {
         this.mCordova = mCordova;
         this.mEventBus = mEventBus;
         mPostPoneActions = new ArrayList<>();
