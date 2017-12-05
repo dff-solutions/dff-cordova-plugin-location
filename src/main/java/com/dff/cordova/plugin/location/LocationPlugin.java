@@ -10,12 +10,14 @@ import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
+import com.dff.cordova.plugin.location.events.OnRequestPermissionResult;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -47,6 +49,9 @@ public class LocationPlugin extends CordovaPlugin {
     HandlerThread mHandlerThread;
 
     @Inject
+    EventBus mEventBus;
+
+    @Inject
     Executor mExecutor;
 
     @Inject
@@ -75,7 +80,6 @@ public class LocationPlugin extends CordovaPlugin {
 
         mCordovaInterface = cordova;
 
-        requestLocationPermission();
         mContext.stopService(new Intent(mContext, LocationService.class));
         //@plugin version 7.2.3
         mPreferencesHelper.restoreProperties();
@@ -97,13 +101,14 @@ public class LocationPlugin extends CordovaPlugin {
     public boolean execute(final String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         if (action != null && mActionsManager.allJSAction().contains(action)) {
+            final CordovaPlugin cordovaPlugin = this;
             mCordovaInterface.getThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     Log.d(TAG, "Action = " + action);
                     try {
                         mExecutor.execute
-                            (
+                            (cordovaPlugin,
                                 mActionsManager
                                     .hash(action)
                                     .with(callbackContext)
@@ -127,14 +132,9 @@ public class LocationPlugin extends CordovaPlugin {
         mFileHelper.storeLocationsMultimap();
     }
 
-    /**
-     * request permissions if they are not granted by forwarding them to
-     * the common plugin
-     */
-    private void requestLocationPermission() {
-        for (String permission : LOCATION_PERMISSIONS) {
-//            CommonPlugin.addPermission(permission);
-        }
+    @Override
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) {
+        mEventBus.post(new OnRequestPermissionResult(requestCode, permissions, grantResults));
     }
 
     public CordovaInterface getCordovaInterface() {
