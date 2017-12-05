@@ -58,7 +58,7 @@ public class JSActions {
         for (Field field : getClass().getDeclaredFields()) {
             try {
                 field.setAccessible(true);
-                String action = (String) field.get(this);
+                String action = String.valueOf(field.get(this));
                 if (action != null) {
                     actions.add(action);
                 }
