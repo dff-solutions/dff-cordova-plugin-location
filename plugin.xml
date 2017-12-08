@@ -256,7 +256,7 @@
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders"/>
 
         <!-- @Asset -->
-        <source-file src="mock/positions.json" target-dir="assets/"/>
+        <!--<source-file src="mock/positions.json" target-dir="assets/"/>-->
 
         <!-- @Gradle -->
         <source-file src="build-extras.gradle" target-dir="src/.."/>
