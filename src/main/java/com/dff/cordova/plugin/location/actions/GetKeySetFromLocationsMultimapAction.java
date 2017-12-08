@@ -3,13 +3,11 @@ package com.dff.cordova.plugin.location.actions;
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
-
 import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
 
 /**
  * Created by anahas on 23.06.2017.
@@ -31,6 +29,6 @@ public class GetKeySetFromLocationsMultimapAction extends Action {
     @Override
     public void execute() {
         JSONArray jsonArray = new JSONArray(new ArrayList<>(mRes.getLocationListMultimap().keySet()));
-        callbackContext.success(jsonArray);
+        getCallbackContext().success(jsonArray);
     }
 }

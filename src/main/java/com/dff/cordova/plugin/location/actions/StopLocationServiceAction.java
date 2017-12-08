@@ -27,6 +27,6 @@ public class StopLocationServiceAction extends Action {
 
     @Override
     public void execute() {
-        mEventBus.post(new OnStopLocationService(callbackContext));
+        mEventBus.post(new OnStopLocationService(getCallbackContext()));
     }
 }

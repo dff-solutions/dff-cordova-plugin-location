@@ -50,6 +50,13 @@ public class Executor {
     /**
      * request permissions if they are not granted before executing any action
      */
+    public <T extends Action> void execute(T action) {
+            action.execute();
+    }
+
+    /**
+     * request permissions if they are not granted before executing any action
+     */
     public <T extends Action> void execute(CordovaPlugin cordovaPlugin, T action) {
         if (mCordova.hasPermission(mLocationPermissions[0])) {
             action.execute();
@@ -70,7 +77,7 @@ public class Executor {
     private void blockPostPoneActions() {
         if (mPostPoneActions.size() > 0) {
             for (Action action : mPostPoneActions) {
-                action.callbackContext.error("PERMISSION DENIED for " + mLocationPermissions);
+                action.getCallbackContext().error("PERMISSION DENIED for " + mLocationPermissions);
             }
         }
     }
@@ -83,7 +90,7 @@ public class Executor {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnRequestPermissionResult event) {
         for (int result : event.getGrantResults()) {
-            if (result == PackageManager.PERMISSION_DENIED) {
+            if (result == PackageManager.PERMISSION_DENIED && event.getRequestCode() == mRequestCode) {
                 CordovaPluginLog.e(TAG, "PERMISSION DENIED @code " + event.getRequestCode());
                 blockPostPoneActions();
                 return;

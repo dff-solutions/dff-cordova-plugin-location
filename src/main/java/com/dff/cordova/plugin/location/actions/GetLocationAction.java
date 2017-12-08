@@ -50,13 +50,13 @@ public class GetLocationAction extends Action {
             if (!(mTimeHelper.getTimeAge(mRes.getLocation().getTime()) <= Resources.LOCATION_MAX_AGE)) {
                 mRes.clearLocation();
                 Log.d(TAG, "setLocation --> null");
-                callbackContext.error("location is null --> deprecated");
+                getCallbackContext().error("location is null --> deprecated");
                 return;
             }
             JSONObject locationJSON = mLocationHelper.toJson(location);
-            callbackContext.success(locationJSON);
+            getCallbackContext().success(locationJSON);
             return;
         }
-        callbackContext.error("last good location is null");
+        getCallbackContext().error("last good location is null");
     }
 }

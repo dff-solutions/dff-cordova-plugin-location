@@ -11,11 +11,9 @@ import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
-import org.apache.cordova.CallbackContext;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,9 +35,6 @@ public class StartLocationServiceAction extends Action {
     private EventBus mEventBus;
     private PreferencesHelper mPreferencesHelper;
 
-    private CallbackContext mCallbackContext;
-    private JSONArray mArgs;
-
     @Inject
     public StartLocationServiceAction(
         @ApplicationContext Context mContext,
@@ -56,24 +51,12 @@ public class StartLocationServiceAction extends Action {
     }
 
     @Override
-    public Action with(CallbackContext callbackContext) {
-        mCallbackContext = callbackContext;
-        return this;
-    }
-
-    @Override
-    public Action andHasArguments(JSONArray args) {
-        mArgs = args;
-        return this;
-    }
-
-    @Override
     public void execute() {
 
         mContext.startService(new Intent(mContext, LocationService.class));
 
         try {
-            JSONObject params = mArgs.getJSONObject(0);
+            JSONObject params = getArgs().getJSONObject(0);
             if (params != null) {
                 Resources.LOCATION_MIN_TIME = params.optLong(Resources.MIN_TIME, Resources.LOCATION_MIN_TIME);
                 Resources.LOCATION_MIN_DISTANCE = (float) params.optDouble(Resources.MIN_DISTANCE, Resources.LOCATION_MIN_DISTANCE);
@@ -96,21 +79,13 @@ public class StartLocationServiceAction extends Action {
     public void onMessageEvent(OnStartLocationService event) {
 
         Log.i(TAG, "location service is running --> " + mGLocationManager.isListening());
-        if (mCallbackContext != null) {
+        if (getCallbackContext() != null) {
             if (mGLocationManager.isListening()) {
-                mCallbackContext.success();
+                getCallbackContext().success();
             } else {
-                mCallbackContext.error("Location Manager is not listening since the service could not be " +
+                getCallbackContext().error("Location Manager is not listening since the service could not be " +
                     "started or No provider has been found to request a new location");
             }
         }
-    }
-
-    public CallbackContext getCallbackContext() {
-        return mCallbackContext;
-    }
-
-    public JSONArray getArgs() {
-        return mArgs;
     }
 }

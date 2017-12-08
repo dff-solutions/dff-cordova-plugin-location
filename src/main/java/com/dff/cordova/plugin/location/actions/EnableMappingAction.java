@@ -27,9 +27,9 @@ public class EnableMappingAction extends Action {
     @Override
     public void execute() {
 
-        boolean isToEnable = args.optBoolean(0, true);
+        boolean isToEnable = getArgs().optBoolean(0, true);
         Resources.IS_TO_CALCULATE_DISTANCE = isToEnable;
         mPreferencesHelper.setIsLocationsMappingEnabled(isToEnable);
-        callbackContext.success();
+        getCallbackContext().success();
     }
 }

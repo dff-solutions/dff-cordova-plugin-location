@@ -36,7 +36,7 @@ public class UnregisterProviderListenerAction extends Action {
     public void execute() {
         if (mChangeProviderReceiver != null) {
             LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mChangeProviderReceiver);
-            callbackContext.success();
+            getCallbackContext().success();
         }
     }
 }

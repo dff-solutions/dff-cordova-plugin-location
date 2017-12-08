@@ -26,12 +26,12 @@ public class SetStopIdAction extends Action {
     @Override
     public void execute() {
         try {
-            JSONObject params = args.getJSONObject(0);
+            JSONObject params = getArgs().getJSONObject(0);
             Resources.STOP_ID = params.optString(Resources.JSON_KEY_STOP_ID, Resources.STOP_ID);
-            callbackContext.success();
+            getCallbackContext().success();
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
-            callbackContext.error("Error: " + e);
+            getCallbackContext().error("Error: " + e);
         }
     }
 }

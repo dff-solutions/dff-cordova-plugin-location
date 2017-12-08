@@ -2,21 +2,18 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.location.Location;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
 import com.dff.cordova.plugin.location.simulators.DistanceSimulator;
 import com.google.common.collect.Multimap;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
 
 /**
  * Created by anahas on 22.06.2017.
@@ -43,7 +40,7 @@ public class GetTotalDistanceAction extends Action {
     public void execute() {
         boolean isClean = false;
         try {
-            JSONObject params = args.getJSONObject(0);
+            JSONObject params = getArgs().getJSONObject(0);
             Resources.IS_TO_CALCULATE_DISTANCE = !params.optBoolean(Resources.RESET, false);
             if (!Resources.IS_TO_CALCULATE_DISTANCE) {
                 Resources.STOP_ID = Resources.UNKNOWN;
@@ -54,7 +51,7 @@ public class GetTotalDistanceAction extends Action {
         }
         Multimap<String, Location> clonedMultimap = mRes.getLocationListMultimap();
         if (clonedMultimap == null) {
-            callbackContext.error("Error: --> clonedMultimap may be null");
+            getCallbackContext().error("Error: --> clonedMultimap may be null");
             return;
         }
         if (isClean) {
@@ -63,13 +60,13 @@ public class GetTotalDistanceAction extends Action {
         }
         ArrayList<Location> locationsList = new ArrayList<>(clonedMultimap.values());
         if (locationsList.size() > 1) {
-            mDistanceSimulator.performDistanceCalculation(callbackContext,
+            mDistanceSimulator.performDistanceCalculation(getCallbackContext(),
                 mRes.getLocationListMultimap().keySet().toString(), locationsList);
             if (!Resources.IS_TO_CALCULATE_DISTANCE) {
                 mRes.clearLocationListMultimap();
             }
         } else {
-            callbackContext.error("Error: --> locations list size = 0");
+            getCallbackContext().error("Error: --> locations list size = 0");
         }
     }
 }

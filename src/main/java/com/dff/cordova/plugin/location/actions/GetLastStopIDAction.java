@@ -22,6 +22,6 @@ public class GetLastStopIDAction extends Action {
 
     @Override
     public void execute() {
-        callbackContext.success(Resources.STOP_ID);
+        getCallbackContext().success(Resources.STOP_ID);
     }
 }

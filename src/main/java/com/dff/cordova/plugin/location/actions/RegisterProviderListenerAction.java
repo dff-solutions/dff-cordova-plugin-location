@@ -36,7 +36,7 @@ public class RegisterProviderListenerAction extends Action {
 
     @Override
     public void execute() {
-        mChangeProviderReceiver.setCallbackContext(callbackContext);
+        mChangeProviderReceiver.setCallbackContext(getCallbackContext());
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mChangeProviderReceiver,
             new IntentFilter(Resources.BROADCAST_ACTION_ON_CHANGED_PROVIDER));
     }

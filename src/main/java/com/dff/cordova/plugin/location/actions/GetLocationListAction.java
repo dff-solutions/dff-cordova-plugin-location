@@ -38,7 +38,7 @@ public class GetLocationListAction extends Action {
     public void execute() {
         Boolean canReset = true;
         try {
-            JSONObject params = args.getJSONObject(0);
+            JSONObject params = getArgs().getJSONObject(0);
             if (params != null) {
                 canReset = params.optBoolean(Resources.RESET, true);
             }
@@ -50,11 +50,11 @@ public class GetLocationListAction extends Action {
             Gson gson = new Gson();
             try {
                 if (clonedList != null) {
-                    callbackContext.success(new JSONArray(gson.toJson(clonedList)));
+                    getCallbackContext().success(new JSONArray(gson.toJson(clonedList)));
                 }
             } catch (JSONException e) {
                 Log.e(TAG, "Error: ", e);
-                callbackContext.error("JSONException + " + e);
+                getCallbackContext().error("JSONException + " + e);
             }
 
             Log.d(TAG, "list > 0 ");
@@ -62,7 +62,7 @@ public class GetLocationListAction extends Action {
                 mRes.clearList();
             }
         } else {
-            callbackContext.success(new JSONArray());
+            getCallbackContext().success(new JSONArray());
             Log.d(TAG, "list < 0 ");
         }
     }

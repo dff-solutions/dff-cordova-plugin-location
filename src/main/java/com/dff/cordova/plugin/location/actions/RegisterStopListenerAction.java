@@ -37,10 +37,10 @@ public class RegisterStopListenerAction extends Action {
 
     @Override
     public void execute() {
-        mStandStillReceiver.setCallbackContext(callbackContext);
-        Resources.STOP_HOLDER_COUNTER_LIMIT = args.optInt(0, Resources.STOP_HOLDER_COUNTER_LIMIT);
-        Resources.STOP_HOLDER_MIN_DISTANCE = args.optInt(1, Resources.STOP_HOLDER_MIN_DISTANCE);
-        Resources.STOP_HOLDER_DELAY = args.optInt(2, Resources.STOP_HOLDER_DELAY);
+        mStandStillReceiver.setCallbackContext(getCallbackContext());
+        Resources.STOP_HOLDER_COUNTER_LIMIT = getArgs().optInt(0, Resources.STOP_HOLDER_COUNTER_LIMIT);
+        Resources.STOP_HOLDER_MIN_DISTANCE = getArgs().optInt(1, Resources.STOP_HOLDER_MIN_DISTANCE);
+        Resources.STOP_HOLDER_DELAY = getArgs().optInt(2, Resources.STOP_HOLDER_DELAY);
 
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mStandStillReceiver,
             new IntentFilter(Resources.BROADCAST_ACTION_ON_STAND_STILL));

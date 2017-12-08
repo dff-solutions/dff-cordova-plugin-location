@@ -39,6 +39,6 @@ public class UnregisterLocationListenerAction extends Action {
             .getInstance(mContext)
             .unregisterReceiver(mNewLocationReceiver);
 
-        callbackContext.success();
+        getCallbackContext().success();
     }
 }

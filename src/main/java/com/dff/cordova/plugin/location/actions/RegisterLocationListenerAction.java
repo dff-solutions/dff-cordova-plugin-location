@@ -40,7 +40,7 @@ public class RegisterLocationListenerAction extends Action {
 
     @Override
     public void execute() {
-        mNewLocationReceiver.setCallbackContext(callbackContext);
+        mNewLocationReceiver.setCallbackContext(getCallbackContext());
 
         LocalBroadcastManager
             .getInstance(mContext)

@@ -102,7 +102,7 @@ public class StartServiceTest extends LocationPluginTest {
     @Test
     public void checkStartServiceActionExecutionMock() throws Exception {
 
-        mExecutor.execute(mockedAction);
+        mExecutor.execute(null,mockedAction);
 
         verify(mockedAction, times(1)).execute();
     }

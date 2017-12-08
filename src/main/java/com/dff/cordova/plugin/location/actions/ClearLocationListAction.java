@@ -40,6 +40,6 @@ public class ClearLocationListAction extends Action {
         } catch (JSONException e) {
             Log.e(TAG, "Error: -->", e);
         }
-        callbackContext.success(message);
+        getCallbackContext().success(message);
     }
 }

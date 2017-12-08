@@ -1,6 +1,5 @@
 package com.dff.cordova.plugin.location;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.HandlerThread;
@@ -28,17 +27,12 @@ import javax.inject.Inject;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 9.1.0-beta.5
+ * @version 9.1.0-beta.6
  * @since 28.11.2016
  */
 public class LocationPlugin extends CordovaPlugin {
 
     private static final String TAG = "LocationPlugin";
-    private static final String[] LOCATION_PERMISSIONS =
-        {
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        };
 
     @Inject
     @ApplicationContext
