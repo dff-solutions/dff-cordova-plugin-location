@@ -8,18 +8,23 @@ Location based tracking system
 
 - Android 
 
-#### supported dff-web-core - 1.3.0
+### supported dff-web-core - 1.3.0
+
+### required: common plugin - 2.0.12
 
 ## Plugin@latest
 
-- Android: 9.1.0-beta.4
+- Android: 9.1.0-beta.7
 
 ## Plugin@stable
 
 - Android: 9.0.0
 
 ## Releases:
-- 9.1.0-beta5: registerLocationListener instead of setLocationListener | removed singleton annotation actions
+- 9.1.0-beta.7: @actions --> cb and args over methods | Fix: @start service locatin --> on error callback after 
+permission result
+- 9.1.0-beta.6:
+- 9.1.0-beta.5: registerLocationListener instead of setLocationListener | removed singleton annotation actions
 -  9.1.0-beta.4: Ref: supporting stop location service to re-init the location manager
 - 9.0.1: Feat: using apache common lang lib for eql and hash methods + Test @GLocation class
 - 9.0.0 Fix: @service cnx --> on unbind service | Feat: @Override clone, toString, hash and equal
