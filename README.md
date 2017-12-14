@@ -14,7 +14,7 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 9.1.0-beta.7
+- Android: 10.0.0-alpha
 
 ## Plugin@stable
 

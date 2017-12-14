@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 910
-        versionName "9.1.0"
+        versionCode 10000
+        versionName "10.0.0-alpha"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
