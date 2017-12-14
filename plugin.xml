@@ -261,6 +261,6 @@
         <!-- @Gradle -->
         <source-file src="build-extras.gradle" target-dir="src/.."/>
         <framework custom="true" src="build-location-plugin.gradle" type="gradleReference"/>
-
+        <hook type="before_plugin_install" src="scripts/patch.js"/>
     </platform>
 </plugin>

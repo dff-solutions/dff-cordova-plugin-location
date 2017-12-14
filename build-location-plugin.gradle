@@ -1,3 +1,12 @@
+if (!project.hasProperty('cdvMinSdkVersion') || cdvMinSdkVersion < 15) {
+//    ext.cdvMinSdkVersion = 15;
+}
+
+// For Push SDK, SDK version must be at least 23
+if (!project.hasProperty('cdvCompileSdkVersion') || cdvCompileSdkVersion < 23) {
+//    ext.cdvCompileSdkVersion = 23;
+}
+
 android {
     defaultConfig {
 
@@ -22,6 +31,9 @@ android {
         mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
+        flatDir {
+            dirs 'libs'
+        }
     }
 
 
@@ -46,6 +58,11 @@ android {
         compile 'com.google.dagger:dagger-android:2.10'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
         provided 'javax.annotation:jsr250-api:1.0'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
     }
 }
 
