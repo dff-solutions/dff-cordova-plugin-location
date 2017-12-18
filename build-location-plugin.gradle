@@ -73,3 +73,6 @@ ext.postBuildExtras = {
     }
 }
 
+ext.postBuildExtras = {
+    apply plugin: 'realm-android'
+}
