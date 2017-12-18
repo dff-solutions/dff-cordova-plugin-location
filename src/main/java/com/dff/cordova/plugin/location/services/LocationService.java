@@ -19,6 +19,8 @@ import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -62,6 +64,8 @@ public class LocationService extends Service {
     @Inject
     PreferencesHelper mPreferencesHelper;
 
+    private Realm realm;
+
     /**
      * Initialization of properties and handling the location on app crash.
      */
@@ -76,6 +80,15 @@ public class LocationService extends Service {
         mEventBus.register(this);
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
+
+        // Initialize Realm
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder()
+            .name("locations.realm")
+            .schemaVersion(0)
+//            .migration(migration)
+            .build();
+        realm = Realm.getInstance(config);
     }
 
     /**
@@ -157,6 +170,15 @@ public class LocationService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnNewGoodLocation event) {
         // TODO: 07.07.2017 add location to list
+        realm.executeTransactionAsync(realm -> realm.insert(event.getLocation()),
+            () -> {
+                // Transaction was a success.
+                Log.d(TAG, "Transaction was a success for --> " + event.getLocation());
+            }, error -> {
+                // Transaction failed and was automatically canceled.
+                Log.e(TAG, "Transaction failed and was automatically canceled for --> " + event.getLocation() + " Error: " +
+                    error);
+            });
     }
 
     @Subscribe

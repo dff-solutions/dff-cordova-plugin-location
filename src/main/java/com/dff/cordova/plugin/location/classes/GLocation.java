@@ -2,10 +2,13 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.location.Location;
 import android.util.Log;
+import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.google.gson.Gson;
+import io.realm.RealmObject;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +19,7 @@ import org.json.JSONObject;
  * @version 2.0
  * @since 15.08.2017
  */
-public class GLocation implements IGLocation {
+public class GLocation extends RealmObject implements IGLocation {
 
     public static final String TAG = "GLocation";
 
@@ -48,6 +51,7 @@ public class GLocation implements IGLocation {
             speed = location.getSpeed();
             bearing = location.getBearing();
             time = location.getTime();
+            EventBus.getDefault().post(new OnNewGoodLocation(this));
         }
     }
 

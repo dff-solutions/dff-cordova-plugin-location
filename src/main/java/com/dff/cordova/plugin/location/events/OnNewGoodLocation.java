@@ -1,6 +1,6 @@
 package com.dff.cordova.plugin.location.events;
 
-import android.location.Location;
+import com.dff.cordova.plugin.location.classes.GLocation;
 
 /**
  * Created by anahas on 07.07.2017.
@@ -12,9 +12,13 @@ import android.location.Location;
 
 public class OnNewGoodLocation {
 
-   private Location location;
+    private GLocation location;
 
-    public OnNewGoodLocation(Location location) {
+    public GLocation getLocation() {
+        return location;
+    }
+
+    public OnNewGoodLocation(GLocation location) {
         this.location = location;
     }
 }
