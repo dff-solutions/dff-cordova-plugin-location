@@ -53,8 +53,6 @@ public class StartLocationServiceAction extends Action {
     @Override
     public void execute() {
 
-        mContext.startService(new Intent(mContext, LocationService.class));
-
         try {
             JSONObject params = getArgs().getJSONObject(0);
             if (params != null) {
@@ -63,9 +61,12 @@ public class StartLocationServiceAction extends Action {
                 Resources.LOCATION_MIN_ACCURACY = params.optInt(Resources.MIN_ACCURACY, Resources.LOCATION_MIN_ACCURACY);
                 Resources.LOCATION_MAX_AGE = params.optInt(Resources.MAX_AGE, Resources.LOCATION_MAX_AGE);
                 mPreferencesHelper.storeProperties();
+                mContext.startService(new Intent(mContext, LocationService.class));
             }
         } catch (JSONException e) {
             Log.e(TAG, "Error: ", e);
+            getCallbackContext().error("Error while trying to start the location service: " + e);
+
         }
     }
 
