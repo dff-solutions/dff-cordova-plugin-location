@@ -5,17 +5,14 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.Messenger;
 import android.util.Log;
 import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationServiceMessenger;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.events.OnStartLocationService;
 import com.dff.cordova.plugin.location.events.OnStopLocationService;
-import com.dff.cordova.plugin.location.handlers.LocationServiceHandler;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
@@ -41,13 +38,6 @@ public class LocationService extends Service {
     @Inject
     @Shared
     GLocationManager mGLocationManager;
-
-    @Inject
-    LocationServiceHandler mLocationServiceHandler;
-
-    @Inject
-    @LocationServiceMessenger
-    Messenger mMessenger;
 
     @Inject
     EventBus mEventBus;
