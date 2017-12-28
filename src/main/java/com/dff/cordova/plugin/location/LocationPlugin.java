@@ -27,7 +27,7 @@ import javax.inject.Inject;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 9.1.0-rc1
+ * @version 9.1.0-rc2
  * @since 28.11.2016
  */
 public class LocationPlugin extends CordovaPlugin {
