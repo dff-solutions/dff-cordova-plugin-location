@@ -66,7 +66,6 @@ public class LocationService extends Service {
             .inject(this);
         super.onCreate();
         mEventBus.register(this);
-        mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
     }
 
