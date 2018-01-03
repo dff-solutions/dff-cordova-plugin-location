@@ -2,17 +2,17 @@ package com.dff.cordova.plugin.location;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.HandlerThread;
 import android.util.Log;
+
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
 import com.dff.cordova.plugin.location.dagger.DaggerManager;
 import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.dagger.annotations.LocationRequestHandlerThread;
 import com.dff.cordova.plugin.location.events.OnRequestPermissionResult;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -27,7 +27,7 @@ import javax.inject.Inject;
  * well as to persist the locations when the app is not reachable.
  *
  * @author Anthony Nahas
- * @version 9.1.0-beta.6
+ * @version 9.1.0-rc2
  * @since 28.11.2016
  */
 public class LocationPlugin extends CordovaPlugin {
@@ -37,10 +37,6 @@ public class LocationPlugin extends CordovaPlugin {
     @Inject
     @ApplicationContext
     Context mContext;
-
-    @Inject
-    @LocationRequestHandlerThread
-    HandlerThread mHandlerThread;
 
     @Inject
     EventBus mEventBus;
