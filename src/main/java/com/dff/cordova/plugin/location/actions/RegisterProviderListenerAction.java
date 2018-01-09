@@ -3,20 +3,19 @@ package com.dff.cordova.plugin.location.actions;
 import android.content.Context;
 import android.content.IntentFilter;
 import android.support.v4.content.LocalBroadcastManager;
-
-import com.dff.cordova.plugin.common.action.Action;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;
+import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 /**
- * Created by anahas on 23.06.2017.
+ * Action to register and event and a listener in order to identify the location provider.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.5
  * @since 23.06.17
  */
 @Singleton

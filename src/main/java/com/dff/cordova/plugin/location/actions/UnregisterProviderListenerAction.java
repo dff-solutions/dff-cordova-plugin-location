@@ -2,10 +2,9 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.content.Context;
 import android.support.v4.content.LocalBroadcastManager;
-
-import com.dff.cordova.plugin.common.action.Action;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;
+import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.broadcasts.ChangeProviderReceiver;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

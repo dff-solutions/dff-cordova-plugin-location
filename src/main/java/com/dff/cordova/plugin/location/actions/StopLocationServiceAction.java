@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location.actions;
 
-import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.events.OnStopLocationService;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;import com.dff.cordova.plugin.location.events.OnStopLocationService;
 import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;

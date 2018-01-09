@@ -1,11 +1,9 @@
 package com.dff.cordova.plugin.location.actions;
 
 import android.util.Log;
-
-import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;
+import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
