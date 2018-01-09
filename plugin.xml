@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-        id="dff-cordova-plugin-location" spec="10.0.0-alpha" version="10.0.0-alpha"
+        id="dff-cordova-plugin-location" spec="10.0.0-alpha.2" version="10.0.0-alpha.2"
         xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -14,6 +14,8 @@
 
     <dependency id="dff-cordova-plugin-common"
                 url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git"/>
+    <dependency id="dff-cordova-plugin-dagger2"
+                url="https://github.com/dff-solutions/dff.CordovaPlugin.Dagger2.git"/>
     <dependency id="dff-cordova-plugin-realm"
                 url="https://github.com/dff-solutions/dff-cordova-plugin-realm.git"/>
 
