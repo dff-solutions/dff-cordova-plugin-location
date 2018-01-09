@@ -1,7 +1,6 @@
 package com.dff.cordova.plugin.location.configurations;
 
-import com.dff.cordova.plugin.common.action.Action;
-import com.dff.cordova.plugin.location.actions.index.IndexActions;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;import com.dff.cordova.plugin.location.actions.index.IndexActions;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

@@ -3,13 +3,11 @@ package com.dff.cordova.plugin.location.broadcasts;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.location.Location;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.AbstractPluginListener;
 import com.dff.cordova.plugin.location.dagger.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
-import com.dff.cordova.plugin.location.resources.Resources;
 
 import org.apache.cordova.CallbackContext;
 import org.json.JSONObject;

@@ -3,11 +3,8 @@ package com.dff.cordova.plugin.location.simulators;
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
-
-
+import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.classes.DistanceCalculator;
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-
 import org.apache.cordova.CallbackContext;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,12 +12,11 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-
-import javax.inject.Inject;
 
 
 /**
