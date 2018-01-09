@@ -3,9 +3,9 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import com.dff.cordova.plugin.common.action.Action;
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.dagger2.abstracts.Action;
+import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import com.dff.cordova.plugin.location.events.OnRequestPermissionResult;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
