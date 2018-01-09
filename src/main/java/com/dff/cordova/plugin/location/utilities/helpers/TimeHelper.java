@@ -2,14 +2,11 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.util.Log;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import dagger.Module;
 
 /**
  * Simple classes to handle tasks related to the time.

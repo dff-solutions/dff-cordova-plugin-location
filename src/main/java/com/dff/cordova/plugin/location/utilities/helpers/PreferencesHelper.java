@@ -3,8 +3,7 @@ package com.dff.cordova.plugin.location.utilities.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
-
-import com.dff.cordova.plugin.location.dagger.annotations.Private;
+import com.dff.cordova.plugin.dagger2.annotations.Private;
 import com.dff.cordova.plugin.location.resources.Resources;
 
 import javax.inject.Inject;

@@ -3,14 +3,12 @@ package com.dff.cordova.plugin.location.utilities.holders;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Handler;
 import android.util.Log;
-
-import com.dff.cordova.plugin.location.dagger.annotations.ApplicationContext;
-import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
+import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
 import com.dff.cordova.plugin.location.resources.Resources;
-
-import android.os.Handler;
 
 import javax.inject.Inject;
 
@@ -45,7 +43,7 @@ public class StopHolder implements Runnable {
 
     @Override
     public void run() {
-        if (mLocation != null && Resources.STOP_DISTANCE_CALCULATOR != null) {
+        if (mLocation != null) {
 
             if (Resources.STOP_DISTANCE_CALCULATOR.getStartLocation() != null &&
                 Resources.STOP_DISTANCE_CALCULATOR.getEndLocation() != null) {

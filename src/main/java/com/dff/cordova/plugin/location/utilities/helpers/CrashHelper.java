@@ -1,9 +1,8 @@
 package com.dff.cordova.plugin.location.utilities.helpers;
 
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.log.CordovaPluginLog;
-import com.dff.cordova.plugin.location.dagger.annotations.DefaultUncaughException;
+import com.dff.cordova.plugin.dagger2.annotations.DefaultUncaughException;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
