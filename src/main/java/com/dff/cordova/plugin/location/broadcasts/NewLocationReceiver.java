@@ -4,11 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
 import com.dff.cordova.plugin.common.AbstractPluginListener;
-import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import com.dff.cordova.plugin.location.resources.Res;
-
 import org.apache.cordova.CallbackContext;
 import org.json.JSONObject;
 

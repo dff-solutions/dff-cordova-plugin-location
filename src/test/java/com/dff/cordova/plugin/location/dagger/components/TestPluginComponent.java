@@ -6,7 +6,6 @@ import com.dff.cordova.plugin.location.actions.StartServiceTest;
 import com.dff.cordova.plugin.location.configurations.ConfigTest;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
-import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
 
 import javax.inject.Singleton;
 

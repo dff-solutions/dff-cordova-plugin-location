@@ -1,6 +1,6 @@
 package com.dff.cordova.plugin.location.dagger.modules;
 
-import com.dff.cordova.plugin.location.dagger.annotations.Shared;
+import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import dagger.Module;
 import dagger.Provides;
 import org.apache.cordova.CordovaInterface;

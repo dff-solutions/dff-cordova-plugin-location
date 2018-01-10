@@ -3,12 +3,9 @@ package com.dff.cordova.plugin.location.dagger.components;
 import com.dff.cordova.plugin.location.LocationPlugin;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
-import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
-
+import dagger.Component;
 
 import javax.inject.Singleton;
-
-import dagger.Component;
 
 /**
  * Created by anahas on 13.06.2017.
@@ -22,8 +19,7 @@ import dagger.Component;
 @Component(modules =
     {
         AppModule.class,
-        CordovaModule.class,
-        PluginModule.class
+        CordovaModule.class
     })
 public interface LocationPluginComponent {
 

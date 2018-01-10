@@ -10,8 +10,6 @@ import com.dff.cordova.plugin.location.dagger.components.LocationPluginComponent
 import com.dff.cordova.plugin.location.dagger.components.LocationServiceComponent;
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
 import com.dff.cordova.plugin.location.dagger.modules.CordovaModule;
-import com.dff.cordova.plugin.location.dagger.modules.PluginModule;
-import com.dff.cordova.plugin.location.dagger.modules.ServiceModule;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
 
@@ -34,7 +32,6 @@ public class DaggerManager {
 
     private AppModule mAppModule;
     private CordovaModule mCordovaModule;
-    private PluginModule mPluginModule;
 
     private Application mApplication;
     private CordovaInterface mCordovaInterface;
@@ -59,7 +56,6 @@ public class DaggerManager {
         this.mCordovaInterface = mCordovaInterface;
         if (mCordovaModule == null) {
             mCordovaModule = mCordovaInterface != null ? new CordovaModule(mCordovaInterface) : null;
-            mPluginModule = mCordovaInterface != null ? new PluginModule() : null;
         }
         return this;
     }
@@ -71,7 +67,6 @@ public class DaggerManager {
                 .builder()
                 .appModule(mAppModule)
                 .cordovaModule(mCordovaModule)
-                .pluginModule(mPluginModule)
                 .build();
         }
         mLocationPluginComponent.inject(locationPlugin);
@@ -83,7 +78,6 @@ public class DaggerManager {
             mLocationServiceComponent = DaggerLocationServiceComponent
                 .builder()
                 .appModule(mAppModule)
-                .serviceModule(new ServiceModule())
                 .build();
         }
 
