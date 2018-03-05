@@ -45,6 +45,7 @@ public class Resources {
 
     //JSON keys (params)
     public static final String ENABLE_MAPPING = "enableMapping";
+    public static final String FOREGROUND_MODE = "foregroundMode";
     public static final String MIN_TIME = "minTime";
     public static final String MIN_DISTANCE = "minDistance";
     public static final String MIN_ACCURACY = "minAccuracy";
@@ -63,6 +64,7 @@ public class Resources {
     public static final String JSON_KEY_STOP_ID = "stopID";
 
     //Settings with default values
+    public static boolean LOCATION_FOREGROUND_MODE = false;
     public static int LOCATION_MIN_ACCURACY = 20; // in meters | 20 in production
     public static int LOCATION_MAX_AGE = 30; //in seconds
     public static long LOCATION_MIN_TIME = 0; //in msec

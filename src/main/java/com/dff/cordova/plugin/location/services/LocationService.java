@@ -1,10 +1,16 @@
 package com.dff.cordova.plugin.location.services;
 
 import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.dff.cordova.plugin.location.classes.GLocationManager;
@@ -21,8 +27,11 @@ import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONObject;
 
 import javax.inject.Inject;
+
+import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
 /**
  * Location Service performs a long running operation in order to the location of the device on change.
@@ -34,6 +43,19 @@ import javax.inject.Inject;
 public class LocationService extends Service {
 
     private static final String TAG = "LocationService";
+
+    // Fixed ID for the 'foreground' notification
+    public static final int NOTIFICATION_ID = -574543954;
+
+    // Default title of the background notification
+    private static final String NOTIFICATION_TITLE = "App is running in background";
+
+    // Default icon of the background notification
+    private static final String NOTIFICATION_ICON = "icon";
+
+    // Partial wake lock to prevent the app from going to sleep when locked
+    private PowerManager.WakeLock wakeLock;
+
 
     @Inject
     @Shared
@@ -61,12 +83,15 @@ public class LocationService extends Service {
     public void onCreate() {
         Log.d(TAG, "onCreate()");
         DaggerManager
-            .getInstance()
-            .in(getApplication())
-            .inject(this);
+                .getInstance()
+                .in(getApplication())
+                .inject(this);
         super.onCreate();
         mEventBus.register(this);
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
+        if (com.dff.cordova.plugin.location.resources.Resources.LOCATION_FOREGROUND_MODE) {
+            keepAwake();
+        }
     }
 
     /**
@@ -88,7 +113,7 @@ public class LocationService extends Service {
         Log.d(TAG, "is location manager listening --> " + mGLocationManager.isListening());
         if (!mPreferencesHelper.isServiceStarted() || !mGLocationManager.isListening()) {
             startService(new Intent(this, PendingLocationsIntentService.class)
-                .setAction(mJsActions.restore_pending_locations));
+                    .setAction(mJsActions.restore_pending_locations));
             initializeLocationManager();
             Log.d(TAG, "init again");
         }
@@ -118,6 +143,9 @@ public class LocationService extends Service {
         Log.d(TAG, "onDestroy()");
         mGLocationManager.setListening(false);
         mEventBus.unregister(this);
+        if (com.dff.cordova.plugin.location.resources.Resources.LOCATION_FOREGROUND_MODE) {
+            sleepWell();
+        }
         super.onDestroy();
     }
 
@@ -155,6 +183,9 @@ public class LocationService extends Service {
         mPreferencesHelper.setIsServiceStarted(false);
         mGLocationManager.removeUpdates();
         event.getCallbackContext().success();
+        if (com.dff.cordova.plugin.location.resources.Resources.LOCATION_FOREGROUND_MODE) {
+            sleepWell();
+        }
         stopSelf();
     }
 
@@ -164,6 +195,158 @@ public class LocationService extends Service {
     private void initializeLocationManager() {
         mPreferencesHelper.restoreProperties();
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
+    }
+
+    /**
+     * Put the service in a foreground state to prevent app from being killed
+     * by the OS.
+     */
+    private void keepAwake() {
+        startForeground(NOTIFICATION_ID, makeNotification());
+
+
+        PowerManager pm = (PowerManager)
+                getSystemService(POWER_SERVICE);
+
+        if (pm != null) {
+            wakeLock = pm.newWakeLock(
+                    PARTIAL_WAKE_LOCK, "BackgroundMode");
+        }
+
+        wakeLock.acquire(5000);
+    }
+
+    /**
+     * Stop background mode.
+     */
+    private void sleepWell() {
+        stopForeground(true);
+        getNotificationManager().cancel(NOTIFICATION_ID);
+
+        if (wakeLock != null) {
+            wakeLock.release();
+            wakeLock = null;
+        }
+    }
+
+
+    /**
+     * Create a notification as the visible part to be able to put the service
+     * in a foreground state.
+     */
+    private Notification makeNotification() {
+
+        Context context = getApplicationContext();
+        String pkgName = context.getPackageName();
+        Intent intent = context.getPackageManager()
+                .getLaunchIntentForPackage(pkgName);
+
+        Notification.Builder notification = new Notification.Builder(context)
+                .setContentTitle("App is running")
+//                .setSmallIcon(getIconResId(0))
+                .setOngoing(true);
+
+//        notification.setPriority(Notification.PRIORITY_MIN);
+
+
+        setColor(notification, null);
+
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent contentIntent = PendingIntent.getActivity(
+                    this, NOTIFICATION_ID, intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+            notification.setContentIntent(contentIntent);
+        }
+
+        return notification.build();
+    }
+
+    /**
+     * Update the notification.
+     *
+     * @param settings The config settings
+     */
+    protected void updateNotification(JSONObject settings) {
+        boolean isSilent = settings.optBoolean("silent", false);
+
+        if (isSilent) {
+            stopForeground(true);
+            return;
+        }
+
+        Notification notification = makeNotification();
+        getNotificationManager().notify(NOTIFICATION_ID, notification);
+    }
+
+    /**
+     * Retrieves the resource ID of the app icon.
+     *
+     * @param settings A JSON dict containing the icon name.
+     */
+    private int getIconResId(JSONObject settings) {
+        String icon = settings.optString("icon", NOTIFICATION_ICON);
+
+        // cordova-android 6 uses mipmaps
+        int resId = getIconResId(icon, "mipmap");
+
+        if (resId == 0) {
+            resId = getIconResId(icon, "drawable");
+        }
+
+        return resId;
+    }
+
+    /**
+     * Retrieve resource id of the specified icon.
+     *
+     * @param icon The name of the icon.
+     * @param type The resource type where to look for.
+     * @return The resource id or 0 if not found.
+     */
+    private int getIconResId(String icon, String type) {
+        Resources res = getResources();
+        String pkgName = getPackageName();
+
+        int resId = res.getIdentifier(icon, type, pkgName);
+
+        if (resId == 0) {
+            resId = res.getIdentifier("icon", type, pkgName);
+        }
+
+        return resId;
+    }
+
+    /**
+     * Set notification color if its supported by the SDK.
+     *
+     * @param notification A Notification.Builder instance
+     * @param settings     A JSON dict containing the color definition (red: FF0000)
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void setColor(Notification.Builder notification,
+                          JSONObject settings) {
+
+        String hex = settings.optString("color", null);
+
+        if (Build.VERSION.SDK_INT < 21 || hex == null)
+            return;
+
+        try {
+            int aRGB = Integer.parseInt(hex, 16) + 0xFF000000;
+            notification.setColor(aRGB);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Shared manager for the notification service.
+     */
+    private NotificationManager getNotificationManager() {
+        return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
 }
 

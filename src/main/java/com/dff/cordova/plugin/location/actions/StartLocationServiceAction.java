@@ -2,6 +2,7 @@ package com.dff.cordova.plugin.location.actions;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.dff.cordova.plugin.common.action.Action;
@@ -58,6 +59,7 @@ public class StartLocationServiceAction extends Action {
         try {
             JSONObject params = getArgs().getJSONObject(0);
             if (params != null) {
+                Resources.LOCATION_FOREGROUND_MODE = params.optBoolean(Resources.FOREGROUND_MODE, Resources.LOCATION_FOREGROUND_MODE);
                 Resources.LOCATION_MIN_TIME = params.optLong(Resources.MIN_TIME, Resources.LOCATION_MIN_TIME);
                 Resources.LOCATION_MIN_DISTANCE = (float) params.optDouble(Resources.MIN_DISTANCE, Resources.LOCATION_MIN_DISTANCE);
                 Resources.LOCATION_MIN_ACCURACY = params.optInt(Resources.MIN_ACCURACY, Resources.LOCATION_MIN_ACCURACY);
