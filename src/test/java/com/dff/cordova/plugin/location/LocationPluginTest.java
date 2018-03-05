@@ -65,11 +65,11 @@ public abstract class LocationPluginTest {
 
     public LocationPluginTest() {
         Dagger = DaggerTestPluginComponent
-            .builder()
-            .appModule(new TestAppModule(mApplication))
-            .cordovaModule(new TestCordovaModule(cordova))
-            .pluginModule(new TestPluginModule())
-            .build();
+                .builder()
+                .appModule(new TestAppModule(mApplication))
+                .cordovaModule(new TestCordovaModule(cordova))
+                .pluginModule(new TestPluginModule())
+                .build();
 
         Dagger.inject(this);
     }
