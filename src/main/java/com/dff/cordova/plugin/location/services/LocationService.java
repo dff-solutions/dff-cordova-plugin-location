@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -222,11 +223,6 @@ public class LocationService extends Service {
     private void sleepWell() {
         stopForeground(true);
         getNotificationManager().cancel(NOTIFICATION_ID);
-
-        if (wakeLock != null) {
-            wakeLock.release();
-            wakeLock = null;
-        }
     }
 
 
@@ -243,13 +239,13 @@ public class LocationService extends Service {
 
         Notification.Builder notification = new Notification.Builder(context)
                 .setContentTitle("App is running")
-//                .setSmallIcon(getIconResId(0))
+                .setSmallIcon(getResources().getIdentifier("ic_local_shipping", "id", getPackageName()))
                 .setOngoing(true);
 
 //        notification.setPriority(Notification.PRIORITY_MIN);
 
 
-        setColor(notification, null);
+        setColor(notification);
 
         if (intent != null) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -323,20 +319,11 @@ public class LocationService extends Service {
      * Set notification color if its supported by the SDK.
      *
      * @param notification A Notification.Builder instance
-     * @param settings     A JSON dict containing the color definition (red: FF0000)
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void setColor(Notification.Builder notification,
-                          JSONObject settings) {
-
-        String hex = settings.optString("color", null);
-
-        if (Build.VERSION.SDK_INT < 21 || hex == null)
-            return;
-
+    private void setColor(Notification.Builder notification) {
         try {
-            int aRGB = Integer.parseInt(hex, 16) + 0xFF000000;
-            notification.setColor(aRGB);
+            notification.setColor(Color.GRAY);
         } catch (Exception e) {
             e.printStackTrace();
         }
