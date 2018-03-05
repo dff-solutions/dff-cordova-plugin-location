@@ -36,6 +36,7 @@
         <config-file parent="/manifest" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
             <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
             <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/> -->
             <!-- Needed only if app targets Android 5.0 (API level 21) or higher.
              Build will failed if app targets Android API LEVEL <= 19-->
