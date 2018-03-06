@@ -257,6 +257,7 @@
         <source-file
             src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
             target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
+
         <source-file src="src/main/res/drawable/ic_local_shipping.xml" target-dir="res/drawable" />
 
         <!-- @Asset -->

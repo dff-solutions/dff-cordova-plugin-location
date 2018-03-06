@@ -239,7 +239,7 @@ public class LocationService extends Service {
 
         Notification.Builder notification = new Notification.Builder(context)
                 .setContentTitle("App is running")
-                .setSmallIcon(getResources().getIdentifier("ic_local_shipping", "id", getPackageName()))
+                .setSmallIcon(getResources().getIdentifier("ic_local_shipping", "drawable", getPackageName()))
                 .setOngoing(true);
 
 //        notification.setPriority(Notification.PRIORITY_MIN);
