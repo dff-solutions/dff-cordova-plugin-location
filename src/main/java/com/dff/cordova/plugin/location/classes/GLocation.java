@@ -2,15 +2,22 @@ package com.dff.cordova.plugin.location.classes;
 
 import android.location.Location;
 import android.util.Log;
+
 import com.dff.cordova.plugin.location.events.OnNewGoodLocation;
 import com.dff.cordova.plugin.location.interfaces.IGLocation;
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 /**
  * GLocation class maps the location object from the sdl
@@ -23,6 +30,7 @@ public class GLocation extends RealmObject implements IGLocation {
 
     public static final String TAG = "GLocation";
 
+    private static final String _UUID = "uuid";
     public static final String LNG = "longitude";
     public static final String LAT = "latitude";
     public static final String ALT = "altitude";
@@ -30,6 +38,10 @@ public class GLocation extends RealmObject implements IGLocation {
     public static final String SPD = "speed";
     public static final String BEARING = "bearing";
     public static final String TIME = "time";
+
+    @PrimaryKey
+    @SerializedName(_UUID)
+    private String uuid;
 
     private double longitude;
     private double latitude;
@@ -39,11 +51,15 @@ public class GLocation extends RealmObject implements IGLocation {
     private float bearing;
     private long time;
 
+    private transient boolean isCalculated;
+    private transient boolean isProcessed;
+
     public GLocation() {
     }
 
     public GLocation(Location location) {
         if (location != null) {
+            uuid = UUID.randomUUID().toString();
             longitude = location.getLongitude();
             latitude = location.getLatitude();
             altitude = location.getAltitude();
@@ -61,14 +77,14 @@ public class GLocation extends RealmObject implements IGLocation {
         // you pick a hard-coded, randomly chosen, non-zero, odd number
         // ideally different for each class
         return new HashCodeBuilder(17, 37).
-            append(longitude).
-            append(latitude).
-            append(altitude).
-            append(accuracy).
-            append(speed).
-            append(bearing).
-            append(time).
-            toHashCode();
+                append(longitude).
+                append(latitude).
+                append(altitude).
+                append(accuracy).
+                append(speed).
+                append(bearing).
+                append(time).
+                toHashCode();
     }
 
     @Override
@@ -86,31 +102,31 @@ public class GLocation extends RealmObject implements IGLocation {
         GLocation gLocation = (GLocation) obj;
 
         return new EqualsBuilder()
-            .append(longitude, gLocation.getLongitude())
-            .append(latitude, gLocation.getLatitude())
-            .append(altitude, gLocation.getAltitude())
-            .append(accuracy, gLocation.getAccuracy())
-            .append(speed, gLocation.getSpeed())
-            .append(bearing, gLocation.getBearing())
-            .append(time, gLocation.getTime())
-            .isEquals();
+                .append(longitude, gLocation.getLongitude())
+                .append(latitude, gLocation.getLatitude())
+                .append(altitude, gLocation.getAltitude())
+                .append(accuracy, gLocation.getAccuracy())
+                .append(speed, gLocation.getSpeed())
+                .append(bearing, gLocation.getBearing())
+                .append(time, gLocation.getTime())
+                .isEquals();
     }
 
     @Override
     public String toString() {
         return LNG
-            + " : "
-            + longitude
-            + "\n"
-            + LAT
-            + " : "
-            +
-            latitude
-            + "\n"
-            + ACC
-            + " : "
-            + accuracy
-            + "\n";
+                + " : "
+                + longitude
+                + "\n"
+                + LAT
+                + " : "
+                +
+                latitude
+                + "\n"
+                + ACC
+                + " : "
+                + accuracy
+                + "\n";
     }
 
     /**
