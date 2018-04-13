@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-    id="dff-cordova-plugin-location" spec="10.0.0-alpha.5" version="10.0.0-alpha.5"
+    id="dff-cordova-plugin-location" spec="10.0.0-alpha.6" version="10.0.0-alpha.6"
     xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -238,7 +238,6 @@
         <!--<source-file src="mock/positions.json" target-dir="assets/"/>-->
 
         <!-- @Gradle -->
-        <source-file src="build-extras.gradle" target-dir="src/.." />
         <framework custom="true" src="build-location-plugin.gradle" type="gradleReference" />
         <hook src="scripts/patch.js" type="before_plugin_install" />
     </platform>
