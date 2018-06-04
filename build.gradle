@@ -1,10 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.3'
+    compileSdkVersion 23
+    buildToolsVersion "27.0.3"
 
     repositories {
         jcenter()
@@ -15,7 +14,7 @@ android {
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 10000
         versionName "10.0.0-alpha"
         multiDexEnabled true
@@ -52,60 +51,43 @@ android {
     }
 
     dependencies {
-        compile 'com.github.tbroyer:gradle-apt-plugin:v0.10'
-        compile fileTree(include: ['*.jar'], dir: 'libs')
-        compile project(':cordova-android')
-        compile project(':dff-cordova-plugin-common')
+        implementation 'com.github.tbroyer:gradle-apt-plugin:v0.10'
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation project(':cordova-android')
+        implementation project(':dff-cordova-plugin-common')
+        implementation project(path: ':dff-cordova-plugin-dagger2')
         //android support
-        compile 'com.android.support:appcompat-v7:25.4.0'
-        compile 'com.android.support:support-v4:25.4.0'
-        compile 'com.googlecode.json-simple:json-simple:1.1'
-        compile 'com.google.guava:guava:20.0'
-        compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0'
-        compile 'com.google.code.gson:gson:2.7'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+        implementation 'com.android.support:appcompat-v7:23.4.0'
+        implementation 'com.android.support:support-v4:23.4.0'
+        implementation 'com.googlecode.json-simple:json-simple:1.1'
+        implementation 'com.google.guava:guava:20.0'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0'
+        implementation 'com.google.code.gson:gson:2.7'
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
         //@EventBus
-        compile 'org.greenrobot:eventbus:3.0.0'
+        implementation 'org.greenrobot:eventbus:3.1.1'
         //@Dagger 2
-        compile 'com.google.dagger:dagger:2.11'
-        compile 'com.google.dagger:dagger-android:2.11'
-        apt 'com.google.dagger:dagger-compiler:2.11'
-        testApt 'com.google.dagger:dagger-compiler:2.11'
-//      annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+        implementation 'com.google.dagger:dagger:2.14.1'
+        implementation 'com.google.dagger:dagger-android:2.14'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.14'
+        testAnnotationProcessor 'com.google.dagger:dagger-compiler:2.14'
+//      annotationProcessor 'com.google.dagger:dagger-android-processor:2.14'
 //        apt 'com.google.dagger:dagger-compiler:2.11'
         provided 'javax.annotation:jsr250-api:1.0'
 //        testApt 'com.google.dagger:dagger-compiler:2.11'
         testCompile 'junit:junit:4.12'
         //mockito for dagger
-        compile 'org.mockito:mockito-core:2.8.8'
+        implementation 'org.mockito:mockito-core:2.8.8'
         // required if you want to use Mockito for unit tests
-        testCompile 'org.mockito:mockito-core:2.8.8'
-        testCompile 'org.robolectric:robolectric:3.3.2'
+        testImplementation 'org.mockito:mockito-core:2.8.8'
+        testImplementation 'org.robolectric:robolectric:3.3.2'
         // required if you want to use Mockito for Android tests
-        androidTestCompile 'org.mockito:mockito-android:2.8.8'
-        androidTestCompile 'com.android.support.test:runner:1.0.1'
-        androidTestCompile 'com.android.support.test:rules:1.0.1'
-        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        androidTestImplementation 'org.mockito:mockito-android:2.8.8'
+        androidTestImplementation 'com.android.support.test:runner:1.0.1'
+        androidTestImplementation 'com.android.support.test:rules:1.0.1'
+        androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
             exclude group: 'com.android.support', module: 'support-annotations'
         })
     }
 }
 
-
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        // replace with the current version of the Android plugin
-//        classpath 'com.android.tools.build:gradle:2.3.3'
-        // the latest version of the android-apt plugin
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
-
-
-dependencies {
-    compile project(path: ':dff-cordova-plugin-dagger2')
-}
