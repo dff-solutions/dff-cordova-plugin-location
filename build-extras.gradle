@@ -1,5 +1,4 @@
 ext.postBuildExtras = {
-    apply plugin: 'realm-android'
     android {
         compileOptions {
             sourceCompatibility JavaVersion.VERSION_1_8
