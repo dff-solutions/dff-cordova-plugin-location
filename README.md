@@ -14,16 +14,19 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 9.1.0-beta.7
+- Android: 10.0.0-alpha.6
 
 ## Plugin@stable
 
-- Android: 9.0.0
+- Android: 9.1.1
 
 ## Releases:
-- 9.1.0-beta.7: @actions --> cb and args over methods | Fix: @start service locatin --> on error callback after 
+- 9.1.0 & 9.1.1: compiling with java 8
+- 9.1.0-rc3: added service notificaion
+- 9.1.0-rc2: Fix: removed wrong location manager initialization
+- 9.1.0-rc1: start location async
+- 9.1.0-beta.7: @actions --> cb and args over methods | Fix: @start service locatin --> on error callback after
 permission result
-- 9.1.0-beta.6:
 - 9.1.0-beta.5: registerLocationListener instead of setLocationListener | removed singleton annotation actions
 -  9.1.0-beta.4: Ref: supporting stop location service to re-init the location manager
 - 9.0.1: Feat: using apache common lang lib for eql and hash methods + Test @GLocation class
