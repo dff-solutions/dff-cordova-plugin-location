@@ -54,7 +54,7 @@ LocationPlugin.prototype.startService = function (success, error, params) {
  *
  * @param success - Success callback function
  * @param error - Error callback function
- */
+ */0
 LocationPlugin.prototype.stopService = function (success, error) {
     exec(success, error, FEATURE, ACTION_STOP_SERVICE, []);
 };

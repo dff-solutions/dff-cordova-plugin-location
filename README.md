@@ -14,11 +14,11 @@ Location based tracking system
 
 ## Plugin@latest
 
-- Android: 10.0.0-alpha.3
+- Android: 10.0.0-alpha.6
 
 ## Plugin@stable
 
-- Android: 9.0.0
+- Android: 9.1.1
 
 ## Releases:
 - 9.1.0-beta.7: @actions --> cb and args over methods | Fix: @start service locatin --> on error callback after 

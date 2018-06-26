@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-    id="dff-cordova-plugin-location" spec="10.0.0-alpha.6" version="10.0.0-alpha.6"
+    id="dff-cordova-plugin-location" spec="10.0.0-beta" version="10.0.0-beta">
     xmlns="http://www.phonegap.com/ns/plugins/1.0">
 
     <name>Location Plugin</name>
@@ -163,6 +163,9 @@
             src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/AppModule.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
         <source-file
+            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/RealmModule.java"
+            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
+        <source-file
             src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/CordovaModule.java"
             target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
         <source-file
@@ -240,5 +243,6 @@
         <!-- @Gradle -->
         <framework custom="true" src="build-location-plugin.gradle" type="gradleReference" />
         <hook src="scripts/patch.js" type="before_plugin_install" />
+        <hook src="scripts/patch.js" type="after_platform_add" />
     </platform>
 </plugin>

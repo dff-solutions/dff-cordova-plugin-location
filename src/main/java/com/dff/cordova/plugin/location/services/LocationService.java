@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.dff.cordova.plugin.dagger2.annotations.Shared;
 import com.dff.cordova.plugin.location.classes.GLocationManager;
 import com.dff.cordova.plugin.location.configurations.JSActions;
@@ -16,8 +17,10 @@ import com.dff.cordova.plugin.location.events.OnStopLocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.CrashHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -54,7 +57,8 @@ public class LocationService extends Service {
     @Inject
     PreferencesHelper mPreferencesHelper;
 
-    private Realm realm;
+    @Inject
+    Realm mRealm;
 
     /**
      * Initialization of properties and handling the location on app crash.
@@ -63,22 +67,14 @@ public class LocationService extends Service {
     public void onCreate() {
         Log.d(TAG, "onCreate()");
         DaggerManager
-            .getInstance()
-            .in(getApplication())
-            .inject(this);
+                .getInstance()
+                .in(getApplication())
+                .inject(this);
         super.onCreate();
         mEventBus.register(this);
         mPreferencesHelper.setIsServiceStarted(mGLocationManager.init());
         Thread.setDefaultUncaughtExceptionHandler(mCrashHelper);
 
-        // Initialize Realm
-        Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder()
-            .name("locations.realm")
-            .schemaVersion(0)
-//            .migration(migration)
-            .build();
-        realm = Realm.getInstance(config);
     }
 
     /**
@@ -100,7 +96,7 @@ public class LocationService extends Service {
         Log.d(TAG, "is location manager listening --> " + mGLocationManager.isListening());
         if (!mPreferencesHelper.isServiceStarted() || !mGLocationManager.isListening()) {
             startService(new Intent(this, PendingLocationsIntentService.class)
-                .setAction(mJsActions.restore_pending_locations));
+                    .setAction(mJsActions.restore_pending_locations));
             initializeLocationManager();
             Log.d(TAG, "init again");
         }
@@ -160,15 +156,15 @@ public class LocationService extends Service {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(OnNewGoodLocation event) {
         // TODO: 07.07.2017 add location to list
-        realm.executeTransactionAsync(realm -> realm.insert(event.getLocation()),
-            () -> {
-                // Transaction was a success.
-                Log.d(TAG, "Transaction was a success for --> " + event.getLocation());
-            }, error -> {
-                // Transaction failed and was automatically canceled.
-                Log.e(TAG, "Transaction failed and was automatically canceled for --> " + event.getLocation() + " Error: " +
-                    error);
-            });
+        mRealm.executeTransactionAsync(realm -> realm.insert(event.getLocation()),
+                () -> {
+                    // Transaction was a success.
+                    Log.d(TAG, "Transaction was a success for --> " + event.getLocation());
+                }, error -> {
+                    // Transaction failed and was automatically canceled.
+                    Log.e(TAG, "Transaction failed and was automatically canceled for --> " + event.getLocation() + " Error: " +
+                            error);
+                });
     }
 
     @Subscribe

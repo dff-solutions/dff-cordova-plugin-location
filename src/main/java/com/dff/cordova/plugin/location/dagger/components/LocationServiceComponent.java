@@ -2,8 +2,10 @@ package com.dff.cordova.plugin.location.dagger.components;
 
 
 import com.dff.cordova.plugin.location.dagger.modules.AppModule;
+import com.dff.cordova.plugin.location.dagger.modules.RealmModule;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.services.PendingLocationsIntentService;
+
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -17,7 +19,8 @@ import javax.inject.Singleton;
  */
 @Singleton
 @Component(modules = {
-    AppModule.class
+        AppModule.class,
+        RealmModule.class
 })
 
 public interface LocationServiceComponent {
