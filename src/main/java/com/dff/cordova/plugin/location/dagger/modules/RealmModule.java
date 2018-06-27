@@ -19,10 +19,10 @@ import io.realm.RealmConfiguration;
  * Created by anahas on 22.01.2018.
  *
  * @author Anthony Nahas
- * @version 1.0
+ * @version 1.2
  * @since 22.01.18
  */
-@Module(includes = AppModule.class)
+@Module
 public class RealmModule {
 
     private static final String TAG = RealmModule.class.getSimpleName();
@@ -32,9 +32,7 @@ public class RealmModule {
 
 
     @Provides
-    public Realm provideRealm(@ApplicationContext Context context,
-                              @HasPermission RealmConfiguration realmConfiguration) {
-        Realm.init(context);
+    public Realm provideRealm(@HasPermission RealmConfiguration realmConfiguration) {
         return Realm.getInstance(realmConfiguration);
     }
 

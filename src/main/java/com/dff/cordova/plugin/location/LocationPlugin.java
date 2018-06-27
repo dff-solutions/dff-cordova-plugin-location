@@ -3,6 +3,7 @@ package com.dff.cordova.plugin.location;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
 import com.dff.cordova.plugin.dagger2.annotations.ApplicationContext;
 import com.dff.cordova.plugin.location.classes.Executor;
 import com.dff.cordova.plugin.location.configurations.ActionsManager;
@@ -11,6 +12,7 @@ import com.dff.cordova.plugin.location.events.OnRequestPermissionResult;
 import com.dff.cordova.plugin.location.services.LocationService;
 import com.dff.cordova.plugin.location.utilities.helpers.FileHelper;
 import com.dff.cordova.plugin.location.utilities.helpers.PreferencesHelper;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
@@ -19,6 +21,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import javax.inject.Inject;
+
+import io.realm.Realm;
 
 /**
  * Cordova Plugin classes that deals with the android's Location API, in order to get the location of the device as
@@ -60,11 +64,13 @@ public class LocationPlugin extends CordovaPlugin {
     @Override
     public void pluginInitialize() {
 
+        Realm.init(cordova.getContext());
+
         DaggerManager
-            .getInstance()
-            .in(cordova.getActivity().getApplication())
-            .and(cordova)
-            .inject(this);
+                .getInstance()
+                .in(cordova.getActivity().getApplication())
+                .and(cordova)
+                .inject(this);
 
         mCordovaInterface = cordova;
 
@@ -96,12 +102,12 @@ public class LocationPlugin extends CordovaPlugin {
                     Log.d(TAG, "Action = " + action);
                     try {
                         mExecutor.execute
-                            (cordovaPlugin,
-                                mActionsManager
-                                    .hash(action)
-                                    .with(callbackContext)
-                                    .andHasArguments(args)
-                            );
+                                (cordovaPlugin,
+                                        mActionsManager
+                                                .hash(action)
+                                                .with(callbackContext)
+                                                .andHasArguments(args)
+                                );
                     } catch (Exception e) {
                         Log.e(TAG, "Error: --> ", e);
                     }
