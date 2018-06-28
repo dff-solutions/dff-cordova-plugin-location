@@ -64,7 +64,7 @@ public class LocationPlugin extends CordovaPlugin {
     @Override
     public void pluginInitialize() {
 
-        Realm.init(cordova.getContext());
+        Realm.init(cordova.getActivity().getApplicationContext());
 
         DaggerManager
                 .getInstance()
