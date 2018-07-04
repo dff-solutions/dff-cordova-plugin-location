@@ -30,7 +30,7 @@ public class GLocation extends RealmObject implements IGLocation {
 
     public static final String TAG = "GLocation";
 
-    private static final String _UUID = "uuid";
+    public static final String _UUID = "uuid";
     public static final String LNG = "longitude";
     public static final String LAT = "latitude";
     public static final String ALT = "altitude";
@@ -38,21 +38,44 @@ public class GLocation extends RealmObject implements IGLocation {
     public static final String SPD = "speed";
     public static final String BEARING = "bearing";
     public static final String TIME = "time";
+    public static final String IS_BUILT = "isBuilt";
+    public static final String IS_SENT = "is_sent";
+    public static final String IS_CALCULATED = "is_calculated";
+
 
     @PrimaryKey
     @SerializedName(_UUID)
     private String uuid;
 
-    private double longitude;
+    @SerializedName(LNG)
+    private double mLongitude;
+
+    @SerializedName(LAT)
     private double latitude;
+
+    @SerializedName(ALT)
     private double altitude;
+
+    @SerializedName(ACC)
     private float accuracy;
+
+    @SerializedName(SPD)
     private float speed;
+
+    @SerializedName(BEARING)
     private float bearing;
+
+    @SerializedName(TIME)
     private long time;
 
-    private transient boolean isCalculated;
-    private transient boolean isProcessed;
+    @SerializedName(IS_BUILT)
+    private boolean isBuilt;
+
+    @SerializedName(IS_SENT)
+    private boolean isSent;
+
+    @SerializedName(IS_CALCULATED)
+    private boolean isCalculated;
 
     public GLocation() {
     }
@@ -60,7 +83,7 @@ public class GLocation extends RealmObject implements IGLocation {
     public GLocation(Location location) {
         if (location != null) {
             uuid = UUID.randomUUID().toString();
-            longitude = location.getLongitude();
+            mLongitude = location.getLongitude();
             latitude = location.getLatitude();
             altitude = location.getAltitude();
             accuracy = location.getAccuracy();
@@ -77,7 +100,7 @@ public class GLocation extends RealmObject implements IGLocation {
         // you pick a hard-coded, randomly chosen, non-zero, odd number
         // ideally different for each class
         return new HashCodeBuilder(17, 37).
-                append(longitude).
+                append(mLongitude).
                 append(latitude).
                 append(altitude).
                 append(accuracy).
@@ -102,7 +125,7 @@ public class GLocation extends RealmObject implements IGLocation {
         GLocation gLocation = (GLocation) obj;
 
         return new EqualsBuilder()
-                .append(longitude, gLocation.getLongitude())
+                .append(mLongitude, gLocation.getLongitude())
                 .append(latitude, gLocation.getLatitude())
                 .append(altitude, gLocation.getAltitude())
                 .append(accuracy, gLocation.getAccuracy())
@@ -116,7 +139,7 @@ public class GLocation extends RealmObject implements IGLocation {
     public String toString() {
         return LNG
                 + " : "
-                + longitude
+                + mLongitude
                 + "\n"
                 + LAT
                 + " : "
@@ -156,9 +179,13 @@ public class GLocation extends RealmObject implements IGLocation {
         return null;
     }
 
+    public String getUUID() {
+        return uuid;
+    }
+
     @Override
     public double getLongitude() {
-        return longitude;
+        return mLongitude;
     }
 
     @Override
@@ -193,13 +220,13 @@ public class GLocation extends RealmObject implements IGLocation {
 
 
     @Override
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLongitude(double mLongitude) {
+        this.mLongitude = mLongitude;
     }
 
     @Override
     public void setLatitude(double latitude) {
-        this.longitude = latitude;
+        this.mLongitude = latitude;
     }
 
     @Override
@@ -225,5 +252,25 @@ public class GLocation extends RealmObject implements IGLocation {
     @Override
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public void setBuilt(boolean built) {
+        isBuilt = built;
+    }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean sent) {
+        isSent = sent;
+    }
+
+    public boolean isCalculated() {
+        return isCalculated;
+    }
+
+    public void setCalculated(boolean calculated) {
+        isCalculated = calculated;
     }
 }

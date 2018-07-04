@@ -2,17 +2,19 @@ package com.dff.cordova.plugin.location.interfaces;
 
 public interface IGetGLocation {
 
-     double getLongitude();
+    String getUUID();
 
-     double getLatitude();
+    double getLongitude();
 
-     double getAltitude();
+    double getLatitude();
 
-     float getAccuracy();
+    double getAltitude();
 
-     float getSpeed();
+    float getAccuracy();
 
-     float getBearing();
+    float getSpeed();
 
-     long getTime();
+    float getBearing();
+
+    long getTime();
 }
