@@ -13,7 +13,7 @@ module.exports = function (context) {
         '        jcenter()\n' +
         '    }\n' +
         '    dependencies {\n' +
-        '        classpath "io.realm:realm-gradle-plugin:3.5.0"\n' +
+        '        classpath "io.realm:realm-gradle-plugin:5.3.0"\n' +
         '        // NOTE: Do not place your application dependencies here; they belong\n' +
         '        // in the individual module build.gradle files\n' +
         '    }\n' +

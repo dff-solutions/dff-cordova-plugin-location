@@ -14,7 +14,7 @@ module.exports = function(ctx) {
     lineReader.on("line", function(line) {
         fs.appendFileSync('./build.gradle', line.toString() + os.EOL);
         if (/.*\ dependencies \{.*/.test(line)) {
-            fs.appendFileSync('./build.gradle', '\t\tclasspath "io.realm:realm-gradle-plugin:4.3.1"' + os.EOL);
+            fs.appendFileSync('./build.gradle', '\t\tclasspath "io.realm:realm-gradle-plugin:5.3.0"' + os.EOL);
         }
     }).on("close", function () {
         fs.rename('./build.gradle', 'platforms/android/build.gradle', deferral.resolve);
