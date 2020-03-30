@@ -1,4 +1,0 @@
-task runTest(dependsOn: ['test', 'connectedAndroidTest']) {
-    group = 'custom_tasks'
-    description = "Run all tests"
-}

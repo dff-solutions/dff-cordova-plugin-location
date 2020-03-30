@@ -1,106 +1,167 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
+def dagger_version = "2.22.1"
+def junit_jupiter_version = "5.4.2"
+def powermock_version = "2.0.0"
+def mockito_version = "2.25.1"
+def robolectric_version = "4.2.1"
 
-android {
-    compileSdkVersion 25
-    buildToolsVersion '26.0.1'
-
-    repositories {
-        jcenter()
-        maven {
-            url "https://maven.google.com"
-        }
-    }
-
-    defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 910
-        versionName "9.1.0"
-        multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
+allprojects {
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'maven-publish'
 
     repositories {
-        mavenCentral()
+        google()
         jcenter()
-        maven { url "https://jitpack.io" }
-    }
-
-
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
-
-    sourceSets {
-        // add dagger generated files (works only with debug build)
-//        test.java.srcDirs += ['build/generated/source/apt/test/debug']
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    dependencies {
-        compile 'com.github.tbroyer:gradle-apt-plugin:v0.10'
-        compile fileTree(include: ['*.jar'], dir: 'libs')
-        compile project(':cordova-android')
-        compile project(':dff-cordova-plugin-common')
-        //android support
-        compile 'com.android.support:appcompat-v7:25.3.1'
-        compile 'com.android.support:support-v4:25.3.1'
-        compile 'com.googlecode.json-simple:json-simple:1.1'
-        compile 'com.google.guava:guava:20.0'
-        compile 'com.fasterxml.jackson.datatype:jackson-datatype-guava:2.2.0'
-        compile 'com.google.code.gson:gson:2.7'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
-        //@EventBus
-        compile 'org.greenrobot:eventbus:3.0.0'
-        //@Dagger 2
-        compile 'com.google.dagger:dagger:2.11'
-        compile 'com.google.dagger:dagger-android:2.11'
-        apt 'com.google.dagger:dagger-compiler:2.11'
-        testApt 'com.google.dagger:dagger-compiler:2.11'
-//      annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-//        apt 'com.google.dagger:dagger-compiler:2.11'
-        provided 'javax.annotation:jsr250-api:1.0'
-//        testApt 'com.google.dagger:dagger-compiler:2.11'
-        testCompile 'junit:junit:4.12'
-        //mockito for dagger
-        compile 'org.mockito:mockito-core:2.7.22'
-        // required if you want to use Mockito for unit tests
-        testCompile 'org.mockito:mockito-core:2.7.22'
-        testCompile 'org.robolectric:robolectric:3.3.2'
-        // required if you want to use Mockito for Android tests
-        androidTestCompile 'org.mockito:mockito-android:2.7.22'
-        androidTestCompile 'com.android.support.test:runner:0.5'
-        androidTestCompile 'com.android.support.test:rules:0.5'
-        androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-            exclude group: 'com.android.support', module: 'support-annotations'
-        })
     }
 }
 
-
+artifactoryPublish.skip = true
 
 buildscript {
     repositories {
-        mavenCentral()
+        google()
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
     }
+
     dependencies {
-        // replace with the current version of the Android plugin
-//        classpath 'com.android.tools.build:gradle:2.3.3'
-        // the latest version of the android-apt plugin
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath "com.android.tools.build:gradle:3.4.1"
+        classpath "io.realm:realm-gradle-plugin:6.0.2"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.2.0.0"
+        classpath "com.adarshr:gradle-test-logger-plugin:1.6.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.6"
     }
 }
 
+subprojects {
+    apply plugin: "com.android.library"
+    apply plugin: "de.mannodermaus.android-junit5"
+    apply plugin: "com.adarshr.test-logger"
+
+    apply from: "${project.rootDir}/quality.gradle"
+
+    group = 'com.dff.cordova.plugin.location'
+
+    android {
+        compileSdkVersion 28
+
+        defaultConfig {
+            minSdkVersion 19
+            targetSdkVersion 28
+            multiDexEnabled true
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        }
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        testOptions {
+            junitPlatform {
+                // Configure JUnit 5 tests here
+            }
+            unitTests.all {
+                testLogging {
+                    events "skipped", "passed", "failed"
+                }
+            }
+            unitTests.returnDefaultValues = true
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/dff-solutions/dff-cordova-plugin-shared")
+            credentials {
+                username = System.getenv("GITHUB_USERNAME")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+
+    /*
+    task javadoc(type: Javadoc) {
+        source = android.sourceSets.main.java.srcDirs
+        classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+        destinationDir = file("${project.rootDir}/docs/javadoc/${project.name}/")
+        options.noTimestamp true
+        options.locale "en"
+        failOnError false
+    }
+
+     */
+
+    //build.finalizedBy(javadoc)
+
+    dependencies {
+        implementation(
+                "com.android.support:multidex:1.0.3"
+        )
+
+        testImplementation (
+                "com.android.support:multidex:1.0.3",
+
+                "junit:junit:4.12",
+                "org.junit.jupiter:junit-jupiter:$junit_jupiter_version",
+                "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version",
+                "org.mockito:mockito-core:$mockito_version",
+                "org.mockito:mockito-junit-jupiter:$mockito_version",
+                "org.robolectric:robolectric:$robolectric_version",
+
+                "org.powermock:powermock-module-junit4:$powermock_version",
+                "org.powermock:powermock-module-junit4-rule:$powermock_version",
+                "org.powermock:powermock-api-mockito2:$powermock_version",
+                "org.powermock:powermock-classloading-xstream:$powermock_version",
+
+                "com.google.dagger:dagger:$dagger_version",
+                "com.google.dagger:dagger-android:$dagger_version",
+                "com.google.dagger:dagger-android-support:$dagger_version",
+        )
+
+        testRuntimeOnly (
+                "org.junit.platform:junit-platform-launcher:1.4.0",
+                "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version",
+                "org.junit.vintage:junit-vintage-engine:$junit_jupiter_version"
+        )
+
+        testAnnotationProcessor (
+                "com.google.dagger:dagger-compiler:$dagger_version",
+                "com.google.dagger:dagger-android-processor:$dagger_version"
+        )
+
+        androidTestImplementation (
+                // AndroidJUnitRunner and JUnit Rules
+                // Core library
+                'androidx.test:core:1.1.0',
+
+                // Assertions
+                'androidx.test.ext:junit:1.1.0',
+                'androidx.test:runner:1.1.1',
+                'androidx.test:rules:1.1.1',
+
+                "com.android.support:multidex:1.0.3",
+
+                "com.android.support.test:runner:1.0.2",
+
+                "org.mockito:mockito-android:$mockito_version",
+
+                "com.google.dagger:dagger:$dagger_version",
+                "com.google.dagger:dagger-android:$dagger_version",
+                "com.google.dagger:dagger-android-support:$dagger_version"
+        )
+
+        androidTestAnnotationProcessor (
+                "com.dff.cordova.plugin.shared:shared:1.0.0",
+                "com.dff.cordova.plugin.location.core:location-core:1.0.0",
+                "com.google.dagger:dagger-compiler:$dagger_version",
+                "com.google.dagger:dagger-android-processor:$dagger_version"
+        )
+    }
+
+    testlogger {
+        theme 'mocha'
+    }
+}

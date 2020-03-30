@@ -2,6 +2,14 @@
   "name": "dff-cordova-plugin-location",
   "version": "9.1.1",
   "description": "Location Plugin",
+  "scripts": {
+    "commitmsg": "commitplease .git/COMMIT_EDITMSG",
+    "connected-check": "node scripts/connected-check",
+    "set-tc-params": "node scripts/setTeamCityParameter.js",
+    "plugin-xml-update": "node scripts/update-pluginxml.js",
+    "plugin-xml-check": "node scripts/gitCheckUpdateXml",
+    "plugin-xml-update-check": "npm run plugin-xml-update && npm run plugin-xml-check"
+  },
   "cordova": {
     "id": "dff-cordova-plugin-location",
     "platforms": [

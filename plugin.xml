@@ -1,271 +1,85 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin"
-    id="dff-cordova-plugin-location" spec="9.1.1" version="9.1.1"
-    xmlns="http://www.phonegap.com/ns/plugins/1.0">
-
-    <name>Location Plugin</name>
-    <description>Location Plugin</description>
-    <keywords>cordova,device,location,GPS,distance</keywords>
-    <author>dff-solutions/AnthonyNahas</author>
-
-    <js-module name="LocationPlugin" src="www/LocationPlugin.js">
-        <clobbers target="LocationPlugin" />
-    </js-module>
-
-    <dependency id="dff-cordova-plugin-common"
-        url="https://github.com/dff-solutions/dff.CordovaPlugin.Common.git" />
-
-    <!-- Android  -->
-    <platform name="android">
-        <config-file parent="/*" target="res/xml/config.xml">
-            <feature name="LocationPlugin">
-                <param name="android-package"
-                    value="com.dff.cordova.plugin.location.LocationPlugin" />
-                <param name="onload" value="true" />
-            </feature>
-        </config-file>
-
-        <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <service android:name="com.dff.cordova.plugin.location.services.LocationService"
-                android:label="LocationService" /><!--android:process=":backendP"-->
-            <service
-                android:name="com.dff.cordova.plugin.location.services.PendingLocationsIntentService"
-                android:label="PendingLocationsIntentService" /> <!--android:process=":backendP"-->
-        </config-file>
-
-        <config-file parent="/manifest" target="AndroidManifest.xml">
-            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-            <uses-permission android:name="android.permission.WAKE_LOCK" />
-            <!-- <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/> -->
-            <!-- Needed only if app targets Android 5.0 (API level 21) or higher.
-             Build will failed if app targets Android API LEVEL <= 19-->
-            <uses-feature android:name="android.hardware.location.gps" />
-        </config-file>
-
-
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/ClearStopIDAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/EnableMappingAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/GetKeySetFromLocationsMultimapAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/GetLastStopIDAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/GetLocationAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/ClearLocationListAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/GetLocationListAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/GetTotalDistanceAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/index/IndexActions.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions/index" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/RegisterLocationListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/RegisterProviderListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/RegisterStopListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/RestoreAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/SetStopIdAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/StartLocationServiceAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/StopLocationServiceAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/actions/StoreAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/UnregisterLocationListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/UnregisterProviderListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/actions/UnregisterStopListenerAction.java"
-            target-dir="src/com/dff/cordova/plugin/location/actions" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/broadcasts/ChangeProviderReceiver.java"
-            target-dir="src/com/dff/cordova/plugin/location/broadcasts" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/broadcasts/NewLocationReceiver.java"
-            target-dir="src/com/dff/cordova/plugin/location/broadcasts" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/broadcasts/StandStillReceiver.java"
-            target-dir="src/com/dff/cordova/plugin/location/broadcasts" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/classes/DistanceCalculator.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/Executor.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/classes/GLocation.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/classes/GLocationManager.java"
-            target-dir="src/com/dff/cordova/plugin/location/classes" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/interfaces/IGLocation.java"
-            target-dir="src/com/dff/cordova/plugin/location/interfaces" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/interfaces/IGetGLocation.java"
-            target-dir="src/com/dff/cordova/plugin/location/interfaces" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/configurations/ActionsManager.java"
-            target-dir="src/com/dff/cordova/plugin/location/configurations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/configurations/JSActions.java"
-            target-dir="src/com/dff/cordova/plugin/location/configurations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ActivityContext.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ApplicationContext.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/broadcasts/BroadcastChangeProviderReceiver.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations/broadcasts" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/broadcasts/BroadcastNewLocationReceiver.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations/broadcasts" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/DefaultUncaughException.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestHandlerThread.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationRequestLooper.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceHandlerThread.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceLooper.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/LocationServiceMessenger.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Private.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/ServiceHandlerMessenger.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/annotations/Shared.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/annotations" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/LocationPluginComponent.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/components" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/components/LocationServiceComponent.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/components" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/dagger/DaggerManager.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/AppModule.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/CordovaModule.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/PluginModule.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/dagger/modules/ServiceModule.java"
-            target-dir="src/com/dff/cordova/plugin/location/dagger/modules" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnLocationManagerInitialized.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnNewGoodLocation.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnChangedLocation.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/onResRequestEvent.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnStartLocationService.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnStopLocationService.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/events/OnRequestPermissionResult.java"
-            target-dir="src/com/dff/cordova/plugin/location/events" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/handlers/LocationRequestHandler.java"
-            target-dir="src/com/dff/cordova/plugin/location/handlers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/handlers/LocationServiceHandler.java"
-            target-dir="src/com/dff/cordova/plugin/location/handlers" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/LocationPlugin.java"
-            target-dir="src/com/dff/cordova/plugin/location" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/resources/Res.java"
-            target-dir="src/com/dff/cordova/plugin/location/resources" />
-        <source-file src="src/main/java/com/dff/cordova/plugin/location/resources/Resources.java"
-            target-dir="src/com/dff/cordova/plugin/location/resources" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/services/LocationService.java"
-            target-dir="src/com/dff/cordova/plugin/location/services" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/services/PendingLocationsIntentService.java"
-            target-dir="src/com/dff/cordova/plugin/location/services" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/simulators/DistanceSimulator.java"
-            target-dir="src/com/dff/cordova/plugin/location/simulators" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/CrashHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/FileHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/LocationHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/MessengerHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/MultimapHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/PreferencesHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/helpers/TimeHelper.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/helpers" />
-        <source-file
-            src="src/main/java/com/dff/cordova/plugin/location/utilities/holders/StopHolder.java"
-            target-dir="src/com/dff/cordova/plugin/location/utilities/holders" />
-
-        <source-file src="src/main/res/drawable/ic_local_shipping.xml" target-dir="res/drawable" />
-
-        <!-- @Asset -->
-        <!--<source-file src="mock/positions.json" target-dir="assets/"/>-->
-
-        <!-- @Gradle -->
-        <source-file src="build-extras.gradle" target-dir="src/.." />
-        <framework custom="true" src="build-location-plugin.gradle" type="gradleReference" />
-
-    </platform>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<plugin xmlns:android="http://schemas.android.com/apk/res/android" name="LocationPlugin" id="dff-cordova-plugin-location" version="1.0.0" xmlns="http://www.phonegap.com/ns/plugins/1.0">
+  <name>Location Plugin</name>
+  <description>Location Plugin</description>
+  <keywords>Tickets, Ping, Background Process, REST API</keywords>
+  <author>dff-solutions</author>
+  <js-module name="LocationPlugin" src="www/location-plugin.js">
+    <clobbers target="LocationPlugin"/>
+  </js-module>
+  <js-module name="cordova-exec" src="www/cordova-exec.js"/>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="LocationPlugin">
+        <param name="android-package" value="com.dff.cordova.plugin.location.plugin.LocationPlugin"/>
+        <param name="onload" value="true"/>
+      </feature>
+    </config-file>
+    <config-file parent="/manifest/application" target="AndroidManifest.xml">
+      <service android:name="com.dff.cordova.plugin.location.core.services.LocationForegroundService"/>
+      <receiver android:name="com.dff.cordova.plugin.location.core.receivers.LocationUpdateBR"/>
+      <receiver android:name="com.dff.cordova.plugin.location.core.receivers.ProximityAlertBR"/>
+      <receiver android:name="com.dff.cordova.plugin.location.core.receivers.StartLocationBR">
+        <intent-filter>
+          <action android:name="android.intent.action.BOOT_COMPLETED"/>
+          <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+        </intent-filter>
+      </receiver>
+    </config-file>
+    <config-file parent="/manifest" target="AndroidManifest.xml">
+      <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+      <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+      <uses-permission android:name="android.permission.INTERNET"/>
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    </config-file>
+    <framework custom="true" src="location-plugin/build.gradle" type="gradleReference"/>
+    <hook src="hooks/patchAndroidGradle.js" type="before_plugin_install"/>
+    <hook src="hooks/unpatchAndroidGradle.js" type="before_plugin_uninstall"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/LocationPlugin.java" target-dir="src/com/dff/cordova/plugin/location/plugin/LocationPlugin.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/DeleteLocationUpdateRequest.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/DeleteLocationUpdateRequest.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/DeleteLocations.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/DeleteLocations.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/DeleteProximityAlert.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/DeleteProximityAlert.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/DeleteProximityAlertEvents.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/DeleteProximityAlertEvents.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetAllProviders.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetAllProviders.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetConfig.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetConfig.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetLastKnownLocation.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetLastKnownLocation.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetLocationUpdateRequests.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetLocationUpdateRequests.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetLocations.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetLocations.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetProvider.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetProvider.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetProximityAlertEvents.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetProximityAlertEvents.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/GetProximityAlerts.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/GetProximityAlerts.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/IsLocationEnabled.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/IsLocationEnabled.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/IsProviderEnabled.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/IsProviderEnabled.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/LocationAction.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/LocationAction.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/OnLocationStatusChanged.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/OnLocationStatusChanged.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/OnLocationUpdate.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/OnLocationUpdate.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/OnProviderEnabled.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/OnProviderEnabled.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/OnProximityAlert.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/OnProximityAlert.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/Pause.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/Pause.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/ReadDiagnostics.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/ReadDiagnostics.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/RequestLocationUpdate.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/RequestLocationUpdate.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/RequestProximityAlert.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/RequestProximityAlert.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/Resume.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/Resume.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/SetConfig.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/SetConfig.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/StartForeground.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/StartForeground.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/StopForeground.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/StopForeground.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/realm/Compact.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/realm/Compact.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/realm/Delete.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/realm/Delete.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/realm/DeleteAll.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/realm/DeleteAll.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/realm/GetDatabaseInformation.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/realm/GetDatabaseInformation.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/action/realm/RealmAction.java" target-dir="src/com/dff/cordova/plugin/location/plugin/action/realm/RealmAction.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/dagger/LocationPluginDaggerManager.java" target-dir="src/com/dff/cordova/plugin/location/plugin/dagger/LocationPluginDaggerManager.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/dagger/annotations/LocationPluginScope.java" target-dir="src/com/dff/cordova/plugin/location/plugin/dagger/annotations/LocationPluginScope.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/dagger/components/LocationPluginComponent.java" target-dir="src/com/dff/cordova/plugin/location/plugin/dagger/components/LocationPluginComponent.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/dagger/module/LocationPluginModule.java" target-dir="src/com/dff/cordova/plugin/location/plugin/dagger/module/LocationPluginModule.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/listeners/callback/CallbackHandler.java" target-dir="src/com/dff/cordova/plugin/location/plugin/listeners/callback/CallbackHandler.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/listeners/callback/OnLocationStatusChangedCallbackHandler.java" target-dir="src/com/dff/cordova/plugin/location/plugin/listeners/callback/OnLocationStatusChangedCallbackHandler.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/listeners/callback/OnLocationUpdateCallbackHandler.java" target-dir="src/com/dff/cordova/plugin/location/plugin/listeners/callback/OnLocationUpdateCallbackHandler.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/listeners/callback/OnProviderEnabledCallbackHandler.java" target-dir="src/com/dff/cordova/plugin/location/plugin/listeners/callback/OnProviderEnabledCallbackHandler.java"/>
+    <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/listeners/callback/OnProximityAlertCallbackHandler.java" target-dir="src/com/dff/cordova/plugin/location/plugin/listeners/callback/OnProximityAlertCallbackHandler.java"/>
+  </platform>
 </plugin>
