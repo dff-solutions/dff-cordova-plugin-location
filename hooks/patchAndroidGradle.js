@@ -22,7 +22,7 @@ module.exports = function(ctx) {
 
             if (/.*\ dependencies \{.*/.test(line)) {
                 fs.appendFileSync(buildGradleTemp, androidGradleConfig.comment.start + os.EOL);
-                fs.appendFileSync(buildGradleTemp, 'classpath "io.realm:realm-gradle-plugin:5.12.0"'
+                fs.appendFileSync(buildGradleTemp, 'classpath "io.realm:realm-gradle-plugin:6.0.2"'
                  + os.EOL);
                 fs.appendFileSync(buildGradleTemp, androidGradleConfig.comment.end + os.EOL);
             }

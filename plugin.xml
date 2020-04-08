@@ -16,6 +16,7 @@
       </feature>
     </config-file>
     <config-file parent="/manifest/application" target="AndroidManifest.xml">
+      <service android:name="com.dff.cordova.plugin.shared.services.ActionHandlerService"/>
       <service android:name="com.dff.cordova.plugin.location.core.services.LocationForegroundService"/>
       <receiver android:name="com.dff.cordova.plugin.location.core.receivers.LocationUpdateBR"/>
       <receiver android:name="com.dff.cordova.plugin.location.core.receivers.ProximityAlertBR"/>
@@ -36,7 +37,7 @@
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
       <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     </config-file>
-    <framework custom="true" src="location-plugin/build.gradle" type="gradleReference"/>
+    <framework custom="true" src="location-plugin/build-location-plugin.gradle" type="gradleReference"/>
     <hook src="hooks/patchAndroidGradle.js" type="before_plugin_install"/>
     <hook src="hooks/unpatchAndroidGradle.js" type="before_plugin_uninstall"/>
     <source-file src="location-plugin/src/main/java/com/dff/cordova/plugin/location/plugin/LocationPlugin.java" target-dir="src/com/dff/cordova/plugin/location/plugin/LocationPlugin.java"/>

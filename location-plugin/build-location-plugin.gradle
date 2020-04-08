@@ -1,0 +1,56 @@
+apply plugin: 'realm-android'
+
+def android_support_version = "28.0.0"
+def dagger_version = "2.22.1"
+def work_version = "1.0.1"
+
+repositories {
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/dff-solutions/dff-cordova-plugin-shared")
+        credentials {
+            username = System.getenv("GITHUB_USERNAME")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+}
+
+android {
+    dependencies {
+        implementation "com.dff.cordova.plugin.shared:shared:1.0.1-beta"
+        implementation 'com.dff.cordova.plugin.location.core:location-core:1.0.1-beta'
+        implementation "com.android.support:animated-vector-drawable:$android_support_version"
+        implementation "com.android.support:appcompat-v7:$android_support_version"
+        implementation "com.android.support:support-annotations:$android_support_version"
+        implementation "com.android.support:support-compat:$android_support_version"
+        implementation "com.android.support:support-core-ui:$android_support_version"
+        implementation "com.android.support:support-core-utils:$android_support_version"
+        implementation "com.android.support:support-fragment:$android_support_version"
+        implementation "com.android.support:support-media-compat:$android_support_version"
+        implementation "com.android.support:support-v4:$android_support_version"
+        implementation "com.android.support:support-vector-drawable:$android_support_version"
+
+        implementation 'org.greenrobot:eventbus:3.1.1'
+
+        implementation "com.google.dagger:dagger:$dagger_version"
+        implementation "com.google.dagger:dagger-android:$dagger_version"
+        implementation "com.google.dagger:dagger-android-support:$dagger_version"
+
+        implementation "io.reactivex.rxjava2:rxjava:2.2.6"
+
+        implementation "org.slf4j:slf4j-api:1.7.21"
+        implementation "com.github.tony19:logback-android-core:1.1.1-6"
+        implementation("com.github.tony19:logback-android-classic:1.1.1-6") {
+            // workaround issue #73
+            exclude group: 'com.google.android', module: 'android'
+        }
+
+        implementation ("android.arch.work:work-runtime:$work_version")
+        implementation 'com.google.guava:guava:27.1-android'
+
+        annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+        annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    }
+}
+

@@ -5,7 +5,6 @@ def mockito_version = "2.25.1"
 def robolectric_version = "4.2.1"
 
 allprojects {
-    apply plugin: 'com.jfrog.artifactory'
     apply plugin: 'maven-publish'
 
     repositories {
@@ -13,8 +12,6 @@ allprojects {
         jcenter()
     }
 }
-
-artifactoryPublish.skip = true
 
 buildscript {
     repositories {
@@ -30,7 +27,6 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:6.0.2"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:1.2.0.0"
         classpath "com.adarshr:gradle-test-logger-plugin:1.6.0"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.6"
     }
 }
 
@@ -44,11 +40,11 @@ subprojects {
     group = 'com.dff.cordova.plugin.location'
 
     android {
-        compileSdkVersion 28
+        compileSdkVersion 29
 
         defaultConfig {
             minSdkVersion 19
-            targetSdkVersion 28
+            targetSdkVersion 29
             multiDexEnabled true
             testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         }
@@ -82,7 +78,6 @@ subprojects {
         }
     }
 
-    /*
     task javadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -92,9 +87,7 @@ subprojects {
         failOnError false
     }
 
-     */
-
-    //build.finalizedBy(javadoc)
+    build.finalizedBy(javadoc)
 
     dependencies {
         implementation(
@@ -154,8 +147,6 @@ subprojects {
         )
 
         androidTestAnnotationProcessor (
-                "com.dff.cordova.plugin.shared:shared:1.0.0",
-                "com.dff.cordova.plugin.location.core:location-core:1.0.0",
                 "com.google.dagger:dagger-compiler:$dagger_version",
                 "com.google.dagger:dagger-android-processor:$dagger_version"
         )
