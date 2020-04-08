@@ -1,0 +1,8 @@
+com.dff.cordova.plugin.location.plugin
+com.dff.cordova.plugin.location.plugin.action
+com.dff.cordova.plugin.location.plugin.action.realm
+com.dff.cordova.plugin.location.plugin.dagger
+com.dff.cordova.plugin.location.plugin.dagger.annotations
+com.dff.cordova.plugin.location.plugin.dagger.components
+com.dff.cordova.plugin.location.plugin.dagger.module
+com.dff.cordova.plugin.location.plugin.listeners.callback
